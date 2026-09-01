@@ -12,14 +12,14 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { amcConvert } from '../../lib/amc/amcBuilders'
 
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '11/12/2020'
@@ -37,7 +37,7 @@ export const uuid = 'f8a4e'
 export const refs = {
   'fr-fr': ['6N3H-1', 'BP2AutoG5'],
   'fr-2016': ['6N41-1', 'BP2AutoG5'],
-  'fr-ch': ['9NO12-2'],
+  'fr-ch': ['9NO3B-7'],
 }
 export default class ExerciceLabyrintheFractionsEgales extends Exercice {
   niveau: string
@@ -175,7 +175,7 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
             champ1: { value: numeroDeSortie },
             champ2: { value: nbDeNombresRencontres },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       }
       if (context.isAmc) {

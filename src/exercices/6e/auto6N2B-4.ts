@@ -1,6 +1,6 @@
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
@@ -13,7 +13,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Donner l'écriture décimale d'une fraction décimale"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -29,7 +29,7 @@ export const uuid = '4b9d5'
 export const refs = {
   'fr-fr': ['auto6N2B-4', 'BP2AutoC2'],
   'fr-2016': ['6N23', 'BP2AutoC2'],
-  'fr-ch': [],
+  'fr-ch': ['9NO3C-15'],
 }
 export default class ExerciceEcritureDecimaleApartirDeFractionDecimale extends Exercice {
   constructor() {
@@ -59,7 +59,7 @@ export default class ExerciceEcritureDecimaleApartirDeFractionDecimale extends E
       )
       // X, XX, X0X, X00X,XXX
       b = choice([10, 100, 1000])
-      setReponse(this, i, arrondi(a / b))
+      handleAnswers(this, i, { reponse: { value: arrondi(a / b) } })
       const amcParam = ensureAmcParam(this, i)
       amcParam.digits = 6
       amcParam.decimals = b === 10 ? 1 : b === 100 ? 2 : 3

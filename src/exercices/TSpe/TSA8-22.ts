@@ -10,7 +10,7 @@ import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Calculer une intégrale 2'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '05/04/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -41,10 +41,10 @@ export default class IntegraleAffine extends ExerciceSimple {
     const racine = Math.floor(-d / c) + 1
     if (c > 0) {
       a = randint(racine, racine + 5)
-      b = randint(a, a + 5,a)
+      b = randint(a, a + 5, a)
     }
     if (c < 0) {
-      b = randint(racine - 6, racine - 2,a)
+      b = randint(racine - 6, racine - 2, a)
       a = randint(b - 6, b - 1)
     }
     const resultat = new FractionEtendue(c * b + d, c * a + d)
@@ -58,7 +58,7 @@ export default class IntegraleAffine extends ExerciceSimple {
     this.correction += `Comme pour tout $x\\in [${a} ; ${b}]$, $u(x)>0$, on en déduit qu'une primitive de $\\dfrac{u'(x)}{u(x)}$ est $\\ln(u)$.<br>`
     this.correction += ` $\\begin{aligned}\\displaystyle\\int_{${a}}^{${b}} \\left(\\dfrac{${c}}{${reduireAxPlusB(c, d)}} \\right)\\mathrm{d}x
     &=\\displaystyle\\int_{${a}}^{${b}} \\left(\\dfrac{u'(x)}{u(x)}\\right) \\mathrm{d}x\\\\
-    &=\\Bigl[\\ln(u(x)\\Bigr]_{${a}}^{${b}}\\\\
+    &=\\Bigl[\\ln(u(x))\\Bigr]_{${a}}^{${b}}\\\\
     &=\\Bigl[\\ln\\left(${reduireAxPlusB(c, d)}\\right)\\Bigr]_{${a}}^{${b}}\\\\
    &=\\ln\\left(${c}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(d)}\\right)-\\ln\\left(${c}\\times${ecritureParentheseSiNegatif(a)}${ecritureAlgebrique(d)}\\right)\\\\
     &=\\ln\\left(${c * b + d}\\right)-\\ln\\left(${c * a + d}\\right)\\\\

@@ -14,7 +14,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM Brevet Amérique du Sud 2024 : Espace'
@@ -75,7 +75,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     objets.push(fleche)
     const figure = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: block' },
+        { scale: 0.5, display: 'inline' } as const,
         fixeBordures(objets),
       ),
       objets,
@@ -96,7 +96,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     }
     const figure2 = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: inline' },
+        { scale: 0.5, display: 'inline' } as const,
         fixeBordures(objets2),
       ),
       objets2,
@@ -117,7 +117,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     }
     const figure3 = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: inline' },
+        { scale: 0.5, display: 'inline' } as const,
         fixeBordures(objets3),
       ),
       objets3,
@@ -138,7 +138,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     }
     const figure4 = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: inline' },
+        { scale: 0.5, display: 'inline' } as const,
         fixeBordures(objets4),
       ),
       objets4,
@@ -259,7 +259,6 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
   constructor() {
     super()
 
-    this.options = { vertical: false, ordered: false }
     this.versionAleatoire()
   }
 }

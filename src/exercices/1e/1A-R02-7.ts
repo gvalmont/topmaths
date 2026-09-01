@@ -7,11 +7,11 @@ export const dateDePublication = '07/01/2026'
 export const uuid = '40c12'
 // @Author Gilles Mora
 export const refs = {
-  'fr-fr': ['1A-R02-7'],
+  'fr-fr': ['1A-R02-7', '2A-R2-7'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Utiliser une proportion pour trouver le tout'

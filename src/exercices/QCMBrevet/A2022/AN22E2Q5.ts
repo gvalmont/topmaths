@@ -17,21 +17,22 @@ import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '279da'
 export const refs = {
-  'fr-fr': ['5M2QCM-1'],
-  'fr-ch': ['10GM2-3'],
+  'fr-fr': ['5G2C-1'],
+  'fr-2016': ['5M2QCM-1'],
+  'fr-ch': ['10GM2A-1'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Volume de prisme droit (Juin 2022 Amérique du nord)'
+export const titre =
+  'Calculer un volume de prisme droit (DNB Juin 2022 Amérique du Nord)'
 export const dateDePublication = '08/11/2024'
 
 /**
- *
  * @author Jean-Claude LHOTE
- * jean-claude.lhote@ac-nancy-metz.fr
  */
+
 export default class AmeriqueNordJuin22Ex1Q5 extends ExerciceQcmA {
   private appliquerLesValeurs(l: number, h: number, p: number): void {
     const basePoints = [

@@ -4,13 +4,12 @@ import {
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 
 import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le double et la moitié'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -34,15 +33,13 @@ export default class DoubleEtMoitie extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 25) // variables aléatoires
+    const a = this.quotaRandint('a', 1, 25) // variables aléatoires
     this.question = `Le double d'un nombre vaut $${4 * a}$, combien vaut sa moitié ?`
-    this.correction = `Sa moitié vaut : $${miseEnEvidence(texNombre(a))}$.<br>`
+    this.correction = `Sa moitié vaut : $${miseEnEvidence(texNombre(a))}$.<br><br>`
     this.correction += texteEnCouleur(
-      `
-    <br> Mentalement : <br>
+      ` Mentalement : <br>
     Si le double du nombre est $${4 * a}$, ce nombre est : $${4 * a}\\div 2=${2 * a}$.<br>
-    Puisqu'on cherche sa moitié, on le divise par $2$, soit  $${2 * a}\\div 2=${a}$.<br>
-     `,
+    Puisqu'on cherche sa moitié, on le divise par $2$, soit  $${2 * a}\\div 2=${a}$.<br>`,
       bleuMathalea,
     )
     this.reponse = a

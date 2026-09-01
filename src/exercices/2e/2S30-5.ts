@@ -18,9 +18,9 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif' // foncti
 
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { enumeration } from '../../lib/outils/ecritures'
 import {
   miseEnEvidence,
@@ -34,7 +34,6 @@ export const dateDeModifImportante = '20/06/2024'
 export const titre =
   'Résoudre un problème basé sur une expérience aléatoire à deux épreuves'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const uuid = '92022'
 
@@ -56,7 +55,7 @@ export default class FonctionsProbabilite2 extends Exercice {
     ]
     this.nbQuestions = 2
 
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.spacing = 2
     this.spacingCorr = context.isHtml ? 3 : 2
     this.sup = 1
     this.comment = `Selon le type de problème, le nombre de questions peut être différent. Si vous donnez cet exercice sur Capytale, vous devriez choisir les problèmes donnant 6 questions et donc 6 points et éviter le problème des chaussettes qui n'en donne que 3 et celui des dés qui n'en donne que 5.`
@@ -213,7 +212,7 @@ export default class FonctionsProbabilite2 extends Exercice {
                 options: { fractionEgale: true },
               },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
 
           texteCorr = ''
@@ -419,7 +418,7 @@ export default class FonctionsProbabilite2 extends Exercice {
                 options: { fractionEgale: true },
               },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
 
           break
@@ -528,7 +527,7 @@ export default class FonctionsProbabilite2 extends Exercice {
                   options: { fractionEgale: true },
                 },
               },
-              { formatInteractif: 'multiMathfield' },
+              { formatInteractif: 'multi-mathfield' },
             )
           }
           break
@@ -842,7 +841,7 @@ export default class FonctionsProbabilite2 extends Exercice {
                         : '\\emptyset',
                   },
                 },
-                { formatInteractif: 'multiMathfield' },
+                { formatInteractif: 'multi-mathfield' },
               )
             }
           }

@@ -1,5 +1,6 @@
 import Stat from '../../lib/mathFonctions/Stat'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 import { creerSerieDeQuartiles } from '../../modules/outilsStat'
@@ -8,14 +9,14 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '0ba7a'
 export const refs = {
-  'fr-fr': ['1A-S03-2'],
+  'fr-fr': ['1A-S03-2', '2A-S3-2'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Comprendre une boite à moustaches'
+export const titre = 'Comprendre une boîte à moustaches'
 export const dateDePublication = '31/12/2025'
 /**
  * @author Jean-claude Lhote
@@ -62,12 +63,12 @@ export default class ComprendreBoiteMoustachesQCM extends ExerciceQcmA {
       `${texNombre(distracteur2, 0)}\\%`,
       `${texNombre(distracteur3, 0)}\\%`,
     ].map((r) => `$${r}$`)
-    this.enonce = `Une série statistique est résumée par le diagramme en boite ci-dessous. Quel pourcentage de valeurs sont comprises entre $${a}$ et $${b}$ ?<br>
+    this.enonce = `Une série statistique est résumée par le diagramme en boîte ci-dessous. Quel pourcentage de valeurs sont comprises entre $${a}$ et $${b}$ ?<br>
       ${moustache}`
 
     // Correction : explication simple, claire
     this.correction = `La valeur $${a}$ correspond au ${termes[borneInf].label} et la valeur $${b}$ au ${termes[borneSup].label}.<br>
-      Donc, la proportion de valeurs comprises entre $${a}$ et $${b}$ est de $${texNombre(pourCent, 0)}\\%$.`
+      Donc, la proportion de valeurs comprises entre $${a}$ et $${b}$ est de $${miseEnEvidence(texNombre(pourCent, 0) + '\\%')}$.`
   }
 
   versionOriginale: () => void = () => {
@@ -110,7 +111,6 @@ export default class ComprendreBoiteMoustachesQCM extends ExerciceQcmA {
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }
 }

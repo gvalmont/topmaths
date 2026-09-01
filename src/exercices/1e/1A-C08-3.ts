@@ -10,11 +10,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '151f4'
 export const refs = {
-  'fr-fr': ['1A-C08-3'],
+  'fr-fr': ['1A-C08-3', '2A-C1-1'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Effectuer un calcul littéral élémentaire'
@@ -133,7 +133,7 @@ $\\dfrac{1}{\\dfrac{1}{${p}}} = 1 \\times \\dfrac{${p}}{1} = ${miseEnEvidence(`$
             ['m', 'n', 'p'],
           ])
 
-          this.enonce = `Que vaut $\\dfrac{${p}}{${q}} \\times \\dfrac{${q}}{${r}}$ avec $${q}\\neq 0$ et $${r}\\neq 0$ ?`
+          this.enonce = `Que vaut $\\dfrac{${p}}{${q}} \\times \\dfrac{${q}}{${r}}$ avec $${q}\\neq 0$, $${r}\\neq 0$ et $${p}\\neq 0$ ?`
           this.correction = `$\\dfrac{${p}}{${q}} \\times \\dfrac{${q}}{${r}} = \\dfrac{${p} \\times ${q}}{${q} \\times ${r}}$<br>
 On simplifie par $${q}$ au numérateur et au dénominateur : $${miseEnEvidence(`\\dfrac{${p}}{${r}}`)}$`
           this.reponses = [
@@ -320,10 +320,7 @@ $\\dfrac{${p}+${q}}{${r}} = ${miseEnEvidence(`\\dfrac{${p}}{${r}}+\\dfrac{${q}}{
     do {
       this.genererExercice(randint(1, 16))
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, { texteSansCasse: true })
-    )
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true))
   }
 
   constructor() {

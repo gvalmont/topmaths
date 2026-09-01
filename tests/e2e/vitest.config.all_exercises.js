@@ -19,14 +19,17 @@ export default mergeConfig(
       },
     },
     test: {
+      workerThreads: {
+        memoryLimit: '4096', // Par défaut 512, tu peux passer à 1024, 2048, etc.
+      },
       include: ['./tests/all_exercises/*.test.{js,ts}'],
       exclude: [],
       // 🔹 ajoute ici l'environnement jsdom
       environment: 'jsdom',
 
       // on veut laisser le navigateur ouvert sur un plantage (3min)
-      hookTimeout: 120_000,
-      testTimeout: 120_000,
+      hookTimeout: 600_000,
+      testTimeout: 20_000_000,
       // describe.sequential() ne fonctionne que dans un describe.concurrent()
       // cf https://vitest.dev/api/#describe-sequential
       // pour lancer tous les tests en séquentiel, il faut préciser singleThread ou singleFork

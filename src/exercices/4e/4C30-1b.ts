@@ -1,7 +1,8 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
@@ -13,12 +14,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const dateDePublication = '08/09/2025'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre =
@@ -32,7 +31,7 @@ export const uuid = '4068c'
 
 export const refs = {
   'fr-fr': ['4C30-1b'],
-  'fr-ch': [''],
+  'fr-ch': ['10NO3D-19'],
 }
 
 export default class PuissancesEncadrementCoefficients extends Exercice {
@@ -208,7 +207,7 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
             options: { ecritureScientifique: true },
           },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       texteCorr = `$${miseEnEvidence(borneInfExpr)} \\leqslant ${nombreTexte} \\leqslant ${miseEnEvidence(borneSupExpr)}$`

@@ -1,5 +1,6 @@
 import Figure from 'apigeom/src/Figure'
-import handleApigeomFigureElement from '../../lib/apigeom/apigeom-figure'
+import { createApigeomFigureHtml } from '../../lib/apigeom/apigeom-figure'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -15,11 +16,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre = "Écrire un nombre entier sous la forme d'une fraction"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '27/11/2024'
 export const dateDeModifImportante = '08/05/2025'
 
@@ -31,7 +31,7 @@ export const uuid = '42ade'
 export const refs = {
   'fr-fr': ['6N3F-1'],
   'fr-2016': ['6N20-0'],
-  'fr-ch': ['9NO12-11'],
+  'fr-ch': ['9NO3C-4'],
 }
 export default class EcrireEntierSousFormeDeFraction extends Exercice {
   constructor() {
@@ -57,7 +57,7 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
   }
 
   nouvelleVersion() {
-    if (this.sup3 && context.isHtml) {
+    if (this.sup3 && context.isHtml && this.interactif) {
       const figure = new Figure({
         xMin: -0.5,
         yMin: -2,
@@ -70,8 +70,9 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
         denominator: 2,
         numberOfRectangles: 5,
       })
-      handleApigeomFigureElement()
-      this.introduction = `<apigeom-figure interactive default-action='FILL' x-min=${figure.xMin} y-min=${figure.yMin} width=${figure.width} height=${figure.height} numero-exercice=${this.numeroExercice} index=0 auto-index><script type="application/json">${figure.json}</script></apigeom-figure>`
+      this.introduction = createApigeomFigureHtml(figure, {
+        numeroExercice: this.numeroExercice,
+      })
     } else {
       this.introduction = ''
     }
@@ -94,9 +95,8 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
       shuffle: true,
       nbQuestions: this.nbQuestions,
     }).map((element) => Number(element))
-    let scale
-    context.isHtml ? (scale = 0.5) : (scale = 0.4)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    const scale = context.isHtml ? 0.5 : 0.4
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const denominateur =
         listeDenominateurs[cpt % this.nbQuestions] === 1000
           ? randint(2, 11)
@@ -152,7 +152,7 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
             xmax: (quotientier(entier * denominateur, denominateur) + 1) * 5,
             ymin: -1,
             ymax: 2,
-            style: 'display: inline',
+            display: 'inline',
           },
           schemaCorr,
         )

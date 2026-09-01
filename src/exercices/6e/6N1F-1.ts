@@ -18,7 +18,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Donner l'écriture décimale ou une fraction décimale"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '28/09/2022'
@@ -31,9 +31,9 @@ export const dateDePublication = '28/09/2022'
  */
 
 export const refs = {
-  'fr-fr': ['6N1F-1', 'BP2AutoC4'],
+  'fr-fr': ['6N1F-1', 'BP2AutoC4', '6AutoN2', 'auto5N3K-2'],
   'fr-2016': ['6N23-8', 'BP2AutoC4'],
-  'fr-ch': ['9NO10-10'],
+  'fr-ch': ['9NO3C-11'],
 }
 export const uuid = '708a9'
 export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice {

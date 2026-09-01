@@ -8,7 +8,7 @@ import { randint } from '../../../modules/outils'
 
 export const titre = 'Comparer des périmètres'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '09/12/2025'
 /**
  * @author Gilles Mora
@@ -31,11 +31,11 @@ export default class QuestionsAiresEtPerimetres0 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(3, 9) // Côté du carré
+    const a = this.quotaRandint('a', 3, 9) // Côté du carré
     const perimetreCarre = 4 * a
 
     // On choisit aléatoirement si l'affirmation est vraie ou fausse
-    const estVrai = choice([true, false])
+    const estVrai = this.quotaChoice('estVrai', [true, false])
 
     let largeur: number
     let longueur: number

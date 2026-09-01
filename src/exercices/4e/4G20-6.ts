@@ -1,7 +1,8 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
@@ -9,12 +10,10 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Encadrer une racine carrée et en donner un arrondi'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -28,7 +27,7 @@ export const uuid = '516d2'
 
 export const refs = {
   'fr-fr': ['4G20-6', 'BP2AutoS4'],
-  'fr-ch': ['10NO3-4'],
+  'fr-ch': ['10NO3E-4'],
 }
 export default class CalculValeurApprocheeRacineCarree extends Exercice {
   constructor() {
@@ -143,7 +142,7 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
               value: parseFloat(reponse.replaceAll(',', '.')),
             },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
         texteCorr = `$\\sqrt{${a}} \\approx ${texNombre(Math.sqrt(a), 6)}$.<br>`
         texteCorr += `Or $${reponseG} < ${texNombre(Math.sqrt(a), 6)} < ${reponseD}$,<br>`
@@ -177,7 +176,7 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
             champ1: { value: reponseG },
             champ2: { value: reponseD },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
 
         texteCorr = `$${reponseG}^2 = ${reponseG ** 2}$ et $${reponseD}^2 = ${reponseD ** 2}$.<br>`

@@ -1,8 +1,8 @@
 import Decimal from 'decimal.js'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -18,7 +18,7 @@ function degCos(deg: number): number {
 }
 
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDePublication = '27/06/2021'
 export const dateDeModifImportante = '18/09/2024'
 export const titre = 'Arrondir une racine carrée'
@@ -32,7 +32,7 @@ export const uuid = '41188'
 
 export const refs = {
   'fr-fr': ['4G20-4', 'BP2AutoS2', 'BP2G8'],
-  'fr-ch': ['10NO3-2'],
+  'fr-ch': ['10NO3E-2'],
 }
 export default class ArrondirUneValeur4e extends Exercice {
   version: number
@@ -42,8 +42,8 @@ export default class ArrondirUneValeur4e extends Exercice {
     this.nbQuestions = 3
 
     this.version = 1
-    context.isHtml ? (this.spacing = 1.5) : (this.spacing = 2.5)
-    context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)
+    this.spacing = context.isHtml ? 1.5 : 2.5
+    this.spacingCorr = context.isHtml ? 1.5 : 2.5
   }
 
   nouvelleVersion() {
@@ -104,7 +104,7 @@ export default class ArrondirUneValeur4e extends Exercice {
           champ2: { value: n.toDP(1).toString() },
           champ3: { value: n.toDP(2).toString() },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       // texteCorr = `Quand on écrit sur la calculatrice $${nb}$, elle renvoie : $${texNombre(n, 10)}.$`

@@ -10,33 +10,34 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fractionCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Effectuer des calculs simples avec des fractions'
 export const dateDePublication = '20/11/2021'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '07/03/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '19/06/2026'
 
 /**
  * Calculs avec des fractions que l'on peut faire à partir de schémas
- * @author Rémi Angot (Modifié par Éric Elter : rajout d'un paramètre)
+ * @author Rémi Angot
+ * Modifié par Éric Elter : rajout d'un paramètre
+ * Modifié par Mireille : rajout du case soustraction
  */
-export const uuid = 'c75b6'
+export const uuid = '7367d'
 
 export const refs = {
-  'fr-fr': ['6N3K-1', 'BP2AutoH25'],
+  'fr-fr': ['6N3K-1', 'BP2AutoH25', '6AutoF3-2'],
   'fr-2016': ['6N22', 'BP2AutoH25'],
-  'fr-ch': ['9NO13-2'],
+  'fr-ch': ['9NO3F-2'],
 }
 export default class FractionsCalculsSimples extends Exercice {
   constructor() {
@@ -44,15 +45,15 @@ export default class FractionsCalculsSimples extends Exercice {
     this.besoinFormulaireCaseACocher = ['Avec un schéma']
     this.besoinFormulaire2Texte = [
       "Type d'opérations",
-      'Nombres séparés par des tirets :\n1 : Additions entre deux fractions de même dénominateur\n2 : Additions entre un entier et une fraction\n3 : Soustractions entre un entier et une fraction\n4 : Multiplications entre un entier et une fraction\n5 : Mélange',
+      'Nombres séparés par des tirets :\n1 : Additions entre deux fractions de même dénominateur\n2 : Soustraction de deux fractions de même dénominateur\n3 : Additions entre un entier et une fraction\n4 : Soustractions entre un entier et une fraction\n5 : Multiplications entre un entier et une fraction\n6 : Mélange',
     ]
 
     this.consigne = 'Calculer.'
     this.sup = true
-    this.sup2 = 5
-    this.nbQuestions = 6 // Nombre de questions par défaut
-    this.nbCols = 2 // Uniquement pour la sortie LaTeX
-    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup2 = 6
+    this.nbQuestions = 6
+    this.nbCols = 2
+    this.nbColsCorr = 2
 
     this.correctionDetaillee = true
     this.correctionDetailleeDisponible = true
@@ -66,9 +67,9 @@ export default class FractionsCalculsSimples extends Exercice {
     }
 
     const listeTypeQuestions = gestionnaireFormulaireTexte({
-      max: 4,
-      defaut: 5,
-      melange: 5,
+      max: 5,
+      defaut: 6,
+      melange: 6,
       nbQuestions: this.nbQuestions,
       saisie: this.sup2,
     })
@@ -77,16 +78,12 @@ export default class FractionsCalculsSimples extends Exercice {
       let i = 0, reponseAMC, texte, texteCorr, schema, schemaCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
-      // Boucle principale où i+1 correspond au numéro de la question
       let c, n, f1, f2, f3
       const b = choice([2, 3, 4, 5])
       const a = randint(1, b - 1)
       const xmax = 19.2
-      let scale
-      context.isHtml ? (scale = 0.5) : (scale = 0.4)
-      switch (
-        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
-      ) {
+      const scale = context.isHtml ? 0.5 : 0.4
+      switch (listeTypeQuestions[i]) {
         case 1: // 'a/b+c/b':
           c = randint(1, b + 4, [b, 2 * b, 3 * b, 4 * b])
           f1 = new FractionEtendue(a, b)
@@ -126,7 +123,70 @@ export default class FractionsCalculsSimples extends Exercice {
           }
           reponseAMC = new FractionEtendue(a + c, b)
           break
-        case 2: // 'n+a/b':
+        case 2: // 'a/b-c/b':
+          c = randint(1, b + 4, [b, 2 * b, 3 * b, 4 * b])
+          f1 = new FractionEtendue(a, b)
+          f2 = new FractionEtendue(c, b)
+          f3 =
+            c > a
+              ? new FractionEtendue(c - a, b)
+              : new FractionEtendue(a - c, b)
+
+          texte =
+            c > a
+              ? `$${f2.texFraction} - ${f1.texFraction}$`
+              : `$${f1.texFraction} - ${f2.texFraction}$`
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBaseAvecFraction,
+            { texteAvant: '=' },
+          )
+          texteCorr =
+            c > a
+              ? `$${f2.texFraction} - ${f1.texFraction} = ${f3.texFraction} ${f3.estEntiere ? `=${f3.texFractionSimplifiee}` : ''}$`
+              : `$${f1.texFraction} - ${f2.texFraction} = ${f3.texFraction} ${f3.estEntiere ? `=${f3.texFractionSimplifiee}` : ''}$`
+          schema = fractionCliquable(0, 0, 4, b, { couleur: 'none' })
+          if (this.sup)
+            texte +=
+              '<br>' +
+              mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
+          schemaCorr =
+            c > a
+              ? fractionCliquable(0, 0, quotientier(c, b) + 1, b, {
+                  cliquable: false,
+                  liste1: rangeMinMax(c - a + 1, c),
+                  hachures1: true,
+                  liste2: rangeMinMax(1, c),
+                  couleur2: context.isHtml ? orangeMathalea : 'gray',
+                })
+              : fractionCliquable(0, 0, quotientier(a, b) + 1, b, {
+                  cliquable: false,
+                  liste1: rangeMinMax(a - c + 1, a),
+                  hachures1: true,
+                  liste2: rangeMinMax(1, a),
+                  couleur2: context.isHtml ? orangeMathalea : 'gray',
+                })
+          if (this.correctionDetaillee) {
+            texteCorr +=
+              '<br>' +
+              mathalea2d(
+                {
+                  scale,
+                  xmin: -0.2,
+                  xmax,
+                  ymin: -1,
+                  ymax: 2,
+                },
+                schemaCorr,
+              )
+          }
+          reponseAMC =
+            c > a
+              ? new FractionEtendue(c - a, b)
+              : new FractionEtendue(a - c, b)
+          break
+        case 3: // 'n+a/b':
           n = randint(1, 3)
           f1 = new FractionEtendue(a, b)
           f2 = new FractionEtendue(n * b, b)
@@ -171,7 +231,7 @@ export default class FractionsCalculsSimples extends Exercice {
           }
           reponseAMC = new FractionEtendue(n * b + a, b)
           break
-        case 3: // 'n-a/b':
+        case 4: // 'n-a/b':
           n = randint(1, 3)
           f1 = new FractionEtendue(a, b)
           f2 = new FractionEtendue(n * b, b)
@@ -218,7 +278,7 @@ export default class FractionsCalculsSimples extends Exercice {
               mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
           reponseAMC = new FractionEtendue(n * b - a, b)
           break
-        case 4: // 'n*a/b':
+        case 5: // 'n*a/b':
         default:
           n = randint(2, 5, b)
           f1 = new FractionEtendue(a, b)
@@ -253,7 +313,7 @@ export default class FractionsCalculsSimples extends Exercice {
                 xmax: (quotientier(n * a, b) + 1) * 5,
                 ymin: -1,
                 ymax: 2,
-                style: 'display: inline',
+                display: 'inline',
               },
               schemaCorr,
             )
@@ -269,7 +329,7 @@ export default class FractionsCalculsSimples extends Exercice {
                   xmax,
                   ymin: -1,
                   ymax: 2,
-                  style: 'display: inline',
+                  display: 'inline',
                 },
                 schema,
               )
@@ -277,7 +337,9 @@ export default class FractionsCalculsSimples extends Exercice {
           reponseAMC = new FractionEtendue(n * a, b)
           break
       }
-      setReponse(this, i, reponseAMC, { formatInteractif: 'fractionEgale' })
+      handleAnswers(this, i, {
+        reponse: { value: reponseAMC, options: { fractionEgale: true } },
+      })
       if (context.isAmc) {
         this.autoCorrectionAMC[i] = {
           enonce: texte, // Si vide, l'énoncé est celui de l'exercice.

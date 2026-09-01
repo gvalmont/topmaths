@@ -1,6 +1,7 @@
 import { context } from '../../modules/context'
 import type { IFractionEtendue } from '../../modules/FractionEtendue.type'
 import { bleuMathalea, orangeMathalea } from '../colors'
+import { mathaleaColorAliases } from '../2d/colorToLatexOrHtml'
 import { Complexe } from '../mathFonctions/Complexe'
 import { choice } from './arrayOutils'
 
@@ -26,6 +27,7 @@ export function miseEnEvidence(
   if (isFractionEtendue(texte)) texte = texte.texFraction
   if (typeof texte === 'number') texte = String(texte)
   if (Array.isArray(couleur)) couleur = couleur[0]
+  couleur = mathaleaColorAliases[couleur] ?? couleur
   texte = texte.replace(/\\text\{/g, '\\textbf{')
 
   if (context.isHtml) {
@@ -33,8 +35,6 @@ export function miseEnEvidence(
   } else {
     if (couleur[0] === '#') {
       return `{\\color[HTML]{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
-    } else if (couleur === 'green') {
-      return `{\\color[HTML]{008002}\\boldsymbol{${texte}}}`
     } else {
       return `{\\color{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
     }
@@ -78,12 +78,11 @@ export function coloreUnSeulChiffre(
   if (isFractionEtendue(texte)) texte = texte.texFraction
   if (typeof texte === 'number') texte = String(texte)
   if (Array.isArray(couleur)) couleur = couleur[0]
+  couleur = mathaleaColorAliases[couleur] ?? couleur
 
   const getColorLatex = (contenu: string): string => {
     if (context.isHtml) {
       return `\\color{${couleur}}\\boldsymbol{${contenu}}`
-    } else if (couleur === 'green') {
-      return `\\color[HTML]{008002}\\boldsymbol{${contenu}}`
     } else if (couleur.startsWith('#')) {
       return `\\color[HTML]{${couleur.slice(1)}}\\boldsymbol{${contenu}}`
     } else {
@@ -111,8 +110,8 @@ export function coloreUnSeulChiffre(
   if (index === undefined) return texte // sécurité
 
   // Cas avec virgule
-  if (texte.includes('{,}')) {
-    const [partieEntiere, partieDecimale] = texte.split('{,}')
+  if (texte.includes(',')) {
+    const [partieEntiere, partieDecimale] = texte.split(',')
 
     if (estDroite) {
       if (index >= partieDecimale.length) return texte
@@ -120,7 +119,7 @@ export function coloreUnSeulChiffre(
       const chiffreCible = partieDecimale.charAt(index)
       const apres = partieDecimale.slice(index + 1)
       const colored = getColorLatex(chiffreCible)
-      return `\\boldsymbol{${partieEntiere}{,}${avant}}{${colored}}\\boldsymbol{${apres}}`
+      return `\\boldsymbol{${partieEntiere},${avant}}{${colored}}\\boldsymbol{${apres}}`
     } else {
       const pos = partieEntiere.length + index
       if (pos < 0 || pos >= partieEntiere.length) return texte
@@ -129,7 +128,7 @@ export function coloreUnSeulChiffre(
       const suffixe = partieEntiere.slice(pos + 1)
       const colored = getColorLatex(chiffreCible)
 
-      return `\\boldsymbol{${prefixe}}{${colored}}\\boldsymbol{${suffixe}{,}${partieDecimale}}`
+      return `\\boldsymbol{${prefixe}}{${colored}}\\boldsymbol{${suffixe},${partieDecimale}}`
     }
   }
 
@@ -162,13 +161,12 @@ export function miseEnCouleur(
 ) {
   texte = typeof texte === 'number' ? String(texte) : texte
   if (Array.isArray(couleur)) couleur = couleur[0]
+  couleur = mathaleaColorAliases[couleur] ?? couleur
   if (context.isHtml) {
     return `{\\color{${couleur}} ${texte}}`
   } else {
     if (couleur[0] === '#') {
       return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
-    } else if (couleur === 'green') {
-      return `{\\color[HTML]{008002} ${texte}}`
     } else {
       return `{\\color{${couleur}} ${texte}}`
     }
@@ -187,13 +185,12 @@ export function texteEnCouleur(
 ) {
   texte = typeof texte === 'number' ? String(texte) : texte
   if (Array.isArray(couleur)) couleur = couleur[0]
+  couleur = mathaleaColorAliases[couleur] ?? couleur
   if (context.isHtml) {
     return `<span style="color:${couleur};">${texte}</span>`
   } else {
     if (couleur[0] === '#') {
       return `{\\color[HTML]{${couleur.replace('#', '')}}${texte}}`
-    } else if (couleur === 'green') {
-      return `{\\color[HTML]{008002} ${texte}}`
     } else {
       return `{\\color{${couleur.replace('#', '')}}${texte}}`
     }
@@ -212,14 +209,12 @@ export function texteEnCouleurEtGras(
 ) {
   if (typeof texte === 'number') texte = String(texte)
   if (Array.isArray(couleur)) couleur = couleur[0]
+  couleur = mathaleaColorAliases[couleur] ?? couleur
   if (context.isHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
   }
   if (couleur[0] === '#') {
     return `{\\bfseries \\color[HTML]{${couleur.replace('#', '')}}${texte}}`
-  }
-  if (couleur === 'green') {
-    return `{\\bfseries \\color[HTML]{008002} ${texte}}`
   }
   return `{\\bfseries \\color{${couleur.replace('#', '')}}${texte}}`
 }

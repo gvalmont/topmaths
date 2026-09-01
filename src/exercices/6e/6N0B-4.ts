@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { randint } from '../../modules/outils'
@@ -8,7 +8,6 @@ import Exercice from '../Exercice'
 export const titre = 'Retrouver le nombre de départ'
 export const dateDePublication = '11/11/2023'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Retrouver le nombre de départ
@@ -20,7 +19,7 @@ export const uuid = '2be1d'
 export const refs = {
   'fr-fr': ['6N0B-4'],
   'fr-2016': ['6C13-3'],
-  'fr-ch': ['9FA2-2'],
+  'fr-ch': ['10FA5D-9'],
 }
 
 class OperationsReciproques extends Exercice {
@@ -32,14 +31,7 @@ class OperationsReciproques extends Exercice {
 
   nouvelleVersion(): void {
     type TypeQuestionsDisponibles =
-      | 'x+'
-      | '+x'
-      | 'x-'
-      | '-x'
-      | '/+'
-      | '+/'
-      | '/-'
-      | '-/'
+      'x+' | '+x' | 'x-' | '-x' | '/+' | '+/' | '/-' | '-/'
     const typeQuestionsDisponibles = [
       'x+',
       '+x',
@@ -55,7 +47,7 @@ class OperationsReciproques extends Exercice {
       typeQuestionsDisponibles,
       this.nbQuestions,
     ) as TypeQuestionsDisponibles[]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let depart = randint(1, 10)
@@ -144,7 +136,7 @@ class OperationsReciproques extends Exercice {
       if (this.interactif) {
         texte +=
           '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-        setReponse(this, i, depart)
+        handleAnswers(this, i, { reponse: { value: depart } })
       }
       if (this.questionJamaisPosee(i, depart, operande1, operande2)) {
         this.listeQuestions[i] = texte

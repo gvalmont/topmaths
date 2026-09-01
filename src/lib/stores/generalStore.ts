@@ -1,6 +1,7 @@
-import { get, writable } from 'svelte/store'
+import { derived, get, writable } from 'svelte/store'
 import { statsPageTracker } from '../../modules/statsUtils'
 import { buildDsParams } from '../components/buildDsParams'
+import { normaliseCoeffBareme } from '../interactif/baremeExercice'
 import type {
   InterfaceParams,
   InterfaceResultExercice,
@@ -17,6 +18,38 @@ import { globalOptions } from './globalOptions'
 export const freezeUrl = writable<boolean>(false)
 
 /**
+ * Réglages encodés (base64) de la vue Impression, maintenus dans l'URL
+ * par updateGlobalOptionsInURL. Alimenté par la vue A4 elle-même.
+ */
+export const a4ParamStore = writable<string>('')
+
+/**
+ * Réglages encodés (base64) de la vue Typst, maintenus dans l'URL
+ * par updateGlobalOptionsInURL. Alimenté par la vue Typst elle-même.
+ */
+export const typstParamStore = writable<string>('')
+
+/**
+ * Demande d'ouverture de la modale des raccourcis clavier de l'éditeur
+ * Typst, depuis un endroit hors de `Typst.svelte` (bouton « Aide » de
+ * `NavBar`, commun à toutes les vues). La vue Typst est seule à la lire et
+ * à la remettre à `false` une fois consultée.
+ */
+export const typstShortcutsOpen = writable<boolean>(false)
+
+/**
+ * Réglages encodés (base64) de la vue LaTeX (`v=tex`), maintenus dans l'URL
+ * par updateGlobalOptionsInURL. Alimenté par la vue elle-même.
+ */
+export const texParamStore = writable<string>('')
+
+/**
+ * Réglages encodés (base64) de la vue TBI, maintenus dans l'URL
+ * par updateGlobalOptionsInURL. Alimenté par la vue TBI elle-même.
+ */
+export const tbiParamStore = writable<string>('')
+
+/**
  * Pour signaler que MathALÉA est dans une iframe
  */
 export const isInIframe = writable<boolean>(false)
@@ -26,6 +59,28 @@ export const isInIframe = writable<boolean>(false)
  * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4,sup5, n}
  */
 export const exercicesParams = writable<InterfaceParams[]>([])
+
+/**
+ * Nombre de points maximum de chaque exercice interactif, hors coefficient
+ * de barème, indexé comme `exercicesParams` (0 pour un exercice non
+ * interactif). Alimenté par `ExerciceMathaleaVueProf` à chaque
+ * (re)génération des questions.
+ */
+export const pointsMaxParExercice = writable<number[]>([])
+
+/**
+ * Nombre total de points de la copie numérique (somme des barèmes de tous
+ * les exercices), utilisé notamment dans la vue prof en mode recorder
+ * Capytale.
+ */
+export const pointsMaxTotal = derived(
+  [exercicesParams, pointsMaxParExercice],
+  ([$exercicesParams, $pointsMaxParExercice]) =>
+    $exercicesParams.reduce((total, params, i) => {
+      const pointsMax = $pointsMaxParExercice[i] ?? 0
+      return total + pointsMax * normaliseCoeffBareme(params.coeffBareme)
+    }, 0),
+)
 
 // tenir le compte des changements dans la liste : ajout/retrait -> +1
 export const changes = writable<number>(0)
@@ -41,6 +96,11 @@ export const capytaleMode = writable<
 >('none')
 
 export const capytaleStudentAssignment = writable<InterfaceResultExercice[]>()
+
+// vrai lorsqu'une sauvegarde vers Capytale a échoué et n'a pas encore pu être rejouée
+// (session expirée, coupure réseau, page parente qui ne répond plus)
+// tant que c'est vrai, l'élève ne doit plus pouvoir modifier sa copie
+export const capytaleConnectionLost = writable<boolean>(false)
 
 // sauvegarde des résultats des exercices
 export const resultsByExercice = writable<InterfaceResultExercice[]>([])
@@ -204,6 +264,68 @@ export function updateGlobalOptionsInURL(url: URL) {
     )
   ) {
     url.searchParams.append('pdfParam', pdfParam)
+  }
+  // La vue A4 alimente son propre store plutôt que l'URL courante :
+  // on évite ainsi toute course entre son history.replaceState et
+  // l'écriture débouncée réalisée ici.
+  const a4Param = get(a4ParamStore)
+  if (options.v === 'a4' && a4Param.length > 0) {
+    url.searchParams.append('a4Param', a4Param)
+  }
+  // Même principe pour la vue Typst.
+  const typstParam = get(typstParamStore)
+  if (options.v === 'typst' && typstParam.length > 0) {
+    url.searchParams.append('typstParam', typstParam)
+  }
+  // Même principe pour la vue LaTeX (v=tex).
+  const texParam = get(texParamStore)
+  if (options.v === 'tex' && texParam.length > 0) {
+    url.searchParams.append('texParam', texParam)
+  }
+  // Même principe pour la vue TBI.
+  const tbiParam = get(tbiParamStore)
+  if (options.v === 'tbi' && tbiParam.length > 0) {
+    url.searchParams.append('tbiParam', tbiParam)
+  }
+  // Pour les vues quizz, les réglages voyagent dans globalOptions :
+  // subject (titre du quizz) et quizzParam (blob base64 produit par quizzconf).
+  if (options.v === 'quizzconf' || options.v === 'quizz') {
+    if (options.subject != null && options.subject.length > 0) {
+      url.searchParams.append('subject', options.subject)
+    } else {
+      url.searchParams.delete('subject')
+    }
+    if (options.quizzParam != null && options.quizzParam.length > 0) {
+      url.searchParams.append('quizzParam', options.quizzParam)
+    } else {
+      url.searchParams.delete('quizzParam')
+    }
+  } else {
+    url.searchParams.delete('subject')
+    url.searchParams.delete('quizzParam')
+  }
+  // Mode multi-joueurs (vue quizz uniquement) : rôle, PIN et identifiant de
+  // room — le lien joueur minimal est ?v=quizz&quizzRole=player&pin=XXXXXX.
+  if (options.v === 'quizz') {
+    if (options.quizzRole != null) {
+      url.searchParams.append('quizzRole', options.quizzRole)
+    } else {
+      url.searchParams.delete('quizzRole')
+    }
+    if (options.pin != null && options.pin.length > 0) {
+      url.searchParams.append('pin', options.pin)
+    } else {
+      url.searchParams.delete('pin')
+    }
+    if (options.gameId != null && options.gameId.length > 0) {
+      url.searchParams.append('gameId', options.gameId)
+    } else {
+      url.searchParams.delete('gameId')
+    }
+  } else {
+    url.searchParams.delete('quizzRole')
+    url.searchParams.delete('pin')
+    url.searchParams.delete('gameId')
   }
   urlToWrite = url
   // On ne met à jour l'url qu'une fois toutes les 0,5 s

@@ -1,10 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { sp } from '../../../lib/outils/outilString'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { texNombre } from '../../../lib/outils/texNombre'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un multiple'
-export const interactifType = 'qcm'
+
 export const uuid = 'zpm9t'
 export const refs = {
   'fr-fr': [],
@@ -24,7 +23,7 @@ export default class multiple extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = this.canOfficielle ? 3 : choice([2, 5, 10])
+    const a = this.canOfficielle ? 3 : this.quotaChoice('a', [2, 5, 10])
     const annee = 2026
 
     this.autoCorrection[0] = {

@@ -8,7 +8,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un coefficient dans un développement'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '11/06/2022'
 
 /**
@@ -19,7 +19,7 @@ export const dateDePublication = '11/06/2022'
 export const uuid = 'c1168'
 
 export const refs = {
-  'fr-fr': ['can1SD24'],
+  'fr-fr': ['can1SD24', 'BP1AUTO068'],
   'fr-ch': [],
 }
 export default class DeveloppementCoeff extends ExerciceSimple {

@@ -1,6 +1,6 @@
 import Transformations from '../../6e/_Transformations'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre = 'Trouver l’image d’un point par une transformation'
@@ -14,9 +14,9 @@ export const uuid = 'a77ed'
 
 export const refs = {
   'fr-fr': ['can4G02'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
-export default class SymetriqueD1Point extends Transformations {
+export default class SymetriqueD1Point4eme extends Transformations {
   constructor() {
     super()
     this.can = true

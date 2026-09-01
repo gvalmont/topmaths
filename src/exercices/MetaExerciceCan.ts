@@ -1,22 +1,41 @@
 import Decimal from 'decimal.js'
-import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
+import {
+  listOfCustomElements,
+  mathaleaCustomElementsRegistry,
+} from '../lib/customElements/MathaleaCustomElement'
+import { MetaCustomElement } from '../lib/customElements/MetaCustomElement'
 import { handleAnswers } from '../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../lib/interactif/qcm'
 import { buildSimpleVersionQcm } from '../lib/interactif/qcmBuilder'
 import {
+  ajouteChampTexte,
   ajouteChampTexteMathLive,
   remplisLesBlancs,
 } from '../lib/interactif/questionMathLive'
+import type {
+  ItabDbleEntry,
+  Itableau,
+} from '../lib/interactif/tableaux/AjouteTableauMathlive'
+import { creeTableauMathliveElement } from '../lib/interactif/tableaux/AjouteTableauMathlive'
 import { getDistracteurs } from '../lib/mathalea'
 import { Complexe } from '../lib/mathFonctions/Complexe'
 import { combinaisonListes, shuffle } from '../lib/outils/arrayOutils'
 import { range1 } from '../lib/outils/nombres'
 import type {
   AnswerValueType,
-  OptionsComparaisonType,
+  AutoCorrection,
+  ClickFigures,
   Valeur,
 } from '../lib/types'
-import { isValeur } from '../lib/types'
+import {
+  interactivityTypeToCustomElementFormat,
+  isMathaleaCustomElementFormat,
+  isValeur,
+  mathliveCompatibleToCustomElementFormat,
+  type InteractivityType,
+  type OptionsComparaisonType,
+  type TableauMathliveType,
+} from '../lib/types'
 import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
 import Hms from '../modules/Hms'
@@ -24,8 +43,442 @@ import { gestionnaireFormulaireTexte } from '../modules/outils'
 import Exercice from './Exercice'
 import ExerciceSimple from './ExerciceSimple'
 
-export const interactifType = 'mathLive'
 export const interactifReady = true
+
+type QuestionWithOptionalTableau = ExerciceSimple & {
+  tableau?: ItabDbleEntry | Itableau
+  typeTableau?: TableauMathliveType
+}
+
+function getQcmAutoCorrection(
+  question: Exercice,
+  destinationIndex: number,
+): AutoCorrection | undefined {
+  const atDestination = question.autoCorrection[destinationIndex]
+  if (atDestination?.propositions != null) return atDestination
+  const first = question.autoCorrection[0]
+  return first?.propositions != null ? first : undefined
+}
+
+function cloneQcmAutoCorrection(source: AutoCorrection): AutoCorrection {
+  return {
+    ...source,
+    // Une entrée portant des propositions est déjà identifiée comme un QCM.
+    // Le méta-exercice la réhéberge donc sous le format moderne, même si le
+    // sous-exercice historique n'avait pas renseigné `formatInteractif`.
+    formatInteractif: 'mathalea-qcm',
+    options: source.options == null ? undefined : { ...source.options },
+    propositions: source.propositions?.map((proposition) => ({
+      ...proposition,
+    })),
+  }
+}
+
+function getRegisteredCustomElementTag(format: string | undefined) {
+  if (format == null || !listOfCustomElements.includes(format)) return null
+  const elementClass = mathaleaCustomElementsRegistry.get(format)
+  if (elementClass == null) {
+    throw Error(
+      "Une classe de listOfCustomElements n'est pas enregistrée dans le registre mathaleaCustomElementsRegistry",
+    )
+  }
+  return format as InteractivityType
+}
+
+function getSimpleQuestionCustomElementFormat(question: Exercice) {
+  const formatInteractif = question.formatInteractif ?? 'mathlive'
+  const format =
+    formatInteractif === 'mathlive' &&
+    typeof question.reponse === 'object' &&
+    question.reponse != null &&
+    'champ1' in question.reponse
+      ? 'fill-in-the-blank'
+      : (interactivityTypeToCustomElementFormat(formatInteractif) ??
+        mathliveCompatibleToCustomElementFormat(formatInteractif) ??
+        formatInteractif)
+  return getRegisteredCustomElementTag(format)
+}
+
+function getClassicQuestionCustomElementFormat(question: Exercice) {
+  const format =
+    mathliveCompatibleToCustomElementFormat(
+      question.autoCorrection[0]?.formatInteractif,
+    ) ?? question.autoCorrection[0]?.formatInteractif
+  return getRegisteredCustomElementTag(format)
+}
+
+/**
+ * Réindexe les identifiants historiques `champTexteEx{n}Q0` que portent les
+ * customElements de saisie (attribut `mathfield-id` de `mathalea-mathfield`,
+ * `mathalea-textfield` et `fill-in-the-blank`, ids des cellules de
+ * `tableau-mathlive`…).
+ *
+ * Les sous-exercices agrégés fabriquent toujours leur champ avec l'index 0 :
+ * sans ce remappage, plusieurs questions du méta-exercice partagent le même
+ * `mathfield-id` et `verifySingleMathLiveField` ne retrouve plus le champ de la
+ * question réellement affichée.
+ *
+ * Le nom du callback de vérification (`champTexteEx{n}Q0-verification`) est
+ * volontairement laissé intact : c'est une clé du registre statique du
+ * customElement, alimentée à la construction de la question, et la renommer ici
+ * la rendrait introuvable.
+ */
+function remapLegacyFieldIds(
+  questionHtml: string,
+  sourceNumeroExercice: number,
+  destinationNumeroExercice: number,
+  destinationIndex: number,
+) {
+  const pattern = (exerciceNumber: number) =>
+    new RegExp(`champTexteEx${exerciceNumber}Q0(?!-verification)`, 'g')
+  return remapDomReadyPayloadQuestionIds(
+    questionHtml
+      .replace(
+        pattern(sourceNumeroExercice),
+        `champTexteEx${destinationNumeroExercice}Q${destinationIndex}`,
+      )
+      .replace(
+        pattern(0),
+        `champTexteEx${destinationNumeroExercice}Q${destinationIndex}`,
+      ),
+    destinationNumeroExercice,
+    destinationIndex,
+  )
+}
+
+function decodeHtmlAttribute(value: string) {
+  return value.replace(
+    /&(quot|amp|lt|gt);/g,
+    (_match, entity: string) =>
+      ({ quot: '"', amp: '&', lt: '<', gt: '>' })[
+        entity as 'quot' | 'amp' | 'lt' | 'gt'
+      ],
+  )
+}
+
+function encodeHtmlAttribute(value: string) {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+}
+
+function remapDomReadyPayloadQuestionIds(
+  questionHtml: string,
+  destinationNumeroExercice: number,
+  destinationIndex: number,
+) {
+  return questionHtml.replace(
+    /(<mathalea-dom-ready\b[^>]*\spayload=")([^"]*)(")/g,
+    (_match, before: string, rawPayload: string, after: string) => {
+      try {
+        const payload = JSON.parse(decodeHtmlAttribute(rawPayload)) as Record<
+          string,
+          unknown
+        >
+        if ('numeroExercice' in payload) {
+          payload.numeroExercice = destinationNumeroExercice
+        }
+        if ('indiceQuestion' in payload) {
+          payload.indiceQuestion = destinationIndex
+        }
+        if ('questionIndex' in payload) {
+          payload.questionIndex = destinationIndex
+        }
+        return `${before}${encodeHtmlAttribute(JSON.stringify(payload))}${after}`
+      } catch {
+        return `${before}${rawPayload}${after}`
+      }
+    },
+  )
+}
+
+function remapCustomElementQuestionIds(
+  questionHtml: string,
+  tag: InteractivityType,
+  sourceNumeroExercice: number | undefined,
+  destinationNumeroExercice: number | undefined,
+  destinationIndex: number,
+) {
+  const sourceExercice = sourceNumeroExercice ?? 0
+  const destinationExercice = destinationNumeroExercice ?? 0
+  let html = remapLegacyFieldIds(
+    questionHtml,
+    sourceExercice,
+    destinationExercice,
+    destinationIndex,
+  )
+    .replaceAll(
+      `${tag}Ex${sourceExercice}Q0`,
+      `${tag}Ex${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      `resultatCheckEx${sourceExercice}Q0`,
+      `resultatCheckEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      `feedbackEx${sourceExercice}Q0`,
+      `feedbackEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      `tabMathliveEx${sourceExercice}Q0`,
+      `tabMathliveEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      `Ex${sourceExercice}Q0`,
+      `Ex${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      'resultatCheckEx0Q0',
+      `resultatCheckEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      'feedbackEx0Q0',
+      `feedbackEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      'tabMathliveEx0Q0',
+      `tabMathliveEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll('Ex0Q0', `Ex${destinationExercice}Q${destinationIndex}`)
+
+  if (tag === 'meta-interactif-2d') {
+    html = html.replace(
+      /id="MetaInteractif2dEx\d+Q\d+field(\d+)"/g,
+      `id="MetaInteractif2dEx${destinationExercice}Q${destinationIndex}field$1"`,
+    )
+  }
+  return html
+}
+
+function remapClickFigures(
+  figures: ClickFigures | undefined,
+  sourceNumeroExercice: number,
+  destinationNumeroExercice: number,
+  destinationIndex: number,
+): ClickFigures | undefined {
+  if (!Array.isArray(figures)) return undefined
+  return figures.map((figure) => ({
+    ...figure,
+    id: figure.id
+      .replaceAll(
+        `Ex${sourceNumeroExercice}Q0`,
+        `Ex${destinationNumeroExercice}Q${destinationIndex}`,
+      )
+      .replaceAll(
+        'Ex0Q0',
+        `Ex${destinationNumeroExercice}Q${destinationIndex}`,
+      ),
+  }))
+}
+
+function injectSimpleQuestionCustomElement({
+  meta,
+  question,
+  questionIndex,
+  tag,
+  formatChampTexte,
+  optionsChampTexte,
+}: {
+  meta: MetaExercice
+  question: Exercice
+  questionIndex: number
+  tag: InteractivityType
+  formatChampTexte: string
+  optionsChampTexte: Parameters<typeof ajouteChampTexte>[3]
+}) {
+  const questionHtml = remapDomReadyPayloadQuestionIds(
+    String(question.question ?? ''),
+    meta.numeroExercice ?? 0,
+    questionIndex,
+  )
+  if (questionHtml.includes(`<${tag}`)) {
+    return remapCustomElementQuestionIds(
+      questionHtml,
+      tag,
+      question.numeroExercice,
+      meta.numeroExercice,
+      questionIndex,
+    )
+  }
+
+  if (tag === 'mathalea-mathfield') {
+    return (
+      questionHtml +
+      ajouteChampTexteMathLive(
+        meta,
+        questionIndex,
+        formatChampTexte,
+        optionsChampTexte,
+      )
+    )
+  }
+  if (tag === 'mathalea-textfield') {
+    return (
+      questionHtml +
+      ajouteChampTexte(meta, questionIndex, formatChampTexte, optionsChampTexte)
+    )
+  }
+  if (tag === 'fill-in-the-blank') {
+    return remplisLesBlancs(
+      meta,
+      questionIndex,
+      questionHtml,
+      formatChampTexte,
+      '\\ldots',
+    )
+  }
+  if (tag === 'tableau-mathlive') {
+    const questionWithTableau = question as QuestionWithOptionalTableau
+    if (questionWithTableau.tableau == null) {
+      window.notify(
+        `Tableau non défini pour l'interactivité tableau-mathlive. Exercice ${meta.id} ${meta.uuid}`,
+        { question },
+      )
+      return questionHtml
+    }
+    return (
+      questionHtml +
+      creeTableauMathliveElement({
+        numeroExercice: meta.numeroExercice ?? 0,
+        question: questionIndex,
+        tableau: questionWithTableau.tableau,
+        typeTableau: questionWithTableau.typeTableau ?? 'doubleEntree',
+        classes: formatChampTexte,
+      })
+    )
+  }
+
+  return remapCustomElementQuestionIds(
+    questionHtml,
+    tag,
+    question.numeroExercice,
+    meta.numeroExercice,
+    questionIndex,
+  )
+}
+
+function normalizeSimpleAnswerValue(answer: unknown): AnswerValueType {
+  if (typeof answer === 'string' || typeof answer === 'number') {
+    return String(answer)
+  }
+  if (answer instanceof FractionEtendue) return answer.texFraction
+  if (answer instanceof Decimal) return answer.toString()
+  if (answer instanceof Complexe) return answer.tex()
+  return answer as AnswerValueType
+}
+
+function buildSimpleQuestionAnswerValue(
+  question: Exercice,
+  tag: InteractivityType | undefined,
+): Valeur {
+  const options =
+    question.optionsDeComparaison == null
+      ? ({} as OptionsComparaisonType)
+      : (question.optionsDeComparaison as OptionsComparaisonType)
+  const compare = question.compare
+  const answer = question.reponse
+
+  if (tag === 'fill-in-the-blank') {
+    if (typeof answer === 'string') {
+      return {
+        champ1: {
+          value: answer,
+          compare,
+          options,
+        },
+      }
+    }
+    return answer as Valeur
+  }
+
+  if (isValeur(answer)) return answer
+
+  return {
+    reponse: {
+      value: normalizeSimpleAnswerValue(answer),
+      compare,
+      options,
+    },
+  }
+}
+
+/**
+ * Une sous-question est « custom » quand l'exercice corrige lui-même les
+ * réponses via `correctionInteractive`. Selon l'âge de l'exercice, le format
+ * est déclaré à trois endroits : l'export de module recopié sur l'instance,
+ * le champ des exercices simples, ou l'objet réponse des exercices classiques.
+ */
+function estQuestionCustom(question: Exercice): boolean {
+  // Sans fonction de correction il n'y a rien de custom à brancher : on laisse
+  // le traitement par défaut s'appliquer.
+  if (typeof question.correctionInteractive !== 'function') return false
+  // Un exercice qui délègue à un customElement enregistré n'est pas custom.
+  if (isMathaleaCustomElementFormat(question.formatInteractif)) return false
+  if (
+    isMathaleaCustomElementFormat(question.autoCorrection[0]?.formatInteractif)
+  ) {
+    return false
+  }
+  if (
+    question.autoCorrection[0]?.formatInteractif != null &&
+    question.autoCorrection[0].formatInteractif !== 'custom'
+  ) {
+    return false
+  }
+  if (question.autoCorrection[0]?.valeur != null) return false
+  return (
+    question.formatInteractif === 'custom' ||
+    question.autoCorrection[0]?.formatInteractif === 'custom'
+  )
+}
+
+/**
+ * Un sous-exercice qui déclare `nouvelleVersion(numeroExercice, numeroQuestion)`
+ * produit lui-même sa question à l'index demandé : lui appliquer en plus le
+ * décalage `indexQuestionHote` décalerait ses identifiants deux fois.
+ */
+function gereSonIndexDeQuestion(question: Exercice): boolean {
+  return question.nouvelleVersion.length >= 2
+}
+
+/**
+ * Un sous-exercice range la figure de son unique question à l'index 0, alors
+ * que `correctionInteractive(i)` est appelée avec l'index de la question dans
+ * l'exercice affiché. On déplace donc la figure de tête à cet index, les
+ * éventuelles figures suivantes (corrections, figures annexes) restant dans le
+ * tableau pour être détruites par `reinit()`.
+ */
+function alignFiguresSurIndexHote(
+  question: Exercice,
+  indexQuestion: number,
+): void {
+  if (indexQuestion === 0) return
+  for (const cle of ['figuresApiGeom', 'figuresApiGeomCorr'] as const) {
+    const figures = question[cle]
+    if (figures == null || figures.length === 0) continue
+    const [figureQuestion, ...autres] = figures
+    const alignees: typeof figures = []
+    alignees[indexQuestion] = figureQuestion
+    alignees.push(...autres)
+    question[cle] = alignees
+  }
+}
+
+/**
+ * Nombre de points d'une question custom. Un exercice `exoCustomResultat`
+ * renvoie un tableau de résultats dont la longueur n'est connue qu'après
+ * correction : quand il expose ses bonnes réponses, on s'en sert pour annoncer
+ * le barème avant toute saisie.
+ */
+function pointsMaxQuestionCustom(question: Exercice): number {
+  const goodAnswers = (question as { goodAnswers?: unknown }).goodAnswers
+  if (Array.isArray(goodAnswers) && goodAnswers.length > 0) {
+    return goodAnswers.length
+  }
+  return 1
+}
 
 export default class MetaExercice extends Exercice {
   Exercices: (typeof Exercice)[]
@@ -43,7 +496,65 @@ export default class MetaExercice extends Exercice {
     this.sup3 = false
   }
 
+  /**
+   * Les vues qui corrigent question par question appellent
+   * `correctionInteractive` sur l'exercice affiché : pour un méta-exercice,
+   * c'est celle du sous-exercice réhébergé à cet index.
+   */
+  correctionInteractive(i: number): string | string[] {
+    return this.correctionInteractives[i]?.(i) ?? 'KO'
+  }
+
+  /**
+   * Branche une sous-question custom sur le pipeline générique : la
+   * `correctionInteractive` du sous-exercice est enregistrée en callback et
+   * l'énoncé reçoit l'ancre `<meta-custom>` que `verifQuestion()` retrouvera.
+   * Retourne le HTML de la question, ancre comprise.
+   */
+  private brancheQuestionCustom(
+    Question: Exercice,
+    indexQuestion: number,
+    questionHtml: string,
+  ): string {
+    alignFiguresSurIndexHote(Question, Question.indexQuestionHote ?? 0)
+    const numeroExercice = this.numeroExercice ?? 0
+    const pointsMax = pointsMaxQuestionCustom(Question)
+    const callbackKey = MetaCustomElement.keyFor(numeroExercice, indexQuestion)
+    // La fermeture sur `Question` est indispensable : `correctionInteractive`
+    // est parfois une méthode de prototype qui lit `this.numeroExercice` et
+    // `this.answers`.
+    const corrige = (i: number) => {
+      const resultat = Question.correctionInteractive!(i)
+      if (Question.answers != null) {
+        this.answers = { ...this.answers, ...Question.answers }
+      }
+      return resultat
+    }
+    MetaCustomElement.registerCallback(callbackKey, {
+      exercice: Question,
+      run: corrige,
+      pointsMax,
+    })
+    // Chemin historique, conservé pour les CAN qui lisent `correctionInteractives`
+    this.correctionInteractives[indexQuestion] = corrige
+    this.autoCorrection[indexQuestion] = { formatInteractif: 'meta-custom' }
+    return (
+      questionHtml +
+      MetaCustomElement.create({
+        numeroExercice,
+        questionIndex: indexQuestion,
+        callbackKey,
+        pointsMax,
+      })
+    )
+  }
+
   nouvelleVersion(): void {
+    // Les sous-exercices de la version précédente ne doivent pas rester dans le
+    // registre statique des callbacks.
+    MetaCustomElement.unregisterCallbacksWithPrefix(
+      `${MetaCustomElement.elementTag}:${this.numeroExercice ?? 0}:`,
+    )
     this.correctionInteractives = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
@@ -126,6 +637,12 @@ export default class MetaExercice extends Exercice {
           Question.canOfficielle = !!this.sup
           Question.interactif = this.interactif
           Question.seed = this.seed
+          // Le sous-exercice fabrique ses identifiants DOM à partir de cet
+          // index : il produit ainsi directement ceux de la question affichée,
+          // sans réécriture de chaîne après coup.
+          Question.indexQuestionHote = gereSonIndexDeQuestion(Question)
+            ? 0
+            : indexQuestion
           Question.nouvelleVersionWrapper()
           //* ************ Question Exo simple *************//
           if (Question.listeQuestions.length === 0) {
@@ -167,166 +684,116 @@ export default class MetaExercice extends Exercice {
               indexQuestion++
               break
             }
-
-            if (Question.formatInteractif === 'multiMathfield') {
-              // La question a construit elle-même son composant <multi-mathfield>
-              // (via addMultiMathfield) avec l'indice 0 : on réindexe les identifiants
-              // sur la position réelle de la question dans le méta-exercice.
-              const n = Question.numeroExercice
-              const questionHtml = String(Question.question)
+            const customElementFormat =
+              getSimpleQuestionCustomElementFormat(Question)
+            const qcmAutoCorrection = getQcmAutoCorrection(
+              Question,
+              indexQuestion,
+            )
+            if (qcmAutoCorrection != null) {
+              this.autoCorrection[indexQuestion] =
+                cloneQcmAutoCorrection(qcmAutoCorrection)
+              this.listeQuestions[indexQuestion] =
+                consigne + String(Question.question ?? '')
+            } else if (estQuestionCustom(Question)) {
+              // Avant `customElementFormat` : faute de `formatInteractif`,
+              // `getSimpleQuestionCustomElementFormat()` retombe sur
+              // `mathalea-mathfield` et collerait un champ de saisie à une
+              // question qui se corrige toute seule.
+              // Les identifiants apigeom sont produits au bon index par
+              // `figureApigeom()` ; seuls restent à réindexer les blocs que
+              // l'exercice écrit lui-même dans son énoncé.
+              const enonce = String(Question.question ?? '')
                 .replaceAll(
-                  `multiMathfieldEx${n}Q0`,
-                  `multiMathfieldEx${n}Q${indexQuestion}`,
+                  `feedbackEx${this.numeroExercice}Q0`,
+                  `feedbackEx${this.numeroExercice}Q${indexQuestion}`,
                 )
                 .replaceAll(
-                  `feedbackEx${n}Q0`,
-                  `feedbackEx${n}Q${indexQuestion}`,
+                  `resultatCheckEx${this.numeroExercice}Q0`,
+                  `resultatCheckEx${this.numeroExercice}Q${indexQuestion}`,
                 )
-              this.listeQuestions[indexQuestion] = consigne + questionHtml
-              handleAnswers(this, indexQuestion, Question.reponse as Valeur, {
-                formatInteractif: 'multiMathfield',
-              })
-            } else if (
-              Question.formatInteractif === 'fillInTheBlank' ||
-              (typeof Question.reponse === 'object' &&
-                'champ1' in Question.reponse)
-            ) {
+              // Même règle que `mathaleaHandleExerciceSimple` : un exercice
+              // simple custom dont l'énoncé contient des `%{}` est un texte à
+              // trous. Le moteur pose les champs, la vérification reste à la
+              // charge de l'exercice.
+              const questionHtml = enonce.includes('%{')
+                ? remplisLesBlancs(
+                    this,
+                    indexQuestion,
+                    enonce,
+                    `fillInTheBlank ${formatChampTexte}`,
+                    '\\ldots',
+                  )
+                : enonce
               this.listeQuestions[indexQuestion] =
                 consigne +
-                remplisLesBlancs(
-                  this,
+                this.brancheQuestionCustom(
+                  Question,
                   indexQuestion,
-                  String(Question.question),
-                  formatChampTexte,
-                  '\\ldots',
+                  questionHtml,
                 )
-              if (typeof Question.reponse === 'string') {
-                handleAnswers(this, indexQuestion, {
-                  champ1: {
-                    value: Question.reponse,
-                    compare: Question.compare ?? fonctionComparaison,
-                    options:
-                      Question.optionsDeComparaison ??
-                      ({} as OptionsComparaisonType),
-                  },
-                })
-              } else if (typeof Question.reponse !== 'object') {
-                throw new Error(
-                  `Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu: ${JSON.stringify(Question.reponse)}`,
+            } else if (customElementFormat != null) {
+              const tag = customElementFormat
+              const rawQuestionHtml = String(Question.question ?? '')
+              const questionHtml =
+                tag === MetaCustomElement.elementTag &&
+                rawQuestionHtml.includes('%{')
+                  ? remplisLesBlancs(
+                      this,
+                      indexQuestion,
+                      rawQuestionHtml,
+                      `fillInTheBlank ${formatChampTexte}`,
+                      '\\ldots',
+                    )
+                  : injectSimpleQuestionCustomElement({
+                      meta: this,
+                      question: Question,
+                      questionIndex: indexQuestion,
+                      tag,
+                      formatChampTexte,
+                      optionsChampTexte,
+                    })
+              this.listeQuestions[indexQuestion] = consigne + questionHtml
+              if (tag === MetaCustomElement.elementTag) {
+                this.autoCorrection[indexQuestion] = {
+                  ...(Question.autoCorrection[0] ?? {}),
+                  formatInteractif: tag,
+                }
+                const entry = MetaCustomElement.getEntry(
+                  MetaCustomElement.keyFor(
+                    this.numeroExercice ?? 0,
+                    indexQuestion,
+                  ),
                 )
+                if (entry != null) {
+                  this.correctionInteractives[indexQuestion] = entry.run
+                }
               } else {
                 handleAnswers(
                   this,
                   indexQuestion,
-                  Question.reponse as Valeur,
-                  optionsChampTexte,
+                  buildSimpleQuestionAnswerValue(Question, tag),
+                  {
+                    ...(tag === 'fill-in-the-blank' ? optionsChampTexte : {}),
+                    formatInteractif: tag,
+                  },
                 )
-              }
-            } else if (Question.formatInteractif === 'qcm') {
-              Question?.question?.replaceAll(
-                'labelEx0Q0',
-                `labelEx0Q${indexQuestion}`,
-              )
-              Question?.question?.replaceAll(
-                'resultatCheckEx0',
-                `resultatCheckEx${indexQuestion}`,
-              )
-              this.listeQuestions[indexQuestion] = consigne + Question.question
-              this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-            } else if (Question.formatInteractif === 'MetaInteractif2d') {
-              const n = Question.numeroExercice
-              if (Question.question != null) {
-                const inputsIds = Question.question.matchAll(
-                  /id="MetaInteractif2dEx\d+Q\d+field(\d+)"/g,
-                )
-                for (const match of inputsIds) {
-                  Question.question = Question.question.replace(
-                    `id="MetaInteractif2dEx${n}Q0field${match[1]}"`,
-                    `id="MetaInteractif2dEx${n}Q${indexQuestion}field${match[1]}"`,
-                  )
-                }
-                Question.question = Question.question.replace(
-                  `id="resultatCheckEx${n}Q0"`,
-                  `id="resultatCheckEx${n}Q${indexQuestion}"`,
-                )
-                Question.question = Question.question.replace(
-                  `id="feedbackEx${n}Q0"`,
-                  `id="feedbackEx${n}Q${indexQuestion}"`,
-                )
-              }
-              handleAnswers(this, indexQuestion, Question.reponse as Valeur, {
-                formatInteractif: 'MetaInteractif2d',
-              })
-              this.listeQuestions[indexQuestion] = consigne + Question.question
-            } else if (Question.formatInteractif === 'svgSelection') {
-              const n = Question.numeroExercice
-              if (Question.question != null) {
-                const svgSelection = Question.question.match(
-                  /id="svgSelectionEx\d+Q\d+"/g,
-                )
-                if (svgSelection != null) {
-                  Question.question = Question.question.replace(
-                    `svgSelectionEx${n}Q0`,
-                    `svgSelectionEx${n}Q${indexQuestion}`,
-                  )
-                  Question.question = Question.question.replace(
-                    `resultatCheckEx${n}Q0`,
-                    `resultatCheckEx${n}Q${indexQuestion}`,
-                  )
-                  const reponse = Question.reponse as AnswerValueType
-
-                  handleAnswers(
-                    this,
-                    indexQuestion,
-                    { reponse: { value: reponse } },
-                    { formatInteractif: 'svgSelection' },
-                  )
-                  this.listeQuestions[indexQuestion] =
-                    consigne + Question.question
-                } else {
-                  throw new Error(
-                    `Erreur avec cette question de type svgSelection qui ne contient pas d'id de svgSelection: ${Question.question}`,
-                  )
-                }
               }
             } else {
-              if (Question.formatInteractif === 'custom') {
-                this.correctionInteractives[indexQuestion] =
-                  Question.correctionInteractive!
-                this.listeQuestions[indexQuestion] =
-                  consigne + Question.question
-                this.listeQuestions[indexQuestion] = this.listeQuestions[
-                  indexQuestion
-                ]
-                  .replaceAll(
-                    `feedbackEx${this.numeroExercice}Q0`,
-                    `feedbackEx${this.numeroExercice}Q${indexQuestion}`,
-                  )
-                  .replaceAll(
-                    `resultatCheckEx${this.numeroExercice}Q0`,
-                    `resultatCheckEx${this.numeroExercice}Q${indexQuestion}`,
-                  )
-                  .replaceAll(
-                    `clockEx${this.numeroExercice}Q0`,
-                    `clockEx${this.numeroExercice}Q${indexQuestion}`,
-                  )
-                  .replaceAll(
-                    `apigeomEx${this.numeroExercice}F0`,
-                    `apigeomEx${this.numeroExercice}F${indexQuestion}`,
-                  )
-              } else {
-                // * ***************** Question MathLive *****************//
-
-                this.listeQuestions[indexQuestion] =
-                  consigne +
-                  Question.question +
-                  ajouteChampTexteMathLive(
-                    this,
-                    indexQuestion,
-                    formatChampTexte,
-                    optionsChampTexte,
-                  )
-              }
+              // * ***************** Question MathLive *****************//
+              this.listeQuestions[indexQuestion] =
+                consigne +
+                remapDomReadyPayloadQuestionIds(
+                  String(Question.question ?? ''),
+                  this.numeroExercice ?? 0,
+                  indexQuestion,
+                ) +
+                ajouteChampTexteMathLive(
+                  this,
+                  indexQuestion,
+                  formatChampTexte,
+                  optionsChampTexte,
+                )
               if (Question.compare == null) {
                 const reponse = Question.reponse
                 const options =
@@ -494,58 +961,127 @@ export default class MetaExercice extends Exercice {
             //* ***************** Question Exo classique *****************//
             this.listeQuestions[indexQuestion] = Question.listeQuestions[0]
             this.listeCorrections[indexQuestion] = Question.listeCorrections[0]
-            this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-
-            this.listeQuestions[indexQuestion] = this.listeQuestions[
-              indexQuestion
-            ].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
-            this.listeQuestions[indexQuestion] = this.listeQuestions[
-              indexQuestion
-            ].replaceAll(
-              'resultatCheckEx0Q0',
-              `resultatCheckEx0Q${indexQuestion}`,
+            const qcmAutoCorrection = getQcmAutoCorrection(
+              Question,
+              indexQuestion,
             )
-            this.listeQuestions[indexQuestion] = this.listeQuestions[
-              indexQuestion
-            ].replaceAll('clockEx0Q0', `clockEx0Q${indexQuestion}`)
-
-            // fin d'alimentation des listes de question et de correction pour cette question
-            const formatInteractif =
-              Question.autoCorrection[0]?.formatInteractif
-            if (formatInteractif === 'custom') {
-              Question.reinit()
-              Question.nouvelleVersionWrapper(
+            this.autoCorrection[indexQuestion] =
+              qcmAutoCorrection == null
+                ? Question.autoCorrection[0]
+                : cloneQcmAutoCorrection(qcmAutoCorrection)
+            const customElementFormat =
+              getClassicQuestionCustomElementFormat(Question)
+            if (qcmAutoCorrection == null && customElementFormat != null) {
+              const tag = customElementFormat
+              const questionHtml = remapCustomElementQuestionIds(
+                String(Question.listeQuestions[0]),
+                tag,
+                Question.numeroExercice,
                 this.numeroExercice,
                 indexQuestion,
               )
-              const that = this
-              this.correctionInteractives[indexQuestion] = function (
-                i: number,
-              ) {
-                const result = Question.correctionInteractive!(i)
-                if (Question.answers) {
-                  that.answers = { ...that.answers, ...Question.answers }
-                }
-                return result
-              }
-              this.autoCorrection[indexQuestion] =
-                Question.autoCorrection[indexQuestion]
+
               this.listeQuestions[indexQuestion] =
-                Question.listeQuestions[indexQuestion]
-              this.listeCorrections[indexQuestion] =
-                Question.listeCorrections[indexQuestion]
-            } else if (formatInteractif === 'qcm') {
-              this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-            } else {
-              const reponse = Question.autoCorrection[0]?.valeur
-              if (reponse != null)
-                handleAnswers(this, indexQuestion, reponse as Valeur, {
-                  formatInteractif,
-                })
+                (Question.introduction != null ? Question.introduction : '') +
+                Question.consigne +
+                '<br><br>' +
+                questionHtml
+              if (
+                tag === 'clique-figure' ||
+                tag === 'apigeom-figure' ||
+                tag === MetaCustomElement.elementTag
+              ) {
+                if (tag === 'apigeom-figure') {
+                  // La callback reçoit l'index de la question affichée ; la
+                  // figure du sous-exercice doit être disponible au même index.
+                  alignFiguresSurIndexHote(
+                    Question,
+                    Question.indexQuestionHote ?? 0,
+                  )
+                }
+                this.autoCorrection[indexQuestion] = {
+                  ...(Question.autoCorrection[0] ?? {}),
+                  formatInteractif: tag,
+                }
+                if (tag === 'clique-figure') {
+                  this.cliqueFiguresArray ??= []
+                  const figures = remapClickFigures(
+                    Question.cliqueFiguresArray?.[0],
+                    Question.numeroExercice ?? 0,
+                    this.numeroExercice ?? 0,
+                    indexQuestion,
+                  )
+                  if (figures != null)
+                    this.cliqueFiguresArray[indexQuestion] = figures
+                }
+              } else {
+                handleAnswers(
+                  this,
+                  indexQuestion,
+                  Question.autoCorrection[0].valeur as Valeur,
+                  {
+                    formatInteractif: tag as InteractivityType,
+                  },
+                )
+              }
+            } else if (qcmAutoCorrection == null) {
+              this.listeQuestions[indexQuestion] = remapLegacyFieldIds(
+                this.listeQuestions[indexQuestion],
+                Question.numeroExercice ?? 0,
+                this.numeroExercice ?? 0,
+                indexQuestion,
+              )
+              this.listeQuestions[indexQuestion] = this.listeQuestions[
+                indexQuestion
+              ]
+                .replaceAll(
+                  'resultatCheckEx0Q0',
+                  `resultatCheckEx${this.numeroExercice ?? 0}Q${indexQuestion}`,
+                )
+                .replaceAll(
+                  'feedbackEx0Q0',
+                  `feedbackEx${this.numeroExercice ?? 0}Q${indexQuestion}`,
+                )
+
+              // fin d'alimentation des listes de question et de correction pour cette question
+              const formatInteractif =
+                Question.autoCorrection[0]?.formatInteractif
+              if (estQuestionCustom(Question)) {
+                if (gereSonIndexDeQuestion(Question)) {
+                  // L'exercice sait produire sa question directement à l'index
+                  // demandé : on le relance avec les coordonnées de l'hôte.
+                  Question.reinit()
+                  Question.nouvelleVersionWrapper(
+                    this.numeroExercice,
+                    indexQuestion,
+                  )
+                  this.listeQuestions[indexQuestion] =
+                    Question.listeQuestions[indexQuestion] ?? ''
+                  this.listeCorrections[indexQuestion] =
+                    Question.listeCorrections[indexQuestion] ?? ''
+                }
+                this.listeQuestions[indexQuestion] = this.brancheQuestionCustom(
+                  Question,
+                  indexQuestion,
+                  this.listeQuestions[indexQuestion] ?? '',
+                )
+              } else {
+                const reponse = Question.autoCorrection[0]?.valeur
+                if (reponse != null)
+                  handleAnswers(this, indexQuestion, reponse as Valeur, {
+                    formatInteractif,
+                  })
+              }
             }
           }
-          if (Question?.autoCorrection[0]?.propositions != null) {
+          const qcmAutoCorrection = getQcmAutoCorrection(
+            Question,
+            indexQuestion,
+          )
+          if (qcmAutoCorrection != null) {
             // qcm
+            this.autoCorrection[indexQuestion] =
+              cloneQcmAutoCorrection(qcmAutoCorrection)
             // Les propositions ont déjà été mélangées par buildQcmForExercise et la correction
             // a été construite avec cet ordre. On empêche un second mélange pour que la lettre
             // annoncée dans la correction corresponde à ce qui est affiché dans la question.
@@ -557,6 +1093,10 @@ export default class MetaExercice extends Exercice {
               style: 'margin:0 3px 0 3px;',
               format: this.interactif ? 'case' : 'lettre',
             }) // update les références HTML
+            // `propositionsQcm()` utilise encore le marqueur historique `qcm`
+            // pendant le rendu. La question agrégée expose ensuite le format
+            // moderne qui doit piloter le dispatch et les exports.
+            this.autoCorrection[indexQuestion].formatInteractif = 'mathalea-qcm'
             this.listeCanReponsesACompleter[indexQuestion] =
               Question.canReponseACompleter != null
                 ? Question.canReponseACompleter

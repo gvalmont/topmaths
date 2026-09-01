@@ -10,13 +10,14 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer le coefficient directeur d'une droite"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'b18a9'
 export const refs = {
   'fr-fr': [],
@@ -119,7 +120,7 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
         ymax: ymax + 0.25,
         pixelsParCm: 25,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
       r1,
@@ -137,7 +138,7 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
         ymax: ymax + 0.25,
         pixelsParCm: 25,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
       r1,

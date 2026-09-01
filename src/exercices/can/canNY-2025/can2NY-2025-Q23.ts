@@ -2,11 +2,10 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec les chiffres (relatifs)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '71793'
 export const refs = {
   'fr-fr': [],
@@ -28,7 +27,7 @@ export default class calcAvecChiffresRel extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(-2, 2, 0)
+    const a = this.quotaRandint('a', -2, 2, [0])
     this.reponse = `${reduireAxPlusB(a, 0)}`
     this.question = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2025, 0)})=${texNombre(a * 2025, 0)}$.<br>
     Compléter : $f(x)=$ `

@@ -21,7 +21,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Reconnaitre une situation de proportionnalité'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const dateDeModifImportante = '16/04/2024'
@@ -32,9 +32,9 @@ export const dateDeModifImportante = '16/04/2024'
 export const uuid = '850d5'
 
 export const refs = {
-  'fr-fr': ['6P3B-1', 'BP2AutoL4', '3AutoP06-1'],
+  'fr-fr': ['6P3B-1', 'BP2AutoL4', '3AutoP01-1'],
   'fr-2016': ['6P10', 'BP2AutoL4'],
-  'fr-ch': ['9FA3-1'],
+  'fr-ch': ['9FA2B-3'],
 }
 export default class ProportionnalitePasProportionnalite extends Exercice {
   constructor() {
@@ -45,8 +45,8 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ["Avec 'je ne sais pas' dans le QCM"]
 
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.4)
-    context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1.4
+    this.spacingCorr = context.isHtml ? 1.5 : 1
     this.nbQuestions = 5
 
     this.nbColsModifiable = false

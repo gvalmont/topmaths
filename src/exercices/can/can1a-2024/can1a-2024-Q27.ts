@@ -8,7 +8,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une probabilité dans un arbre'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'fe2e1'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -105,7 +105,7 @@ export default class probaArbre extends ExerciceSimple {
         xmax: 14,
         ymin: 1.5,
         ymax: 7,
-        style: 'inline',
+        display: 'inline',
         scale: 0.8,
       },
       ...objets,
@@ -132,7 +132,7 @@ export default class probaArbre extends ExerciceSimple {
           xmax: 14,
           ymin: 1,
           ymax: 7,
-          style: 'inline',
+          display: 'inline',
           scale: 0.7,
         },
         ...objets,

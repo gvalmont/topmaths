@@ -8,6 +8,7 @@ import {
   polygone3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
+import { orangeMathalea } from '../../lib/colors'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { egalOuApprox } from '../../lib/outils/ecritures'
@@ -17,18 +18,16 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { orangeMathalea } from '../../lib/colors'
 
 export const titre = 'Calculer dans une pyramide régulière à base carrée'
 export const dateDePublication = '31/12/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const uuid = 'c18ea'
 
 export const refs = {
   'fr-fr': ['4G22-1'],
-  'fr-ch': [],
+  'fr-ch': ['10GM1D-7', '11GM2A-1'],
 }
 
 function figurePyramideCarree(
@@ -199,8 +198,7 @@ function calculeHauteurFaceLaterale(
       : `La hauteur $${nomHauteur}$ de la face latérale $${nomFaceLaterale}$ est donc ${typeDeReponse.includes('approchée') ? 'environ ' : ''}égale à $${miseEnEvidence(
           texNombre(Math.sqrt(hauteur * hauteur + (cote * cote) / 4), 1),
         )}\\text{ cm}$.`
-  }
- `
+  }`
 
   return correction
 }
@@ -373,7 +371,7 @@ export default class CalculeDansPyramide extends Exercice {
       defaut: 4,
       nbQuestions: this.nbQuestions,
     }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typeDeReponse =
         this.sup2 === 1
           ? 'Donner la valeur exacte'
@@ -416,6 +414,7 @@ export default class CalculeDansPyramide extends Exercice {
                 exercice: this,
                 question: i,
                 texteApres: ' cm$^2$',
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')
@@ -453,6 +452,7 @@ export default class CalculeDansPyramide extends Exercice {
                 exercice: this,
                 question: i,
                 texteApres: ' cm$^2$',
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')
@@ -489,6 +489,7 @@ export default class CalculeDansPyramide extends Exercice {
                 exercice: this,
                 question: i,
                 texteApres: ' cm$^2$',
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')
@@ -526,6 +527,7 @@ export default class CalculeDansPyramide extends Exercice {
                 exercice: this,
                 question: i,
                 texteApres: '$\\text{ cm}$',
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')

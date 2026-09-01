@@ -1,9 +1,9 @@
 import Decimal from 'decimal.js'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
@@ -14,7 +14,7 @@ import Exercice from '../Exercice'
 export const titre = 'Effectuer produit et somme ou différence de décimaux'
 
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDeModifImportante = '14/01/2026'
 export const dateDePublication = '20/12/2022'
 
@@ -30,7 +30,7 @@ export const uuid = '71be7'
 export const refs = {
   'fr-fr': ['6N2E-3'],
   'fr-2016': ['6C30-9'],
-  'fr-ch': ['9NO8-17'],
+  'fr-ch': ['PR-28'],
 }
 export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
   constructor() {
@@ -78,7 +78,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
           operande1: A.toNumber(),
           operande2: B.toNumber(),
           type: 'multiplication',
-          style: 'display: inline',
+          display: 'inline',
           options: { solution: true, colore: orangeMathalea },
         }) + '<br>'
       let indice = 0
@@ -118,7 +118,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
           operande1,
           operande2,
           type: addition ? 'addition' : 'soustraction',
-          style: 'display: inline',
+          display: 'inline',
           methodeParCompensation: addition,
           options: { solution: true, colore: orangeMathalea },
         })
@@ -132,7 +132,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
             },
             champ2: { value: couple.B.mul(couple.A) },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
 
         texteCorr += `<br> Je sais que $${texNombre(A)}\\times${texNombre(B)}=${miseEnEvidence(texNombre(B.mul(A)), bleuMathalea)}$.`

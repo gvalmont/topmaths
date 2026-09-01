@@ -18,6 +18,7 @@ import { enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range1 } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
@@ -25,7 +26,6 @@ import Exercice from '../Exercice'
 
 export const titre = "Trouver le ratio d'évolution d'un motif numérique"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '26/06/2025'
@@ -41,7 +41,7 @@ export const uuid = '339c9'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class PaternRatioOld extends Exercice {
@@ -264,7 +264,7 @@ Si aucun motif prédéfini n'est choisi et si le nombre de questions est supéri
                 yMax,
                 yMin,
                 scale: 0.4,
-                style: 'display: inline-block',
+                display: 'inline-block' as const,
                 optionsTikz: 'transform shape',
               },
             ),
@@ -345,7 +345,8 @@ Si aucun motif prédéfini n'est choisi et si le nombre de questions est supéri
                 id: `Motif${i}Correction`,
                 pixelsParCm: 20,
                 scale: 0.6,
-                style: 'display: block; margin: auto;',
+                display: 'block' as const,
+                center: !context.isHtml,
                 optionsTikz: 'transform shape',
               }),
               figureCorr,
@@ -416,7 +417,8 @@ Si aucun motif prédéfini n'est choisi et si le nombre de questions est supéri
                   id: `Motif${i}Correction`,
                   pixelsParCm: 20,
                   scale: 0.6,
-                  style: 'display: block; margin: auto;',
+                  display: 'block' as const,
+                  center: !context.isHtml,
                   optionsTikz: 'transform shape',
                 }),
                 figureCorr,

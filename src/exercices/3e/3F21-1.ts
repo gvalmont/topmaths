@@ -6,6 +6,7 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint } from '../../lib/2d/textes'
 import { Vide2d } from '../../lib/2d/Vide2d'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -19,14 +20,11 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Déterminer une fonction affine'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '31/03/2023'
 
@@ -44,7 +42,7 @@ export const uuid = 'e5ddd'
 
 export const refs = {
   'fr-fr': ['3F21-1'],
-  'fr-ch': ['11FA8-10'],
+  'fr-ch': ['11FA1B-5'],
 }
 export default class LectureExpressionFonctionsAffines extends Exercice {
   lineaire: boolean

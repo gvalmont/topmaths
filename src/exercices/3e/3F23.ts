@@ -1,8 +1,8 @@
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import {
@@ -26,7 +26,6 @@ export const dateDeModifImportante = '11/04/2026'
 export const titre =
   "Trouver l'intersection des droites représentant des fonctions affines"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 /**
  * Trouver les coordonnées du point d'intersection des droites représentant des fonctions affines
@@ -36,7 +35,7 @@ export const uuid = '13cfb'
 
 export const refs = {
   'fr-fr': ['3F23'],
-  'fr-ch': [],
+  'fr-ch': ['11FA1B-8'],
 }
 export default class IntersectionDroites extends Exercice {
   constructor() {
@@ -61,7 +60,7 @@ export default class IntersectionDroites extends Exercice {
       defaut: 3,
       nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       const a = randint(-9, 9, 0)
@@ -157,7 +156,7 @@ export default class IntersectionDroites extends Exercice {
           },
           bareme: toutAUnPoint,
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       if (this.questionJamaisPosee(i, a, b, c, d)) {

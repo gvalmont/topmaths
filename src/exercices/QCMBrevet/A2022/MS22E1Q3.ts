@@ -5,11 +5,11 @@ import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '9802c'
 export const refs = {
-  'fr-fr': ['3L1QCM-07', 'BP2AutoI4'],
+  'fr-fr': ['3L1QCM-07', 'BP2AutoI4', 'BP1AUTO066'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calcul littéral développement  (septembre 2022 Métropole)'

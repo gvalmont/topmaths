@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
@@ -14,7 +14,6 @@ export const titre = 'Calculer un carré'
 export const dateDePublication = '17/01/2023'
 export const dateDeModifImportante = '25/09/2025' // Éric Elter : Parenthèses + Eviter doublons
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Calculer de carré d'un nombre
@@ -29,8 +28,8 @@ export const interactifType = 'mathLive'
 export const uuid = 'e564b'
 
 export const refs = {
-  'fr-fr': ['4G20-3', '3AutoN08-2'],
-  'fr-ch': ['10NO2-2'],
+  'fr-fr': ['4G20-3', '3AutoN08'],
+  'fr-ch': ['9NO1D-4'],
 }
 export default class calculsDeCarre extends Exercice {
   constructor() {
@@ -38,8 +37,8 @@ export default class calculsDeCarre extends Exercice {
 
     this.sup = 1
     this.nbQuestions = 6
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.spacingCorr = context.isHtml ? 2 : 1.5
+    this.spacing = 2
     this.consigneModifiable = false
     this.besoinFormulaireNumerique = [
       'Type de nombre',
@@ -104,7 +103,7 @@ export default class calculsDeCarre extends Exercice {
           texte = this.interactif ? `$${entier}^2 =$` : `$${entier}$`
           // texteCorr = signe === -1 ? `$(${entier})^2` : `$${entier}^2`
           texteCorr = `$${entier}^2=${miseEnEvidence(entier * entier)}$`
-          setReponse(this, i, entier * entier)
+          handleAnswers(this, i, { reponse: { value: entier * entier } })
           break
         case 2: // entier relatif
           texte = this.interactif
@@ -113,7 +112,7 @@ export default class calculsDeCarre extends Exercice {
           texteCorr =
             signe === -1 ? `$(${signe * entier})^2` : `$${signe * entier}^2`
           texteCorr += `=${miseEnEvidence(entier * entier)}$`
-          setReponse(this, i, entier * entier)
+          handleAnswers(this, i, { reponse: { value: entier * entier } })
           break
         case 3: // décimal positif
           texte = this.interactif
@@ -121,7 +120,9 @@ export default class calculsDeCarre extends Exercice {
             : `$${texNombre(decimal, 2)}$`
           texteCorr = `$${texNombre(decimal, 2)}^2`
           texteCorr += `=${miseEnEvidence(texNombre(decimal ** 2, 2))}$`
-          setReponse(this, i, (decimal ** 2).toFixed(2))
+          handleAnswers(this, i, {
+            reponse: { value: (decimal ** 2).toFixed(2) },
+          })
           break
         case 4: // décimal relatif
           texte = this.interactif
@@ -132,7 +133,9 @@ export default class calculsDeCarre extends Exercice {
               ? `$(${texNombre(signe * decimal, 2)})^2`
               : `$${texNombre(signe * decimal, 2)}^2`
           texteCorr += `=${miseEnEvidence(texNombre(decimal ** 2, 2))}$`
-          setReponse(this, i, (decimal ** 2).toFixed(2))
+          handleAnswers(this, i, {
+            reponse: { value: (decimal ** 2).toFixed(2) },
+          })
           break
         case 5: // fractionnaire relatif
         default:
@@ -144,15 +147,15 @@ export default class calculsDeCarre extends Exercice {
               ? `$\\left(-\\dfrac{${numerateur}}{${denominateur}}\\right)^2`
               : `$\\left(\\dfrac{${numerateur}}{${denominateur}}\\right)^2`
           texteCorr += `=${miseEnEvidence(`\\dfrac{${numerateur * numerateur}}{${denominateur * denominateur}}`)}$`
-          setReponse(
-            this,
-            i,
-            new FractionEtendue(
-              numerateur * numerateur,
-              denominateur * denominateur,
-            ),
-            { formatInteractif: 'fractionEgale' },
-          )
+          handleAnswers(this, i, {
+            reponse: {
+              value: new FractionEtendue(
+                numerateur * numerateur,
+                denominateur * denominateur,
+              ),
+              options: { fractionEgale: true },
+            },
+          })
           break
       }
 

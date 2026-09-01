@@ -3,8 +3,9 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { texteParPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -13,13 +14,12 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const dateDeModifImportante = '27/03/2024'
 export const titre =
   'Résoudre des problèmes de calcul de pourcentage par complément à 100%'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 export const amcReady = true
 
@@ -32,7 +32,7 @@ export const uuid = 'db772'
 export const refs = {
   'fr-fr': ['6N3P'],
   'fr-2016': ['6N33-2'],
-  'fr-ch': ['9NO15-1'],
+  'fr-ch': ['10FA2B-3'],
 }
 export default class CalculerUnPourcentage extends Exercice {
   can: boolean
@@ -208,12 +208,12 @@ export default class CalculerUnPourcentage extends Exercice {
         },
         ...objets,
       )
-      setReponse(this, i, p3, {
-        formatInteractif: 'calcul',
-        digits: 3,
-        decimals: 0,
-        signe: false,
-      })
+      handleAnswers(
+        this,
+        i,
+        { reponse: { value: p3 } },
+        { digits: 3, decimals: 0, signe: false },
+      )
 
       if (this.questionJamaisPosee(i, moy1, moy2, moy3)) {
         // Si la question n'a jamais été posée, on en crée une autre

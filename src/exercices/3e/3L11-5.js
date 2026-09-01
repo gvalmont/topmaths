@@ -1,7 +1,7 @@
 import { warnMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
@@ -17,11 +17,11 @@ import Exercice from '../Exercice'
 export const titre =
   'Utiliser la distributivité pour effectuer du calcul mental'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '14/11/2020'
 /**
  * * Calcul mental autour des identités remarquables
- * * décliné en 2N40-6 => 07/10/2021
+ * * décliné en 2L10-6 => 07/10/2021
  * * décliné en can2C04 => 08/10/2021
  * * décliné en can2C05 => 10/10/2021
  * @author Sébastien Lozano
@@ -30,7 +30,7 @@ export const uuid = 'edbd5'
 
 export const refs = {
   'fr-fr': ['3L11-5'],
-  'fr-ch': ['11FA2-5'],
+  'fr-ch': ['11FA4A-31'],
 }
 export default class IdentitesCalculs extends Exercice {
   constructor() {
@@ -49,8 +49,8 @@ export default class IdentitesCalculs extends Exercice {
     this.nbQuestions = 3
 
     // this.nbQuestionsModifiable = false;
-    context.isHtml ? (this.spacing = 1) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 1) : (this.spacingCorr = 1)
+    this.spacing = 1
+    this.spacingCorr = 1
   }
 
   nouvelleVersion() {
@@ -377,7 +377,9 @@ export default class IdentitesCalculs extends Exercice {
               texteCorr += '<br>'
             }
 
-            setReponse(this, i, situations[0].resultatNumerique)
+            handleAnswers(this, i, {
+              reponse: { value: situations[0].resultatNumerique },
+            })
           } else {
             switch (this.canVersion) {
               case 'v1':
@@ -411,7 +413,9 @@ export default class IdentitesCalculs extends Exercice {
               texteCorr += '<br>'
             }
 
-            setReponse(this, i, situations[1].resultatNumerique)
+            handleAnswers(this, i, {
+              reponse: { value: situations[1].resultatNumerique },
+            })
           } else {
             switch (this.canVersion) {
               case 'v1':
@@ -446,7 +450,9 @@ export default class IdentitesCalculs extends Exercice {
               texteCorr += '<br>'
             }
 
-            setReponse(this, i, situations[2].resultatNumerique)
+            handleAnswers(this, i, {
+              reponse: { value: situations[2].resultatNumerique },
+            })
           } else {
             switch (this.canVersion) {
               case 'v1':

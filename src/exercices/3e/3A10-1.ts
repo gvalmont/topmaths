@@ -12,7 +12,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Indiquer si des nombres sont premiers ou pas'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 
@@ -28,7 +28,7 @@ export const uuid = 'bba55'
 
 export const refs = {
   'fr-fr': ['3A10-1'],
-  'fr-ch': ['9NO4-9'],
+  'fr-ch': ['9NO1B-7'],
 }
 const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
@@ -47,8 +47,8 @@ export default class PremierOuPas extends Exercice {
       'Que des nombres premiers inférieurs à 100',
     ]
     // pas de différence entre la version html et la version latex pour la consigne
-    context.isHtml ? (this.spacing = 1) : (this.spacing = 2)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 1 : 2
+    this.spacingCorr = context.isHtml ? 2 : 1
 
     // this.correctionDetailleeDisponible = true;
     this.nbCols = 2
@@ -98,7 +98,7 @@ export default class PremierOuPas extends Exercice {
     }
     stringRappel += '.'
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       let texte = ''
       let texteCorr = ''

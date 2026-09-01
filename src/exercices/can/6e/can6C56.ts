@@ -9,7 +9,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer une somme ou une différence de fractions de même dénominateur'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '05/07/2025'
@@ -22,7 +22,7 @@ export const uuid = '6dbf3'
 
 export const refs = {
   'fr-fr': ['can6C56', '6N3K-flash2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SommeDiffFractionsMemeDen extends ExerciceSimple {
   constructor() {
@@ -35,7 +35,7 @@ export default class SommeDiffFractionsMemeDen extends ExerciceSimple {
 
   nouvelleVersion() {
     let frac1, frac2, resultat
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2])) {
       case 1:
         frac1 = choice(obtenirListeFractionsIrreductibles())
         frac2 = new FractionEtendue(randint(1, 10, frac1.den), frac1.den)

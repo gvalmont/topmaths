@@ -35,7 +35,7 @@ export const uuid = '3bfb6'
 
 export const refs = {
   'fr-fr': ['4G11'],
-  'fr-ch': ['10ES2-9'],
+  'fr-ch': ['9ES3A-4'],
 }
 export default class PavageEtTranslation2d extends Exercice {
   constructor() {
@@ -60,7 +60,7 @@ export default class PavageEtTranslation2d extends Exercice {
     this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
     this.sup2 = false // On cache les centres par défaut.
     this.sup3 = 7
-    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
   }
 
   nouvelleVersion() {
@@ -151,7 +151,7 @@ export default class PavageEtTranslation2d extends Exercice {
     let couples: [number, number][] = []
     let Nx, Ny, A, B, image
     let monpavage = pavage()
-    let fenetre
+    let fenetreMathalea2d
     let texte = ''
     let texteCorr = ''
     let nombreTentatives
@@ -188,7 +188,7 @@ export default class PavageEtTranslation2d extends Exercice {
         Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
         Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
         monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
-        fenetre = monpavage.fenetre
+        fenetreMathalea2d = monpavage.fenetre
         while (couples.length < this.nbQuestions + 2 && nombreTentatives < 30) {
           // On cherche d pour avoir suffisamment de couples
           couples = [] // On vide la liste des couples pour une nouvelle recherche
@@ -288,12 +288,12 @@ export default class PavageEtTranslation2d extends Exercice {
       // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
-    this.introduction = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    this.introduction = mathalea2d(fenetreMathalea2d, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     if (index1 == null || index2 == null) {
       console.error('index1 ou index2 est null')
       return
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = `Quelle est l'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ ?<br>`
       texteCorr = `L'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ est la figure ${couples[i][1]}.<br>`
       //      symetriques=associesommets(monpavage.polygones[couples[i][0]-1],monpavage.polygones[couples[i][1]-1],d)
@@ -338,7 +338,7 @@ export default class PavageEtTranslation2d extends Exercice {
       }
 
       if (this.correctionDetaillee) {
-        texteCorr += mathalea2d(fenetre, objets, objetsCorrection)
+        texteCorr += mathalea2d(fenetreMathalea2d, objets, objetsCorrection)
       }
       if (this.questionJamaisPosee(i, couples[i][0])) {
         // Si la question n'a jamais été posée, on en crée une autre

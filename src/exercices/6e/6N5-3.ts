@@ -19,7 +19,6 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMult'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 export const titre =
   'Trouver les informations utiles ou inutiles pour résoudre des problèmes'
@@ -36,7 +35,7 @@ export const uuid = '7fb24'
 export const refs = {
   'fr-fr': ['6N5-3'],
   'fr-2016': ['6C12-3'],
-  'fr-ch': ['9NO16-2'],
+  'fr-ch': [''], // Primaire anciennement :['9NO16-2'],
 }
 export default class ExerciceInformationsProblemes extends Exercice {
   constructor() {

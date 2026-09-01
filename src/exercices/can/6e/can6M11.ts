@@ -12,7 +12,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Volume de pavé droit par dénombrement de cubes unités'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '04/07/2022'
@@ -26,7 +26,7 @@ export const uuid = 'e332d'
 
 export const refs = {
   'fr-fr': ['can6M11', '6M3C-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['9GM2A-2'],
 }
 export default class VolumePaveCubes extends ExerciceSimple {
   constructor() {
@@ -38,8 +38,8 @@ export default class VolumePaveCubes extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const l = randint(2, 5)
-    const L = randint(2, 4)
+    const l = this.quotaRandint('l', 2, 5)
+    const L = this.quotaRandint('L', 2, 4)
     const h = randint(2, 6, [l, L])
     this.question = ''
     if (this.sup && context.isHtml) {

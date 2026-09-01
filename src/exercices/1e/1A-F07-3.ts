@@ -6,14 +6,14 @@ import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { milieu } from '../../lib/2d/utilitairesPoint'
-import { deuxColonnes } from '../../lib/format/miseEnPage'
+import { bleuMathalea } from '../../lib/colors'
 import { aLeBonNombreDePropsDifferentes } from '../../lib/interactif/qcm'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
-import { bleuMathalea } from '../../lib/colors'
 /**
  * @author Gilles Mora
  *
@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -115,7 +115,7 @@ export default class Auto1AF6c extends ExerciceQcmA {
         ymax: ymax + 0.25,
         pixelsParCm: 30,
         scale: 0.75,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
       r1,
@@ -130,7 +130,7 @@ export default class Auto1AF6c extends ExerciceQcmA {
         ymax: ymax + 0.25,
         pixelsParCm: 30,
         scale: 0.75,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
       r1,
@@ -145,11 +145,9 @@ export default class Auto1AF6c extends ExerciceQcmA {
       lBBx,
     )
 
-    this.enonce = `${deuxColonnes(
-      `Dans un repère du plan, on a représenté une droite.<br><br>
-      Le coefficient directeur de cette droite est égal  à :`,
-      `${objet}`,
-    )}<br>`
+    this.enonce = `Dans un repère du plan, on a représenté une droite.<br><br>
+      ${objet}<br>
+      Le coefficient directeur de cette droite est égal  à :`
 
     if (yB === yA) {
       this.correction = `La droite est horizontale. On en déduit que son coefficient directeur est $m=${miseEnEvidence('0')}$.<br>`
@@ -186,10 +184,7 @@ export default class Auto1AF6c extends ExerciceQcmA {
       const yB = randint(0, 6)
       this.genererExercice(xA, yA, xB, yB)
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {})
-    )
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true))
     // Ici, on doit avoir une bonne réponse et 3 distracteurs distincts.
   }
 

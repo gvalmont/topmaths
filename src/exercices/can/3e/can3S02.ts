@@ -1,10 +1,9 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la probabilité d’un évènement contraire'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -61,7 +60,7 @@ export default class ProbaEvenementContraire extends ExerciceSimple {
       [7, 10],
       [9, 10],
     ] // Couples de nombres premiers entre eux
-    const fraction = choice(listeFractions)
+    const fraction = this.quotaChoice('fraction', listeFractions)
     const n = fraction[0]
     const d = fraction[1]
     const nSurD = new FractionEtendue(n, d)
@@ -71,7 +70,7 @@ export default class ProbaEvenementContraire extends ExerciceSimple {
 Quelle est la probabilité de son événement contraire ?
 `
     this.correction = `La relation entre la probabilité d'un événement $A$ et celle de son contraire $\\overline{A}$ est :  $P(\\overline{A})=1-P(A)$.<br>
-        Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${dMoinsNSurD.texFraction}$.`
+        Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${miseEnEvidence(dMoinsNSurD.texFraction)}$.`
     this.reponse = new FractionEtendue(d - n, d)
     this.distracteurs = [
       `$${new FractionEtendue(d, n).texFraction}$`,

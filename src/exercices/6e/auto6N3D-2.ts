@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   choice,
   combinaisonListes,
@@ -16,13 +17,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const titre = 'Parcourir un labyrinthe de multiples'
 export const dateDePublication = '06/12/2020'
 export const dateDeModifImportante = '29/10/2024'
@@ -39,7 +38,7 @@ export const uuid = 'ed4d8'
 export const refs = {
   'fr-fr': ['auto6N3D-2'],
   'fr-2016': ['6C10-5'],
-  'fr-ch': ['9NO4-18'],
+  'fr-ch': [],
 }
 export default class ExerciceLabyrintheMultiples extends Exercice {
   niveau: string
@@ -178,7 +177,7 @@ export default class ExerciceLabyrintheMultiples extends Exercice {
               options: { nombreDecimalSeulement: true },
             },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       }
       texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(String(laby.chemin2d.length - 1))}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(String(nbL - monChemin[monChemin.length - 1][1]))}$.<br>`

@@ -12,7 +12,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Exprimer une aire en fonction de $x$'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '18/04/2024'
 export const uuid = 'd544a'
 export const refs = {
@@ -34,7 +34,7 @@ export default class EnFonctionDeAire extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('cas', [1, 2])) {
       case 1:
         {
           const a = randint(1, 3)

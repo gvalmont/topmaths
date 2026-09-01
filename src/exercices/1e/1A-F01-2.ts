@@ -4,7 +4,6 @@ export const dateDePublication = '02/11/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can3F01 pour les auto 1er
@@ -14,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'cb0a5'
 
 export const refs = {
-  'fr-fr': ['1A-F01-2'],
+  'fr-fr': ['1A-F01-2', '2A-F1-2'],
   'fr-ch': [],
 }
 export default class Auto1AF1b extends ImageSpline {

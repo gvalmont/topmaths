@@ -1,4 +1,3 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -7,7 +6,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer astucieusement avec 100 ou 10'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
@@ -20,8 +19,8 @@ export const amcType = 'AMCNum'
 export const uuid = 'ca4ce'
 
 export const refs = {
-  'fr-fr': ['can5C13'],
-  'fr-ch': [],
+  'fr-fr': ['can5C13', 'auto5N1E-flash1'],
+  'fr-ch': ['9NO1G-4'],
 }
 export default class CalculAstucieux1 extends ExerciceSimple {
   constructor() {
@@ -39,7 +38,7 @@ export default class CalculAstucieux1 extends ExerciceSimple {
     const f = randint(1, 9) - 0.2
     const g = randint(10, 90)
     switch (
-      choice(['a', 'b', 'c', 'd', 'e', 'f', 'g']) //
+      this.quotaChoice('typeDeQuestions', ['a', 'b', 'c', 'd', 'e', 'f', 'g']) //
     ) {
       case 'a':
         this.question = `Calculer $4 \\times ${texNombre(d)}\\times 25$.`

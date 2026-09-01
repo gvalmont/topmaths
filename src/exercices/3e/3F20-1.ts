@@ -4,6 +4,7 @@ import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint, texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import type { AutoCorrectionAMC } from '../../lib/amc/amcTypes'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -29,11 +30,9 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Étudier des fonctions affines'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -42,7 +41,7 @@ export const dateDeModifImportante = '01/06/2024'
 
 export const refs = {
   'fr-fr': ['3F20-1'],
-  'fr-ch': ['10FA5-13', '11FA8-7'],
+  'fr-ch': ['11FA1B-2'],
 }
 export const uuid = '20d20'
 /**
@@ -285,7 +284,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-            // } else setReponse(this, i, image, { formatInteractif })
           } else handleAnswers(this, i, { reponse: { value: image } })
           break
         case 'imageParValeurs':
@@ -320,7 +318,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-            // } else setReponse(this, i, image, { formatInteractif })
           } else handleAnswers(this, i, { reponse: { value: image } })
           break
         case 'imageParGraphique':
@@ -369,7 +366,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-            //  } else setReponse(this, i, image, { formatInteractif })
           } else handleAnswers(this, i, { reponse: { value: image } })
           break
         case 'antecedentParExpression':
@@ -401,7 +397,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-            //  } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           } else handleAnswers(this, i, { reponse: { value: antecedent } })
           break
         case 'antecedentParValeurs':
@@ -444,7 +439,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-            //  } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           } else handleAnswers(this, i, { reponse: { value: antecedent } })
           break
         case 'antecedentParGraphique':
@@ -502,7 +496,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-            //  } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           } else handleAnswers(this, i, { reponse: { value: antecedent } })
           break
         case 'expressionParValeurs':
@@ -533,7 +526,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texte2AMC = `Valeur de $b$ dans $${nomFonction}(x)=ax+b$`
             valeur2AMC = ordonneeOrigine
             texte3AMC = 'Vos calculs et votre réponse<br>'
-            // } else  setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
           } else
             handleAnswers(this, i, {
               reponse: {

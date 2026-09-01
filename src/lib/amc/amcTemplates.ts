@@ -85,6 +85,16 @@ export const qcmTemplate = `\\element{ {{- ref -}} }{
 {% endif %}
 }`
 
+export const AMCIntervalsTemplate = `\\element{ {{- ref -}} }{
+  \\begin{question}{ {{- id -}} }\\AMClabel{ {{- id -}} }
+    {{ enonce }}
+    {% if correction %}\\explain{ {{- correction | safe -}} }{% endif %}
+    \\begin{reponseshoriz}[o]
+      \\AMCIntervals{ {{- interval.correct -}} }{ {{- interval.left -}} }{ {{- interval.right -}} }{ {{- interval.step -}} }
+    \\end{reponseshoriz}
+  \\end{question}
+}`
+
 export const AMCHybrideContainerTemplate = `\\element{ {{- ref -}} }{
 {%- if multicolsAll %}
   \\setlength{\\columnseprule}{ {{ "0.5" if barreseparation else "0" }}pt}\\begin{multicols}{2}
@@ -148,13 +158,13 @@ export const AMCHybrideNumPowerTemplate = `{% if enonceApresNumQuestion %}\\begi
 {{ texte | safe }}
 \\vspace{0.25cm}
 Base
-\\AMCnumericChoices{ {{ baseValue }} }{digits={{ digitsBase }},decimals=0,sign={{ baseSign }},approx=0,borderwidth=0pt,backgroundcol=lightgray,scoreapprox={{ scoreapprox }},scoreexact=1,Tpoint={,}}
+\\AMCnumericChoices{ {{ baseValue }} }{digits={{ digitsBase }},decimals=0,sign={{ baseSign }},approx=0,borderwidth=0pt,backgroundcol=lightgray,scoreapprox={{ scoreapprox }},scoreexact=1,Tpoint=,}
 \\end{questionmultx}
 \\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}
 \\begin{questionmultx}{ {{- exponentId -}} }\\AMClabel{ {{- exponentId -}} }
 \\vspace{18pt}
 Exposant
-\\AMCnumericChoices{ {{ exponentValue }} }{digits={{ digitsExponent }},decimals=0,sign=true,approx=0,borderwidth=0pt,backgroundcol=lightgray,scoreapprox={{ scoreapprox }},scoreexact=1,Tpoint={,}}
+\\AMCnumericChoices{ {{ exponentValue }} }{digits={{ digitsExponent }},decimals=0,sign=true,approx=0,borderwidth=0pt,backgroundcol=lightgray,scoreapprox={{ scoreapprox }},scoreexact=1,Tpoint=,}
 \\end{questionmultx}
 \\end{multicols}
 `

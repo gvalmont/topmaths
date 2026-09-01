@@ -22,7 +22,7 @@
   ```
  -->
 <div
-  class="flex flex-row items-center align-middle font-logo9 tracking-tighter ml-4
+  class="hidden md:flex flex-row items-center align-middle font-logo9 tracking-tighter ml-4
   pt-6 md:pt-0
   text-lg md:text-3xl xl:text-5xl"
 >
@@ -37,7 +37,7 @@
         : 'hidden'}
     ></i>
     <i
-      class={type === 'design'
+      class={type === 'design' && subtitle
         ? 'bx bx-chevron-right md:translate-y-1'
         : 'hidden'}
     ></i>

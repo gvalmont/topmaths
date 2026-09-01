@@ -1,7 +1,8 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { texPrix } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   miseEnEvidence,
@@ -17,14 +18,12 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   'Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple'
 export const dateDePublication = '11/08/2021'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = 'true'
 export const amcType = 'AMCNum'
 /**
@@ -218,9 +217,14 @@ function questionAchat(exo: Exercice, i: number) {
     `Cherchons maintenant le prix de $${y}$ ${objet}. <br>` +
     `$${y}$ ${objet}, c'est $${miseEnEvidence(y, bleuMathalea)}$ fois plus qu'${listeDeChose[index1][index2]}. <br>` +
     `$${y}$ ${objet} coûtent donc $${miseEnEvidence(y, bleuMathalea)}$ fois plus que $${miseEnEvidence(texPrix(x / n), bleuMathalea)}$ €, le prix d'${listeDeChose[index1][index2]}.` +
-    `<br> $${miseEnEvidence(texPrix(x / n), bleuMathalea)}$ € $\\times ${miseEnEvidence(y, bleuMathalea)} = ${texPrix((x * y) / n)}$ €<br>` +
+    `$${miseEnEvidence(texPrix(x / n), bleuMathalea)}$ € $\\times ${miseEnEvidence(y, bleuMathalea)} = ${texPrix((x * y) / n)}$ €<br>` +
     ` ${texteEnCouleurEtGras('Conclusion :', 'black')} $${y}$ ${objet} coûtent $${miseEnEvidence(texPrix((x * y) / n))}$ €.`
-  setReponse(exo, i, arrondi((x * y) / n, 2))
+  handleAnswers(
+    exo,
+    i,
+    { reponse: { value: texNombre((x * y) / n, 2) } },
+    { formatInteractif: 'mathalea-mathfield' },
+  )
 
   return {
     qtexte: texte,
@@ -266,8 +270,8 @@ function questionRecette(exo: Exercice, i: number) {
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   const texte =
     `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour $${nbPersonneInit}$ personnes qu'il faut $${texNombre(quantite)}$ g de ${liste[alea1].ingredient}. <br>` +
-    `Elle veut adapter sa recette pour $${nbPersonneFinal}$ personnes.` +
-    `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` +
+    `Elle veut adapter sa recette pour $${nbPersonneFinal}$ personnes.<br>` +
+    `Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` +
     ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
       texteApres: ' g',
     })
@@ -281,9 +285,14 @@ function questionRecette(exo: Exercice, i: number) {
     ` Cherchons maintenant la quantité nécessaire pour ${nbPersonneFinal} personnes. <br>` +
     ` $${nbPersonneFinal}$ personnes, c'est $${miseEnEvidence(nbPersonneFinal, bleuMathalea)}$ fois $1$ personne. <br>` +
     `Donc, il faut $${miseEnEvidence(nbPersonneFinal, bleuMathalea)}$ fois plus que ${liste[alea1].quantites_par_pers[alea3]} g de ${liste[alea1].ingredient} que pour $1$ personne pour faire sa recette.` +
-    `<br> $${miseEnEvidence(liste[alea1].quantites_par_pers[alea3], bleuMathalea)}$ g $\\times ${miseEnEvidence(nbPersonneFinal, bleuMathalea)} = ${quantiteReponse}$ g <br>
+    `$${miseEnEvidence(liste[alea1].quantites_par_pers[alea3], bleuMathalea)}$ g $\\times ${miseEnEvidence(nbPersonneFinal, bleuMathalea)} = ${quantiteReponse}$ g <br>
 ${texteEnCouleurEtGras('Conclusion : ', 'black')} ${prenoms[0]} doit utiliser $${miseEnEvidence(quantiteReponse)}$ g de ${liste[alea1].ingredient} pour $${nbPersonneFinal}$ personnes. `
-  setReponse(exo, i, arrondi(quantiteReponse, 6))
+  handleAnswers(
+    exo,
+    i,
+    { reponse: { value: texNombre(quantiteReponse, 0) } },
+    { formatInteractif: 'mathalea-mathfield' },
+  )
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
@@ -341,8 +350,8 @@ function questionDillution(exo: Exercice, i: number) {
   const texte =
     `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut ` +
     ` $${texNombre(quantite)}$ ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour $${volumeInitialAff}$ ${liste[alea1].unite_solvant[1]} d'eau.<br> ` +
-    `On veut utiliser $${volumeFinalAff}$ ${uniteSolvantVolumeFinal} d'eau.` +
-    `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` +
+    `On veut utiliser $${volumeFinalAff}$ ${uniteSolvantVolumeFinal} d'eau.<br>` +
+    `Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` +
     ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
       texteApres: ' ' + liste[alea1].unite_solute,
     })
@@ -357,9 +366,18 @@ function questionDillution(exo: Exercice, i: number) {
     ` Cherchons maintenant la quantité nécessaire pour $${volumeFinalAff}$ ${uniteSolvantVolumeFinal} d'eau. <br>` +
     ` $${volumeFinalAff}$ ${uniteSolvantVolumeFinal} d'eau, c'est $${miseEnEvidence(volumeFinalAff, bleuMathalea)}$ fois $1$ ${liste[alea1].unite_solvant[0]} d'eau.` +
     ` Il faut donc $${miseEnEvidence(volumeFinalAff, bleuMathalea)}$ fois plus de ${liste[alea1].solute} que $${texNombre(quantite / volumeInitial)}$ ${liste[alea1].unite_solute} :` +
-    `<br> $${miseEnEvidence(texNombre(quantite / volumeInitial), bleuMathalea)}$ ${liste[alea1].unite_solute} $\\times ${miseEnEvidence(volumeFinalAff, bleuMathalea)} = ${texNombre((quantite / volumeInitial) * volumeFinal)}$ ${liste[alea1].unite_solute}<br>` +
+    `$${miseEnEvidence(texNombre(quantite / volumeInitial), bleuMathalea)}$ ${liste[alea1].unite_solute} $\\times ${miseEnEvidence(volumeFinalAff, bleuMathalea)} = ${texNombre((quantite / volumeInitial) * volumeFinal)}$ ${liste[alea1].unite_solute}<br>` +
     `${texteEnCouleurEtGras('Conclusion :', 'black')} il faut prévoir $${miseEnEvidence(texNombre((quantite / volumeInitial) * volumeFinal))}$ ${liste[alea1].unite_solute} de  ${liste[alea1].solute}.`
-  setReponse(exo, i, arrondi((quantite / volumeInitial) * volumeFinal, 6))
+  handleAnswers(
+    exo,
+    i,
+    {
+      reponse: {
+        value: texNombre((quantite / volumeInitial) * volumeFinal, 6),
+      },
+    },
+    { formatInteractif: 'mathalea-mathfield' },
+  )
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
@@ -400,8 +418,8 @@ function questionDistance(exo: Exercice, i: number) {
   const dureeR = couplePremiersEntreEux[indexN][1]
   const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le facteur de distance parcourue
   const texte =
-    `Un ${liste[alea1].locomotion} parcourt en moyenne $${texNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)}\\text{ km}$ en $${dureeQ}$ heures.
-  <br> Quelle distance va-t-il parcourir, à la même vitesse, en $${dureeR}$ heures ?` +
+    `Un ${liste[alea1].locomotion} parcourt en moyenne $${texNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)}\\text{ km}$ en $${dureeQ}$ heures.<br>
+     Quelle distance va-t-il parcourir, à la même vitesse, en $${dureeR}$ heures ?` +
     ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
       texteApres: '$\\text{ km}$',
     })
@@ -416,9 +434,18 @@ function questionDistance(exo: Exercice, i: number) {
     ` Cherchons maintenant la distance parcourue en $${dureeR}$ h. <br>` +
     ` $${dureeR}$ h, c'est $${miseEnEvidence(dureeR, bleuMathalea)}$ fois $1$ h.` +
     ` Le ${liste[alea1].locomotion} parcourt donc $${miseEnEvidence(dureeR, bleuMathalea)}$ fois plus de distance qu'en $1$ h.` +
-    `<br> $${miseEnEvidence(texNombre(liste[alea1].vitesse[alea2] * facteur), bleuMathalea)}\\text{ km} \\times ${miseEnEvidence(dureeR, bleuMathalea)} = ${texNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}\\text{ km}$ <br>` +
+    `$${miseEnEvidence(texNombre(liste[alea1].vitesse[alea2] * facteur), bleuMathalea)}\\text{ km} \\times ${miseEnEvidence(dureeR, bleuMathalea)} = ${texNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}\\text{ km}$ <br>` +
     `${texteEnCouleurEtGras('Conclusion :', 'black')} le ${liste[alea1].locomotion} parcourra en moyenne $${miseEnEvidence(texNombre(liste[alea1].vitesse[alea2] * dureeR * facteur))}\\text{ km}$ en $${dureeR}$ h.`
-  setReponse(exo, i, arrondi(liste[alea1].vitesse[alea2] * dureeR * facteur, 6))
+  handleAnswers(
+    exo,
+    i,
+    {
+      reponse: {
+        value: texNombre(liste[alea1].vitesse[alea2] * dureeR * facteur, 6),
+      },
+    },
+    { formatInteractif: 'mathalea-mathfield' },
+  )
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
@@ -450,12 +477,17 @@ function questionEchelle(exo: Exercice, i: number) {
     ` $1\\text{ cm}$ sur la carte correspond donc à $${miseEnEvidence(texNombre(distanceReel / distanceCarte), bleuMathalea)}\\text{ km}$ dans la réalité. <br>` +
     ' Cherchons maintenant la distance réelle de son trajet. <br>' +
     ` $${distanceCarte2}\\text{ cm}$, c'est $${miseEnEvidence(distanceCarte2, bleuMathalea)}$ fois $1\\text{ cm}$.` +
-    `<br> $${miseEnEvidence(texNombre(distanceReel / distanceCarte), bleuMathalea)}\\text{ km}\\times ${miseEnEvidence(distanceCarte2, bleuMathalea)} = ${texNombre((distanceCarte2 * distanceReel) / distanceCarte)}\\text{ km}$<br>` +
+    `$${miseEnEvidence(texNombre(distanceReel / distanceCarte), bleuMathalea)}\\text{ km}\\times ${miseEnEvidence(distanceCarte2, bleuMathalea)} = ${texNombre((distanceCarte2 * distanceReel) / distanceCarte)}\\text{ km}$<br>` +
     `${texteEnCouleurEtGras('Conclusion :', 'black')} son trajet correspond en réalité à une distance de $${miseEnEvidence(texNombre((distanceCarte2 * distanceReel) / distanceCarte))}\\text{ km}$.`
-  setReponse(
+  handleAnswers(
     exo,
     i,
-    arrondi((distanceCarte2 * distanceReel) / distanceCarte, 6),
+    {
+      reponse: {
+        value: texNombre((distanceCarte2 * distanceReel) / distanceCarte, 6),
+      },
+    },
+    { formatInteractif: 'mathalea-mathfield' },
   )
   return {
     qtexte: texte,
@@ -523,9 +555,18 @@ function questionRecouvrirSurface(exo: Exercice, i: number) {
     ` on a donc besoin de $${miseEnEvidence(texNombre(quantite / surfaceInitiale), bleuMathalea)}$ ${liste[alea1].unite} pour recouvrir $1\\text{ m}^2$.<br>` +
     ` Cherchons maintenant la quantité de ${liste[alea1].unite} nécessaire pour recouvrir $${texNombre(surfaceFinale)}\\text{ m}^2$.<br>` +
     ` $${texNombre(surfaceFinale)}\\text{ m}^2$, c'est $${miseEnEvidence(texNombre(surfaceFinale), bleuMathalea)}$ fois plus que $1\\text{ m}^2$.` +
-    `<br> $${miseEnEvidence(texNombre(quantite / surfaceInitiale), bleuMathalea)}$ ${liste[alea1].unite} $\\times ${miseEnEvidence(texNombre(surfaceFinale), bleuMathalea)} = ${texNombre((quantite * surfaceFinale) / surfaceInitiale)}$ ${liste[alea1].unite}<br>` +
+    `$${miseEnEvidence(texNombre(quantite / surfaceInitiale), bleuMathalea)}$ ${liste[alea1].unite} $\\times ${miseEnEvidence(texNombre(surfaceFinale), bleuMathalea)} = ${texNombre((quantite * surfaceFinale) / surfaceInitiale)}$ ${liste[alea1].unite}<br>` +
     `${texteEnCouleurEtGras('Conclusion :', 'black')} ${prenoms[0]} aura besoin de $${miseEnEvidence(texNombre((quantite * surfaceFinale) / surfaceInitiale))}$ ${liste[alea1].unite} pour recouvrir $${texNombre(surfaceFinale)}\\text{ m}^2$.`
-  setReponse(exo, i, arrondi((quantite * surfaceFinale) / surfaceInitiale, 3))
+  handleAnswers(
+    exo,
+    i,
+    {
+      reponse: {
+        value: texNombre((quantite * surfaceFinale) / surfaceInitiale, 3),
+      },
+    },
+    { formatInteractif: 'mathalea-mathfield' },
+  )
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
@@ -539,16 +580,16 @@ function questionRecouvrirSurface(exo: Exercice, i: number) {
 export const uuid = 'b0f4e'
 
 export const refs = {
-  'fr-fr': ['6P3C-2', 'BP2AutoL8', '3AutoP07-1'],
+  'fr-fr': ['6P3C-2', 'BP2AutoL8', '3AutoP02'],
   'fr-2016': ['6P12', 'BP2AutoL8'],
-  'fr-ch': ['9FA3-12'],
+  'fr-ch': ['9FA2B-6'],
 }
 export default class ProportionnaliteParCoefDeProportionnalite extends Exercice {
   constructor() {
     super()
 
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
     this.nbQuestions = 6
 
     this.besoinFormulaireCaseACocher = [
@@ -577,7 +618,7 @@ export default class ProportionnaliteParCoefDeProportionnalite extends Exercice 
       saisie: this.sup2,
     })
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       indexN = randint(0, couplePremiersEntreEux.length - 1)
       if (this.sup) {
         versionSimplifiee = true

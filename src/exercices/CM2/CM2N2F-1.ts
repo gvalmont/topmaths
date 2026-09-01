@@ -10,18 +10,17 @@ import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   quotientier,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Lire des abscisses fractionnaires'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '14/01/2025'
@@ -36,7 +35,7 @@ export const uuid = '0e527'
 export const refs = {
   'fr-fr': ['CM2N2F-1'],
   'fr-2016': ['6N21-3'],
-  'fr-ch': ['9NO11-10'],
+  'fr-ch': ['9NO3A-7'],
 }
 export default class LireAbscissesFractionnairesComplexes extends Exercice {
   constructor() {
@@ -49,7 +48,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
       'Types de questions',
       'Nombres séparés par des tirets  :\n2 : Demis\n3 : Tiers\n4 : Quarts\n5 : Cinquièmes\n6 : Sixièmes\n7 : Septièmes\n8 : Huitièmes\n9 : Neuvièmes\n10: Dixièmes\n11: Onzièmes\n12 : Douzièmes\n13 : Mélange',
     ]
-    /*  r
+    /*
     this.besoinFormulaire3CaseACocher = [
       'Avec des fractions simplifiées (le cas échéant)',
       true,
@@ -287,8 +286,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
             xmin: -0.2,
             xmax: (data[tab].max - origine) * tailleUnite + 1,
             ymin: -1,
-            ymax: 1,
-            style: 'margin-top:10px ',
+            ymax: 1.5,
             scale: 0.6,
           },
           d,
@@ -332,8 +330,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
           xmin: -0.2,
           xmax: (data[tab].max - origine) * tailleUnite + 1,
           ymin: -2.5,
-          ymax: 1,
-          style: 'margin-top:10px ',
+          ymax: 1.5,
           scale: 0.6,
         },
         dCorr,

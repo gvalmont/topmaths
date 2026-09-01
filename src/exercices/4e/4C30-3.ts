@@ -17,7 +17,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = "Donner l'écriture entière d'une puissance"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -29,7 +29,7 @@ export const uuid = '36f8b'
 
 export const refs = {
   'fr-fr': ['4C30-3'],
-  'fr-ch': ['9NO5-2'],
+  'fr-ch': ['9NO1D-2', '10NO3D-1'],
 }
 export default class EcritureDecimalePuissance extends Exercice {
   constructor() {

@@ -1,4 +1,4 @@
-import { orangeMathalea, bleuMathalea } from '../../lib/colors'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -14,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre = 'Résoudre un problème en utilisant la division décimale'
 export const dateDePublication = '09/05/2025'
 
@@ -29,7 +29,7 @@ export const uuid = '12d6e'
 export const refs = {
   'fr-fr': ['6N2I'],
   'fr-2016': ['6C31-1'],
-  'fr-ch': ['9NO8-22'],
+  'fr-ch': ['PR-30'],
 }
 export default class DivisionDecimale extends Exercice {
   constructor() {
@@ -40,7 +40,7 @@ export default class DivisionDecimale extends Exercice {
       '1 : Inférieurs à 1\n2 : Supérieurs à 1\n3 : Mélange',
     ]
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon opdiv n'est pas joli
     this.nbQuestions = 4
     this.sup = 3
   }

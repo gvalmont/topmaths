@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleur,
@@ -11,7 +10,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec +/-99 ou +/-999'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
@@ -37,7 +36,7 @@ export default class CalculAvec99 extends ExerciceSimple {
   nouvelleVersion() {
     let a
     switch (
-      choice(['a', 'b', 'c', 'd', 'e']) //
+      this.quotaChoice('typeDeQuestions', ['a', 'b', 'c', 'd', 'e']) //
     ) {
       case 'a':
         a = randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)

@@ -11,11 +11,11 @@ export const titre =
   'Calculer mentalement une longueur avec le théorème de Pythagore'
 export const dateDePublication = '05/10/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '6dc45'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * Calcul mental utilisant les carrés de 1 à 15 avec le théorème de Pythagore
@@ -39,7 +39,7 @@ export default class CalculMentalPythagore extends Exercice {
       typeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const AB = randint(2, 5)
       const BC = randint(10, 15)
       const AC = randint(6, 9)

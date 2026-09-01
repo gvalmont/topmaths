@@ -25,7 +25,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre = 'Calculer un  produit scalaire avec les normes'
 export const dateDePublication = '29/04/2025'
 
@@ -80,7 +80,6 @@ export default class ProduitScalaireNormes extends Exercice {
     for (
       let i = 0, texte, texteCorr, reponse, objets, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const cours = `Dans un repère orthonormé, 
      $\\vec{u}\\cdot\\vec{v}=\\dfrac{1}{2}\\left[\\Vert \\vec{u}+\\vec{v}\\Vert^2-\\Vert\\vec{u}\\Vert^2-\\Vert\\vec{v}\\Vert^2\\right]$
@@ -165,7 +164,7 @@ export default class ProduitScalaireNormes extends Exercice {
       objets.push(ABC, nommeABC, codeAB, codeAC, codeBC)
       const figure = mathalea2d(
         Object.assign(
-          { scale: 0.7, pixelsParCm: 20, style: 'inline' },
+          { scale: 0.7, pixelsParCm: 20, display: 'inline' } as const,
           fixeBordures(objets),
         ),
         objets,

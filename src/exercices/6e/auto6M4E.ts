@@ -1,5 +1,5 @@
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -11,7 +11,6 @@ import Exercice from '../Exercice'
 export const dateDePublication = '02/08/2025'
 export const titre = "Choisir des rapports entre fraction d'heure et minutes"
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
 
 /**
  * Choisir des rapports entre fraction d\'heure et minutes
@@ -34,7 +33,7 @@ export default class AutoChoisirFractionHeure extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const durees = [
         ["Un quart d'heure", '\\dfrac14', '15', ' est égal', 'q'],
         ['Une demi-heure', '\\dfrac12', '30', 'est égale', 'd'],
@@ -61,11 +60,11 @@ export default class AutoChoisirFractionHeure extends Exercice {
             ]
         const texte = estUnePhrase
           ? (this.interactif
-              ? choixDeroulant(this, i, choixListeDeroulante)
+              ? choixDeroulant(this, i, { choices: choixListeDeroulante })
               : '$\\ldots\\ldots\\ldots\\ldots$') +
             ` ${durees[choix][3]} à $${durees[choix][2]}$ minutes.`
           : (this.interactif
-              ? choixDeroulant(this, i, choixListeDeroulante)
+              ? choixDeroulant(this, i, { choices: choixListeDeroulante })
               : '$\\ldots\\ldots\\ldots\\ldots$') +
             ` = $${durees[choix][2]}$ minutes.`
 
@@ -77,7 +76,7 @@ export default class AutoChoisirFractionHeure extends Exercice {
           this,
           i,
           { reponse: { value: reponse } },
-          { formatInteractif: 'listeDeroulante' },
+          { formatInteractif: 'liste-deroulante' },
         )
 
         this.listeQuestions[i] = texte

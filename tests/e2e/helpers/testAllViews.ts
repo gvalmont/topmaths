@@ -68,7 +68,7 @@ export type CallbackType = (
 type Form = {
   description: string
   locator: Locator
-  type: 'check' | 'num' | 'text' | 'select'
+  type: 'check' | 'num' | 'text' | 'select' | 'textListe'
   values: string[] | number[] | boolean[]
 }
 
@@ -240,8 +240,13 @@ async function checkLatexVariation(
     // le test AMC doit être refait.
     // await openAmcFromMoreExports(page)
   } else {
-    await page.locator('button[data-tip="PDF via LaTeX"]').click()
-    await page.click(`input[type="radio"][value="${variation}"]`)
+    await page.locator('[data-tip="Plus d\'exports"] button').click()
+    await page
+      .getByRole('dialog')
+      .locator('button:has(p:text-is("PDF via LaTeX"))')
+      .click()
+    await page.waitForURL((url) => url.searchParams.get('v') === 'tex')
+    await page.getByLabel('Habillage').selectOption(variation)
     await waitForLatex(page, variation)
     await callback(page, description, view, variation)
     await page.locator('.bx-x').first().click()
@@ -249,37 +254,33 @@ async function checkLatexVariation(
 }
 
 async function waitForLatex(page: Page, model: LatexVariation | AMCVariation) {
+  let expectedText: string | null = null
   switch (model) {
     case 'Coopmaths':
-      await page.waitForFunction(() => {
-        const preElement = document.querySelector('main > section > pre')
-        if (preElement && preElement.textContent) {
-          return preElement.textContent.includes('\\begin{EXO}{')
-        }
-        return false
-      })
-      break
     case 'Classique':
-      await page.waitForFunction(() => {
-        const preElement = document.querySelector('main > section > pre')
-        if (preElement && preElement.textContent) {
-          return preElement.textContent.includes('\\begin{EXO}{')
-        }
-        return false
-      })
+      expectedText = '\\begin{EXO}{'
       break
     case 'ProfMaquette':
-      await page.waitForFunction(() => {
-        const preElement = document.querySelector('main > section > pre')
-        if (preElement && preElement.textContent) {
-          return preElement.textContent.includes('\\begin{Maquette}[Fiche')
-        }
-        return false
-      })
+      expectedText = '\\begin{Maquette}[Fiche'
+      break
+    case 'ProfMaquetteQrcode':
+      expectedText = '\\qrcode'
+      break
+
+    case 'Can':
+      expectedText = '\\CompteurTC'
       break
 
     default:
       break
+  }
+  if (expectedText != null) {
+    await page.waitForFunction((text) => {
+      const source = document.querySelector<HTMLTextAreaElement>(
+        '[data-testid="tex-source"]',
+      )
+      return source?.value.includes(text) === true
+    }, expectedText)
   }
 }
 
@@ -322,9 +323,7 @@ async function isAmcAvailable(page: Page): Promise<boolean> {
 }
 
 export async function getLatexFromPage(page: Page) {
-  const questionSelector = 'pre.w-full'
-  const locator = page.locator(questionSelector)
-  return await locator.innerText()
+  return await page.getByTestId('tex-source').inputValue()
 }
 
 export async function checkEachCombinationOfParams(
@@ -525,6 +524,18 @@ async function setParam(
   if (form.type === 'select') {
     await form.locator.selectOption({ value: value.toString() })
   }
+  if (form.type === 'textListe') {
+    // Le formulaire est une liste de cas à cocher : on les coche tous, avec un
+    // poids de 1, et on demande autant de questions que de cas.
+    const nombreDeCas = await form.locator
+      .locator('input[type="checkbox"]')
+      .count()
+    const locator = page.locator('#settings-nb-questions-0')
+    if ((await locator.count()) > 0) {
+      await locator.fill(nombreDeCas.toString())
+    }
+    await form.locator.locator('button').first().click() // « Tout cocher »
+  }
   if (form.type === 'text') {
     const locator = page.locator('#settings-nb-questions-0')
     if ((await locator.count()) > 0) {
@@ -641,23 +652,50 @@ async function getForms(page: Page) {
         'xpath=../preceding-sibling::div/div[1]',
       )
       const labelText = await titleDiv.innerText()
-      const allNumbers = getAllNumbersFromString(labelText || '')
-      const uniqueNumbers = Array.from(new Set(allNumbers))
+      const values = getEnumeratedTextFormValues(labelText || '')
+      if (values.length === 0) {
+        logIfVerbose(
+          `Formulaire texte ignoré car son aide n'est pas une énumération de cas: ${labelText}`,
+        )
+        continue
+      }
       formTexts.push({
         description: sanitizeFilename(labelText),
         locator: formText,
         type: 'text',
-        values: [uniqueNumbers.map((num) => num.toString()).join('-')],
+        values: [values.map((num) => num.toString()).join('-')],
+      })
+    }
+  }
+  // Les aides qui se résument à une énumération de cas ne sont pas rendues par un
+  // champ texte mais par une liste de cases à cocher (cf. formulaireTexteListe.ts).
+  for (let i = 0; i < 5; i++) {
+    const formTextListe = settingsLocator.locator(
+      `#settings-formTextListe${i + 1}-0`,
+    )
+    if (await formTextListe.isVisible()) {
+      const titleDiv = settingsLocator.locator(
+        `#settings-formTextTitre${i + 1}-0`,
+      )
+      const labelText = await titleDiv.innerText()
+      formTexts.push({
+        description: sanitizeFilename(labelText),
+        locator: formTextListe,
+        type: 'textListe',
+        values: ['tous les cas'],
       })
     }
   }
   return { formTexts, formChecks, formNums, formNumSelects }
 }
 
-function getAllNumbersFromString(inputString: string) {
-  const regex = /\d+/g // Regex pattern to match one or more digits
-  const matches = inputString.match(regex)
-  return matches ? matches.map(Number) : []
+function getEnumeratedTextFormValues(inputString: string) {
+  const values: number[] = []
+  for (const line of inputString.split('\n')) {
+    const match = line.trim().match(/^(\d+)\s*:/)
+    if (match) values.push(Number(match[1]))
+  }
+  return Array.from(new Set(values))
 }
 
 function sanitizeFilename(filename: string): string {

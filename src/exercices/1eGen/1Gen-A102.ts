@@ -4,10 +4,8 @@ export const dateDePublication = '29/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
- * Clone de can2F24 pour les auto 1er
  * @author Gilles Mora
  */
 

@@ -6,7 +6,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer un produit (table de multiplication)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '45105'
 export const refs = {
   'fr-fr': [],
@@ -26,7 +26,7 @@ export default class Can32026Q1 extends ExerciceCan {
 
   enonce(a?: number, b?: number) {
     if (a == null || b == null) {
-      a = choice([4, 6, 7, 8])
+      a = this.quotaChoice('a', [4, 6, 7, 8])
       b = choice([4, 6, 7, 8], [a])
     }
 

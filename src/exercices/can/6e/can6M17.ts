@@ -16,7 +16,7 @@ export const titre = "Mesurer différence d'aire par comptage"
 export const dateDePublication = '26/04/2024'
 export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Éric Elter
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 
 /**
@@ -25,8 +25,8 @@ export const amcReady = true
 export const uuid = 'a17d6'
 
 export const refs = {
-  'fr-fr': ['can6M17', 'auto6M2C-flash3'],
-  'fr-ch': ['9GM1-11'],
+  'fr-fr': ['can6M17', 'auto6M2C-flash3', '6AutoA1-3'],
+  'fr-ch': ['9GM1C-4'],
 }
 export default class DifferenceAireParComptageCan extends ExerciceSimple {
   constructor() {
@@ -109,7 +109,7 @@ export default class DifferenceAireParComptageCan extends ExerciceSimple {
 
       const fig1 = mathalea2d(
         Object.assign(
-          { pixelsParCm: 20, scale: 0.5, style: 'display: inline-block' },
+          { pixelsParCm: 20, scale: 0.5, display: 'inline-block' } as const,
           fixeBordures(objets, {
             rxmin: -0.1,
             rymin: -0.1,

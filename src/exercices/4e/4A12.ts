@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -16,11 +17,9 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -39,7 +38,7 @@ export const uuid = 'b16c6'
 
 export const refs = {
   'fr-fr': ['4A12'],
-  'fr-ch': ['9NO4-22'],
+  'fr-ch': ['10NO1A-10'],
 }
 export default class ProblemesEvenementsRecurrents extends Exercice {
   constructor() {
@@ -441,7 +440,7 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           break
       }
 
-      setReponse(this, i, bonneReponse)
+      handleAnswers(this, i, { reponse: { value: bonneReponse } })
 
       if (this.interactif && !context.isAmc) {
         // Si l'exercice est interactif

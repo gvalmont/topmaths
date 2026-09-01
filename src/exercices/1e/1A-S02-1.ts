@@ -1,4 +1,4 @@
-import { texteGras } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 import { nombreElementsDifferents } from '../ExerciceQcm'
@@ -7,11 +7,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '9aef1'
 export const refs = {
-  'fr-fr': ['1A-S02-1', '3AutoP04-1'],
+  'fr-fr': ['1A-S02-1', '2A-S2-1', '3AutoS02-4'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Déterminer la médiane d'une série à faible effectif"
@@ -114,7 +114,7 @@ export default class MedianeQCM extends ExerciceQcmA {
     } else {
       this.correction += `un nombre impair,  donc la médiane est le terme de rang $${rang}$.<br>`
     }
-    this.correction += `La médiane est donc $${texNombre(mediane)}$.`
+    this.correction += `La médiane est donc $${miseEnEvidence(texNombre(mediane))}$.`
     this.reponse = `$${texNombre(mediane)}$`
   }
 
@@ -169,7 +169,7 @@ export default class MedianeQCM extends ExerciceQcmA {
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.versionAleatoire()
   }
 }

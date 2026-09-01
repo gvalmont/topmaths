@@ -10,7 +10,7 @@ import Exercice from '../../Exercice'
 
 export const titre = 'Comparer des fractions de même dénominateur/numérateur'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '04/11/2022'
 /**
  * @author Gilles Mora
@@ -19,7 +19,7 @@ export const dateDePublication = '04/11/2022'
 export const uuid = '99b96'
 
 export const refs = {
-  'fr-fr': ['can6C41', '6N3I-flash1'],
+  'fr-fr': ['can6C41', '6N3I-flash1', 'auto5N3F-flash1'],
   'fr-ch': [],
 }
 export default class ComparerFraction extends Exercice {
@@ -95,7 +95,7 @@ export default class ComparerFraction extends Exercice {
         : this.sup === 2
           ? combinaisonListes([2], this.nbQuestions)
           : combinaisonListes([1, 2], this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       switch (typeDeQuestionsDisponibles[i]) {
         case 1: // même dénominateur

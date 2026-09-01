@@ -5,17 +5,16 @@
     buildExercisesList,
     splitExercisesIntoQuestions,
   } from '../../../lib/components/exercisesUtils'
-  import { verifQuestionCliqueFigure } from '../../../lib/interactif/cliqueFigure'
   import {
+    listOfCustomElements,
+    mathaleaCustomElementsRegistry,
+  } from '../../../lib/customElements/MathaleaCustomElement'
+  import { verifQuestionCliqueFigure } from '../../../lib/customElements/CliqueFigureElement'
+  import {
+    exerciceContientCliqueFigure,
     prepareExerciceCliqueFigure,
     uniformiseResults,
-    verifQuestionMetaInteractif2d,
-    verifQuestionMultiMathfield,
   } from '../../../lib/interactif/gestionInteractif'
-  import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
-  import { verifQuestionQcm } from '../../../lib/interactif/qcm'
-  import { verifQuestionListeDeroulante } from '../../../lib/interactif/questionListeDeroulante'
-  import { verifQuestionSvgSelection } from '../../../lib/interactif/questionSvgSelection/questionSvgSelection'
   import {
     mathaleaFormatExercice,
     mathaleaGenerateSeed,
@@ -34,6 +33,7 @@
   import {
     isInteractivityType,
     isOldFormatInteractifType,
+    interactivityTypeToCustomElementFormat,
     type IExercice,
     type InteractivityType,
     type OldFormatInteractifType,
@@ -110,15 +110,6 @@
     const exercice = exercices[indiceExercice[i]]
     let type: InteractivityType | OldFormatInteractifType | undefined =
       exercice.autoCorrection[indiceQuestionInExercice[i]]?.formatInteractif
-    if (type === undefined || type === null) {
-      const interactifType = exercice.interactifType
-      if (
-        isInteractivityType(interactifType) ||
-        isOldFormatInteractifType(interactifType)
-      ) {
-        type = interactifType
-      }
-    }
     if (type == null) {
       window.notify(
         'checkQuestion a été appelé pour un exercice non interactif',
@@ -133,33 +124,9 @@
       }
       return
     }
-    if (
-      type.toLowerCase() === 'mathlive' ||
-      type === 'fillInTheBlank' ||
-      type === 'tableauMathlive'
-    ) {
-      const resu = uniformiseResults(
-        verifQuestionMathLive(
-          exercices[indiceExercice[i]],
-          indiceQuestionInExercice[i],
-        ),
-      )
-      resultsByQuestion[i] = resu
-    } else if (type === 'qcm') {
-      resultsByQuestion[i] = uniformiseResults(
-        verifQuestionQcm(
-          exercices[indiceExercice[i]],
-          indiceQuestionInExercice[i],
-        ),
-      )
-    } else if (type === 'listeDeroulante') {
-      resultsByQuestion[i] = uniformiseResults(
-        verifQuestionListeDeroulante(
-          exercices[indiceExercice[i]],
-          indiceQuestionInExercice[i],
-        ),
-      )
-    } else if (type === 'cliqueFigure') {
+    const customElementType =
+      interactivityTypeToCustomElementFormat(type) ?? type
+    if (type === 'cliqueFigure') {
       resultsByQuestion[i] = uniformiseResults(
         verifQuestionCliqueFigure(
           exercices[indiceExercice[i]],
@@ -172,30 +139,41 @@
           indiceQuestionInExercice[i],
         ),
       )
-    } else if (type === 'multiMathfield') {
-      const resu = uniformiseResults(
-        verifQuestionMultiMathfield(
+    } else if (listOfCustomElements.includes(customElementType ?? '')) {
+      // On traite le cas de tous les MathaleaCustomElement ici
+      const liste = Array.from(mathaleaCustomElementsRegistry)
+      const [tag, elementClasse] =
+        liste.find((custom) => custom[0] === customElementType) ?? []
+      if (tag == null || elementClasse == null) {
+        throw Error(
+          "Une classe de listOfCustomElements n'est pas enregistrée dans le registre mathaleaCustomElementsRegistry",
+        )
+      }
+      if (
+        elementClasse.verifQuestion == null ||
+        typeof elementClasse.verifQuestion !== 'function'
+      ) {
+        throw Error(
+          `L'élément '${tag}' n'a pas de méthode verifQuestion ou celle-ci n'est pas une fonction`,
+        )
+      }
+      const result = elementClasse.verifQuestion(exercice, i)
+      if (
+        result == null ||
+        typeof result !== 'object' ||
+        !('isOk' in result) ||
+        !('score' in result)
+      ) {
+        throw Error(
+          `L'élément '${tag}' a une fonction verifQuestion qui n'a pas retourné une valeur conforme.`,
+        )
+      }
+      resultsByQuestion[i] = uniformiseResults(
+        elementClasse.verifQuestion(
           exercices[indiceExercice[i]],
           indiceQuestionInExercice[i],
         ),
       )
-      resultsByQuestion[i] = resu // En attendant mieux, mais ça ne va pas du tout...
-    } else if (type === 'MetaInteractif2d') {
-      const resu = uniformiseResults(
-        verifQuestionMetaInteractif2d(
-          exercices[indiceExercice[i]],
-          indiceQuestionInExercice[i],
-        ),
-      )
-      resultsByQuestion[i] = resu
-    } else if (type === 'svgSelection') {
-      const resu = uniformiseResults(
-        verifQuestionSvgSelection(
-          exercices[indiceExercice[i]],
-          indiceQuestionInExercice[i],
-        ),
-      )
-      resultsByQuestion[i] = resu
     } else {
       window.notify(
         "Problème dans QuestionParPage.svelte : type d'interactif non géré",
@@ -319,7 +297,7 @@
       },
     })
     document.dispatchEvent(questionEvent)
-    if (exo && exo.interactifType === 'cliqueFigure' && exo.interactif) {
+    if (exo && exerciceContientCliqueFigure(exo) && exo.interactif) {
       prepareExerciceCliqueFigure(exo)
     }
   }
@@ -427,7 +405,7 @@
                   {@html question}
                 </div>
               </div>
-              {#if isCorrectionVisible[k]}
+              {#if isCorrectionVisible[k] && !($globalOptions.isCorrectionOnlyOnError && resultsByQuestion[k]?.isOk === true)}
                 <div
                   class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 lg:{$isMenuNeededForQuestions
                     ? 'mt-6'

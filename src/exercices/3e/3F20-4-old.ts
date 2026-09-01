@@ -20,7 +20,6 @@ export const titre =
   "Reconnaitre coefficient directeur et ordonnée à l'origine d'une fonction affine"
 export const dateDePublication = '19/05/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Reconnaitre coefficient directeur et ordonnée à l'origine d'une fonction affine
@@ -30,7 +29,7 @@ export const uuid = 'a2b1c'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CoefficientDirecteur extends Exercice {
   constructor() {
@@ -75,7 +74,7 @@ export default class CoefficientDirecteur extends Exercice {
       nbQuestions: this.nbQuestions,
     })
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nomFonction = this.sup2 ? 'f' : choice(['f', 'g', 'h', 'k'])
       const nomVariable = this.sup3 ? 'x' : choice(['x', 'a', 'b', 'c', 't'])
       let a = randint(-9, 9, [-1, 0, 1])
@@ -310,6 +309,7 @@ export default class CoefficientDirecteur extends Exercice {
           typesDeQuestionsDisponibles[i] === 6
             ? KeyboardType.clavierFullOperations
             : KeyboardType.clavierDeBaseAvecFraction,
+        reponseParams: { formatInteractif: 'fill-in-the-blank' },
         objetReponse: {
           champ1: { value: reponse1 },
           champ2: { value: reponse2 },

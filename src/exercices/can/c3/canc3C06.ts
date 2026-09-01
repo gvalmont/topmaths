@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver le nombre manquant dans une somme'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '20/11/2021'
@@ -32,7 +31,7 @@ export default class ComplementAuDixiemeOuALaDizaine extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b
-    if (choice([true, false])) {
+    if (this.quotaChoice('decimalOuEntier', [true, false])) {
       // décimal ou entier ?
       a = arrondi(randint(1, 5) * 10 + randint(1, 9) / 10)
       b = Math.ceil(a)

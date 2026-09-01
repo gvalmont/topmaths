@@ -1,12 +1,12 @@
-import CalculerLaValeurDUneExpressionLitterale from './5L14-1'
+import CalculerLaValeurDUneExpressionLitterale from './5N5B-1'
 export const titre =
   "Calculer la valeur d'une expression littérale de degré 1 à 1 inconnue"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '72764'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['9FA2-7'],
+  'fr-ch': ['9FA4A-3'],
 }
 export default class CalculerLaValeurDUneExpressionLitteraleDeg1Inc1 extends CalculerLaValeurDUneExpressionLitterale {
   constructor() {

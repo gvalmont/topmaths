@@ -8,14 +8,16 @@ import referentielProfs from '../../json/referentielProfs.json'
 import referentielRessources from '../../json/referentielRessources.json'
 import referentielsActivation from '../../json/referentielsActivation.json'
 import referentielExamsCH from '../../json/referentielStaticCH.json'
-import referentielExams from '../../json/referentielStaticFR.json'
+import referentielExams from '../../json/referentielStaticFRHydrated'
 import {
   buildReferentiel,
   getAllEndings,
   getRecentExercices,
 } from '../components/refUtils'
+import { referentielMathadata } from '../components/mathadataReferentiel'
+import { referentielBanquesExternes } from './banquesExternesStore'
 import {
-  sortArrayOfResourcesBasedOnProp,
+  sortArrayOfResourcesBasedOnPathThenId,
   triAnnales,
 } from '../components/sorting'
 import type { Language } from '../types/languages'
@@ -50,6 +52,12 @@ function createOriginalReferentiels(lang: Language): ReferentielInMenu[] {
     ...referentielGeometrieDynamique,
   }
 
+  // "Égalité filles-garçons" : on la détache du référentiel scolaire
+  // classique pour la ranger dans "Ressources partenaires", aux côtés de MathAdata.
+  const egaliteFGReferentiel: JSONReferentielObject =
+    (baseReferentiel['Égalité filles-garçons'] as JSONReferentielObject) || {}
+  delete baseReferentiel['Égalité filles-garçons']
+
   // Traitement des examens
   let examens = getAllEndings(examsReferentiel)
   if (!isFR) {
@@ -66,18 +74,22 @@ function createOriginalReferentiels(lang: Language): ReferentielInMenu[] {
     ] = { ...item.resource }
   }
 
-  // on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
-  // EE : Puisqu'on a déjà le référentiel, je ne comprends pas à quoi cela sert
-  // d'autant que cela change les ordres alphabétiques pour les terminales.
-  // Bon, j'ai compris mais comme les exos de terminales n'ont pas une entête cohérente alphabétiquement, on n'a pas le choix
-  // que d'enlever ces lignes.
-
+  // on trie les exercices aléatoires par chapitre (chemin dans le
+  // référentiel) puis par ID ('4-C10' < '4-C10-1' <'4-C10-10'), afin de
+  // préserver l'ordre des chapitres voulu par les auteurs (ex. 4C1 avant
+  // 4C2) même quand un id d'exercice (comme 4C2QCM-01) trierait autrement
+  // s'il était comparé seul.
   const baseAndNewsReferentiel: JSONReferentielObject = {
     Nouveautés: { ...newExercisesReferentiel },
     ...baseReferentiel,
   }
   let exercices = getAllEndings(baseAndNewsReferentiel)
-  exercices = [...sortArrayOfResourcesBasedOnProp(exercices, 'id')]
+  exercices = [
+    ...sortArrayOfResourcesBasedOnPathThenId(
+      exercices,
+      baseAndNewsReferentiel,
+    ),
+  ]
 
   const aleaReferentiel = buildReferentiel(exercices)
 
@@ -114,6 +126,24 @@ function createOriginalReferentiels(lang: Language): ReferentielInMenu[] {
     //   searchable: true,
     //   referentiel: orderedExamsReferentiel,
     // },
+    ...(isFR
+      ? [
+          {
+            title: 'Ressources partenaires',
+            name: 'partenaires' as ActivationName,
+            searchable: true,
+            referentiel: {
+              ...referentielMathadata,
+              ...(Object.keys(egaliteFGReferentiel).length > 0
+                ? { 'Égalité filles-garçons': egaliteFGReferentiel }
+                : {}),
+              // banques ajoutées par l'utilisateur : chaque banque forme un
+              // nœud de premier niveau portant le titre de son manifest
+              ...referentielBanquesExternes(),
+            },
+          },
+        ]
+      : []),
     {
       title: 'Géométrie dynamique',
       name: 'geometrieDynamique',
@@ -121,7 +151,7 @@ function createOriginalReferentiels(lang: Language): ReferentielInMenu[] {
       referentiel: geometrieDynamiqueReferentiel,
     },
     {
-      title: 'Outils',
+      title: 'Outils du professeur',
       name: 'outils',
       searchable: false,
       referentiel: referentielOutils,
@@ -191,4 +221,56 @@ export const getReferentiels = (lang: Language) => {
   localeLangLoaded = lang
   // console.log('getReferentiels loaded', lang)
   return deepReferentielInMenuCopy(get(referentiels))
+}
+
+/**
+ * Aplatit les référentiels cherchables en une liste de ressources pour la
+ * recherche (menu latéral bureau et recherche de la vue mobile), en y
+ * ajoutant les outils spéciaux (clavier, version).
+ * @param {ReferentielInMenu[]} refList référentiels à inclure dans la recherche
+ * @returns {ResourceAndItsPath[]} liste des ressources cherchables
+ */
+export const buildResourcesSet = (
+  refList: ReferentielInMenu[],
+): ResourceAndItsPath[] => {
+  const result: ResourceAndItsPath[] = []
+  const refList2 = deepReferentielInMenuCopy(refList)
+  for (const item of refList2) {
+    if (item.searchable) {
+      if (item.referentiel.BrevetTags) {
+        delete item.referentiel.BrevetTags
+      }
+      if (item.referentiel.E3CTags) {
+        delete item.referentiel.E3CTags
+      }
+      if (item.referentiel.crpeTags) {
+        delete item.referentiel.crpeTags
+      }
+      result.push(...getAllEndings(item.referentiel))
+    }
+  }
+  const clavier: ResourceAndItsPath = {
+    resource: {
+      uuid: 'clavier',
+      url: 'clavier',
+      id: 'clavier',
+      titre: 'clavier',
+      typeExercice: 'outil',
+      tags: [],
+    },
+    pathToResource: ['ClavierTest'],
+  }
+  const version: ResourceAndItsPath = {
+    resource: {
+      uuid: 'version',
+      url: 'version',
+      id: 'version',
+      titre: 'version',
+      typeExercice: 'outil',
+      tags: [],
+    },
+    pathToResource: ['Version'],
+  }
+  result.push(clavier, version)
+  return result
 }

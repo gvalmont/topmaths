@@ -1,8 +1,7 @@
-import DefinitionProprietesTriangles from '../5e/5G25'
+import DefinitionProprietesTriangles from '../5e/DefinitionProprietesTriangles'
 export const titre = 'Connaitre notamment la somme des angles dans un triangle'
 export const dateDePublication = '10/06/2026'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
 
 /**
  * Pour les nouveaux programmes de 6ème
@@ -13,7 +12,7 @@ export const uuid = '04439'
 
 export const refs = {
   'fr-fr': ['6G6C'],
-  'fr-ch': [],
+  'fr-ch': ['9ES1C-2'],
 }
 export default class DefinitionProprietesTrianglesSommesDesAngles extends DefinitionProprietesTriangles {
   constructor() {

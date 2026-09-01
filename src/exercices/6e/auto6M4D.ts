@@ -1,5 +1,5 @@
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -9,7 +9,6 @@ import Exercice from '../Exercice'
 export const dateDePublication = '02/08/2025'
 export const titre = 'Choisir les bonnes unités de mesure de durées longues'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
 
 /**
  * Choisir les bonnes unités de mesure de durées longues
@@ -30,7 +29,7 @@ export default class AutoChoisirDureeAnnees extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const durees = [
         ['millénaire', 'années', texNombre(1000), 'mil', 'a'],
         ['siècle', 'années', '100', 's', 'a'],
@@ -60,12 +59,12 @@ export default class AutoChoisirDureeAnnees extends Exercice {
         const texte = unite1ATrouver
           ? '$1$ ' +
             (this.interactif
-              ? choixDeroulant(this, i, choixListeDeroulante)
+              ? choixDeroulant(this, i, { choices: choixListeDeroulante })
               : '$\\ldots\\ldots\\ldots\\ldots$') +
             ` = $${durees[choix][2]}$ ${durees[choix][1]}`
           : `$1$ ${durees[choix][0]} = $${durees[choix][2]}$ ` +
             (this.interactif
-              ? choixDeroulant(this, i, choixListeDeroulante)
+              ? choixDeroulant(this, i, { choices: choixListeDeroulante })
               : '$\\ldots\\ldots\\ldots\\ldots$')
 
         const texteCorr = unite1ATrouver
@@ -76,7 +75,7 @@ export default class AutoChoisirDureeAnnees extends Exercice {
           this,
           i,
           { reponse: { value: reponse } },
-          { formatInteractif: 'listeDeroulante' },
+          { formatInteractif: 'liste-deroulante' },
         )
 
         this.listeQuestions[i] = texte

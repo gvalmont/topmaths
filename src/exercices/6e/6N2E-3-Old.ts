@@ -14,7 +14,7 @@ import Exercice from '../Exercice'
 export const titre = 'Effectuer produit et somme ou différence de décimaux'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '14/01/2026'
 export const dateDePublication = '20/12/2022'
 
@@ -78,7 +78,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimauxOld extends Exercice {
           operande1: A.toNumber(),
           operande2: B.toNumber(),
           type: 'multiplication',
-          style: 'display: inline',
+          display: 'inline',
           options: { solution: true, colore: orangeMathalea },
         }) + '<br>'
       let indice = 0
@@ -130,7 +130,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimauxOld extends Exercice {
           operande1,
           operande2,
           type: addition ? 'addition' : 'soustraction',
-          style: 'display: inline',
+          display: 'inline',
           methodeParCompensation: addition,
           options: { solution: true, colore: orangeMathalea },
         })

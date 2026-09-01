@@ -6,7 +6,7 @@ import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const titre =
   'Différencier événements contraires, non contraires, compatibles, incompatibles (jeu de cartes)'
 export const dateDePublication = '30/07/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -14,7 +14,7 @@ export const dateDeModificationImportante = '27/10/2025'
 export const uuid = '00bb0'
 export const refs = {
   'fr-fr': ['4S20-3'],
-  'fr-ch': [],
+  'fr-ch': ['11NO4A-5'],
 }
 
 /**
@@ -63,7 +63,6 @@ export default class ExerciceProba extends Exercice {
     for (
       let i = 0, texte, texteCorr, k, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let bonneReponse
       const figure = choice(['un Valet', 'une Dame', 'un Roi'])

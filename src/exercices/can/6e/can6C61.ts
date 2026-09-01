@@ -7,7 +7,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Calculer un produit par déduction d'un autre produit"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '06/07/2025'
 /**
  * @author Gilles Mora
@@ -29,7 +29,7 @@ export default class ProduitParDeduction extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2])) {
       case 1: // avec deux entiers
         {
           const coeff = choice([10, 100, 1000])

@@ -5,12 +5,13 @@ import { labelPoint } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Déterminer le nombre de faces d'un solide"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'tfw5s'
 export const refs = {
   'fr-fr': [],
@@ -120,7 +121,7 @@ export default class Can52026Q22 extends ExerciceCan {
             ymax: 7,
             pixelsParCm: 20,
             scale: 0.6,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         ) + '<br>Nombre de faces de ce solide'
@@ -158,7 +159,7 @@ export default class Can52026Q22 extends ExerciceCan {
             ymax: 5,
             scale: 0.6,
             pixelsParCm: 30,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         ) + '<br>Nombre de faces de ce solide'
@@ -199,7 +200,7 @@ export default class Can52026Q22 extends ExerciceCan {
 
             scale: 0.6,
             pixelsParCm: 30,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         ) + '<br>Nombre de faces de ce solide'

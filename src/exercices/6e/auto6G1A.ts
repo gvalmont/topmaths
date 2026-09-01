@@ -14,6 +14,8 @@ import {
   pointSurSegment,
 } from '../../lib/2d/utilitairesPoint'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 import figureApigeom from '../../lib/figureApigeom'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
 import Alea2iep from '../../modules/Alea2iep'
@@ -21,8 +23,6 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -30,7 +30,6 @@ export const titre = 'Tracer des droites, segments, ...'
 export const dateDePublication = '05/10/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '20/09/2024'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * Fonction générale pour construire des segments, droites et demi-droites
@@ -40,9 +39,9 @@ export const interactifType = 'custom'
 export const uuid = '3dbda'
 
 export const refs = {
-  'fr-fr': ['auto6G1A'],
+  'fr-fr': ['auto6G1A', '6AutoG1-7'],
   'fr-2016': ['6G10-5'],
-  'fr-ch': ['9ES1-7'],
+  'fr-ch': ['9ES1A-7'],
 }
 export default class constructionElementaire extends Exercice {
   Anom?: string
@@ -65,9 +64,9 @@ export default class constructionElementaire extends Exercice {
   }
 
   nouvelleVersion() {
-    this.figures = []
+    this.figuresApiGeom = []
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const anim = new Alea2iep()
       anim.equerreZoom(150)
       const objetsEnonce = []
@@ -171,7 +170,7 @@ export default class constructionElementaire extends Exercice {
         })
         figure.options.labelAutomaticBeginsWith = E.nom
         figure.options.thickness = 2
-        this.figures[i] = figure
+        this.figuresApiGeom[i] = figure
         const pA = figure.create('Point', {
           x: A.x,
           y: A.y,
@@ -355,7 +354,7 @@ export default class constructionElementaire extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
-    // if (i === undefined) return 'KO'
+    if (i === undefined || this.figuresApiGeom === undefined) return ['KO']
     if (
       this.Anom == null ||
       this.Bnom == null ||
@@ -365,7 +364,7 @@ export default class constructionElementaire extends Exercice {
       this.Fnom == null
     )
       return 'KO'
-    const figure = this.figures[i]
+    const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
@@ -373,7 +372,7 @@ export default class constructionElementaire extends Exercice {
 
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
-    this.answers[figure.id] = figure.json
+    this.answers[figure.id] = figureAnswerJson(figure)
 
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,

@@ -7,17 +7,18 @@ import { latex2d } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer le coefficient directeur d'une droite"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '58656'
 export const refs = {
   'fr-fr': [],
@@ -121,7 +122,7 @@ export default class Can2025TQ19 extends ExerciceSimple {
         ymax: ymax + 0.25,
         pixelsParCm: 30,
         scale: 0.75,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
       r1,
@@ -139,7 +140,7 @@ export default class Can2025TQ19 extends ExerciceSimple {
         ymax: ymax + 0.25,
         pixelsParCm: 30,
         scale: 0.75,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
       r1,

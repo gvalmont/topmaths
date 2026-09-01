@@ -12,19 +12,17 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
-import { bleuMathalea } from '../../lib/colors'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { amcConvert } from '../../lib/amc/amcBuilders'
-
+import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const dateDeModifImportante = '05/04/2026' // Passage à MultiMathfield
 /**
@@ -35,7 +33,7 @@ export const uuid = '23c49'
 export const refs = {
   'fr-fr': ['6N1H-3'],
   'fr-2016': ['6N23-3'],
-  'fr-ch': ['9NO11-7b'],
+  'fr-ch': [''],
 }
 /**
  * @author Jean-claude Lhote
@@ -83,7 +81,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
       let x2 = 0
       let x3 = 0
       const objets = []
-      let fenetre
+      let fenetreMathalea2d
       const thickOff = 0
       const objetsCorr = []
       let xmin
@@ -253,7 +251,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         sB.pointilles = 5
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
-        fenetre = {
+        fenetreMathalea2d = {
           xmin: -1.5,
           xmax: 35,
           ymin: -1,
@@ -431,7 +429,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         sB = segment(pB1, pB2)
         sA.pointilles = 5
         sB.pointilles = 5
-        fenetre = {
+        fenetreMathalea2d = {
           xmin: -1.5,
           xmax: 35,
           ymin: -1.5,
@@ -676,7 +674,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         sD = segment(pD1, pD2)
         sC.pointilles = 5
         sD.pointilles = 5
-        fenetre = {
+        fenetreMathalea2d = {
           xmin: -1.5,
           xmax: 35,
           ymin: -1.5,
@@ -704,7 +702,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           : "comme somme d'un nombre entier et d'une fraction décimale inférieure à 1,"
 
       texte += " et sous forme d'une seule fraction décimale.<br>"
-      texte += mathalea2d(fenetre, objets)
+      texte += mathalea2d(fenetreMathalea2d, objets)
       if (this.interactif) {
         handleAnswers(
           this,
@@ -718,7 +716,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
             champ3: { value: reponse3, options: { fractionDecimale: true } },
             bareme: toutAUnPoint,
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
 
         texte += addMultiMathfield(this, i, {
@@ -796,7 +794,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         }
         this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
-      texteCorr += mathalea2d(fenetre, objetsCorr)
+      texteCorr += mathalea2d(fenetreMathalea2d, objetsCorr)
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte

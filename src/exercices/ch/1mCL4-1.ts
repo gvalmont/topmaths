@@ -15,15 +15,15 @@ import {
 import Exercice from '../Exercice'
 
 import { bleuMathalea } from '../../lib/colors'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 
 export const titre =
   "Résoudre une équation à l'aide de la méthode de complétion du carré"
 export const dateDePublication = '31/10/2024'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const uuid = '7f0dd'
 export const refs = {
   'fr-fr': [],
@@ -77,7 +77,7 @@ export default class ExerciceEquationSecondDegre extends Exercice {
         " Entrer l'ensemble des solutions en séparant chaque élément par un point-virgule. Si une équation n'a pas de solution, saisir l'ensemble vide."
     }
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let equation = new EquationSecondDegre(
@@ -269,7 +269,7 @@ export default class ExerciceEquationSecondDegre extends Exercice {
             },
           },
           {
-            formatInteractif: 'multiMathfield',
+            formatInteractif: 'multi-mathfield',
           },
         )
       }

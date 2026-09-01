@@ -11,10 +11,10 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '04e68'
 export const refs = {
   'fr-fr': ['1A-E04-4'],
-  'fr-ch': ['10FA4-9'],
+  'fr-ch': ['10FA2B-16'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Déterminer l'effet de deux évolutions successives"
@@ -36,10 +36,10 @@ export default class EvolSuccEffet extends ExerciceQcmA {
    Par conséquent, la somme retirée est plus importante que la somme ajoutée initialement.<br>
    ${texteEnCouleurEtGras('Le prix final sera donc strictement inférieur au prix initial.')}`
     this.reponses = [
-      'Le prix est strictement inférieur à sa valeur de départ. ',
-      'Le prix est égal à sa valeur de départ. ',
-      'Le prix est strictement supérieur à sa valeur de départ. ',
-      ' On ne peut pas savoir : cela dépend de la valeur de départ.  ',
+      'le prix est strictement inférieur à sa valeur de départ. ',
+      'le prix est égal à sa valeur de départ. ',
+      'le prix est strictement supérieur à sa valeur de départ. ',
+      'on ne peut pas savoir : cela dépend de la valeur de départ.  ',
     ]
   }
 
@@ -66,10 +66,10 @@ export default class EvolSuccEffet extends ExerciceQcmA {
    Ainsi le prix final sera  strictement inférieur au prix initial.`
 
           this.reponses = [
-            'Le prix est strictement inférieur à sa valeur de départ. ',
-            'Le prix est égal à sa valeur de départ. ',
-            'Le prix est strictement supérieur à sa valeur de départ. ',
-            ' On ne peut pas savoir : cela dépend de la valeur de départ.  ',
+            'le prix est strictement inférieur à sa valeur de départ. ',
+            'le prix est égal à sa valeur de départ. ',
+            'le prix est strictement supérieur à sa valeur de départ. ',
+            'on ne peut pas savoir : cela dépend de la valeur de départ.  ',
           ]
         }
         break
@@ -166,7 +166,7 @@ ${texteEnCouleurEtGras('Le prix final sera donc strictement supérieur au prix i
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionAleatoire()
   }
 }

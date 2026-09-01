@@ -8,11 +8,10 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { fractionCliquable } from '../../../modules/2dinteractif'
 import { orangeMathalea } from '../../../lib/colors'
+import { fractionCliquable } from '../../../modules/2dinteractif'
 export const titre = 'Résoudre un problème de reste en fraction'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -26,7 +25,7 @@ export const uuid = '1cee6'
 
 export const refs = {
   'fr-fr': ['can6C46', '6N3K-flash1'],
-  'fr-ch': ['NR'],
+  'fr-ch': ['9NO3F-8'],
 }
 export default class ProblemeResteFraction extends ExerciceSimple {
   constructor() {
@@ -79,7 +78,7 @@ export default class ProblemeResteFraction extends ExerciceSimple {
       ['Strasbourg'],
       ['Toulouse'],
     ]
-    const fraction1 = choice(listeFractions1)
+    const fraction1 = this.quotaChoice('fraction1', listeFractions1)
     const Ville1 = choice(listeVille)
     const n1 = fraction1[0]
     const d1 = fraction1[1]
@@ -96,7 +95,7 @@ export default class ProblemeResteFraction extends ExerciceSimple {
       liste2: rangeMinMax(n1 + 1, n1 + d1),
     })
     this.reponse = new FractionEtendue(d1 - n1, d1)
-    if (choice([true, false])) {
+    if (this.quotaChoice('typeDeQuestions', [true, false])) {
       this.question = `${p1} rejoint une amie à ${Ville1} en voiture. <br>
     Elle a déjà parcouru $${f1.texFraction}$ de la distance. <br>
     Quelle fraction de la distance lui reste-t-il à parcourir ?`

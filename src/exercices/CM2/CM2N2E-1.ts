@@ -1,5 +1,7 @@
 import Figure from 'apigeom'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -13,14 +15,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const dateDePublication = '28/01/2023'
 export const dateDeModifImportante = '08/06/2024'
 export const titre = "Placer des points d'abscisses fractionnaires (niv 2)"
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -32,7 +31,7 @@ export const uuid = '778c0'
 export const refs = {
   'fr-fr': ['CM2N2E-1'],
   'fr-2016': ['6N21-1'],
-  'fr-ch': ['9NO11-5'],
+  'fr-ch': ['9NO3A-5'],
 }
 
 type goodAnswer = { label: string; x: number }[]
@@ -41,7 +40,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
   goodAnswers!: goodAnswer[]
   constructor() {
     super()
-    this.figures = []
+
     this.goodAnswers = []
     this.nbQuestions = 5
     this.sup = '1-2-5-6'
@@ -64,6 +63,8 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
   }
 
   nouvelleVersion() {
+    this.figuresApiGeom = []
+    this.figuresApiGeomCorr = []
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -80,7 +81,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
       [],
       [],
     ]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let origine, num, den, coef: number
@@ -197,8 +198,10 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
         stepBis: 1 / (coef * den),
       })
       figure.options.labelAutomaticBeginsWith = label1
+      figure.options.labelAutomaticForPoints = true
       figure.options.pointDescriptionWithCoordinates = false
-      if (this != null && this.figures != null) this.figures[i] = figure
+      if (this != null && this.figuresApiGeom != null)
+        this.figuresApiGeom[i] = figure
       const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({
         xMin: origine,
         xMax: origine + 4,
@@ -228,6 +231,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
         colorLabel: orangeMathalea,
         labelDxInPixels: 0,
       })
+      this.figuresApiGeomCorr[i] = figureCorr
 
       switch (true) {
         case context.isHtml && this.interactif:
@@ -291,12 +295,14 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
     if (this == null) return ['KO']
-    if (this.figures == null) return ['KO']
-    if (this.figures[i] == null) return ['KO']
-    if (!(this.figures[i] instanceof Figure)) return ['KO']
-    this.answers[this.figures[i].id] = this.figures[i].json
+    if (this.figuresApiGeom == null) return ['KO']
+    if (this.figuresApiGeom[i] == null) return ['KO']
+    if (!(this.figuresApiGeom[i] instanceof Figure)) return ['KO']
+    this.answers[this.figuresApiGeom[i].id] = figureAnswerJson(
+      this.figuresApiGeom[i],
+    )
     const result: ('OK' | 'KO')[] = []
-    const figure = this.figures[i]
+    const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
@@ -371,7 +377,7 @@ function apigeomGraduatedLine({
   stepBis?: number
   points?: Array<{ x: number; label: string }>
 }): { figure: Figure; latex: string } {
-  const width = Math.floor((xMax - xMin + 0.4) * 30 * scale * 3 * scale)
+  const width = Math.floor((xMax - xMin + 0.4) * 15 * scale * 3 * scale)
   const height = 80
   const figure = new Figure({
     xMin: xMin - 0.2 / scale,

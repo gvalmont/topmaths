@@ -1,10 +1,9 @@
-import CoeffTaux from '../can/2e/can2C11'
+import CoeffTaux from '../can/2e/can2I20-02'
 export const titre = 'Passer du coefficient multiplicateur au taux d’évolution'
 export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can5P11 pour les auto 1er
@@ -14,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'ae5f6'
 
 export const refs = {
-  'fr-fr': ['1A-E01-2'],
+  'fr-fr': ['1A-E01-2', '2A-E1-2', 'BP1CF02'],
   'fr-ch': [],
 }
 export default class Auto1AE1a extends CoeffTaux {

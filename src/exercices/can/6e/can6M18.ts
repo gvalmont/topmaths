@@ -10,7 +10,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const dateDePublication = '27/07/2025'
 export const titre = 'Convertir des unités de longueur'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -22,7 +22,7 @@ export const uuid = '616e6'
 
 export const refs = {
   'fr-fr': ['can6M18', 'auto6M1C-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ConversionEnTousSensLongueur extends ExerciceSimple {
   constructor() {
@@ -33,7 +33,7 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, resultat
-    switch (choice(['b', 'd'])) {
+    switch (this.quotaChoice('cas', ['b', 'd'])) {
       case 'b':
         if (choice([true, false])) {
           a = randint(1, 13) * 5

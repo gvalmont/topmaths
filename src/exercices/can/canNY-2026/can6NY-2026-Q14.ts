@@ -6,7 +6,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Déterminer un nombre plus grand ou plus petit'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'wgj3m'
 export const refs = {
   'fr-fr': [],
@@ -53,8 +53,8 @@ export default class SommeDeProduitsCompleter2026 extends ExerciceSimple {
       [9, 2019],
     ]
     const annee = 2026
-    const PlusGrand = choice(choixPG)
-    const PlusPetit = choice(choixPP)
+    const PlusGrand = this.quotaChoice('plusGrand', choixPG)
+    const PlusPetit = this.quotaChoice('plusPetit', choixPP)
     const PGouPP = this.canOfficielle
       ? PlusGrand
       : choice([PlusGrand, PlusPetit])

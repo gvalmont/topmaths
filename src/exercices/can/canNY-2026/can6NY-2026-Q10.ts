@@ -1,5 +1,4 @@
 import Decimal from 'decimal.js'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -7,7 +6,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Décomposer un nombre'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'qn8vm'
 export const refs = {
   'fr-fr': [],
@@ -28,7 +27,9 @@ export default class SommeDeProduitsCompleter2026 extends ExerciceSimple {
 
   nouvelleVersion() {
     const annee = 2026
-    const den = this.canOfficielle ? 10 : choice([10, 100, 1000])
+    const den = this.canOfficielle
+      ? 10
+      : this.quotaChoice('den', [10, 100, 1000])
     const a = new Decimal(annee).div(den)
     this.reponse = texNombre(a, 3)
     this.question = 'Écrire, sous forme décimale, la fraction suivante.'

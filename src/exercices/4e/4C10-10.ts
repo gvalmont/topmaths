@@ -10,7 +10,6 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 export const titre =
   'Compléter une multiplication à trou de deux entiers relatifs'
@@ -29,7 +28,7 @@ export const uuid = '857c1'
 
 export const refs = {
   'fr-fr': ['4C10-10'],
-  'fr-ch': ['10NO4-6'],
+  'fr-ch': ['9NO2C-12'],
 }
 export default class ExerciceMultiplicationsRelatifsATrou extends Exercice {
   constructor(max = 10) {

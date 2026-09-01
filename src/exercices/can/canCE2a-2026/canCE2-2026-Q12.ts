@@ -1,4 +1,5 @@
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { bleuMathalea } from '../../../lib/colors'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -6,11 +7,10 @@ import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceCan from '../../ExerciceCan'
-import { bleuMathalea } from '../../../lib/colors'
 
 export const titre = 'Placer une fraction sur une droite graduée'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const uuid = '481aa'
 export const refs = {
   'fr-fr': [],
@@ -23,12 +23,14 @@ export const refs = {
 */
 export default class Can2026CE2Q12 extends ExerciceCan {
   enonce() {
-    const typeFraction = this.canOfficielle ? 'cinquiemes' : choice(['cinquiemes', 'quarts'])
-    
+    const typeFraction = this.canOfficielle
+      ? 'cinquiemes'
+      : choice(['cinquiemes', 'quarts'])
+
     let choix: any[]
     let nbDivisions: number
     let distanceGrad: number
-    
+
     if (typeFraction === 'cinquiemes') {
       nbDivisions = 5
       distanceGrad = 0.2
@@ -94,20 +96,21 @@ export default class Can2026CE2Q12 extends ExerciceCan {
     }
 
     const a = choice(choix)
-    
-    const pointListe: [number, string][] = typeFraction === 'cinquiemes'
-      ? [
-          [0.2, '\\text{A}'],
-          [0.4, '\\text{B}'],
-          [0.6, '\\text{C}'],
-          [0.8, '\\text{D}'],
-        ]
-      : [
-          [0.25, '\\text{A}'],
-          [0.5, '\\text{B}'],
-          [0.75, '\\text{C}'],
-        ]
-    
+
+    const pointListe: [number, string][] =
+      typeFraction === 'cinquiemes'
+        ? [
+            [0.2, '\\text{A}'],
+            [0.4, '\\text{B}'],
+            [0.6, '\\text{C}'],
+            [0.8, '\\text{D}'],
+          ]
+        : [
+            [0.25, '\\text{A}'],
+            [0.5, '\\text{B}'],
+            [0.75, '\\text{C}'],
+          ]
+
     const d = droiteGraduee({
       Unite: 8,
       Min: 0,
@@ -124,7 +127,7 @@ export default class Can2026CE2Q12 extends ExerciceCan {
       pointStyle: '',
       labelsPrincipaux: true,
     })
-    
+
     const dPDF = droiteGraduee({
       Unite: 8,
       Min: 0,
@@ -140,7 +143,7 @@ export default class Can2026CE2Q12 extends ExerciceCan {
       labelsPrincipaux: true,
       axeEpaisseur: 1.5,
     })
-    
+
     this.reponse = `${a[1]}`
 
     this.question = mathalea2d(
@@ -151,12 +154,12 @@ export default class Can2026CE2Q12 extends ExerciceCan {
         ymax: 0.9,
         pixelsParCm: 20,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
     )
     this.question += `Quelle lettre repère la fraction $${a[0]}$ ?`
-    
+
     if (context.isHtml) {
       this.correction = `L'unité est partagée en $${nbDivisions}$ donc la lettre qui repère la fraction $${a[0]}$ est $${miseEnEvidence(a[1])}$.`
     } else {
@@ -184,12 +187,12 @@ export default class Can2026CE2Q12 extends ExerciceCan {
           ymax: 1.5,
           pixelsParCm: 20,
           scale: 0.5,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         dCorrection,
       )
     }
-    
+
     this.canEnonce = `Place la fraction $${a[0]}$.`
     this.canReponseACompleter = mathalea2d(
       {
@@ -199,17 +202,17 @@ export default class Can2026CE2Q12 extends ExerciceCan {
         ymax: 0.8,
         pixelsParCm: 20,
         scale: 0.45,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       dPDF,
     )
 
     this.formatInteractif = 'qcm'
-    if (this.interactif) {
-      this.autoCorrection[0] = {
-        options: { ordered: true },
-        enonce: this.question,
-        propositions: typeFraction === 'cinquiemes'
+    this.autoCorrection[0] = {
+      options: { ordered: true },
+      enonce: this.question,
+      propositions:
+        typeFraction === 'cinquiemes'
           ? [
               { texte: '$A$', statut: a[1] === 'A' },
               { texte: '$B$', statut: a[1] === 'B' },
@@ -221,10 +224,9 @@ export default class Can2026CE2Q12 extends ExerciceCan {
               { texte: '$B$', statut: a[1] === 'B' },
               { texte: '$C$', statut: a[1] === 'C' },
             ],
-      }
-      const monQcm = propositionsQcm(this, 0)
-      this.question += monQcm.texte
     }
+    const monQcm = propositionsQcm(this, 0)
+    this.question += monQcm.texte
   }
 
   nouvelleVersion() {

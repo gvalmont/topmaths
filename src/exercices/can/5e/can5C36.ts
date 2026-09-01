@@ -4,12 +4,11 @@ import Pyramide from '../../../modules/pyramide'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Calculer dans une pyramide additive inverse de fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '28/03/2026'
@@ -19,7 +18,7 @@ export const dateDePublication = '28/03/2026'
 export const uuid = '7a19b'
 
 export const refs = {
-  'fr-fr': ['can5C36'],
+  'fr-fr': ['can5C36', 'auto5N3H-flash2'],
   'fr-ch': [],
 }
 export default class PyramideAdd3EtagesBaseInconnue extends ExerciceSimple {
@@ -36,7 +35,7 @@ export default class PyramideAdd3EtagesBaseInconnue extends ExerciceSimple {
       nombreEtages: 3,
       rangeData: [
         [1, 10],
-        choice([
+        this.quotaChoice('range', [
           [5, 10],
           [2, 6],
           [4, 8],

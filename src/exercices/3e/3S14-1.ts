@@ -2,10 +2,11 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.intervalleStrict.test.ts ⚠️
  */
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   listeDeNotes,
   tirerLesDes,
@@ -26,12 +27,9 @@ import {
 } from '../../modules/outils'
 import { OutilsStats } from '../../modules/outilsStat'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = "Calculer des caractéristiques d'une série"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -46,7 +44,7 @@ export const uuid = 'b9afd'
 
 export const refs = {
   'fr-fr': ['3S14-1'],
-  'fr-ch': ['11NO2-11'],
+  'fr-ch': ['NR'],
 }
 
 const numAlpha = (num: number) => `${String.fromCharCode(97 + num)}) `
@@ -162,7 +160,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] = 'Calculer la médiane des lancers.'
+              texteAMC[questind] = 'Trouver la médiane des lancers.'
 
               const [scoresMedians, medianeCorr] =
                 OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
@@ -241,7 +239,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] = 'Calculer la médiane de ces notes.'
+              texteAMC[questind] = 'Trouver la médiane de ces notes.'
 
               const [mediane, medianeCorr] = OutilsStats.computeMediane(notes)
               if (!Array.isArray(mediane)) {
@@ -336,7 +334,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] = 'Calculer la médiane des températures.'
+              texteAMC[questind] = 'Trouver la médiane des températures.'
 
               const [mediane, medianeCorr] =
                 OutilsStats.computeMediane(temperatures)
@@ -474,7 +472,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] = 'Calculer le salaire médian.'
+              texteAMC[questind] = 'Trouver le salaire médian.'
 
               const [, , effectif] =
                 OutilsStats.computeMoyenneTirages2D(salaires)
@@ -581,7 +579,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] = 'Calculer la médiane de ces pointures.'
+              texteAMC[questind] = 'Trouver la médiane de ces pointures.'
 
               const [, , effectif] =
                 OutilsStats.computeMoyenneTirages2D(pointures)
@@ -678,7 +676,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] = 'Calculer la médiane de ces notes.'
+              texteAMC[questind] = 'Trouver la médiane de ces notes.'
 
               const [, , effectif] = OutilsStats.computeMoyenneTirages2D(notes)
               const [scoresMedians, medianeCorr] =
@@ -783,7 +781,7 @@ export default class CalculerCaracteristiques extends Exercice {
               ]),
             ),
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       }
       texte =

@@ -1,10 +1,9 @@
-import ExprimerVariable from '../can/2e/can2L11'
+import ExprimerVariable from '../can/2e/can2L14-01'
 export const titre = "Exprimer une variable en fonction d'une autre"
 export const dateDePublication = '26/07/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can2L11 pour les auto 1er
@@ -14,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a78e8'
 
 export const refs = {
-  'fr-fr': ['1A-C11-1'],
+  'fr-fr': ['1A-C11-1', '2A-C4-1'],
   'fr-ch': [],
 }
 export default class Auto1AC13a extends ExprimerVariable {

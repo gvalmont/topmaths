@@ -1,11 +1,11 @@
 import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import type { IPolygone } from '../../lib/2d/Interfaces'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
-  selectionSvg,
+  addSvgSelection,
   type SvgWithValue,
-} from '../../lib/interactif/questionSvgSelection/questionSvgSelection'
+} from '../../lib/customElements/SvgSelectionElement'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
@@ -18,12 +18,11 @@ import Exercice from '../Exercice'
 
 export const titre = 'Représenter une fraction avec une plaque de chocolat'
 export const interactifReady = true
-export const interactifType = 'svgSelection'
 export const dateDePublication = '10/02/2026'
 export const uuid = '1574a'
 export const refs = {
   'fr-fr': ['CM2N2A-4'],
-  'fr-ch': [],
+  'fr-ch': ['9NO3A-1'],
 }
 /**
  *
@@ -318,7 +317,7 @@ export default class RepresenterUneFractionAvecUnePlaqueDeChocolat extends Exerc
       .map(Number)
       .map((n: number) => total(n))
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let frac: FractionEtendue
       let factor: number
@@ -414,10 +413,13 @@ export default class RepresenterUneFractionAvecUnePlaqueDeChocolat extends Exerc
         plaqueForSelection.push(rawFigures)
       }
       if (context.isHtml && this.interactif) {
-        texte += selectionSvg(this, i, plaqueForSelection, {
-          gapX: '0px',
-          gapY: '0px',
-          itemPadding: '0px',
+        texte += addSvgSelection(this, i, {
+          svgs: plaqueForSelection,
+          options: {
+            gapX: '0px',
+            gapY: '0px',
+            itemPadding: '0px',
+          },
         })
       } else {
         texte += mathalea2d(

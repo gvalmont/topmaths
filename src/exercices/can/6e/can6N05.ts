@@ -1,11 +1,10 @@
 import Decimal from 'decimal.js'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le chiffre des ...'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -28,7 +27,7 @@ export default class ChiffreDes extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 3)
+    const a = this.quotaRandint('a', 1, 3)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
@@ -38,7 +37,7 @@ export default class ChiffreDes extends ExerciceSimple {
       a * 100000 + b * 10000 + c * 1000 + d * 100 + e * 10 + f,
     )
     const n = chiffres.div(1000)
-    const m = choice([
+    const m = this.quotaChoice('m', [
       'centaines',
       'dizaines',
       'dixièmes',
@@ -70,9 +69,9 @@ export default class ChiffreDes extends ExerciceSimple {
     this.correction = `Le chiffre des ${m} est $${this.reponse}$.<br><br>$\\begin{array}{|c|c|c|c|c|c|c|}\n`
     this.correction += '\\hline\n'
     this.correction +=
-      '\\text{Centaine} &  \\text{Dizaine} & \\text{Unité} &  \\Large{\\textbf{,}}& \\text{Dixième} & \\text{Centième} & \\text{Millième} \\\\ \n'
+      '\\text{Centaine} &  \\text{Dizaine} & \\text{Unité} &  \\Large{\\textbf,}& \\text{Dixième} & \\text{Centième} & \\text{Millième} \\\\ \n'
     this.correction += '\\hline\n'
-    this.correction += `${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f}\\\\ \n`
+    this.correction += `${a}&${b}&${c} & \\Large{\\textbf,}& ${d}&${e}& ${f}\\\\ \n`
     this.correction += '\\hline\n'
     this.correction += '\\end{array}\n$'
   }

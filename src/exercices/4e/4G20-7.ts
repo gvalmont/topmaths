@@ -7,7 +7,8 @@ import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import blocklypyt from '../../lib/blockly/blocklypyt.json'
-import { init } from '../../lib/blockly/blocks'
+import { ensureBlocklyBlocksInitialized } from '../../lib/blockly/blocks'
+import { DomReadyActionElement } from '../../lib/customElements/DomReadyAction'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { stringNombre } from '../../lib/outils/texNombre'
@@ -21,7 +22,6 @@ import { RedactionPythagore } from './_pythagore'
 export const titre =
   'Calculer une longueur avec le théorème de Pythagore (blockly)'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * Exercices sur le théorème de Pythagore
@@ -32,7 +32,7 @@ export const uuid = 'c0f90'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 Blockly.setLocale(En as unknown as { [key: string]: string })
@@ -128,7 +128,7 @@ export default class Pythagore2DBlockly extends Exercice {
       }
 
       texte += mathalea2d(
-        { xmin, xmax, ymin, ymax, scale: 0.6, style: 'display: block' },
+        { xmin, xmax, ymin, ymax, scale: 0.6, display: 'block' },
         mesObjetsATracer,
       )
 
@@ -214,12 +214,18 @@ export default class Pythagore2DBlockly extends Exercice {
       }
       cpt++
     }
+    const blocklyReadyAction = `4G20-7:create-blockly:Ex${numeroExercice}`
+    if (context.isHtml && this.listeQuestions.length > 0) {
+      this.listeQuestions[0] += DomReadyActionElement.create({
+        id: `4G20-7-create-blockly-Ex${numeroExercice}`,
+        action: blocklyReadyAction,
+      })
+    }
     listeQuestionsToContenu(this)
 
-    init() // blockly initialisation
-    const that = this
-    const createAllBlockly = function () {
-      const nbQ = that.nbQuestions
+    ensureBlocklyBlocksInitialized() // blockly initialisation
+    const createAllBlockly = () => {
+      const nbQ = this.nbQuestions
       const numExercice = numeroExercice
       // console log('nbQ:' + nbQ)
       for (let k = 0; k < nbQ; k++) {
@@ -227,12 +233,12 @@ export default class Pythagore2DBlockly extends Exercice {
         createBlockly(
           k,
           numExercice,
-          that.saveArguments[k].nomDuPolygone,
-          that.saveArguments[k].longueurBC,
-          that.saveArguments[k].longueurAC,
-          that.saveArguments[k].longueurAB,
-          that.saveArguments[k].listeTypeDeQuestion,
-          that.saveArguments[k].key,
+          this.saveArguments[k].nomDuPolygone,
+          this.saveArguments[k].longueurBC,
+          this.saveArguments[k].longueurAC,
+          this.saveArguments[k].longueurAB,
+          this.saveArguments[k].listeTypeDeQuestion,
+          this.saveArguments[k].key,
         )
       }
     }
@@ -380,8 +386,9 @@ export default class Pythagore2DBlockly extends Exercice {
           // console log('dispatchEvent: dispose')
           workspaceExisting.dispose()
         }
+        const mediaPath = `${import.meta.env.BASE_URL}blockly/media/`
         const secondaryWorkspace = Blockly.inject(secondaryDiv, {
-          media: './node_modules/blockly/media/',
+          media: mediaPath,
           readOnly: true,
           zoom: {
             controls: true,
@@ -597,8 +604,9 @@ export default class Pythagore2DBlockly extends Exercice {
           // console log('dispatchEvent: dispose')
           workspaceExisting.dispose()
         }
+        const mediaPath = `${import.meta.env.BASE_URL}blockly/media/`
         const demoWorkspace = Blockly.inject(blocklyDiv, {
-          media: './node_modules/blockly/media/',
+          media: mediaPath,
           toolbox,
           collapse: false,
           comments: false,
@@ -654,7 +662,10 @@ export default class Pythagore2DBlockly extends Exercice {
         onresize()
       }
     }
-    document.addEventListener('exercicesAffiches', createAllBlockly)
+    DomReadyActionElement.registerCallback(blocklyReadyAction, () => {
+      createAllBlockly()
+      return () => DomReadyActionElement.unregisterCallback(blocklyReadyAction)
+    })
   }
 
   correctionInteractive = (i: number) => {

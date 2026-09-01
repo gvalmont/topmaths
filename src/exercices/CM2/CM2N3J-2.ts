@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -7,7 +7,7 @@ import Exercice from '../Exercice'
 export const titre = 'Soustraire 9'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 
 /**
@@ -40,7 +40,7 @@ export default class Soustraire9 extends Exercice {
       a = randint(1, 9) * 10 + randint(0, 8)
       texte = `$${a}-9$`
       texteCorr = `$${a}-9=${a - 9}$`
-      setReponse(this, i, a - 9)
+      handleAnswers(this, i, { reponse: { value: a - 9 } })
       if (this.interactif)
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
 

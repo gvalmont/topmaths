@@ -7,7 +7,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Résoudre un problème avec une soustraction'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '31/10/2024'
 /**
  * @author Gilles Mora
@@ -30,7 +30,7 @@ export default class problemeSoustraction extends ExerciceSimple {
 
   nouvelleVersion() {
     switch (
-      randint(1, 7) // 1,2, 3
+      this.quotaRandint('typeProbleme', 1, 7) // 1,2, 3
     ) {
       case 1:
         {

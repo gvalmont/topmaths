@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
+  import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
   import { get } from 'svelte/store'
   import {
     downloadFile,
@@ -32,6 +32,7 @@
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import CheckboxWithLabel from '../../shared/forms/CheckboxWithLabel.svelte'
   import InputNumber from '../../shared/forms/InputNumber.svelte'
   import InputText from '../../shared/forms/InputText.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
@@ -53,6 +54,7 @@
   let latexFileInfos: LatexFileInfos = {
     title: '',
     reference: '',
+    withReferences: false,
     subtitle: '',
     style: 'Coopmaths',
     fontOption: 'StandardFont',
@@ -103,6 +105,11 @@
   let promise: Promise<void>
   let isDownloadPicsModalDisplayed = false
   let pdfParam = ''
+  let isInlinePreviewVisible = false
+  let isCodeExpanded = false
+  let previewContainer: HTMLDivElement
+  let editedLatexWithPreamble = ''
+  let restoreParamsInput: HTMLInputElement
 
   const latex = new Latex()
 
@@ -277,10 +284,21 @@
 
   async function handleDownloadLatexMaterial() {
     await promise
-    if (picsWanted) {
-      downloadTexWithImagesZip('coopmaths', latexFile, exercices)
+    const latexForDownload: latexFileType = editedLatexWithPreamble
+      ? {
+          ...latexFile,
+          latexWithPreamble: latexForCopyWithPreamble,
+          latexWithoutPreamble: latexForCopyWithoutPreamble,
+        }
+      : latexFile
+
+    const picsWantedForDownload =
+      picsWanted || /\\includegraphics/.test(latexForDownload.latexWithPreamble)
+
+    if (picsWantedForDownload) {
+      downloadTexWithImagesZip('coopmaths', latexForDownload, exercices)
     } else {
-      downloadFile(latexFile.latexWithPreamble, 'coopmaths.tex')
+      downloadFile(latexForDownload.latexWithPreamble, 'coopmaths.tex')
     }
   }
 
@@ -295,6 +313,104 @@
       return 'Le code LaTeX a été copié dans le presse-papier.'
     }
   }
+
+  async function openInlinePreviewAndScroll() {
+    isInlinePreviewVisible = true
+    await tick()
+    previewContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  function handleLaunchPreview() {
+    void openInlinePreviewAndScroll()
+  }
+
+  function handleClosePreview() {
+    isInlinePreviewVisible = false
+  }
+
+  function toggleCodePreview() {
+    isCodeExpanded = !isCodeExpanded
+  }
+
+  function extractLatexWithoutPreamble(latexWithPreamble: string): string {
+    const bodyMatch = latexWithPreamble.match(
+      /\\begin\{document\}([\s\S]*?)\\end\{document\}/,
+    )
+    if (bodyMatch?.[1] !== undefined) {
+      return bodyMatch[1].trim()
+    }
+    return latexWithPreamble
+  }
+
+  function handleLatexEditorChange(
+    event: CustomEvent<{ latexWithPreamble: string }>,
+  ) {
+    editedLatexWithPreamble = event.detail.latexWithPreamble
+  }
+
+  function getExportableParams() {
+    const { signal, ...exportableInfos } = latexFileInfos
+    return exportableInfos
+  }
+
+  function handleSaveParams() {
+    const payload = {
+      type: 'mathalea-latex-params',
+      version: 1,
+      savedAt: new Date().toISOString(),
+      params: getExportableParams(),
+    }
+    const jsonContent = JSON.stringify(payload, null, 2)
+    const blob = new Blob([jsonContent], { type: 'application/json' })
+    const blobUrl = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = blobUrl
+    link.download = 'mathalea-latex-params.json'
+    link.click()
+    URL.revokeObjectURL(blobUrl)
+  }
+
+  function handleRestoreParamsClick() {
+    restoreParamsInput?.click()
+  }
+
+  async function handleRestoreParamsUpload(event: Event) {
+    const input = event.currentTarget as HTMLInputElement
+    const file = input.files?.[0]
+    if (!file) {
+      return
+    }
+
+    try {
+      const rawText = await file.text()
+      const parsed = JSON.parse(rawText)
+      const restoredParams =
+        parsed && typeof parsed === 'object' && 'params' in parsed
+          ? parsed.params
+          : parsed
+
+      if (!restoredParams || typeof restoredParams !== 'object') {
+        throw new Error('Format JSON invalide')
+      }
+
+      latexFileInfos = {
+        ...latexFileInfos,
+        ...(restoredParams as Partial<LatexFileInfos>),
+      }
+      editedLatexWithPreamble = ''
+    } catch (error) {
+      console.error('Impossible de restaurer les paramètres :', error)
+      window.alert('Le fichier JSON de paramètres est invalide.')
+    } finally {
+      input.value = ''
+    }
+  }
+
+  $: latexForCopyWithPreamble =
+    editedLatexWithPreamble || latexFile.latexWithPreamble
+  $: latexForCopyWithoutPreamble = editedLatexWithPreamble
+    ? extractLatexWithoutPreamble(editedLatexWithPreamble)
+    : latexFile.latexWithoutPreamble
 </script>
 
 <main
@@ -371,6 +487,14 @@
             showTitle={false}
             classAddenda="placeholder:opacity-40"
           />
+          <CheckboxWithLabel
+            id="export-latex-with-references-checkbox"
+            label="Afficher les références des exercices"
+            isChecked={latexFileInfos.withReferences ?? false}
+            on:change={(event) => {
+              latexFileInfos.withReferences = event.detail as boolean
+            }}
+          />
         </div>
       </SimpleCard>
       <SimpleCard icon={''} title={'Nombre de versions des exercices'}>
@@ -382,9 +506,81 @@
             bind:value={latexFileInfos.nbVersions}
           />
         </span>
+        <div class="mt-3 flex flex-col w-full gap-2">
+          <ButtonTextAction
+            class="px-2 py-1 rounded-md"
+            id="saveLatexParams"
+            on:click={handleSaveParams}
+            text="Sauvegarder les paramètres"
+          />
+          <ButtonTextAction
+            class="px-2 py-1 rounded-md"
+            id="restoreLatexParams"
+            on:click={handleRestoreParamsClick}
+            text="Restaurer les paramètres"
+          />
+          <input
+            bind:this={restoreParamsInput}
+            id="restoreLatexParamsInput"
+            type="file"
+            accept="application/json,.json"
+            class="hidden"
+            on:change={handleRestoreParamsUpload}
+          />
+        </div>
       </SimpleCard>
     </div>
-
+    <h1
+      class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
+    >
+      Prévisualisation PDF
+    </h1>
+    <div
+      bind:this={previewContainer}
+      class="my-6 rounded-lg bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-4 shadow-md"
+    >
+      {#await promise}
+        <p class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          Chargement de la prévisualisation...
+        </p>
+      {:then}
+        <div class="flex items-center justify-end mb-3">
+          {#if !isInlinePreviewVisible}
+            <ButtonTextAction
+              class="px-2 py-1 rounded-md"
+              id="launchInlinePreview"
+              on:click={handleLaunchPreview}
+              text="Lancer la prévisualisation"
+            />
+          {:else}
+            <ButtonTextAction
+              class="px-2 py-1 rounded-md"
+              id="closeInlinePreview"
+              on:click={handleClosePreview}
+              text="Fermer la prévisualisation"
+            />
+          {/if}
+        </div>
+        <div
+          class="w-full rounded-md overflow-hidden border border-coopmaths-canvas-light dark:border-coopmathsdark-canvas-light {isInlinePreviewVisible
+            ? 'bg-transparent h-auto min-h-105'
+            : 'bg-white h-20 min-h-20'}"
+        >
+          {#if isInlinePreviewVisible}
+            <ButtonCompileLatexToPDF
+              class="w-full"
+              {latex}
+              {latexFileInfos}
+              id="preview"
+              inlinePreview={true}
+              autoCompileOnInit={true}
+              initialLatexWithPreamble={editedLatexWithPreamble}
+              on:latexChange={handleLatexEditorChange}
+            />
+          {/if}
+        </div>
+      {/await}
+    </div>
     <div bind:this={divText}>
       <h1
         class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
@@ -416,6 +612,8 @@
                     {latex}
                     {latexFileInfos}
                     id="0"
+                    redirectToInlinePreview={true}
+                    on:openInlinePreview={openInlinePreviewAndScroll}
                   />
                 </div>
               {/await}
@@ -454,7 +652,7 @@
                 <div>
                   <ButtonActionInfo
                     action="copy"
-                    textToCopy={latexFile.latexWithoutPreamble}
+                    textToCopy={latexForCopyWithoutPreamble}
                     text="Code seul"
                     successMessage={messageForCopyPasteModal}
                     errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
@@ -470,7 +668,7 @@
                 <div>
                   <ButtonActionInfo
                     action="copy"
-                    textToCopy={latexFile.latexWithPreamble}
+                    textToCopy={latexForCopyWithPreamble}
                     text="Code + préambule"
                     successMessage={messageForCopyPasteModal}
                     errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
@@ -585,14 +783,26 @@
     >
       Code
     </h1>
-    <pre
-      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-y-auto overflow-x-scroll text-xs">
-      {#await promise}
-        <p>Chargement en cours...</p>
-      {:then}
-        {latexFile.latexWithoutPreamble}
-      {/await}
-    </pre>
+    <div class="mt-6 mb-10 flex justify-start">
+      <ButtonTextAction
+        class="px-2 py-1 rounded-md"
+        id="toggleLatexCodeVisibility"
+        on:click={toggleCodePreview}
+        text={isCodeExpanded
+          ? 'Masquer le code LaTeX'
+          : 'Afficher le code LaTeX'}
+      />
+    </div>
+    {#if isCodeExpanded}
+      <pre
+        class="mb-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-y-auto overflow-x-scroll text-xs">
+        {#await promise}
+          <p>Chargement en cours...</p>
+        {:then}
+          {latexForCopyWithoutPreamble}
+        {/await}
+      </pre>
+    {/if}
   </section>
   <footer>
     <Footer />

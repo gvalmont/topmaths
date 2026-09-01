@@ -1,12 +1,12 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { sp } from '../../../lib/outils/outilString'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver une valeur possible de hauteur'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const uuid = '8c474'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -36,7 +36,7 @@ export default class TrouverLongueur extends ExerciceSimple {
           ['une bouteille', 28, 35, 'cm', 'dm', 'mm', 'm'],
           ['une télévision', 50, 60, 'cm', 'dm', 'mm', 'm'],
         ]
-    const a = this.canOfficielle ? 0 : randint(0, 6)
+    const a = this.canOfficielle ? 0 : this.quotaRandint('a', 0, 6)
     const b = this.canOfficielle
       ? choix[a][1]
       : randint(choix[a][1] as number, choix[a][2] as number)
@@ -56,7 +56,7 @@ export default class TrouverLongueur extends ExerciceSimple {
     ])
     // this.reponse = propositions[0] Pas de this.reponse dans un qcm
     this.autoCorrection[0] = {
-      options: { vertical:true,ordered: false },
+      options: { vertical: true, ordered: false },
       enonce: `La hauteur d'${choix[a][0]} est :`,
       propositions: [
         {
@@ -76,7 +76,6 @@ export default class TrouverLongueur extends ExerciceSimple {
           statut: false,
         },
       ],
-      
     }
     const qcm = propositionsQcm(this, 0)
 

@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -18,12 +19,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 export const titre = "Calculer la valeur décimale d'une fraction"
 export const dateDePublication = '18/11/2021'
@@ -48,7 +47,7 @@ export const uuid = 'd5e44'
 export const refs = {
   'fr-fr': ['6N3A-1', 'BP2AutoC3'],
   'fr-2016': ['6N23-6', 'BP2AutoC3'],
-  'fr-ch': ['9NO10-7'],
+  'fr-ch': ['9NO3C-18'],
 }
 export default class DivisionFraction extends Exercice {
   constructor() {
@@ -178,7 +177,7 @@ export default class DivisionFraction extends Exercice {
         })
         texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${miseEnEvidence(texNombre(q, 2))}$`
       }
-      setReponse(this, i, q)
+      handleAnswers(this, i, { reponse: { value: q } })
       if (context.isHtml && this.interactif) {
         if (this.sup === 1) {
           texte += '~=$'

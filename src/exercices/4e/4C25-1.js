@@ -24,7 +24,7 @@ export const uuid = '7ba8b'
 
 export const refs = {
   'fr-fr': ['4C25-1', 'BP2AutoH20'],
-  'fr-ch': ['10NO5-10'],
+  'fr-ch': ['10NO3C-2'],
 }
 export default class ProblemesMultiplicatifsFractions extends Exercice {
   constructor() {
@@ -40,8 +40,8 @@ export default class ProblemesMultiplicatifsFractions extends Exercice {
 
     this.consigne = 'Justifier vos réponses aux problèmes suivants.'
 
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
-    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+    this.spacing = context.isHtml ? 2 : 1.5
+    this.spacingCorr = context.isHtml ? 3 : 1.5
   }
 
   nouvelleVersion() {
@@ -76,7 +76,6 @@ export default class ProblemesMultiplicatifsFractions extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // on choisit un tableau de dénominateurs qui va bien
       if (denomsAmisToSelect.length === 0)

@@ -1,8 +1,8 @@
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { createList } from '../../lib/format/lists'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import ce from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
@@ -18,7 +18,6 @@ import Exercice from '../Exercice'
 export const titre = 'Déterminer des points avec des vecteurs orthogonaux'
 export const dateDePublication = '05/05/2026'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Déterminer un point D puis l'ensemble des points D tels que deux vecteurs soient orthogonaux.
@@ -44,7 +43,7 @@ export default class PointsVecteursOrthogonaux extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const xA = randint(-6, 6)
       const yA = randint(-6, 6)
       const ux = randint(-5, 5, 0)
@@ -157,7 +156,7 @@ b) ${sousQuestions[1]} : $d\\;:\\;y=$%{champ3}.`,
             options: { fonction: true, variable: 'x' },
           },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, xC, yC)) {

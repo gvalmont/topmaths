@@ -35,9 +35,12 @@ import ExerciceQcmA from '../ExerciceQcmA'
 // ============================================================================
 export const dateDePublication = '26/09/2025'
 export const uuid = 'q5c12f'
-export const refs = { 'fr-fr': ['1A-S01-1'], 'fr-ch': ['9FA1-8'] }
+export const refs = {
+  'fr-fr': ['1A-S01-1', '2A-S1-1', '2A-S1-6', 'BP1AUTO023'],
+  'fr-ch': ['9FA4A-4'],
+}
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Choisir le bon diagramme circulaire'
@@ -292,10 +295,10 @@ export default class Auto1AS1 extends ExerciceQcmA {
     return mathalea2d(
       Object.assign(
         {
-          style: 'display: inline-block;',
+          display: 'inline-block',
           pixelsParCm: 16,
           scale: 0.4,
-        },
+        } as const,
         fixeBordures(objets, { rxmin: 0, rymin: 0, rxmax: 0, rymax: 0 }),
       ),
       objets,
@@ -347,7 +350,7 @@ export default class Auto1AS1 extends ExerciceQcmA {
     if (anglesEgaux && anglesEgaux.nb === 3) {
       const categorie = categoriser(anglesEgaux.valeur)
       const categoriePluriel = avecPluriel(categorie, 3)
-      return `trois angles ${categoriePluriel} égaux (de $${anglesEgaux.valeur}°$)`
+      return `trois angles ${categoriePluriel} égaux (de $${anglesEgaux.valeur}^\\circ$)`
     }
 
     // Cas 2 : Deux angles égaux
@@ -357,7 +360,7 @@ export default class Auto1AS1 extends ExerciceQcmA {
       const angleDifferent = angles.find((a) => a !== anglesEgaux.valeur)!
       const categorieDiff = categoriser(angleDifferent)
 
-      return `deux angles ${categoriePluriel} égaux (de $${anglesEgaux.valeur}°$) et un angle ${categorieDiff} (de $${angleDifferent}°$)`
+      return `deux angles ${categoriePluriel} égaux (de $${anglesEgaux.valeur}^\\circ$) et un angle ${categorieDiff} (de $${angleDifferent}^\\circ$)`
     }
 
     // Cas 3 : Trois angles différents
@@ -379,7 +382,7 @@ export default class Auto1AS1 extends ExerciceQcmA {
         ' et ' +
         descriptions[descriptions.length - 1]
     }
-    resultat += ` (respectivement de $${valeursAngles.join('°, ')}°$)`
+    resultat += ` (respectivement de $${valeursAngles.join('^\\circ,~')}^\\circ$)`
     return resultat
   }
 
@@ -428,9 +431,9 @@ export default class Auto1AS1 extends ExerciceQcmA {
       frac1NR === frac1Simpl ? frac1NR : `${frac1NR}=${frac1Simpl}`,
       frac2NR === frac2Simpl ? frac2NR : `${frac2NR}=${frac2Simpl}`,
       frac3NR === frac3Simpl ? frac3NR : `${frac3NR}=${frac3Simpl}`,
-      `${a1}°`,
-      `${a2}°`,
-      `${a3}°`,
+      `${a1}^\\circ`,
+      `${a2}^\\circ`,
+      `${a3}^\\circ`,
     ]
 
     return tableauColonneLigne(entetesColonnes, entetesLignes, cellules)

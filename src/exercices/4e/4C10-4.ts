@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -9,7 +9,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Quotient de deux entiers relatifs'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Effectuer une division entre 2 nombres relatifs écrite sous la forme d'une fraction.
@@ -21,7 +20,7 @@ export const uuid = 'cdcc1'
 
 export const refs = {
   'fr-fr': ['4C10-4'],
-  'fr-ch': ['10NO5-2'],
+  'fr-ch': ['9NO2C-6'],
 }
 export default class ExerciceQuotientsRelatifs extends Exercice {
   constructor() {
@@ -52,7 +51,6 @@ export default class ExerciceQuotientsRelatifs extends Exercice {
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (typesDeNombres[i] === 'tables') {
@@ -76,7 +74,7 @@ export default class ExerciceQuotientsRelatifs extends Exercice {
       }
       texte = `$\\dfrac{${a}}{${b}}$`
       texteCorr = `$\\dfrac{${a}}{${b}}=${miseEnEvidence(arrondi(a / b))}$`
-      setReponse(this, i, arrondi(a / b))
+      handleAnswers(this, i, { reponse: { value: arrondi(a / b) } })
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
         texteAvant: '=',
       })

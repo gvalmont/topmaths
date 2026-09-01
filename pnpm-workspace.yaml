@@ -1,12 +1,16 @@
+storeDir: .pnpm-store
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
-  - apigeom
+  - apigeom@1.6.2
   - esbuild
   - svelte-preprocess
   - unrs-resolver
 allowBuilds:
   '@parcel/watcher': true
   apigeom: true
+  apigeom@git+https://forge.apps.education.fr/coopmaths/apigeom.git: true
+  core-js: false
   esbuild: true
 blockExoticSubdeps: false
 overrides:

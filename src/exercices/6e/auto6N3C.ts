@@ -17,12 +17,12 @@ export const titre =
   "Passer, de façon automatique, d'une valeur décimale à une valeur fractionnaire et réciproquement avec demis et quarts"
 export const dateDePublication = '10/07/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '297f9'
 export const refs = {
-  'fr-fr': ['auto6N3C'],
+  'fr-fr': ['auto6N3C', '6AutoF2-1'],
   'fr-2016': ['6N22-5'],
-  'fr-ch': ['9NO12-14'],
+  'fr-ch': ['9NO3C-6'],
 }
 
 /** Passer, de façon automatique, d\'une valeur décimale à une valeur fractionnaire (et réciproquement) sur des valeurs simples
@@ -65,7 +65,7 @@ export default class DecimaleAFractionnaire extends Exercice {
           ? shuffle(rangeMinMax(7, 18))
           : shuffle(range1(18))
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let reponse = ''

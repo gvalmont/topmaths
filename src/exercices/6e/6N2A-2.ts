@@ -1,8 +1,9 @@
 import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -17,15 +18,13 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { additionMultiplePosee } from '../../modules/operations' // Adaptez le chemin selon votre structure de dossiers
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 
-export const titre = 'Effectuer additions de plus de deux nombres décimaux'
+export const titre = 'Poser additions de plus de deux nombres décimaux'
 export const dateDePublication = '04/01/2025'
 /**
  * Additions de plus de deux nombres décimaux
@@ -50,7 +49,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
     ]
 
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon les opérations posées ne sont pas jolies
     this.nbQuestions = 4
     this.sup = 3
   }
@@ -184,7 +183,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
       }
 
       texte += grilletxt
-      setReponse(this, i, reponse)
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (this.interactif && context.isHtml)
         texte +=
           '$~=$' +

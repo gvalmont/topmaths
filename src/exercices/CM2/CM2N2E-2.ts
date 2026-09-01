@@ -1,6 +1,8 @@
 import Figure from 'apigeom'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -10,14 +12,11 @@ import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '03/05/2024'
 export const titre = "Placer des points d'abscisses fractionnaires"
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -29,14 +28,13 @@ export const uuid = '2ba53'
 export const refs = {
   'fr-fr': ['CM2N2E-2'],
   'fr-2016': ['6N21'],
-  'fr-ch': ['9NO11-4'],
+  'fr-ch': ['9NO3A-4'],
 }
 
 type goodAnswer = { label: string; x: number }[]
 
 class PlacerPointsAbscissesFractionnaires extends Exercice {
   goodAnswers!: goodAnswer[]
-  figuresApiGeom!: Figure[]
   constructor() {
     super()
 
@@ -57,6 +55,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
 
   nouvelleVersion() {
     this.figuresApiGeom = []
+    this.figuresApiGeomCorr = []
     this.goodAnswers = []
     let typeDeQuestions
     if (this.sup > 3) {
@@ -66,7 +65,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     }
     const fractionsUtilisees: Array<[number, number]> = [] // Pour s'assurer de ne pas poser 2 fois la même question
     const tableUtilisées: [number[], number[], number[]] = [[], [], []]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let origine, num1, den1: number
@@ -161,6 +160,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
         colorLabel: orangeMathalea,
         labelDxInPixels: 0,
       })
+      this.figuresApiGeomCorr[i] = figureCorr
 
       switch (true) {
         case context.isHtml && this.interactif:
@@ -235,12 +235,13 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
   }
 
   correctionInteractive = (i?: number) => {
-    if (i === undefined) return ['KO']
+    if (i === undefined || this.figuresApiGeom === undefined) return ['KO']
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
     if (this == null) return ['KO']
-    if (this.figures == null) return ['KO']
-    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom[i].id] = figureAnswerJson(
+      this.figuresApiGeom[i],
+    )
     const result: ('OK' | 'KO')[] = []
     const figure = this.figuresApiGeom[i]
     figure.isDynamic = false

@@ -3,7 +3,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '17/11/2022'
@@ -30,8 +30,8 @@ export default class ProgrammeCalculInverse extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(2, 20)
-    const b = randint(2, 5)
+    const a = this.quotaRandint('a', 2, 20)
+    const b = this.quotaRandint('b', 2, 5)
     const res = randint(b + 1, 15)
     this.reponse = b * res - a
     this.question = `Je pense à un nombre. J'ajoute $${a}$, puis je divise le résultat par $${b}$ et j'obtiens $${res}$. <br>

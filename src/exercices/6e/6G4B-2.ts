@@ -15,7 +15,7 @@ import Exercice from '../Exercice'
 export const titre = 'Connaître la mesure de quelques angles particuliers'
 export const amcReady = false
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '04/12/2025'
 export const dateDeModifImportante = '14/12/2025'
 
@@ -25,8 +25,8 @@ export const dateDeModifImportante = '14/12/2025'
 export const uuid = 'cded3'
 
 export const refs = {
-  'fr-fr': ['6G4B-2', '3AutoG04-1'],
-  'fr-ch': [],
+  'fr-fr': ['6G4B-2', '3AutoG04'],
+  'fr-ch': ['9ES1B-9'],
 }
 export default class MesureAnglesParticuliers extends Exercice {
   constructor() {

@@ -14,12 +14,12 @@ import Exercice from '../../Exercice'
 
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Compter les points symétriques manquants'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -189,7 +189,7 @@ export default class CompleterParSymetrieCan extends Exercice {
         ...objetsEnonce,
         ...objetsCorrection,
       )
-      setReponse(this, i, pointsEnPlusCorr.length)
+      handleAnswers(this, i, { reponse: { value: pointsEnPlusCorr.length } })
       if (
         this.questionJamaisPosee(
           i,

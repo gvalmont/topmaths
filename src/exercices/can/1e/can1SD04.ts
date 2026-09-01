@@ -4,18 +4,18 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { bleuMathalea } from '../../../lib/colors'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Lire graphiquement la valeur  $b$ dans $ax^2+b$'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '17/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -41,7 +41,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
   nouvelleVersion() {
     let texte = ''
     let texteCorr = ''
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a = 0
       let b = 0
       let o
@@ -91,7 +91,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
                   ymax: 8,
                   pixelsParCm: 25,
                   scale: 0.6,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 r,
                 o,
@@ -132,7 +132,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
                   ymax: 4,
                   pixelsParCm: 25,
                   scale: 0.6,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 r,
                 o,
@@ -148,7 +148,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
                 texteAvant: '$b=$',
               },
             )
-            setReponse(this, i, b)
+            handleAnswers(this, i, { reponse: { value: b } })
           }
 
           texteCorr = `La valeur de $b$ est donnée par l'image de $0$ par la fonction $f$.<br>
@@ -200,7 +200,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
                   ymax: 4,
                   pixelsParCm: 25,
                   scale: 0.6,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 r,
                 o,
@@ -241,7 +241,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
                   ymax: 1,
                   pixelsParCm: 25,
                   scale: 0.6,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 r,
                 o,
@@ -257,7 +257,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
                 texteAvant: '$b=$',
               },
             )
-            setReponse(this, i, b)
+            handleAnswers(this, i, { reponse: { value: b } })
           }
 
           texteCorr = `La valeur de $b$ est donnée par l'image de $0$ par la fonction $f$.<br>

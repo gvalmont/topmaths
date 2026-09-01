@@ -1,12 +1,11 @@
-import Exercice from '../Exercice'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre = 'Compléter avec du vocabulaire sur les probabilités'
 export const uuid = '4703c'
@@ -14,7 +13,7 @@ export const dateDePublication = '29/7/2024' // La date de publication initiale 
 export const dateDeModifImportante = '08/09/2024'
 export const refs = {
   'fr-fr': ['4S20-1', 'BP2FLUC11'],
-  'fr-ch': [],
+  'fr-ch': ['11NO4A-2'],
 }
 /**
  *
@@ -47,7 +46,6 @@ export default class nomExercice extends Exercice {
     for (
       let i = 0, texte, rep, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (

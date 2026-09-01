@@ -1,6 +1,6 @@
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -14,7 +14,6 @@ import Exercice from '../Exercice'
 export const titre =
   "Trouver un ordre de grandeur d'un produit de nombres entiers ou décimaux"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * * Ordre de grandeur d'une multiplication d'entiers ou de décimaux
@@ -28,7 +27,7 @@ export const uuid = '6e828'
 export const refs = {
   'fr-fr': ['6N2F-1', 'BP2AutoU6'],
   'fr-2016': ['6N31-2'],
-  'fr-ch': ['9NO8-12a'],
+  'fr-ch': ['9NO1G-16'],
 }
 
 export default class OrdreDeGrandeurMultiplication extends Exercice {
@@ -74,12 +73,26 @@ export default class OrdreDeGrandeurMultiplication extends Exercice {
       melange: 5,
       defaut: 5,
     }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte: string = ''
       let texteCorr: string = ''
       let nb1: number = 0
       let nb2: number = 0
       const nbChiffres = this.sup3 ? 2 : 5
+      const dataOptions = {
+        champ1: {
+          ldots: true,
+          minWidth: 50,
+        },
+        champ2: {
+          ldots: true,
+          minWidth: 50,
+        },
+        champ3: {
+          ldots: true,
+          minWidth: 50,
+        },
+      }
       switch (listeTypeOperations[i]) {
         case 1:
           {
@@ -104,15 +117,23 @@ export default class OrdreDeGrandeurMultiplication extends Exercice {
             nb2 = nombre2 / div2
             const odg1 = ordreDeGrandeur1 / div1
             const odg2 = ordreDeGrandeur2 / div2
+            const dataTemplate = `$${texNombre(nb1, 4)}\\times${texNombre(nb2, 4)}\\approx$ %{champ1} $\\times$ %{champ2}
+$${texNombre(nb1, 4)}\\times${texNombre(nb2, 4)}\\approx$ %{champ3}`
 
-            texte = `$${texNombre(nb1, 4)}\\times${texNombre(nb2, 4)}\\approx$ ${remplisLesBlancs(this, i, '%{champ1}\\times %{champ2}\\approx %{champ3}', '', '\\ldots\\ldots\\ldots')}`
-            texteCorr = `$${texNombre(nb1, 4)}\\times${texNombre(nb2, 4)}\\approx${texNombre(odg1, 4)}\\times${texNombre(odg2, 4)}\\approx${miseEnEvidence(texNombre(odg1 * odg2, 6))}$`
-            handleAnswers(this, i, {
-              champ1: { value: odg1 },
-              champ2: { value: odg2 },
-              champ3: { value: odg1 * odg2 },
-              bareme: toutAUnPoint,
-            })
+            texte = addMultiMathfield(this, i, { dataTemplate, dataOptions })
+            texteCorr = `On a : $${texNombre(nb1, 4)}\\times${texNombre(nb2, 4)}\\approx${miseEnEvidence(texNombre(odg1, 4))}\\times${miseEnEvidence(texNombre(odg2, 4))}$<br>
+            Do,c : $${texNombre(nb1, 4)}\\times${texNombre(nb2, 4)}\\approx${miseEnEvidence(texNombre(odg1 * odg2, 6))}$`
+            handleAnswers(
+              this,
+              i,
+              {
+                champ1: { value: odg1 },
+                champ2: { value: odg2 },
+                champ3: { value: odg1 * odg2 },
+                bareme: toutAUnPoint,
+              },
+              { formatInteractif: 'multi-mathfield' },
+            )
           }
           break
         case 2:
@@ -139,15 +160,22 @@ export default class OrdreDeGrandeurMultiplication extends Exercice {
             nb2 = nombre2 / div1
             const odg1 = ordreDeGrandeur1 / div1
             const odg2 = ordreDeGrandeur2 / div1
-
-            texte = `$${texNombre(nb1, 4)}+${texNombre(nb2, 3)}\\approx$ ${remplisLesBlancs(this, i, '%{champ1}+%{champ2}\\approx%{champ3}', '', '\\ldots\\ldots\\ldots')}`
-            texteCorr = `$${texNombre(nb1, 3)}+${texNombre(nb2, 3)}\\approx${texNombre(odg1, 3)}+${texNombre(odg2, 3)}\\approx${miseEnEvidence(texNombre(odg1 + odg2, 6))}$`
-            handleAnswers(this, i, {
-              champ1: { value: odg1 },
-              champ2: { value: odg2 },
-              champ3: { value: odg1 + odg2 },
-              bareme: toutAUnPoint,
-            })
+            const dataTemplate = `$${texNombre(nb1, 4)}+${texNombre(nb2, 3)}\\approx$ %{champ1} $+$ %{champ2}
+$${texNombre(nb1, 4)}+${texNombre(nb2, 3)}\\approx$ %{champ3}`
+            texte = addMultiMathfield(this, i, { dataTemplate, dataOptions })
+            texteCorr = `On a :$${texNombre(nb1, 3)}+${texNombre(nb2, 3)}\\approx${miseEnEvidence(texNombre(odg1, 3))}+${miseEnEvidence(texNombre(odg2, 3))}$<br>
+            Donc : $${texNombre(nb1, 3)}+${texNombre(nb2, 3)}\\approx${miseEnEvidence(texNombre(odg1 + odg2, 6))}$`
+            handleAnswers(
+              this,
+              i,
+              {
+                champ1: { value: odg1 },
+                champ2: { value: odg2 },
+                champ3: { value: odg1 + odg2 },
+                bareme: toutAUnPoint,
+              },
+              { formatInteractif: 'multi-mathfield' },
+            )
           }
           break
         case 3:
@@ -176,15 +204,23 @@ export default class OrdreDeGrandeurMultiplication extends Exercice {
             nb2 = nombre2 / div1
             const odg1 = ordreDeGrandeur1 / div1
             const odg2 = ordreDeGrandeur2 / div1
+            const dataTemplate = `$${texNombre(nb1, 4)}-${texNombre(nb2, 3)}\\approx$ %{champ1} $-$ %{champ2}
+$${texNombre(nb1, 4)}-${texNombre(nb2, 3)}\\approx$ %{champ3}`
+            texte = addMultiMathfield(this, i, { dataTemplate, dataOptions })
 
-            texte = `$${texNombre(nb1, 3)}-${texNombre(nb2, 3)}\\approx$ ${remplisLesBlancs(this, i, '%{champ1}-%{champ2}\\approx%{champ3}', '', '\\ldots\\ldots\\ldots')}`
-            texteCorr = `$${texNombre(nb1, 3)}-${texNombre(nb2, 3)}\\approx${texNombre(odg1, 3)}-${texNombre(odg2, 3)}\\approx${miseEnEvidence(texNombre(odg1 - odg2, 6))}$`
-            handleAnswers(this, i, {
-              champ1: { value: odg1 },
-              champ2: { value: odg2 },
-              champ3: { value: odg1 - odg2 },
-              bareme: toutAUnPoint,
-            })
+            texteCorr = `On a : $${texNombre(nb1, 3)}-${texNombre(nb2, 3)}\\approx${miseEnEvidence(texNombre(odg1, 3))}-${miseEnEvidence(texNombre(odg2, 3))}$<br>
+            Donc : $${texNombre(nb1, 3)}-${texNombre(nb2, 3)}\\approx${miseEnEvidence(texNombre(odg1 - odg2, 6))}$`
+            handleAnswers(
+              this,
+              i,
+              {
+                champ1: { value: odg1 },
+                champ2: { value: odg2 },
+                champ3: { value: odg1 - odg2 },
+                bareme: toutAUnPoint,
+              },
+              { formatInteractif: 'multi-mathfield' },
+            )
           }
           break
 
@@ -212,15 +248,23 @@ export default class OrdreDeGrandeurMultiplication extends Exercice {
             nb2 = nombre2 / div2
             const odg1 = ordreDeGrandeur1 / div1
             const odg2 = ordreDeGrandeur2 / div2
+            const dataTemplate = `$${texNombre(nb1, 4)}\\div${texNombre(nb2, 3)}\\approx$ %{champ1} $\\div$ %{champ2}
+$${texNombre(nb1, 4)}\\div${texNombre(nb2, 3)}\\approx$ %{champ3}`
+            texte = addMultiMathfield(this, i, { dataTemplate, dataOptions })
 
-            texte = `$${texNombre(nb1, 3)}:${texNombre(nb2, 3)}\\approx$ ${remplisLesBlancs(this, i, '%{champ1}:%{champ2}\\approx%{champ3}', '', '\\ldots\\ldots\\ldots')}`
-            texteCorr = `$${texNombre(nb1, 3)}:${texNombre(nb2, 3)}\\approx${texNombre(odg1, 3)}:${texNombre(odg2, 3)}\\approx${miseEnEvidence(texNombre(odg1 / odg2, 6))}$`
-            handleAnswers(this, i, {
-              champ1: { value: odg1 },
-              champ2: { value: odg2 },
-              champ3: { value: odg1 / odg2 },
-              bareme: toutAUnPoint,
-            })
+            texteCorr = `On a : $${texNombre(nb1, 3)}\\div${texNombre(nb2, 3)}\\approx${miseEnEvidence(texNombre(odg1, 3))}\\div${miseEnEvidence(texNombre(odg2, 3))}$<br>
+            Donc : $${texNombre(nb1, 3)}\\div${texNombre(nb2, 3)}\\approx${miseEnEvidence(texNombre(odg1 / odg2, 6))}$`
+            handleAnswers(
+              this,
+              i,
+              {
+                champ1: { value: odg1 },
+                champ2: { value: odg2 },
+                champ3: { value: odg1 / odg2 },
+                bareme: toutAUnPoint,
+              },
+              { formatInteractif: 'multi-mathfield' },
+            )
           }
           break
       }

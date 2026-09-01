@@ -1,9 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer et utiliser un agrandissement/réduction'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -28,7 +27,7 @@ export default class AgrandissementReduction extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b, c
-    switch (choice(['a', 'b', 'c', 'c'])) {
+    switch (this.quotaChoice('cas', ['a', 'b', 'c', 'c'])) {
       case 'a':
         a = randint(2, 10)
 

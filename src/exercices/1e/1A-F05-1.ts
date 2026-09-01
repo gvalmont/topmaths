@@ -8,13 +8,13 @@ import {
 
 // import { reduireAxPlusB } from '../../lib/outils/ecritures'
 
+import { bleuMathalea } from '../../lib/colors'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
-import { bleuMathalea } from '../../lib/colors'
 /**
  * @author Gilles Mora
  *
@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -213,7 +213,7 @@ export default class Auto1AF5 extends ExerciceQcmA {
         ymax: ymax + 0.25,
         pixelsParCm: 30,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       courbe(f1, {
         repere: r,
@@ -229,10 +229,10 @@ export default class Auto1AF5 extends ExerciceQcmA {
       o,
     )
 
-    this.enonce = `On donne les représentations graphiques de deux fonctions affines $g$ (en bleu) et $h$ (en rouge) définies sur $\\mathbb{R}$.<br>
+    this.enonce = `On donne les représentations graphiques de deux fonctions affines, $g$ (en bleu) et $h$ (en rouge), définies sur $\\mathbb{R}$.<br>
     ${objet}<br><br>`
     this.enonce +=
-      'Le tableau de signes de la fonction $f$ définies par $f(x)=g(x)\\times h(x)$ sur $\\mathbb{R}$ est  : '
+      'Le tableau de signes de la fonction $f$ définie par $f(x)=g(x)\\times h(x)$ sur $\\mathbb{R}$ est  : '
 
     this.reponses = [
       `${tableauSignesFonction(fProduit, -10, 10, {
@@ -299,6 +299,20 @@ export default class Auto1AF5 extends ExerciceQcmA {
         deltacl: 1,
         lgt: 5,
       })
+
+    this.correction += `Le tableau de signes de $f$ est donc : ${tableauSignesFonction(
+      fProduit,
+      -10,
+      10,
+      {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -10, antTex: '-\\infty' },
+          { antVal: 10, antTex: '+\\infty' },
+        ],
+      },
+    )}`
   }
 
   versionAleatoire: () => void = () => {
@@ -518,7 +532,7 @@ export default class Auto1AF5 extends ExerciceQcmA {
         ymax: ymax + 0.05,
         pixelsParCm: 30,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       courbe(f1, {
         repere: r,
@@ -534,10 +548,10 @@ export default class Auto1AF5 extends ExerciceQcmA {
       o,
     )
 
-    this.enonce = `On donne les représentations graphiques de deux fonctions affines $g$ (en bleu) et $h$ (en rouge) définies sur $\\mathbb{R}$.<br>
+    this.enonce = `On donne les représentations graphiques de deux fonctions affines, $g$ (en bleu) et $h$ (en rouge), définies sur $\\mathbb{R}$.<br>
     ${objet}<br><br>`
     this.enonce +=
-      'Le tableau de signes de la fonction $f$ définies par $f(x)=g(x)\\times h(x)$ sur $\\mathbb{R}$ est  : '
+      'Le tableau de signes de la fonction $f$ définie par $f(x)=g(x)\\times h(x)$ sur $\\mathbb{R}$ est  : '
 
     this.reponses = [
       `${tableauSignesFonction(fProduit, -10, 10, {
@@ -604,14 +618,25 @@ export default class Auto1AF5 extends ExerciceQcmA {
         deltacl: 1,
         lgt: 5,
       })
+    this.correction += `Le tableau de signes de $f$ est donc : ${tableauSignesFonction(
+      fProduit,
+      -10,
+      10,
+      {
+        step: 1,
+        tolerance: 0.1,
+        substituts: [
+          { antVal: -10, antTex: '-\\infty' },
+          { antVal: 10, antTex: '+\\infty' },
+        ],
+      },
+    )}`
   }
 
   constructor() {
     super()
     // Appel de la version originale par défaut, ou de la version aléatoire selon les besoins
     this.versionOriginale()
-    context.isHtml
-      ? (this.options = { vertical: false, ordered: false })
-      : (this.options = { vertical: true, ordered: false })
+    this.options.vertical = true
   }
 }

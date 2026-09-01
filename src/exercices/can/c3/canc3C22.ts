@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier par 10, 100, 1000 '
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '03/07/2025'
@@ -18,7 +18,7 @@ export const dateDePublication = '03/07/2025'
 export const uuid = '4ce49'
 
 export const refs = {
-  'fr-fr': ['canc3C22'],
+  'fr-fr': ['canc3C22', 'auto5N1E-flash2'],
   'fr-ch': [],
 }
 export default class MultiplierPar10Par100Par1000 extends ExerciceSimple {
@@ -33,7 +33,7 @@ export default class MultiplierPar10Par100Par1000 extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, resultat
     switch (
-      choice([1, 2]) //, 2, 3
+      this.quotaChoice('typeDeQuestions', [1, 2]) //, 2, 3
     ) {
       case 1: // entier
         a = choice([randint(11, 99), randint(100, 999)])

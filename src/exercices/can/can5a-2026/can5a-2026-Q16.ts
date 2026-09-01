@@ -4,18 +4,19 @@ import { plot } from '../../../lib/2d/Plot'
 import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { pgcd } from '../../../lib/outils/primalite'
 import type { IExercice } from '../../../lib/types'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer la proportion de boules blanches dans un sac'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'jjs2e'
 export const refs = {
   'fr-fr': [],
@@ -145,7 +146,7 @@ export default class Can52026Q16 extends ExerciceCan {
 
     this.consigne = mathalea2d(
       Object.assign(
-        { style: 'margin: auto', scale: 0.5 },
+        { center: !context.isHtml, scale: 0.5 },
         fixeBordures(objets),
       ),
       objets,
@@ -165,7 +166,7 @@ La proportion de boules blanches est donc : ${pgcd(nbBlanches, total) !== 1 ? `$
     this.canEnonce =
       mathalea2d(
         Object.assign(
-          { style: 'margin: auto', scale: 0.5 },
+          { center: !context.isHtml, scale: 0.5 },
           fixeBordures(objets),
         ),
         objets,

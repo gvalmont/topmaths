@@ -1,6 +1,6 @@
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { prenoms } from '../../lib/outils/Personne'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -15,7 +15,7 @@ import {
 import Exercice from '../Exercice'
 export const titre = 'Effectuer un dénombrement'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDePublication = '21/04/2025' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const uuid = '3a385'
@@ -38,7 +38,7 @@ export default class denombrement extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // membre association
       const n = randint(20, 40) // nombre d'adhérents
       const ca = randint(5, 8) // nombre membres au CA
@@ -110,7 +110,7 @@ export default class denombrement extends Exercice {
           champ2: { value: reponse2 },
           champ3: { value: reponse3 },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
       let correction1 = `On doit choisir ${ca} adhérents parmi ${n}. <br>`
       correction1 += `L'ordre des candidats ne compte pas dans ce choix. Il s'agit donc de déterminer le nombre de combinaisons de  $${ca}$ membres parmi $${n}$.<br>`

@@ -10,9 +10,10 @@ import {
   pointIntersectionDD,
   pointSurSegment,
 } from '../../lib/2d/utilitairesPoint'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { couleurTab } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -27,11 +28,9 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Nommer un angle'
-export const interactifType = ['qcm', 'mathLive']
+
 export const interactifReady = true
 export const amcType = 'AMCHybride'
 export const amcReady = true
@@ -48,7 +47,7 @@ export const uuid = 'e10d1'
 export const refs = {
   'fr-fr': ['6G4A'],
   'fr-2016': ['6G22'],
-  'fr-ch': ['9ES5-1'],
+  'fr-ch': ['9ES1B-1'],
 }
 export default class NommerUnAngle extends Exercice {
   constructor() {
@@ -71,7 +70,6 @@ export default class NommerUnAngle extends Exercice {
   }
 
   nouvelleVersion() {
-    this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
     let propositionsDuQcm = []
     for (
       let i = 0,
@@ -414,7 +412,7 @@ export default class NommerUnAngle extends Exercice {
         )
         if (
           (this.interactif || context.isAmc) &&
-          this.interactifType === 'qcm'
+          this.sup2 !== 2
         ) {
           texteAMC = 'Choisir tous les angles qui peuvent nommer'
         } else {
@@ -432,26 +430,29 @@ export default class NommerUnAngle extends Exercice {
                 ymax: 1.2,
                 pixelsParCm: 20,
                 scale: 0.5,
-                style: 'display:inline-block',
+                display: 'inline-block',
               },
               marquageAngleConsigne,
             )
           : `${couleurRemplissageAngle[1]}`
         texteAMC +=
-          (this.interactif || context.isAmc) && this.interactifType === 'qcm'
+          (this.interactif || context.isAmc) && this.sup2 !== 2
             ? '.'
             : `${sp()}?`
         texte += this.sup > 1 ? `${jj === 0 ? '' : '<br>'}${numAlpha(jj)}` : ''
         texte += texteAMC
-        if (this.interactif && this.interactifType === 'mathLive') {
+        if (this.interactif && this.sup2 === 2) {
           texte += ajouteChampTexteMathLive(
             this,
             i * this.sup + jj,
             KeyboardType.angles,
           )
         }
-        setReponse(this, i * this.sup + jj, resultat, {
-          formatInteractif: 'texte',
+        handleAnswers(this, i * this.sup + jj, {
+          reponse: {
+            value: resultat,
+            options: { texteAvecCasse: true },
+          },
         })
         objetsCorrection.push(
           codageAngle(
@@ -483,7 +484,7 @@ export default class NommerUnAngle extends Exercice {
                 ymax: 1.2,
                 pixelsParCm: 20,
                 scale: 0.5,
-                style: 'display:inline-block',
+                display: 'inline-block',
               },
               marquageAngleConsigne,
             )
@@ -515,7 +516,7 @@ export default class NommerUnAngle extends Exercice {
             statut: false,
           },
         ]
-        if (this.interactifType === 'qcm') {
+        if (this.sup2 !== 2) {
           this.autoCorrection[i * this.sup + jj].enonce = `${texte}\n`
           this.autoCorrection[i * this.sup + jj].propositions =
             propositionsDuQcm

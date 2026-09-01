@@ -10,7 +10,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un point sur une courbe'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const uuid = '5157a'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -46,8 +46,7 @@ export default class PointsCourbe extends ExerciceSimple {
     $\\begin{aligned}
         f(${abs})&=${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(a)}\\\\
         &=${abs ** 2 + a}
-        \\end{aligned}$
-        <br>
+        \\end{aligned}$<br>
         ${
           abs ** 2 + a === ord
             ? `Le point $A$ est bien sur la parabole.<br> L'affirmation est ${texteEnCouleurEtGras('Vraie')}`

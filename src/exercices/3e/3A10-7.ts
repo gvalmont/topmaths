@@ -9,19 +9,18 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { orangeMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { context } from '../../modules/context'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const dateDePublication = '12/10/2022'
 export const dateDeModifImportante = '29/10/2024'
 export const titre = 'Explorer un labyrinthe de nombres premiers'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -33,7 +32,7 @@ export const uuid = '9552e'
 
 export const refs = {
   'fr-fr': ['3A10-7'],
-  'fr-ch': ['9NO4-15'],
+  'fr-ch': ['9NO1B-10'],
 }
 export default class ExerciceLabyrinthePremiers3e extends Exercice {
   constructor() {
@@ -96,7 +95,7 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
     let laby: Labyrinthe
     let monChemin
 
-    for (let i = 0; i < this.nbQuestions; ) {
+    for (let i = 0; i < this.nbQuestions;) {
       let nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3)
       let nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4)
       let indiceDiminution = 0
@@ -173,7 +172,7 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
             champ1: { value: numeroDeSortie },
             champ2: { value: nbDeNombresRencontres },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       }
       texteCorr += mathalea2d(

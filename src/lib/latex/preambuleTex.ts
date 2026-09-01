@@ -1,14 +1,22 @@
 import type { LatexFileInfos, contentsType } from '../LatexTypes'
 
 export function loadFonts(latexFileInfos: LatexFileInfos) {
+  // `Defaut` : Fira en mode dys (comme avant l'ouverture du réglage),
+  // Helvetica sinon.
+  const family = latexFileInfos.fontFamily ?? 'Defaut'
+  const dysFamily = family === 'Defaut' ? 'Fira' : family
+  const standardFamily = family === 'Defaut' ? 'helvet' : family
   return `\n\\usepackage{etoolbox}
 \\newbool{dys}
 \\setbool{dys}{${latexFileInfos.fontOption === 'DysFont' ? 'true' : 'false'}}
-\\ifbool{dys}{
-% POLICE DYS
-% ===== VARIABLE =====
-\\def\\FontChoisie{Fira} % valeurs possibles : Fira, lmodern, tgheros
-\\newcommand{\\choiceFontsDys}[1]{
+% ===== POLICES =====
+% Le choix est le même en police standard et en police adaptée aux dys ;
+% seuls la taille et l'interligne changent entre les deux.
+\\newcommand{\\choiceFonts}[1]{
+\\ifstrequal{#1}{helvet}{%
+  % Helvetica (police standard historique des fiches)
+  \\usepackage[scaled=1]{helvet}
+}{}
 \\ifstrequal{#1}{Fira}{%
   % Fira Sans + Fira Math
   % Description : Fira Sans est une police moderne, et Fira Math est une version mathématique compatible qui maintient le style sans-serif.
@@ -36,8 +44,9 @@ export function loadFonts(latexFileInfos: LatexFileInfos) {
   \\usepackage{mathastext}
 }{}
 }
-% Fira ou lmodern ou tgheros
-\\choiceFontsDys{\\FontChoisie}
+\\ifbool{dys}{
+% POLICE DYS
+\\choiceFonts{${dysFamily}}
 
 %\\usepackage{unicode-math}
 %\\usepackage{fontspec}
@@ -57,9 +66,33 @@ export function loadFonts(latexFileInfos: LatexFileInfos) {
 % POLICE STANDARD
 %%% EE (24/04/2026) : Cette modif ci-dessous est nécessaire pour accepter ’ comme apostrophe.
 % \\usepackage[T1]{fontenc}     % Réservé à pdfLaTeX, à remplacer par fontspec en LuaLaTeX
-\\usepackage[scaled=1]{helvet}
+\\choiceFonts{${standardFamily}}
 \\usepackage[fontsize=${latexFileInfos.tailleFontOption}]{scrextend}
 }`
+}
+
+/**
+ * Réglages qui doivent surcharger ceux de l'habillage : marges et impression
+ * en noir et blanc. Ils sont émis en fin de préambule, après `\\Theme` (ou
+ * après le préambule ProfMaquette), pour passer devant les valeurs codées en
+ * dur dans chaque habillage.
+ */
+export function loadLayoutOverrides(latexFileInfos: LatexFileInfos): string {
+  let overrides = ''
+  const margins = latexFileInfos.margins
+  if (margins != null) {
+    // `\geometry` (et non `\usepackage[...]{geometry}`) : le paquet est déjà
+    // chargé par l'habillage, le recharger provoquerait un conflit d'options
+    overrides += `\n% Marges choisies dans les réglages du document\n\\geometry{left=${margins.left}cm,right=${margins.right}cm,top=${margins.top}cm,bottom=${margins.bottom}cm}`
+  }
+  if (latexFileInfos.blackAndWhite === true) {
+    // xcolor convertit alors toute couleur employée ensuite en niveaux de
+    // gris, sans qu'il faille recenser les couleurs des habillages ni celles
+    // des figures des exercices
+    overrides +=
+      '\n% Impression en noir et blanc\n\\selectcolormodel{gray}'
+  }
+  return overrides
 }
 
 function loadNoteBasExercices(contents: contentsType) {
@@ -280,6 +313,7 @@ export function loadPackagesFromContent(contents: contentsType) {
   testIfLoaded(['\\contour'], '\\usepackage{contour}', contents)
   testIfLoaded(['\\twemoji'], '\\usepackage{twemojis}', contents)
   testIfLoaded(['ifthenelse'], '\\usepackage{ifthen}', contents)
+  testIfLoaded(['adjustbox'], '\\usepackage{adjustbox}', contents)
   testIfLoaded(
     ['pspicture', '\\rput', '\\pscurve', '\\psset', '\\psframe'],
     '\\usepackage{pstricks}',
@@ -330,7 +364,13 @@ export function loadPackagesFromContent(contents: contentsType) {
   testIfLoaded(['{tabularx}', '{tabular}'], '\\usepackage{tabularx}', contents)
   testIfLoaded(['{tablvar}'], '\\usepackage{tablvar}', contents)
   testIfLoaded(['\\ang', '\\num{'], '\\usepackage{siunitx}', contents)
-  testIfLoaded(['\\begin{multicols}'], '\\usepackage{multicol}', contents)
+  testIfLoaded(
+    ['\\begin{multicols}', '\\columnbreak'],
+    '\\usepackage{multicol}',
+    contents,
+  )
+  // interligne réglé exercice par exercice (`\begin{spacing}`)
+  testIfLoaded(['\\begin{spacing}'], '\\usepackage{setspace}', contents)
   testIfLoaded(
     ['\\opadd', '\\opsub', '\\opmul', '\\opdiv', '\\opidiv', '\\opmanyadd'],
     '\\usepackage{xlop}',
@@ -409,6 +449,7 @@ export function loadPackagesFromContent(contents: contentsType) {
     contents,
   )
   testIfLoaded(['boxplot'], '\\usepgfplotslibrary{statistics}', contents)
+  testIfLoaded(['fill between'], '\\usepgfplotslibrary{fillbetween}', contents)
 
   testIfLoaded(['lstlisting'], '\\tcbuselibrary{listings}', contents)
 
@@ -498,8 +539,8 @@ export function loadPackagesFromContent(contents: contentsType) {
 \\reserved@a
 }
 \\def\\dummy@environ{}
-\\makeatother
-\\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`,
+\\provideenvironment{figure}{}{}\\renewenvironment{figure}{\\def\\@captype{figure}}{}
+\\makeatother`,
     contents,
     'begin{figure}',
   )
@@ -938,7 +979,7 @@ function squareO() {
   % Squaro
   %%%
 
-  \\setKVdefault[Squaro]{Solution=false,Longueur=8,Largeur=8,Echelle=8mm,Graines=false,Perso=false}
+  \\setKVdefault[Squaro]{Solution=false,Longueur=8,Largeur=8,Echelle=8mm,Graines=false,Graine=1,Perso=false}
   \\defKV[Squaro]{Graine=\\setKV[Squaro]{Graines}}%
 
 

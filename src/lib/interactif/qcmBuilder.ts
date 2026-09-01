@@ -1,7 +1,6 @@
-import { context } from '../../modules/context'
 import { createList } from '../format/lists'
 import { formaterReponse } from '../outils/ecritures'
-import { texteEnCouleurEtGras } from '../outils/embellissements'
+import { texteEnCouleurEtGras, texteGras } from '../outils/embellissements'
 import type {
   AnswerValueType,
   BuildQcmForExerciseParams,
@@ -34,23 +33,32 @@ function buildCorrectAnswersMessage(
     return `Les bonnes réponses sont les réponses ${texteEnCouleurEtGras(bonnesLettres.join(' ; '))}.`
   }
 
-  return `La bonne réponse est la réponse ${texteEnCouleurEtGras(bonnesLettres[0] ?? '')}.`
+  return `<br>La bonne réponse est la réponse ${texteEnCouleurEtGras(bonnesLettres[0] ?? '')}.`
 }
 
-function buildCorrectionsList(propositions: SharedQcmProposition[]): string {
+function buildCorrectionsList(
+  propositions: SharedQcmProposition[],
+  exoInteractif: boolean,
+): string {
   const corrections = propositions
     .map((proposition, index) => {
       if (proposition.correction == null || proposition.correction === '')
         return ''
-      return `réponse ${QCM_LETTERS[index] ?? String(index + 1)} : ${proposition.correction}${
+      return (
+        // La lettre en gras, et non le rang : hors interactif les propositions sont
+        // étiquetées A, B, C… (format 'lettre'), tout comme le message final.
+        `${!exoInteractif && QCM_LETTERS[index] ? `réponse ${texteGras(QCM_LETTERS[index])} : ` : ''} ${proposition.correction}` +
+        /* +`${ // Eric : J'ai enlevé les coches (21/08/2026)
         context.isHtml
           ? proposition.statut
-            ? '\u2705' // ✅
-            : '\u274C' // ❌
+            ? ' \u2705' // ✅
+            : ' \u274C' // ❌
           : proposition.statut
             ? '$ {\\bf \\color[cmyk]{.63,.23,.93,.06}\\boldsymbol{\\checkmark}} $' // ✅
             : '$ {\\bf \\color[rgb]{1,.1,.1}\\boldsymbol{\\times}} $' // ❌
-      }<br>`
+      }*/
+        `<br>`
+      )
     })
     .filter((correction) => correction !== '')
 
@@ -98,13 +106,15 @@ export function buildQcmForExercise(
       texte: 'Je ne sais pas',
       statut: false,
     })
-    autoCorrectionOptions.lastChoice = qcmPropositions.length - (hasAucune ? 3 : 2)
+    autoCorrectionOptions.lastChoice =
+      qcmPropositions.length - (hasAucune ? 3 : 2)
   } else if (hasAucune) {
     autoCorrectionOptions.lastChoice = qcmPropositions.length - 2
   }
 
   exercice.autoCorrection[questionIndex] = {
     enonce: question,
+    formatInteractif: 'mathalea-qcm',
     options: autoCorrectionOptions,
     propositions: qcmPropositions,
   }
@@ -117,7 +127,7 @@ export function buildQcmForExercise(
 
   const qcm = propositionsQcm(exercice, questionIndex, {
     style: 'margin:0 3px 0 3px;',
-    format: exercice.interactif ? 'case' : 'lettre',
+    format: exercice.interactif ? (options?.format ?? 'case') : 'lettre',
   })
 
   const shuffledPropositions =
@@ -133,7 +143,7 @@ export function buildQcmForExercise(
       },
     ) ?? []
 
-  let correctionTexte = buildCorrectionsList(shuffledPropositions)
+  let correctionTexte = `${correction ?? ''}${buildCorrectionsList(shuffledPropositions, exercice.interactif)}`
   if (correctionTexte === '') {
     correctionTexte = correction
     const extrasAreAdded = ajouteQcmCorr || !exercice.interactif
@@ -156,7 +166,7 @@ export function buildQcmForExercise(
   }
 
   return {
-    question: `${question}<br><br>${qcm.texte}`,
+    question: `${question}${options?.compact ? '<br>' : '<br><br>'}${qcm.texte}`,
     correction: correctionTexte,
   }
 }

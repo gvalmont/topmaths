@@ -20,7 +20,7 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre = 'Parcourir un labyrinthe de multiples'
 export const dateDePublication = '06/12/2020'
 export const dateDeModifImportante = '29/10/2024'
@@ -35,7 +35,7 @@ export const uuid = 'fd4d8'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['9NO4-18'],
+  'fr-ch': [],
 }
 export default class ExerciceLabyrintheMultiplesOld extends Exercice {
   niveau: string

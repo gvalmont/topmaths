@@ -1,6 +1,6 @@
 import { cercleTrigo } from '../../lib/2d/angles'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Angle, valeursTrigo } from '../../lib/mathFonctions/Angle'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -15,7 +15,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Connaître les valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '16/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '12/01/2024'
@@ -33,6 +33,12 @@ export const refs = {
 }
 export default class CosEtsin extends Exercice {
   can: boolean
+  /**
+   * Si vrai, l'angle $\pi$ est ajouté aux angles du premier quadrant (type de questions 1).
+   * Utilisé par le clone BP1G01 (Bac Pro Première) dont le programme se limite
+   * aux valeurs particulières 0, π/6, π/4, π/3, π/2 et π.
+   */
+  avecPi = false
   constructor() {
     super()
     this.can = false
@@ -96,7 +102,12 @@ export default class CosEtsin extends Exercice {
       else listeK.push(randint(-30, -2))
     }
     const mesAngles = valeursTrigo({ modulos: listeK })
-    mesAnglesAleatoiresBis.push(shuffle(mesAngles.liste1))
+    const anglesDuPremierQuadrant = mesAngles.liste1.slice()
+    if (this.avecPi) {
+      const anglePi = mesAngles.liste2.find((angle) => angle.degres === '180')
+      if (anglePi !== undefined) anglesDuPremierQuadrant.push(anglePi)
+    }
+    mesAnglesAleatoiresBis.push(shuffle(anglesDuPremierQuadrant))
     mesAnglesAleatoiresBis.push(shuffle(mesAngles.liste2))
 
     for (let k = 0; k < listeK.length; k++) {
@@ -165,7 +176,14 @@ export default class CosEtsin extends Exercice {
       // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc ça permet d'atteindre la propriété souhaitée dans l'objet Angle.
       // monAngle[listeTypeQuestions[i][0]] fait référence à monAngle.cos ou à monAngle.sin selon la valeur de listeTypeQuestions[i][0].
 
-      setReponse(this, i, monAngle[listeTypeQuestions[i][0]])
+      const reponsesTrigo = monAngle[listeTypeQuestions[i][0]]
+      handleAnswers(this, i, {
+        reponse: {
+          value: Array.isArray(reponsesTrigo)
+            ? reponsesTrigo.map(String)
+            : reponsesTrigo,
+        },
+      })
       // dans quelques cas, les valeurs de cos et sin sont multiples et contenues dans une liste avec en premier '1/2', en deuxième la valeur décimale '0.5'
       valeurFonction = Array.isArray(monAngle[listeTypeQuestions[i][0]])
         ? monAngle[listeTypeQuestions[i][0]][0]

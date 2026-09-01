@@ -1,16 +1,15 @@
+import { amcConvert } from '../../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { amcConvert } from '../../../lib/amc/amcBuilders'
 
 export const titre = 'Trouver la bonne unité'
 export const dateDePublication = '5/11/2021'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -41,9 +40,9 @@ export default class TrouverLaBonneUnite extends ExerciceSimple {
       [100, 'h'],
       [1000, 'k'],
     ]
-    const unite = choice(['g', 'm', 'L'])
-    const typeDeQuestion = randint(0, 1)
-    const a = randint(1, 9)
+    const unite = this.quotaChoice('unite', ['g', 'm', 'L'])
+    const typeDeQuestion = this.quotaRandint('typeDeQuestion', 0, 1)
+    const a = this.quotaRandint('a', 1, 9)
     switch (typeDeQuestion) {
       case 0:
         {
@@ -79,7 +78,9 @@ export default class TrouverLaBonneUnite extends ExerciceSimple {
           ],
         },
       ]
-      this.questionsAMC = this.autoCorrectionAMC.map((questionAMC) => amcConvert(questionAMC))
+      this.questionsAMC = this.autoCorrectionAMC.map((questionAMC) =>
+        amcConvert(questionAMC),
+      )
     }
   }
 }

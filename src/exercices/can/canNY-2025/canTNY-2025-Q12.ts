@@ -4,15 +4,14 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = "Calculer les coordonnées d'un milieu"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '2ecf9'
 export const refs = {
   'fr-fr': [],
@@ -32,8 +31,8 @@ export default class coordMilieu extends ExerciceSimple {
 
   nouvelleVersion() {
     const nom = creerNomDePolygone(2, ['PQDO'])
-    const b = randint(-5, 5) * 2 + 1
-    const c = randint(-5, 5) * 2 + 1
+    const b = this.quotaRandint('b', -5, 5) * 2 + 1
+    const c = this.quotaRandint('c', -5, 5) * 2 + 1
     const reponse1 = new FractionEtendue(2025 + b, 2).texFraction
     const reponse2 = new FractionEtendue(2025 + c, 2).texFraction
     this.consigne = `Dans un repère du plan, on donne $${nom[0]}(${texNombre(2025, 0)}\\,;\\,${c})$ et $${nom[1]}(${b}\\,;\\,${texNombre(2025, 0)})$.<br>

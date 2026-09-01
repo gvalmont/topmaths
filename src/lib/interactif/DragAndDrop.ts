@@ -3,13 +3,20 @@ import { context } from '../../modules/context'
 import { messageFeedback } from '../../modules/messages'
 import { get } from '../html/dom'
 import { shuffle } from '../outils/arrayOutils'
-import { toutPourUnPoint } from './mathLive'
+import { toutPourUnPoint } from './fonctionsBaremes'
 
 export type Etiquette = {
   id: string // Un numéro unique par étiquette ! (valeur réservée : 0 pour signaler l'absence d'étiquette !)
   contenu: string // Ce que contient l'étiquette (aussi bien du texte, que du latex, qu'une image...)
   duplicable?: boolean
   callback?: (e: Event) => void // @todo à implémenter.
+}
+
+export type DragAndDropListenerRecord = {
+  element: Element
+  type: string
+  listener: EventListener
+  options?: AddEventListenerOptions
 }
 
 /*
@@ -364,6 +371,62 @@ function addDeleteButton(
   etiquette.appendChild(deleteBtn)
 }
 
+export function attachDragAndDropListeners({
+  root,
+  numeroExercice,
+  question,
+}: {
+  root: ParentNode
+  numeroExercice: number
+  question: number
+}): DragAndDropListenerRecord[] {
+  const listeners: DragAndDropListenerRecord[] = []
+  const addListener = (
+    element: Element,
+    type: string,
+    listener: EventListener,
+    options?: AddEventListenerOptions,
+  ) => {
+    element.addEventListener(type, listener, options)
+    listeners.push({ element, type, listener, options })
+  }
+
+  const divEtiquettes = root.querySelector(
+    `#etiquettesEx${numeroExercice}Q${question}`,
+  )
+  if (divEtiquettes) {
+    addListener(divEtiquettes, 'drop', dropHandler as EventListener)
+    addListener(divEtiquettes, 'dragover', dragOverHandler as EventListener)
+    addListener(divEtiquettes, 'touchmove', touchMoveHandler as EventListener, {
+      capture: true,
+    })
+    addListener(divEtiquettes, 'touchend', touchEndHandler as EventListener)
+    for (const etiquette of divEtiquettes.querySelectorAll('.etiquette')) {
+      addListener(etiquette, 'dragstart', dragStartHandler as EventListener)
+      addListener(etiquette, 'dragend', dragEndHandler as EventListener)
+      addListener(etiquette, 'touchstart', touchStartHandler as EventListener, {
+        capture: false,
+      })
+    }
+  }
+
+  const rectangles = root.querySelector(
+    `#rectanglesEx${numeroExercice}Q${question}`,
+  )
+  if (rectangles) {
+    for (const rectangle of rectangles.querySelectorAll('.rectangleDND')) {
+      addListener(rectangle, 'dragover', dragOverHandler as EventListener)
+      addListener(rectangle, 'drop', dropHandler as EventListener)
+      addListener(rectangle, 'touchmove', touchMoveHandler as EventListener)
+      addListener(rectangle, 'touchend', touchEndHandler as EventListener)
+      addListener(rectangle, 'dragenter', dragEnterHandler as EventListener)
+      addListener(rectangle, 'dragleave', dragLeaveHandler as EventListener)
+    }
+  }
+
+  return listeners
+}
+
 /**
  * C'est la fonction utilisée par exerciceInteractif pour vérifier ce type de question
  * @param exercice
@@ -392,6 +455,17 @@ export function verifDragAndDrop(
     }
   }
   const leDragAndDrop = exoDragAndDrops[question]
+  if (leDragAndDrop == null) {
+    window.notify(
+      `Problème survenu dans verifDragAndDrop : il n'y a pas de drag and drop pour la question ${question}`,
+      {},
+    )
+    return {
+      isOk: false,
+      feedback: 'Un problème est survenu',
+      score: { nbBonnesReponses: 0, nbReponses: 0 },
+    }
+  }
   for (const [element, type, listener] of leDragAndDrop.listeners) {
     element.removeEventListener(type, listener as EventListener)
   }
@@ -776,92 +850,6 @@ class DragAndDrop {
       if (this.exercice.interactif) {
         // ajoutons le div#feedback
         html += `<div class="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${numeroExercice}Q${this.question}"></div>`
-        // Il faut mettre en place les listeners !
-        document.addEventListener('exercicesAffiches', () => {
-          const divEtiquettes = get(
-            `etiquettesEx${numeroExercice}Q${this.question}`,
-            false,
-          )
-          if (divEtiquettes) {
-            divEtiquettes.addEventListener('drop', dropHandler)
-            divEtiquettes.addEventListener('dragover', dragOverHandler)
-            divEtiquettes.addEventListener('touchmove', touchMoveHandler, {
-              capture: true,
-            })
-            divEtiquettes.addEventListener('touchend', touchEndHandler)
-            this.listeners.push(
-              [divEtiquettes, 'drop', dropHandler],
-              [divEtiquettes, 'dragover', dragOverHandler],
-              [divEtiquettes, 'touchmove', touchMoveHandler],
-              [divEtiquettes, 'touchend', touchEndHandler],
-            )
-            for (const etiquette of divEtiquettes.querySelectorAll(
-              '.etiquette',
-            )) {
-              ;(etiquette as HTMLDivElement).addEventListener(
-                'dragstart',
-                dragStartHandler,
-              )
-              ;(etiquette as HTMLDivElement).addEventListener(
-                'dragend',
-                dragEndHandler,
-              )
-              ;(etiquette as HTMLDivElement).addEventListener(
-                'touchstart',
-                touchStartHandler,
-                { capture: false },
-              )
-              this.listeners.push(
-                [etiquette, 'dragstart', dragStartHandler],
-                [etiquette, 'touchstart', touchStartHandler],
-                [etiquette, 'dragend', dragEndHandler],
-              )
-            }
-          }
-
-          const rectangles = get(
-            `rectanglesEx${numeroExercice}Q${this.question}`,
-            false,
-          )
-          if (rectangles) {
-            for (const rectangle of rectangles.querySelectorAll(
-              '.rectangleDND',
-            )) {
-              ;(rectangle as HTMLDivElement).addEventListener(
-                'dragover',
-                dragOverHandler,
-              )
-              ;(rectangle as HTMLDivElement).addEventListener(
-                'drop',
-                dropHandler,
-              )
-              ;(rectangle as HTMLDivElement).addEventListener(
-                'touchmove',
-                touchMoveHandler,
-              )
-              ;(rectangle as HTMLDivElement).addEventListener(
-                'touchend',
-                touchEndHandler,
-              )
-              ;(rectangle as HTMLDivElement).addEventListener(
-                'dragenter',
-                dragEnterHandler,
-              )
-              ;(rectangle as HTMLDivElement).addEventListener(
-                'dragleave',
-                dragLeaveHandler,
-              )
-              this.listeners.push(
-                [rectangle, 'dragover', dragOverHandler],
-                [rectangle, 'drop', dropHandler],
-                [rectangle, 'touchmove', touchMoveHandler],
-                [rectangle, 'touchend', touchEndHandler],
-                [rectangle, 'dragenter', dragEnterHandler],
-                [rectangle, 'dragleave', dragLeaveHandler],
-              )
-            }
-          }
-        })
       } else {
         const divEtiquettes = get(
           `etiquettesEx${numeroExercice}Q${this.question}`,
@@ -875,7 +863,7 @@ class DragAndDrop {
           }
         }
       }
-      return html
+      return `<drag-and-drop id="drag-and-dropEx${numeroExercice}Q${this.question}" numero-exercice="${numeroExercice}" question-index="${this.question}" interactivity-on="${this.exercice.interactif ? 'true' : 'false'}">${html}</drag-and-drop>`
     }
     const latex = ''
     return latex

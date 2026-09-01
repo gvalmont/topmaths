@@ -21,7 +21,6 @@ import ExerciceSimple from '../ExerciceSimple'
 export const titre = "Trouver une grandeur en fonction d'une autre"
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '3/01/2026'
 export const dateDeModifImportante = '24/03/2026'
@@ -29,7 +28,7 @@ export const dateDeModifImportante = '24/03/2026'
 export const uuid = '5bc80'
 
 export const refs = {
-  'fr-fr': ['3AutoP09-3'],
+  'fr-fr': ['3AutoP04-3'],
   'fr-ch': [],
 }
 
@@ -67,7 +66,7 @@ export default class LongueurEtAire extends ExerciceSimple {
     const objets2 = [tri, rect, labels, ad, x]
     const figure = mathalea2d(
       Object.assign(
-        { scale: 0.7, style: 'display: inline-block' },
+        { scale: 0.7, display: 'inline-block' } as const,
         fixeBordures(objets2, { rxmin: -2, rymin: -2 }),
       ),
       objets2,
@@ -116,14 +115,14 @@ export default class LongueurEtAire extends ExerciceSimple {
     ]
     const graphique = mathalea2d(
       Object.assign(
-        { scale: 0.7, style: 'display: inline-block', pixelsParCm: 30 },
+        { scale: 0.7, display: 'inline-block', pixelsParCm: 30 } as const,
         fixeBordures(objets),
       ),
       objets,
     )
     const graphiqueCorr = mathalea2d(
       Object.assign(
-        { scale: 0.7, style: 'display: inline-block', pixelsParCm: 30 },
+        { scale: 0.7, display: 'inline-block', pixelsParCm: 30 } as const,
         fixeBordures(objetsCorr),
       ),
       objetsCorr,

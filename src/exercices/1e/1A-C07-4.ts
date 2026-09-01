@@ -11,11 +11,11 @@ export const dateDePublication = '13/01/2026'
 export const uuid = '18326'
 // @Author Gilles Mora
 export const refs = {
-  'fr-fr': ['1A-C07-4'],
+  'fr-fr': ['1A-C07-4', '2A-N7-4'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Effectuer une conversion kWh/Joules'
@@ -37,7 +37,7 @@ export default class auto1AC7d extends ExerciceQcmA {
     const resultatApprox = numApprox / 4
 
     this.enonce = `Un appareil a besoin d'une énergie de $${texNombre(energieCoeff)} \\times 10^{6}$ Joules (J) pour se mettre en route.<br>
-À combien de kiloWatts-heure (kWh) cela correspond-il ?<br>
+À combien de kilowatt-heures (kWh) cela correspond-il ?<br>
 <br>
 $\\textit{Données :}$ $1~\\text{kWh} = 3,6 \\times 10^{6}~\\text{J}.$`
 

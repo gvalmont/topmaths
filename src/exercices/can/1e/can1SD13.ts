@@ -10,7 +10,7 @@ import type FractionEtendue from '../../../modules/FractionEtendue'
 export const titre =
   'Retrouver un polynôme du second degré à partir de son tableau de signes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '08/09/2024'
 export const uuid = 'c0f97'
 export const refs = {
@@ -33,8 +33,8 @@ export default class PolyTableauSignes extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(-9, 9, 0) // coefficient a
-    const b = randint(-9, 9) // racine1
+    const a = this.quotaRandint('a', -9, 9, [0]) // coefficient a
+    const b = this.quotaRandint('b', -9, 9) // racine1
     const c = randint(-9, 9, b) // racine2
     const fonction = (x: number | FractionEtendue) => {
       if (typeof x !== 'number') {

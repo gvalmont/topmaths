@@ -15,7 +15,7 @@ import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Comparer deux fractions (dénominateurs multiples)'
@@ -31,7 +31,7 @@ export const uuid = '234a7'
 export const refs = {
   'fr-fr': [],
   'fr-2016': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ExerciceComparerDeuxFractionsOld extends Exercice {
   constructor(max = 11) {

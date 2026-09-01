@@ -5,6 +5,10 @@ import {
   buildDataKeyboardFromStyle,
   convertClasseToString,
 } from '../lib/interactif/claviers/keyboard'
+import { MetaInteractif2dElement } from '../lib/customElements/MetaInteractif2dElement'
+import { cubeIsoInteractionMarkup } from '../lib/2d/figures2d/Shape3d'
+import { reflectionAnimationMarkup } from '../lib/2d/Figures2D'
+import { fractionCliquableInteractionMarkup } from '../lib/customElements/FractionCliquableElement'
 import type {
   MetaInteractif2dData,
   NestedObjetMathalea2dArray,
@@ -15,6 +19,14 @@ const buildDataKeyboardString = (style = '') => {
   const blocks = buildDataKeyboardFromStyle(style)
   return blocks.join(' ')
 }
+export type Mathalea2dDisplay = 'block' | 'inline' | 'inline-block'
+
+export type Mathalea2dLayoutOptions = {
+  display?: Mathalea2dDisplay
+  center?: boolean
+}
+
+const innerWrapperStyle = 'position: relative; display: inline-block'
 /*
   MathALEA2D
  @name      mathalea2d
@@ -50,7 +62,8 @@ const buildDataKeyboardString = (style = '') => {
  *  @param {string|string[]?} [options.optionsTikz = []]
  *  @param {boolean?} [options.mainlevee]
  *  @param {number?} [options.amplitude]
- *  @param {string?} [options.style = '']
+ *  @param {'block'|'inline'|'inline-block'?} [options.display = 'block']
+ *  @param {boolean?} [options.center]
  *  @param {string?} [options.id = '']
  * @param {(ObjetMathalea2D|ObjetMathalea2D[])[]} objets
  */
@@ -66,7 +79,8 @@ export function mathalea2d(
     optionsTikz = [],
     mainlevee = false,
     amplitude = 1,
-    style = 'display: block',
+    display,
+    center = false,
     id = '', // L'id peut-être utile pour des animations, c'est celui du svg. Le div englobant aura un id en M2D + id
     usePgfplots = false,
     centerLatex = false,
@@ -81,7 +95,8 @@ export function mathalea2d(
     optionsTikz?: string | string[]
     mainlevee?: boolean
     amplitude?: number
-    style?: string
+    display?: Mathalea2dDisplay
+    center?: boolean
     id?: string
     usePgfplots?: boolean
     centerLatex?: boolean
@@ -92,6 +107,7 @@ export function mathalea2d(
     mainlevee: boolean,
     objets: ObjetMathalea2D | NestedObjetMathalea2dArray | ObjetDivLatex,
     divsLatex: string[],
+    reflectionAnimationIds: string[],
     xmin: number,
     ymax: number,
   ) => {
@@ -111,6 +127,9 @@ export function mathalea2d(
             const code = context.isHtml ? objet.svg(pixelsParCm) : ''
             if (typeof code === 'string') {
               codeSvg = '\t' + code + '\n'
+              if (typeof objet.reflectionAnimationId === 'string') {
+                reflectionAnimationIds.push(objet.reflectionAnimationId)
+              }
             } else {
               const codeLatex = code as ObjetDivLatex
               // on a à faire à un divLatex.
@@ -165,9 +184,15 @@ export function mathalea2d(
                     const transform = prefix
                       ? 'translate(0,-50%)'
                       : 'translate(-50%,-50%)'
+                    const inputIndex = input.index ?? 0
                     const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvgInput}px; left: ${xSvgInput}px; transform: ${transform}; opacity: ${input.opacity}; display: inline-flex; align-items: center; gap: 2px;" data-top=${ySvgInput} data-left=${xSvgInput}>${prefixHtml}${
                       isInteractif
-                        ? `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${input.classe} metaInteractif2d" id="MetaInteractif2dEx${code.exercice.numeroExercice}Q${code.question}field${input.index}">${mathFieldContent}</math-field>`
+                        ? MetaInteractif2dElement.create({
+                            numeroExercice: code.exercice.numeroExercice ?? 0,
+                            questionIndex: code.question,
+                            fieldIndex: inputIndex,
+                            innerHtml: `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${input.classe} metaInteractif2d" id="MetaInteractif2dEx${code.exercice.numeroExercice}Q${code.question}field${inputIndex}">${mathFieldContent}</math-field>`,
+                          })
                         : `$${blancContent}$`
                     }</div>`
                     divsLatex.push(divOuterHtml)
@@ -196,7 +221,14 @@ export function mathalea2d(
     } else {
       if (objets != null && Array.isArray(objets)) {
         for (const objet of objets) {
-          codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex, xmin, ymax)
+          codeSvg += ajouteCodeHtml(
+            mainlevee,
+            objet,
+            divsLatex,
+            reflectionAnimationIds,
+            xmin,
+            ymax,
+          )
         }
       } else {
         window.notify(
@@ -280,17 +312,36 @@ export function mathalea2d(
   }
   // On prépare le code HTML
   const divsLatex: string[] = []
+  const reflectionAnimationIds: string[] = []
   let codeSvg = `<svg class="mathalea2d"  ${id !== '' ? `id="${id}"` : ''} width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
     (ymax - ymin) * pixelsParCm * zoom
   }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${
     (xmax - xmin) * pixelsParCm
   } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
-  codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
+  codeSvg += ajouteCodeHtml(
+    mainlevee,
+    objets,
+    divsLatex,
+    reflectionAnimationIds,
+    xmin,
+    ymax,
+  )
   codeSvg += '\n</svg>'
   codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
-  const codeHTML = `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
-        <div ${id !== '' ? `id="M2D${id}"` : ''} style="position: relative;${style}">
+  const effectiveDisplay = display ?? 'block'
+  // Ces helpers ajoutent des custom elements techniques uniquement quand des
+  // objets 2D ont enregistré une interaction à brancher sur le SVG qui précède.
+  // En l'absence de cube 3D, d'animation de symétrie ou de fraction cliquable,
+  // ils retournent une chaîne vide.
+  const technicalInteractionMarkup = [
+    cubeIsoInteractionMarkup(id),
+    reflectionAnimationMarkup(reflectionAnimationIds),
+    fractionCliquableInteractionMarkup(),
+  ].join('\n')
+  const codeHTML = `<div class="svgContainer" style="display: ${effectiveDisplay};${center ? ' margin: auto;' : ''}">
+        <div ${id !== '' ? `id="M2D${id}"` : ''} style="${innerWrapperStyle}">
           ${codeSvg}
+          ${technicalInteractionMarkup}
           ${divsLatex.join('\n')}
         </div>
       </div>`
@@ -378,7 +429,7 @@ export function mathalea2d(
     if (centerLatex) codeTikz += '\\par}'
   }
 
-  if (style.includes('display: block') && !centerLatex) codeTikz += '\\\\\n'
+  if (effectiveDisplay === 'block' && !centerLatex) codeTikz += '\\\\'
   if (context.isHtml) return codeHTML
   else return codeTikz
 }

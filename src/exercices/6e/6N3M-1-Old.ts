@@ -26,7 +26,7 @@ import {
 
 export const titre = "Calculer la fraction d'une quantité"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '01/04/2026'
@@ -40,7 +40,7 @@ export const uuid = 'a168e'
 export const refs = {
   'fr-fr': [],
   'fr-2016': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class FractionDuneQuantiteOld extends Exercice {
   constructor() {
@@ -52,8 +52,8 @@ export default class FractionDuneQuantiteOld extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ['Avec dessin', true]
     this.nbQuestions = 5
-    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.spacingCorr = context.isHtml ? 3.5 : 2
+    this.spacing = 2
     this.sup = 1
     this.sup2 = true
   }

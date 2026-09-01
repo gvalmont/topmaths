@@ -1,7 +1,10 @@
 import type { MathfieldElement } from 'mathlive'
-import ListeDeroulanteElement from '../../../src/lib/interactif/listeDeroulante/ListeDeroulanteElement'
-import type { GoodAnswersFormulas, SheetTestDatas } from '../../../src/lib/types'
-import { MySpreadsheetElement } from '../../../src/lib/tableur/MySpreadSheet'
+import ListeDeroulanteElement from '../../../src/lib/customElements/ListeDeroulanteElement'
+import { MySpreadsheetElement } from '../../../src/lib/customElements/MySpreadSheet'
+import type {
+  GoodAnswersFormulas,
+  SheetTestDatas,
+} from '../../../src/lib/types'
 
 function createFakeMfe(
   id: string,
@@ -21,9 +24,8 @@ function createFakeMfe(
 /**
  * Injects minimal DOM elements for verifying a single mathlive/texte question.
  *
- * verifQuestionMathLive() reads:
- *   - document.getElementById(`champTexteEx${exIdx}Q${qIdx}`) -> .value
- *   - document.querySelector(`#resultatCheckEx${exIdx}Q${qIdx}`) -> writes emoji
+ * MathaleaCustomElement verifiers read the wrapper first, then the legacy
+ * internal field id `champTexteEx${exIdx}Q${qIdx}`.
  */
 export function injectMathLiveDOM(
   exerciceIndex: number,
@@ -31,12 +33,26 @@ export function injectMathLiveDOM(
   answer: string,
 ) {
   const inputId = `champTexteEx${exerciceIndex}Q${questionIndex}`
+  const mathfieldWrapperId = `mathalea-mathfieldEx${exerciceIndex}Q${questionIndex}`
+  const textfieldWrapperId = `mathalea-textfieldEx${exerciceIndex}Q${questionIndex}`
   const resultId = `resultatCheckEx${exerciceIndex}Q${questionIndex}`
   const feedbackId = `feedbackEx${exerciceIndex}Q${questionIndex}`
 
   document.getElementById(inputId)?.remove()
+  document.getElementById(mathfieldWrapperId)?.remove()
+  document.getElementById(textfieldWrapperId)?.remove()
   document.getElementById(resultId)?.remove()
   document.getElementById(feedbackId)?.remove()
+
+  const mathfieldWrapper = document.createElement('mathalea-mathfield')
+  mathfieldWrapper.id = mathfieldWrapperId
+  mathfieldWrapper.setAttribute('mathfield-id', inputId)
+  document.body.appendChild(mathfieldWrapper)
+
+  const textfieldWrapper = document.createElement('mathalea-textfield')
+  textfieldWrapper.id = textfieldWrapperId
+  textfieldWrapper.setAttribute('input-id', inputId)
+  document.body.appendChild(textfieldWrapper)
 
   const input = document.createElement('input') as HTMLInputElement & {
     getValue: () => string
@@ -45,7 +61,7 @@ export function injectMathLiveDOM(
   input.value = answer
   input.getValue = () => answer
   Object.defineProperty(input, 'readOnly', { value: false, writable: true })
-  document.body.appendChild(input)
+  mathfieldWrapper.appendChild(input)
 
   const resultSpan = document.createElement('span')
   resultSpan.id = resultId
@@ -95,15 +111,22 @@ export function injectFillInTheBlankDOM(
   champValues: Record<string, string>,
 ) {
   const inputId = `champTexteEx${exerciceIndex}Q${questionIndex}`
+  const wrapperId = `fill-in-the-blankEx${exerciceIndex}Q${questionIndex}`
   const resultId = `resultatCheckEx${exerciceIndex}Q${questionIndex}`
   const feedbackId = `feedbackEx${exerciceIndex}Q${questionIndex}`
 
   document.getElementById(inputId)?.remove()
+  document.getElementById(wrapperId)?.remove()
   document.getElementById(resultId)?.remove()
   document.getElementById(feedbackId)?.remove()
 
+  const wrapper = document.createElement('fill-in-the-blank')
+  wrapper.id = wrapperId
+  wrapper.setAttribute('mathfield-id', inputId)
+  document.body.appendChild(wrapper)
+
   const fakeMfe = createFakeMfe(inputId, champValues)
-  document.body.appendChild(fakeMfe)
+  wrapper.appendChild(fakeMfe)
 
   const resultSpan = document.createElement('span')
   resultSpan.id = resultId
@@ -117,8 +140,8 @@ export function injectFillInTheBlankDOM(
 /**
  * Injects DOM for a tableauMathlive question.
  * Each cell has its own input: champTexteEx{exIdx}Q{qIdx}L{row}C{col}
- * verifQuestionMathLive looks for `table#tabMathliveEx{exIdx}Q{qIdx}` and then
- * queries math-field elements inside. We use a <table> with <input> children.
+ * The tableau-mathlive verifier reads the wrapper, then queries the table and
+ * math-field elements inside. We use a <table> with fake MathfieldElements.
  */
 export function injectTableauMathliveDOM(
   exerciceIndex: number,
@@ -127,14 +150,20 @@ export function injectTableauMathliveDOM(
 ) {
   const resultId = `resultatCheckEx${exerciceIndex}Q${questionIndex}`
   const feedbackId = `feedbackEx${exerciceIndex}Q${questionIndex}`
+  const wrapperId = `tableau-mathliveEx${exerciceIndex}Q${questionIndex}`
   document.getElementById(resultId)?.remove()
   document.getElementById(feedbackId)?.remove()
+  document.getElementById(wrapperId)?.remove()
 
   const tableId = `tabMathliveEx${exerciceIndex}Q${questionIndex}`
   document.getElementById(tableId)?.remove()
+  const wrapper = document.createElement('tableau-mathlive')
+  wrapper.id = wrapperId
+  wrapper.setAttribute('table-id', tableId)
+  document.body.appendChild(wrapper)
   const table = document.createElement('table')
   table.id = tableId
-  document.body.appendChild(table)
+  wrapper.appendChild(table)
   const fakeInputs: MathfieldElement[] = []
   const originalQuerySelectorAll = table.querySelectorAll.bind(table)
 
@@ -247,8 +276,8 @@ export function injectListeDeroulanteDOM(
 }
 
 /**
- * Injects DOM for svgSelection questions.
- * verifQuestionSvgSelection() reads #svgSelectionEx{exIdx}Q{qIdx}.value and
+ * Injects DOM for svg-selection questions.
+ * verifQuestionSvgSelection() reads #svg-selectionEx{exIdx}Q{qIdx}.value and
  * writes feedback to #resultatCheckEx{exIdx}Q{qIdx}.
  */
 export function injectSvgSelectionDOM(
@@ -256,7 +285,7 @@ export function injectSvgSelectionDOM(
   questionIndex: number,
   selectedValue: string,
 ) {
-  const selectId = `svgSelectionEx${exerciceIndex}Q${questionIndex}`
+  const selectId = `svg-selectionEx${exerciceIndex}Q${questionIndex}`
   const resultId = `resultatCheckEx${exerciceIndex}Q${questionIndex}`
   document.getElementById(selectId)?.remove()
   document.getElementById(resultId)?.remove()
@@ -281,7 +310,7 @@ export function injectInteractiveClockDOM(
   hour: string,
   minute: string,
 ) {
-  const id = `clockEx${exerciceIndex}Q${questionIndex}`
+  const id = `interactive-clockEx${exerciceIndex}Q${questionIndex}`
   document.getElementById(id)?.remove()
 
   const wrapper = document.createElement('div')
@@ -337,7 +366,7 @@ export function injectMetaInteractif2dDOM(
 /**
  * Injects DOM for multiMathfield questions.
  * Creates a host element with the expected shadow DOM structure used by
- * verifQuestionMultiMathfield().
+ * MultiMathfieldElement.verifQuestion().
  */
 export function injectMultiMathfieldDOM(
   exerciceIndex: number,
@@ -540,7 +569,7 @@ export function injectTableurDOM(
   const data = Array.from({ length: rowCount }, () => Array(colCount).fill(''))
   const columns = Array.from({ length: colCount }, () => ({ width: 90 }))
 
-  const sheet = MySpreadsheetElement.create({
+  const sheet = MySpreadsheetElement.createEltToAppendToDom({
     id: sheetId,
     data,
     minDimensions: [colCount, rowCount],

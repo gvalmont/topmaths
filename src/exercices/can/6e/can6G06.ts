@@ -1,8 +1,8 @@
-import NombreDeFacesEtDAretes from '../../5e/5G53'
+import NombreDeFacesEtDAretes from '../../6e/6G0-9'
 
 export const titre = 'Compter les arêtes et les faces'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -14,8 +14,8 @@ export const amcType = 'AMCNum'
 export const uuid = '86ea3'
 
 export const refs = {
-  'fr-fr': ['can6G06'],
-  'fr-ch': [],
+  'fr-fr': ['can6G06', '6AutoE1-2'],
+  'fr-ch': ['9ES2A-2'],
 }
 export default class NombreDeFacesEtDAretesExo extends NombreDeFacesEtDAretes {
   version: number

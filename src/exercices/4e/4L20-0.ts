@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { equation1erDegre1Inconnue } from '../../lib/outils/equations'
@@ -9,7 +9,7 @@ import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -30,8 +30,8 @@ export const titre =
 export const uuid = '515b0'
 
 export const refs = {
-  'fr-fr': ['4L20-0', 'BP2RES9'],
-  'fr-ch': ['10FA3-6'],
+  'fr-fr': ['4L20-0', 'BP2RES9', 'BP1AUTO020'],
+  'fr-ch': ['10FA5C-1'],
 }
 export default class ExerciceEquationASolutionEntiere extends Exercice {
   constructor() {
@@ -56,11 +56,7 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
     this.consigne =
       this.nbQuestions > 1 ? 'Résoudre les équations suivantes.' : ''
     let listeTypeDeQuestions: (
-      | 'ax+b=0'
-      | 'ax+b=d'
-      | 'ax=d'
-      | 'x+b=d'
-      | 'ax+b=cx+d'
+      'ax+b=0' | 'ax+b=d' | 'ax=d' | 'x+b=d' | 'ax+b=cx+d'
     )[] = []
     switch (this.sup2.toString()) {
       case '1':
@@ -86,7 +82,7 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
       listeTypeDeQuestions,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const equation = equation1erDegre1Inconnue({
         valeursRelatives: this.sup,
         type: listeTypeDeQuestions[i],
@@ -102,7 +98,12 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
         (this.correctionDetaillee
           ? equation.correctionDetaillee
           : equation.correction)
-      setReponse(this, i, equation.reponse, { signe: !!this.sup })
+      handleAnswers(
+        this,
+        i,
+        { reponse: { value: equation.reponse } },
+        { signe: !!this.sup },
+      )
       if (this.questionJamaisPosee(i, equation.a, equation.b, equation.c)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

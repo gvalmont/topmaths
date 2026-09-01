@@ -29,7 +29,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Calculer l’aire d’un carré, d’un rectangle, ou d’un triangle'
 export const interactifReady = true
-export const interactifType = 'MetaInteractif2d'
+
 export const dateDePublication = '10/01/2026'
 export const dateDeModificationImporante = '14/04/2026'
 
@@ -43,7 +43,7 @@ export const uuid = 'f36d5'
 export const refs = {
   'fr-fr': ['6M2B-1'],
   'fr-2016': [],
-  'fr-ch': [''],
+  'fr-ch': ['9GM1B-9'],
 }
 const figureCarre = (cote: number, exercice: IExercice, question: number) => {
   const c = Math.max(5, cote)
@@ -352,7 +352,7 @@ export default class AireCarreRectangle extends Exercice {
       melange: 5,
       defaut: 5,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typeDeQuestion = listeTypeDeQuestions[i]
       let texte = ''
       let texteCorr = ''

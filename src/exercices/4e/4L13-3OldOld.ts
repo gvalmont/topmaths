@@ -32,7 +32,6 @@ import { context } from '../../modules/context'
 
 export const titre = 'Comprendre un algorithme itératif'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '10/06/2025'
@@ -49,12 +48,10 @@ export const uuid = '328b3'
 export const refs = {
   'fr-fr': [],
   'fr-2016': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class PaternNum0OldOld extends Exercice {
-  destroyers: (() => void)[] = []
-
   constructor() {
     super()
     this.nbQuestions = 3
@@ -82,16 +79,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.sup5 = `${nbDePattern + 1}`
   }
 
-  destroy() {
-    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-  }
-
   nouvelleVersion(): void {
-    // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
     const nbDePattern = listePatternsSansRatioNiFraction.length
 
     let typesPattern = gestionnaireFormulaireTexte({
@@ -125,7 +113,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       ),
     )
     let indexInteractif = 0
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsCorr: NestedObjetMathalea2dArray = []
       const popped = listePreDef.pop()
       if (!popped) {
@@ -163,14 +151,13 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
         const angle = Math.PI / 6
         if (context.isHtml) {
-          const listeners = updateCubeIso({
+          updateCubeIso({
             pattern,
             i,
             j: nbFigures,
             angle,
             inCorrectionMode: true,
           })
-          if (listeners) this.destroyers.push(listeners)
           pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${nbFigures}"></use>`
           // Ajouter les SVG générés par svg() de chaque objet
           const cells = (pattern as VisualPattern3D).update3DCells(nbFigures)
@@ -247,14 +234,13 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
         let ymax = -Infinity
         if (pattern instanceof VisualPattern3D) {
           if (context.isHtml) {
-            const listeners = updateCubeIso({
+            updateCubeIso({
               pattern,
               i,
               j,
               angle,
               inCorrectionMode: false,
             })
-            if (listeners) this.destroyers.push(listeners)
             if (pattern.shape)
               pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
             const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
@@ -313,7 +299,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 yMax,
                 yMin,
                 scale: 0.4,
-                style: 'display: inline-block',
+                display: 'inline-block' as const,
                 optionsTikz: 'transform shape',
               },
             ),
@@ -346,6 +332,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                   {
                     exercice: this,
                     question: indexInteractif++,
+                    reponseParams: { formatInteractif: 'mathalea-mathfield' },
                     objetReponse: { reponse: { value: nbTex } },
                     typeInteractivite: 'mathlive',
                   },
@@ -363,6 +350,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: { reponse: { value: nbTex } },
                   typeInteractivite: 'mathlive',
                 },
@@ -382,6 +370,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: { reponse: { value: etape.toString() } },
                   typeInteractivite: 'mathlive',
                 },
@@ -407,6 +396,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: { reponse: { value: nbTex } },
                   typeInteractivite: 'mathlive',
                 },

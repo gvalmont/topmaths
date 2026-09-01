@@ -4,7 +4,6 @@ export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can4P07 pour les auto 1er
@@ -14,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'cd464'
 
 export const refs = {
-  'fr-fr': ['1A-R01-2'],
+  'fr-fr': ['1A-R01-2', '2A-R1-2'],
   'fr-ch': [],
 }
 export default class Auto1AR1a extends PourcentageARetrouver {

@@ -12,14 +12,13 @@ import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes en utilisant une équation'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '12/01/2026'
 
 export const uuid = '67519'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 /**

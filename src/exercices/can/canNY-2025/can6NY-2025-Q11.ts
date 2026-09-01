@@ -1,4 +1,3 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -6,7 +5,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = "Charger d'unités"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '0ebee'
 export const refs = {
   'fr-fr': [],
@@ -27,7 +26,7 @@ export default class ChangerUnites extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([true, false])
+    const choix = this.quotaChoice('choix', [true, false])
     if (choix) {
       this.reponse = 20.25
       this.question = `$${texNombre(2025)}\\text{ cm}$  `

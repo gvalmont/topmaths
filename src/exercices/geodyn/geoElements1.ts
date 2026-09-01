@@ -4,11 +4,11 @@ import Point from 'apigeom/src/elements/points/Point'
 import figureApigeom from '../../lib/figureApigeom'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import ExerciceSimple from '../ExerciceSimple'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const titre = 'Tracer segment, droite et demi-droite (depuis notation)'
 export const dateDePublication = '29/01/2024'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * @author Rémi Angot
@@ -176,17 +176,17 @@ class ConstructionSegmentRayLine extends ExerciceSimple {
     this.correction = emplacementPourFigureCorrection
   }
 
-  correctionInteractive = () => {
+  correctionInteractive = (i: number) => {
     const resultat: ('OK' | 'KO')[] = []
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figure.id] = this.figure.json
+    this.answers[this.figure.id] = figureAnswerJson(this.figure)
     let feedback = ''
     const divFeedback = document.querySelector(
-      `#feedbackEx${this.numeroExercice}Q${0}`,
+      `#feedbackEx${this.numeroExercice}Q${i}`,
     )
     const resultatCheck = document.querySelector(
-      `#resultatCheckEx${this.numeroExercice}Q${0}`,
+      `#resultatCheckEx${this.numeroExercice}Q${i}`,
     )
     const points = [...this.figure.elements.values()].filter(
       (element) => element instanceof Point && element.type !== 'pointer',

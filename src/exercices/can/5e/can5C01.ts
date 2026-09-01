@@ -1,9 +1,8 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un produit d’entiers'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -15,7 +14,7 @@ export const amcType = 'AMCNum'
 export const uuid = '102f4'
 
 export const refs = {
-  'fr-fr': ['can5C01'],
+  'fr-fr': ['can5C01', '5N1H-flash1'],
   'fr-ch': ['NR'],
 }
 export default class ProduitEntiers5e extends ExerciceSimple {
@@ -26,8 +25,8 @@ export default class ProduitEntiers5e extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const b = randint(5, 9)
-    const a = randint(12, 19)
+    const b = this.quotaRandint('b', 5, 9)
+    const a = this.quotaRandint('a', 12, 19)
     this.reponse = a * b
     this.question = `Calculer $${a} \\times ${b}$.`
     this.correction = `$${a} \\times ${b}=${a * b}$`

@@ -1,6 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import Decimal from 'decimal.js'
@@ -12,11 +13,10 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { bleuMathalea } from '../../../lib/colors'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Calculer un périmètre'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'jcadx'
 export const refs = {
   'fr-fr': [],
@@ -38,7 +38,9 @@ export default class perimetreCalcul2026 extends ExerciceSimple {
   nouvelleVersion() {
     const annee = 2026
     const objets = []
-    const diviseur = this.canOfficielle ? 1 : choice([1, 10, 100, 1000])
+    const diviseur = this.canOfficielle
+      ? 1
+      : this.quotaChoice('diviseur', [1, 10, 100, 1000])
     const a = new Decimal(annee).div(diviseur)
     const A = pointAbstrait(0, 0, 'A', 'below')
     const B = pointAbstrait(6, 0, 'B', 'below')
@@ -75,7 +77,7 @@ export default class perimetreCalcul2026 extends ExerciceSimple {
       '<br>' +
       mathalea2d(
         Object.assign(
-          { scale: 0.4, style: 'margin: auto' },
+          { scale: 0.4, center: !context.isHtml },
           fixeBordures(objets),
         ),
         objets,

@@ -1,10 +1,9 @@
-import MultiplierDecimauxPar101001000 from '../6e/6C30-1'
+import MultiplierDecimauxPar101001000 from '../6e/_MultiplierDecimauxPar101001000'
 export const titre =
   'Multiplier un nombre entier (ou décimal) par 10, 100 ou 1 000'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '12/12/2021'
 export const dateDeModifImportante = '11/02/2025'
@@ -16,9 +15,9 @@ export const dateDeModifImportante = '11/02/2025'
 export const uuid = 'f92e1'
 
 export const refs = {
-  'fr-fr': ['CM2N3G-1'],
+  'fr-fr': ['CM2N3G-1', '6AutoN4-6'],
   'fr-2016': ['c3C10-3'],
-  'fr-ch': ['9NO8-2'],
+  'fr-ch': ['PR-34'],
 }
 export default class MultiplierDecimauxPar101001000CM extends MultiplierDecimauxPar101001000 {
   constructor() {

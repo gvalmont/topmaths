@@ -1,15 +1,13 @@
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Abscisse d'un point"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'a343k'
 export const refs = {
   'fr-fr': [],
@@ -27,10 +25,10 @@ export default class Can2025N5Q5 extends ExerciceCan {
       nbPas = (max - min) / pas
     } else {
       nbPas = 6
-      pas = choice([2, 3, 4])
-      min = 100 + randint(1, 25)
+      pas = this.quotaChoice('pas', [2, 3, 4])
+      min = 100 + this.quotaRandint('min', 1, 25)
       max = min + nbPas * pas
-      absB = randint(1, nbPas - 1) * pas + min
+      absB = this.quotaRandint('absB', 1, nbPas - 1) * pas + min
     }
     const nbSauts = Math.round((absB - min) / pas)
     this.reponse = absB

@@ -6,13 +6,13 @@ import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer une dimension dans un rectangle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const uuid = 'a5528'
 /**
@@ -117,7 +117,7 @@ export default class NomExercice extends ExerciceSimple {
           mainlevee: true,
           amplitude: 0.5,
           scale: 0.8,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets1,
       )
@@ -138,7 +138,7 @@ export default class NomExercice extends ExerciceSimple {
             mainlevee: true,
             amplitude: 0.5,
             scale: 0.8,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets1,
         )
@@ -158,7 +158,7 @@ export default class NomExercice extends ExerciceSimple {
             mainlevee: true,
             amplitude: 0.5,
             scale: 0.8,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets2,
         )

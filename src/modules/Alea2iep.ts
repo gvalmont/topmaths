@@ -9,6 +9,7 @@ import {
   translation2Points,
 } from '../lib/2d/transformations'
 import {
+  angleModulo,
   angleOriente,
   longueur,
   norme,
@@ -19,8 +20,9 @@ import {
   pointSurSegment,
 } from '../lib/2d/utilitairesPoint'
 import { vecteur } from '../lib/2d/Vecteur'
-import { orangeMathalea, bleuMathalea } from '../lib/colors'
+import { bleuMathalea, orangeMathalea } from '../lib/colors'
 import { context } from './context'
+import { reporterAuCompas2pointsCentreDirection } from './iepMacros/compas'
 import {
   bissectriceAuCompas,
   cercleCirconscrit,
@@ -29,6 +31,7 @@ import {
   mediatriceAuCompas,
   mediatriceRegleEquerre,
 } from './iepMacros/droitesRemarquables'
+import { milieuALaRegle } from './iepMacros/milieu'
 import {
   paralleleAuCompas,
   paralleleAuCompasAvecDescription,
@@ -104,23 +107,34 @@ type Compas = ObjetIep & {
 }
 
 type StringOutil =
-  | 'regle'
-  | 'equerre'
-  | 'requerre'
-  | 'rapporteur'
-  | 'compas'
-  | 'crayon'
+  'regle' | 'equerre' | 'requerre' | 'rapporteur' | 'compas' | 'crayon'
+
+type VisibiliteInstrumentsIep = Record<StringOutil, boolean>
+type PositionsInstrumentsIep = Partial<Record<StringOutil, PointAbstrait>>
+
+const outilsIep: StringOutil[] = [
+  'regle',
+  'equerre',
+  'requerre',
+  'rapporteur',
+  'compas',
+  'crayon',
+]
+
+const EPSILON_SEGMENT_IEP = 1e-9
 
 export type OptionsIep = {
   id?: string // Identifiant de l'objet
   tempo?: number // Temps d'attente après l'instruction
   vitesse?: number // Vitesse de déplacement des instruments
+  sens?: number // Vitesse de rotation des instruments
   couleur?: string // Couleur des traits
   epaisseur?: number // Epaisseur des traits
   pointilles?: boolean // Pointillés ou traits pleins
   couleurLabel?: string // Couleur du label des points
   couleurPoint?: string // Couleur du nom des points
   description?: boolean // Pour ajouter un texte qui décrit les étapes de construction
+  positionsRangementInstruments?: PositionsInstrumentsIep
 }
 
 export type OptionsOutil = OptionsIep & {}
@@ -134,6 +148,7 @@ export type OptionsOutilMesure = OptionsCrayon & {
   codage?: string // Code pour le codage
   couleurCodage?: string // Couleur du codage
   sens?: number // Sens de la rotation
+  zeroSurPremierPoint?: boolean // Place le zéro de la règle sur le premier point du segment
 }
 
 export type OptionsRegle = OptionsOutilMesure & {}
@@ -154,6 +169,7 @@ export type OptionsPoint = OptionsCrayon & {
   label?: string // Label du point
   dx?: number // Décalage horizontal du label du point
   dy?: number // Décalage vertical du label du point
+  taille?: number // Taille du label du point
 }
 
 export type OptionsTexte = OptionsIep & {
@@ -199,10 +215,11 @@ export default class Alea2iep {
   regle: Regle
   crayon: ObjetIep
   equerre: ObjetIep
-  requerre: ObjetIep
+  requerre: ObjetIep & { abscisse: number }
   rapporteur: Rapporteur
   compas: Compas
   xml: string // Code XML de l'animation
+  private visibilitesPreservees: VisibiliteInstrumentsIep[] = []
   symetrieAxialePoint = symetrieAxialePoint
   parallelogramme3sommetsConsecutifs = parallelogramme3sommetsConsecutifs
   parallelogrammeAngleCentre = parallelogrammeAngleCentre
@@ -224,12 +241,15 @@ export default class Alea2iep {
 
   paralleleAuCompasAvecDescription = paralleleAuCompasAvecDescription
   paralleleAuCompas = paralleleAuCompas
+  reporterAuCompas2pointsCentreDirection =
+    reporterAuCompas2pointsCentreDirection
   mediatriceAuCompas = mediatriceAuCompas
   mediatriceRegleEquerre = mediatriceRegleEquerre
   hauteur = hauteur
   mediane = mediane
   bissectriceAuCompas = bissectriceAuCompas
   cercleCirconscrit = cercleCirconscrit
+  milieuALaRegle = milieuALaRegle
   triangle3longueurs = triangle3longueurs
   triangleRectangleCoteHypotenuse = triangleRectangleCoteHypotenuse
   triangleRectangle2Cotes = triangleRectangle2Cotes
@@ -305,6 +325,7 @@ export default class Alea2iep {
       position: pointAbstrait(0, 0),
       angle: 0,
       zoom: 100,
+      abscisse: 0, // abscisse de l'équerre sur la règle
     }
 
     this.rapporteur = {
@@ -491,6 +512,14 @@ export default class Alea2iep {
     this.montrer('requerre', A ?? this.requerre.position, options)
   }
 
+  requerreRotationTranslation(
+    angle: number | PointAbstrait,
+    A: PointAbstrait,
+    options: OptionsRequerre = {},
+  ) {
+    this.rotationTranslation('requerre', angle, A, options)
+  }
+
   compasMontrer(A?: PointAbstrait, options: OptionsCompas = {}) {
     this.montrer('compas', A ?? this.compas.position, options)
   }
@@ -500,6 +529,8 @@ export default class Alea2iep {
   }
 
   masquer(outil: StringOutil, options: OptionsOutil = {}) {
+    const visibilitePreservee = this.visibilitesPreservees.at(-1)
+    if (visibilitePreservee?.[outil] === true) return
     const tempo = options.tempo ?? this.tempo
     if (this[outil].visibilite) {
       // On ajoute une ligne xml que si l'objet est visible
@@ -531,6 +562,58 @@ export default class Alea2iep {
 
   rapporteurMasquer(options: OptionsRapporteur = {}) {
     this.masquer('rapporteur', options)
+  }
+
+  sauvegarderVisibiliteInstruments(): VisibiliteInstrumentsIep {
+    return Object.fromEntries(
+      outilsIep.map((outil) => [outil, this[outil].visibilite]),
+    ) as VisibiliteInstrumentsIep
+  }
+
+  restaurerVisibiliteInstruments(
+    etat: VisibiliteInstrumentsIep,
+    options: OptionsIep = {},
+  ) {
+    for (const outil of outilsIep) {
+      if (etat[outil]) {
+        this.montrer(outil, this[outil].position, options)
+      } else {
+        this.masquer(outil, options)
+      }
+    }
+  }
+
+  preserverVisibiliteInstruments<T>(
+    callback: () => T,
+    options: OptionsIep = {},
+  ): T {
+    const etat = this.sauvegarderVisibiliteInstruments()
+    this.visibilitesPreservees.push(etat)
+    try {
+      return callback()
+    } finally {
+      this.visibilitesPreservees.pop()
+      this.restaurerVisibiliteInstruments(etat, options)
+    }
+  }
+
+  rangerInstruments(
+    positions: PositionsInstrumentsIep,
+    outils: StringOutil[] = outilsIep,
+    options: OptionsIep = {},
+  ) {
+    const optionsRangement = {
+      tempo: 0,
+      vitesse: 20,
+      sens: 100000,
+      ...options,
+    }
+    for (const outil of outils) {
+      const position = positions[outil]
+      if (position !== undefined && this[outil].visibilite) {
+        this.rotationTranslation(outil, 0, position, optionsRangement)
+      }
+    }
   }
 
   deplacer(outil: StringOutil, A: PointAbstrait, options: OptionsOutil = {}) {
@@ -606,12 +689,61 @@ export default class Alea2iep {
     this.rotation('regle', angle, options)
   }
 
+  rotationTranslation(
+    outil: StringOutil,
+    angle: number | PointAbstrait,
+    A: PointAbstrait,
+    options: OptionsOutilMesure = {},
+  ) {
+    const tempo = options.tempo ?? this.tempo
+    const vitesse = options.vitesse ?? this.vitesse
+    const sens = options.sens ?? Math.round(this.vitesse / 2)
+    let angleDeRotation: number
+    if (typeof angle === 'number') {
+      angleDeRotation = angle
+    } else {
+      const d = droite(this[outil].position, angle)
+      angleDeRotation = d.angleAvecHorizontale
+    }
+    if (
+      !this[outil].visibilite ||
+      this[outil].angle !== angleDeRotation ||
+      this[outil].position !== A
+    ) {
+      const codeXML = `<action objet="${outil}" mouvement="rotation_translation" angle="${-1 * angleDeRotation}" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" sens="${sens}" vitesse="${vitesse}" />`
+      this[outil].angle = angleDeRotation
+      this[outil].position = A
+      this[outil].visibilite = true
+      if (typeof angleDeRotation === 'number' && isFinite(angleDeRotation)) {
+        this.liste_script.push(codeXML)
+      } else {
+        console.error("Angle de rotation non défini pour l'objet .", outil)
+      }
+    }
+  }
+
+  regleRotationTranslation(
+    angle: number | PointAbstrait,
+    A: PointAbstrait,
+    options: OptionsRegle = {},
+  ) {
+    this.rotationTranslation('regle', angle, A, options)
+  }
+
   crayonRotation(angle: number | PointAbstrait, options: OptionsCrayon = {}) {
     this.rotation('crayon', angle, options)
   }
 
   equerreRotation(angle: number | PointAbstrait, options: OptionsEquerre = {}) {
     this.rotation('equerre', angle, options)
+  }
+
+  equerreRotationTranslation(
+    angle: number | PointAbstrait,
+    A: PointAbstrait,
+    options: OptionsEquerre = {},
+  ) {
+    this.rotationTranslation('equerre', angle, A, options)
   }
 
   requerreRotation(
@@ -624,12 +756,27 @@ export default class Alea2iep {
   compasRotation(angle: number | PointAbstrait, options: OptionsCompas = {}) {
     this.rotation('compas', angle, options)
   }
+  compasRotationTranslation(
+    angle: number | PointAbstrait,
+    A: PointAbstrait,
+    options: OptionsRegle = {},
+  ) {
+    this.rotationTranslation('compas', angle, A, options)
+  }
 
   rapporteurRotation(
     angle: number | PointAbstrait,
     options: OptionsRapporteur = {},
   ) {
     this.rotation('rapporteur', angle, options)
+  }
+
+  rapporteurRotationTranslation(
+    angle: number | PointAbstrait,
+    A: PointAbstrait,
+    options: OptionsRapporteur = {},
+  ) {
+    this.rotationTranslation('rapporteur', angle, A, options)
   }
 
   /**
@@ -724,7 +871,11 @@ export default class Alea2iep {
       if (options.dy) {
         M.y += options.dy
       }
-      this.textePoint(`$${label}$`, M, { tempo: 0, couleur: couleurLabel })
+      this.textePoint(`$${label}$`, M, {
+        tempo: 0,
+        couleur: couleurLabel,
+        taille: options.taille,
+      })
     } else {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}" />`
     }
@@ -884,12 +1035,10 @@ export default class Alea2iep {
     B: PointAbstrait,
     options: OptionsCompas = {},
   ) {
-    this.compasMontrer(A, options)
-    this.compasDeplacer(A, options)
     const s = segment(A, B)
     s.isVisible = false
     const angle = s.angleAvecHorizontale
-    this.compasRotation(angle, options)
+    this.compasRotationTranslation(angle, A, options)
     this.compasEcarter(longueur(A, B), options)
   }
 
@@ -921,6 +1070,49 @@ export default class Alea2iep {
     }
   }
 
+  /**
+   *
+   * @param centre Trace un arc de centre centre allant de A à B
+   * @param A
+   * @param B
+   * @param options
+   */
+  compasTracerArcCentre2extremites(
+    centre: PointAbstrait,
+    A: PointAbstrait,
+    B: PointAbstrait,
+    options: OptionsCompas = {},
+  ) {
+    const compasVisibility = this.compas.visibilite
+    if (!compasVisibility) {
+      this.compasMontrer()
+    }
+    /*  this.compasRotationTranslation(
+      angleOriente(pointAbstrait(centre.x + 5, centre.y), centre, A),
+      centre,
+      options,
+    )*/
+    this.compasEcarter2Points(centre, A, options)
+    this.compasTracerArc2Angles(
+      angleOriente(pointAbstrait(centre.x + 5, centre.y), centre, A),
+      angleOriente(pointAbstrait(centre.x + 5, centre.y), centre, B),
+      options,
+    )
+
+    if (options?.positionsRangementInstruments !== undefined) {
+      this.rangerInstruments(
+        options.positionsRangementInstruments,
+        ['rapporteur'],
+        {
+          tempo: 0,
+          vitesse: 20,
+        },
+      )
+    }
+    if (!compasVisibility) {
+      this.compasMasquer()
+    }
+  }
   /**
    * Trace un arc de cercle en gardant l'écartement et le centre actuel. L'angle de départ sera choisi pour être le plus proche de l'angle actuel
    * @param {number} angle1
@@ -1143,6 +1335,8 @@ export default class Alea2iep {
     angle: number,
     options: OptionsCrayon = {},
   ) {
+    const rapporteurVisibilite = this.rapporteur.visibilite
+    if (!rapporteurVisibilite) this.rapporteurMontrer()
     if (angle > 0) {
       this.rapporteurDeplacerRotation2Points(A, B, options)
       this.rapporteurCrayonMarqueAngle(angle, options)
@@ -1158,7 +1352,17 @@ export default class Alea2iep {
       (this.rapporteur.rayon * this.rapporteur.zoom) / 100,
       d.angleAvecHorizontale + angle,
     )
-    this.rapporteurMasquer(options)
+    if (options?.positionsRangementInstruments !== undefined) {
+      this.rangerInstruments(
+        options.positionsRangementInstruments,
+        ['rapporteur'],
+        {
+          tempo: 0,
+          vitesse: 20,
+        },
+      )
+    }
+    if (!rapporteurVisibilite) this.rapporteurMasquer(options)
     this.regleDemiDroiteOriginePoint(A, M, options)
   }
 
@@ -1214,19 +1418,52 @@ export default class Alea2iep {
     A: PointAbstrait,
     options: OptionsRegle = {},
   ) {
-    const longueur = options.longueur ?? this.regle.longueur
-    const M = pointSurSegment(O, A, longueur)
+    this.regleDemiDroite(O, A, options)
+  }
+
+  /**
+   * Trace une demi-droite d'origine O passant par A, ou de direction donnée par un angle avec l'horizontale
+   * @param {PointAbstrait} O Origine
+   * @param {number|PointAbstrait} direction Point de direction ou angle en degrés
+   * @param {objet} [options] Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
+   */
+  regleDemiDroite(
+    O: PointAbstrait,
+    direction: number | PointAbstrait,
+    options: OptionsRegle = {},
+  ) {
+    const longueurRegle = options.longueur ?? this.regle.longueur
+    const M =
+      typeof direction === 'number'
+        ? pointAdistance(O, longueurRegle, angleModulo(direction))
+        : pointSurSegment(O, direction, longueurRegle)
     this.regleSegment(O, M, options)
   }
 
   /**
-   * Trace une droite passanrt par les points A et B
+   * Trace une droite passant par les points A et B, ou passant par A avec la pente indiquée
    * @param {PointAbstrait} A
-   * @param {PointAbstrait} B
+   * @param {number|PointAbstrait} direction Point de direction ou coefficient directeur de la droite
    * @param {objet} [options] Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
    */
-  regleDroite(A: PointAbstrait, B: PointAbstrait, options: OptionsRegle = {}) {
+  regleDroite(
+    A: PointAbstrait,
+    direction: number | PointAbstrait,
+    options: OptionsRegle = {},
+  ) {
     const longueurRegle = options.longueur ?? this.regle.longueur
+    const B =
+      typeof direction === 'number'
+        ? pointAdistance(
+            A,
+            1,
+            Number.isFinite(direction)
+              ? (Math.atan(direction) * 180) / Math.PI
+              : direction > 0
+                ? 90
+                : -90,
+          )
+        : direction
     const M = homothetie(
       B,
       A,
@@ -1238,12 +1475,8 @@ export default class Alea2iep {
       (-longueurRegle * 0.5 + longueur(A, B) * 0.5) / longueur(A, B),
     )
     if (this.x(A) <= this.x(B)) {
-      this.regleMontrer(M)
-      this.regleRotation(N, options)
       this.regleSegment(M, N, options)
     } else {
-      this.regleMontrer(N)
-      this.regleRotation(M, options)
       this.regleSegment(N, M, options)
     }
   }
@@ -1380,13 +1613,25 @@ export default class Alea2iep {
         options = arg3
       }
     }
-    if (A.x <= B.x) {
-      // Toujours avoir la règle de gauche à droite
-      this.regleMontrer(A, options)
-      this.regleRotation(B, options)
-    } else {
-      this.regleMontrer(B, options)
-      this.regleRotation(A, options)
+    const longueurRegle = options.longueur ?? this.regle.longueur
+    const longueurSegment = longueur(A, B)
+    const regleVisibleInitialement = this.regle.visibilite
+    if (longueurSegment > EPSILON_SEGMENT_IEP) {
+      const premierPoint = options.zeroSurPremierPoint
+        ? A
+        : this.premierPointReglePourSegment(A, B)
+      const secondPoint = premierPoint === A ? B : A
+      const pointDepartRegle = options.zeroSurPremierPoint
+        ? A
+        : this.pointDepartReglePourSegmentCentre(
+            A,
+            B,
+            longueurRegle,
+            premierPoint,
+          )
+      const angleRegle = droite(premierPoint, secondPoint).angleAvecHorizontale
+      if (!regleVisibleInitialement) this.regleMontrer()
+      this.regleRotationTranslation(angleRegle, pointDepartRegle, options)
     }
     if (this.crayon != null) {
       if (
@@ -1400,7 +1645,27 @@ export default class Alea2iep {
         id = this.tracer(A, options)
       }
     }
+    if (!regleVisibleInitialement) this.regleMasquer()
     return id
+  }
+
+  private pointDepartReglePourSegmentCentre(
+    A: PointAbstrait,
+    B: PointAbstrait,
+    longueurRegle: number,
+    premierPoint = this.premierPointReglePourSegment(A, B),
+  ) {
+    const longueurSegment = longueur(A, B)
+    const marge = Math.max((longueurRegle - longueurSegment) / 2, 0)
+    const secondPoint = premierPoint === A ? B : A
+    return pointSurSegment(premierPoint, secondPoint, -marge)
+  }
+
+  private premierPointReglePourSegment(A: PointAbstrait, B: PointAbstrait) {
+    if (Math.abs(A.x - B.x) < EPSILON_SEGMENT_IEP) {
+      return A.y <= B.y ? A : B
+    }
+    return A.x <= B.x ? A : B
   }
 
   /**
@@ -1408,10 +1673,13 @@ export default class Alea2iep {
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
   polygoneTracer(...sommets: PointAbstrait[]) {
+    const regleVisibleInitialement = this.regle.visibilite
+    if (!regleVisibleInitialement) this.regleMontrer()
     for (let i = 0; i < sommets.length - 1; i++) {
       this.regleSegment(sommets[i], sommets[i + 1])
     }
     this.regleSegment(sommets[sommets.length - 1], sommets[0])
+    if (!regleVisibleInitialement) this.regleMasquer()
   }
 
   /**
@@ -1576,9 +1844,16 @@ export default class Alea2iep {
 
   /**
    * Met l'animation en pause forçant l'utilisateur à appuyer sur lecture pour voir la suite
+   * @param {objet} [options] tempo : délai (dixièmes de seconde) avant que le bouton "continuer" n'apparaisse
    */
-  pause() {
-    this.liste_script.push('<action mouvement="pause" />')
+  pause(options: OptionsIep = {}) {
+    if (options.tempo !== undefined) {
+      this.liste_script.push(
+        `<action mouvement="pause" tempo="${options.tempo}" />`,
+      )
+    } else {
+      this.liste_script.push('<action mouvement="pause" />')
+    }
   }
 
   /**

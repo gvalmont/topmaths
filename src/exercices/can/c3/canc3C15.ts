@@ -1,10 +1,9 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Connaitre les tables de multiplication (phrases)'
+export const titre = 'Connaître les tables de multiplication (phrases)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '24/01/2023'
@@ -12,13 +11,17 @@ export const dateDePublication = '24/01/2023'
 /**
  * @author Gilles Mora
  *
-
  */
 
 export const uuid = 'aa8af'
 
 export const refs = {
-  'fr-fr': ['canc3C15'],
+  'fr-fr': [
+    'canc3C15',
+    'auto5N1C-flash1',
+    'auto5N3A-flash2',
+    'auto5N4A-flash2',
+  ],
   'fr-ch': [],
 }
 export default class TablesPhrase extends ExerciceSimple {
@@ -32,8 +35,8 @@ export default class TablesPhrase extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(3, 9)
-    const b = randint(3, 9)
+    const a = this.quotaRandint('a', 3, 9)
+    const b = this.quotaRandint('b', 3, 9)
     const c = a * b
     this.reponse = b
     this.question = `Dans $${c}$, combien de fois $${a}$ ?`

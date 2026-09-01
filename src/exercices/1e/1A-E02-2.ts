@@ -9,7 +9,7 @@ export const dateDePublication = '22/07/2025'
 export const uuid = 'a3828'
 
 export const refs = {
-  'fr-fr': ['1A-E02-2'],
+  'fr-fr': ['1A-E02-2', '2A-E2-2'],
   'fr-ch': [],
 }
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
  */
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Trouver le calcul d'un prix subissant une évolution"
@@ -118,10 +118,7 @@ Ainsi, le nouveau prix est donné par : $${miseEnEvidence(`${texNombre(prixIniti
 
       this.appliquerLesValeurs(prixInitial, pourcentage)
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {})
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {

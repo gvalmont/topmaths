@@ -9,7 +9,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Multiplier un nombre pair par 5'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -38,7 +38,7 @@ export default class NombreFois5 extends ExerciceSimple {
   nouvelleVersion() {
     const a =
       this.version === 'Pair'
-        ? randint(11, 49, [20, 30, 40, 15, 25, 35, 45]) * 2
+        ? this.quotaRandint('a', 11, 49, [20, 30, 40, 15, 25, 35, 45]) * 2
         : randint(1, 9) * 10 + randint(1, 9, 5)
     this.reponse = a * 5
     this.question = `Calculer $${a}\\times 5$.`

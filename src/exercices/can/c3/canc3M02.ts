@@ -7,6 +7,7 @@ import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -14,7 +15,7 @@ export const titre =
   'Calculer une longueur/un périmètre/une aire (avec des entiers)'
 export const dateDePublication = '25/08/2022'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
@@ -52,7 +53,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
     let s3
     let s4
     switch (
-      choice([1, 2, 3, 4]) //
+      this.quotaChoice('cas', [1, 2, 3, 4]) //
     ) {
       case 1: // périmètre/aire carré
         choix = choice([true, false])
@@ -91,7 +92,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
                 xmax: 7,
                 ymax: 7,
                 scale: 0.5,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -131,7 +132,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
                 xmax: 7,
                 ymax: 7,
                 scale: 0.5,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -185,7 +186,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
               xmax: 11,
               ymax: 7,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -230,7 +231,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
                 xmax: 7,
                 ymax: 6,
                 scale: 0.5,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -260,7 +261,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
                 xmax: 7,
                 ymax: 6,
                 scale: 0.5,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -312,7 +313,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
                 xmax: 6,
                 ymax: 3,
                 scale: 0.7,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -346,7 +347,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
                 xmax: 6,
                 ymax: 2.5,
                 scale: 0.7,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -384,7 +385,7 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
                 xmax: 6,
                 ymax: 2.5,
                 scale: 0.7,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )

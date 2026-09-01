@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 
@@ -9,7 +8,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une valeur connaissant la moyenne'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '18/05/2024'
 export const uuid = '8490c'
 export const refs = {
@@ -32,7 +31,7 @@ export default class EnFonctionDe extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('cas', [1, 2])) {
       case 1: //
         {
           const val1 = randint(-10, 20, 0)

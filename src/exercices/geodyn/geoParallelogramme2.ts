@@ -1,11 +1,11 @@
 import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const titre = 'Tracer un parallélogramme (sans tracer de parallèles)'
 export const dateDePublication = '9/11/2023'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * Tracer un parallélogramme
@@ -88,15 +88,15 @@ class ConstructionParallelogramme extends ExerciceSimple {
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
-  correctionInteractive = () => {
+  correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figure.id] = this.figure.json
+    this.answers[this.figure.id] = figureAnswerJson(this.figure)
     const resultat = []
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(
-      `#feedbackEx${this.numeroExercice}Q${0}`,
+      `#feedbackEx${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
     const { isValid, message } = this.figure.checkSameDistance({
       label1: 'AB',

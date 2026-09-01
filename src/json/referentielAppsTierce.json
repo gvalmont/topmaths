@@ -50,6 +50,13 @@
         "uuid": "parcoursTables"
       },
       {
+        "title": "Challenge Calcul littéral",
+        "typeExercice": "tierce",
+        "presentation": "Développer et réduire en temps limité.",
+        "imgPath": "images/apps/app_challenge_litteral.png",
+        "uuid": "challengeLitteral"
+      },
+      {
         "title": "Équations",
         "typeExercice": "tierce",
         "presentation": "Déterminer l'opération à effectuer sur les deux membres d'une équation pour la résoudre. Les calculs sont automatiquement réalisés.",
@@ -62,6 +69,13 @@
         "presentation": "Utiliser les propriétés pour faire une démonstration. 10 questions, non aléatoires, avec la possibilité de modifier ses réponses jusqu'à la validation.",
         "imgPath": "images/apps/app_parallelogramme.png",
         "uuid": "parallelogramme"
+      },
+      {
+        "title": "Questions de cours",
+        "typeExercice": "tierce",
+        "presentation": "Choisir des questions au hasard parmi une grande collection.",
+        "imgPath": "images/apps/app_questions_de_cours.png",
+        "uuid": "afd39"
       }
     ]
   }

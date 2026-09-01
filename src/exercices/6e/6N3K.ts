@@ -1,15 +1,14 @@
 import CalculsFractionsSimples from '../CM2/CM2M2H-1'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre = 'Effectuer des calculs simples avec  des fractions'
 
 export const uuid = '64422'
 
 export const refs = {
-  'fr-fr': ['6N3K', 'BP2AutoH24'],
+  'fr-fr': ['6N3K', 'BP2AutoH24', '6AutoF3-1'],
   'fr-2016': ['6C23', 'BP2AutoH24'],
-  'fr-ch': ['NR'],
+  'fr-ch': ['9NO3F-1'],
 }
 export default class ExerciceAdditionnerFractions6e extends CalculsFractionsSimples {
   constructor() {

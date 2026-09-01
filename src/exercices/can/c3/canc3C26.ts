@@ -1,13 +1,13 @@
+import { addMultiMathfield } from '../../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../../lib/interactif/MultiMathfield/MultiMathfield'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Test MultiMathfield'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDePublication = '26/03/2026'
 /**
  * @author Jean-claude Lhote
@@ -74,7 +74,7 @@ export default class TestMultiMatfield extends Exercice {
           options: { unite: true },
         },
       },
-      { formatInteractif: 'multiMathfield' },
+      { formatInteractif: 'multi-mathfield' },
     )
   }
 }

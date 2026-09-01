@@ -45,7 +45,6 @@ import { context } from '../../modules/context'
 
 export const titre = 'Travailler sur les motifs itératifs'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '10/06/2025'
@@ -62,11 +61,10 @@ export const uuid = 'd9d6b'
 export const refs = {
   'fr-fr': ['4L13-3'],
   'fr-2016': ['6I13'],
-  'fr-ch': ['autres-14'],
+  'fr-ch': ['10FA1A-3'],
 }
 
 export default class PaternNum04eme extends Exercice {
-  destroyers: (() => void)[] = []
   niveau: string
   constructor() {
     super()
@@ -125,16 +123,7 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
     this.niveau = '4e'
   }
 
-  destroy() {
-    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-  }
-
   nouvelleVersion(): void {
-    // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
     const resolutionIntuitive = this.niveau === '4e' && !this.sup5
     const nbDePattern = listePatternsSansRatioNiFraction.length
     const ordreAleatoireDesQuestions =
@@ -227,14 +216,13 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
 
         const angle = Math.PI / 6
         if (context.isHtml) {
-          const listeners = updateCubeIso({
+          updateCubeIso({
             pattern,
             i,
             j: nbFigures,
             angle,
             inCorrectionMode: true,
           })
-          if (listeners) this.destroyers.push(listeners)
           pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${nbFigures}"></use>`
           // Ajouter les SVG générés par svg() de chaque objet
           const cells = (pattern as VisualPattern3D).update3DCells(nbFigures)
@@ -311,14 +299,13 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
         let ymax = -Infinity
         if (pattern instanceof VisualPattern3D) {
           if (context.isHtml) {
-            const listeners = updateCubeIso({
+            updateCubeIso({
               pattern,
               i,
               j,
               angle,
               inCorrectionMode: false,
             })
-            if (listeners) this.destroyers.push(listeners)
             if (pattern.shape)
               pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
             const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
@@ -377,7 +364,7 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
                 yMax,
                 yMin,
                 scale: 0.4,
-                style: 'display: inline-block',
+                display: 'inline-block' as const,
                 optionsTikz: 'transform shape',
               },
             ),
@@ -410,6 +397,7 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
                   {
                     exercice: this,
                     question: indexInteractif++,
+                    reponseParams: { formatInteractif: 'mathalea-mathfield' },
                     objetReponse: { reponse: { value: nbTex } },
                     typeInteractivite: 'mathlive',
                     classe: KeyboardType.clavierNumbers,
@@ -428,6 +416,7 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: { reponse: { value: nbTex } },
                   typeInteractivite: 'mathlive',
                   classe: KeyboardType.clavierNumbers,
@@ -454,6 +443,7 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
               {
                 exercice: this,
                 question: indexInteractif++,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: reponseQ5,
@@ -530,6 +520,7 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
                   `${ajouteQuestionMathlive({
                     exercice: this,
                     question: indexInteractif++,
+                    reponseParams: { formatInteractif: 'mathalea-mathfield' },
                     objetReponse: { reponse: { value: etape.toString() } },
                     classe: KeyboardType.clavierNumbers,
                     typeInteractivite: 'mathlive',
@@ -546,6 +537,7 @@ La correction détaillée (ou pas) n'est utile que si on choisit une résolution
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: { reponse: { value: nbTex } },
                   classe: KeyboardType.clavierNumbers,
                   typeInteractivite: 'mathlive',

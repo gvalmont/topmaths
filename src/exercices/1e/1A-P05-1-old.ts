@@ -10,11 +10,11 @@ export const dateDePublication = '15/09/2025'
 export const uuid = '3a5ab'
 // @Author Stéphane Guyon// repris par Gilles Mora pour sortie npdf et nombres décimaux dans tableau
 export const refs = {
-  'fr-fr': ['1A-P05-1'],
+  'fr-fr': [],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Utiliser un arbre pour calculer une probabilité (totale)'
@@ -91,7 +91,7 @@ export default class auto1AP3 extends ExerciceQcmA {
               xmax: 12,
               ymin: -5,
               ymax: 5,
-              style: 'inline',
+              display: 'inline',
               scale: 0.7,
             },
             objets,
@@ -201,7 +201,7 @@ export default class auto1AP3 extends ExerciceQcmA {
               xmax: 10,
               ymin: -5,
               ymax: 5,
-              style: 'inline',
+              display: 'inline',
               scale: 0.7,
             },
             objets,

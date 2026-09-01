@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -13,13 +14,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   'Effectuer des calculs avec des puissances de 10 uniquement'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const dateDeModifImportante = '24/09/2023'
@@ -33,7 +32,7 @@ export const uuid = 'f5dcf'
 
 export const refs = {
   'fr-fr': ['4C30', 'BP2AutoE5'],
-  'fr-ch': ['10NO2-3'],
+  'fr-ch': ['10NO3D-2'],
 }
 export default class PuissancesDeDix extends Exercice {
   constructor() {
@@ -42,14 +41,14 @@ export default class PuissancesDeDix extends Exercice {
     context.isHtml
       ? (this.consigne = 'Écrire sous la forme $\\mathbf{10^n}$.')
       : (this.consigne = 'Écrire sous la forme $10^n$.')
-    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
-    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
     this.nbQuestions = 5
 
     this.sup = 1
     this.sup2 = 4
     this.sup3 = false
-    this.besoinFormulaireNumerique = false // Voir 2N31-5 pour voir besoinFormulaireNumerique à true
+    this.besoinFormulaireNumerique = false // Voir 2N32-1 pour voir besoinFormulaireNumerique à true
     this.besoinFormulaire2Texte = [
       'Type de calculs',
       'Nombres séparés par des tirets :\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange',
@@ -86,7 +85,9 @@ export default class PuissancesDeDix extends Exercice {
     // pour pouvoir adapter les couleurs en cas de besoin
     const coul0 = 'red'
     const coul1 = bleuMathalea
-    const coul1Cmd = context.isHtml ? `\\color{${coul1}}` : `\\color[HTML]{${coul1.replace('#', '')}}`
+    const coul1Cmd = context.isHtml
+      ? `\\color{${coul1}}`
+      : `\\color[HTML]{${coul1.replace('#', '')}}`
 
     for (
       let i = 0,
@@ -500,8 +501,11 @@ export default class PuissancesDeDix extends Exercice {
           break
       }
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, {
-          formatInteractif: 'puissance',
+        handleAnswers(this, i, {
+          reponse: {
+            value: reponseInteractive,
+            options: { puissance: true },
+          },
         })
         texte += ajouteChampTexteMathLive(
           this,
@@ -511,7 +515,6 @@ export default class PuissancesDeDix extends Exercice {
         )
       }
       if (context.isAmc) {
-        // setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: 10, exposantPuissance: exposantInteractif })
         this.autoCorrectionAMC[i] = {}
         this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         this.autoCorrectionAMC[i].enonce = `${texte}\n`

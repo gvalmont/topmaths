@@ -6,11 +6,11 @@ export const dateDePublication = '15/10/2025'
 export const uuid = '5c321'
 // @Author Gilles Mora
 export const refs = {
-  'fr-fr': ['1A-C05-3'],
+  'fr-fr': ['1A-C05-3', '2A-N5-3'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Déterminer un ordre de grandeur'

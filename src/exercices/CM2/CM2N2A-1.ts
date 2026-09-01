@@ -1,6 +1,8 @@
 import Figure from 'apigeom'
 import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 import { bleuMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -10,13 +12,11 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { representeFractionSurBarre } from '../../modules/representationsFractions'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
 
 export const titre = "Représenter une fraction de l'unité"
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const dateDeModifImportante = '7/10/2024'
 /**
  * Tracer un segment de longueur une fraction de l'unité.
@@ -27,9 +27,9 @@ export const dateDeModifImportante = '7/10/2024'
 export const uuid = 'c28e5'
 
 export const refs = {
-  'fr-fr': ['CM2N2A-1'],
+  'fr-fr': ['CM2N2A-1', '6AutoF1-1'],
   'fr-2016': ['6N32'],
-  'fr-ch': ['9NO10-12'],
+  'fr-ch': ['9NO3A-3'],
 }
 export default class FractionsDunite extends Exercice {
   goodAnswers: number[] = []
@@ -38,8 +38,8 @@ export default class FractionsDunite extends Exercice {
     super()
     this.nbQuestions = 5
     this.consigne = 'Colorier en bleu un segment de longueur ...'
-    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.spacingCorr = context.isHtml ? 3.5 : 2
+    this.spacing = 2
     this.sup = 1
     this.besoinFormulaireNumerique = [
       'Type  de questions',
@@ -60,7 +60,7 @@ export default class FractionsDunite extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let den = 1
       let num = 1
       let texte = ''
@@ -182,7 +182,7 @@ export default class FractionsDunite extends Exercice {
     const figure = this.figuresApigeom[i]
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[figure.id] = figure.json
+    this.answers[figure.id] = figureAnswerJson(figure)
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'

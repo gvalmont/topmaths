@@ -114,7 +114,7 @@ export function buildMathAleaURL(options: {
   isShort?: boolean
   removeSeed?: boolean
   /** S'il y a un recorder l'url est cachée et doit être construite à partir du store exercicesParams */
-  recorder?: 'Moodle'
+  recorder?: boolean
 }): URL {
   const url = options.recorder
     ? MathAleaURL.fromExercisesParams()
@@ -135,6 +135,11 @@ export function buildMathAleaURL(options: {
       .addParam('canSA', can.solutionsAccess ? '1' : '0')
       .addParam('canSM', can.solutionsMode)
       .addParam('canI', can.isInteractive ? '1' : '0')
+    // `canNC` (no chrono) n'est ajouté que s'il est actif pour ne pas allonger
+    // inutilement les URLs des courses chronométrées
+    if (can.isTimerDisabled) {
+      url.addParam('canNC', '1')
+    }
   } else if (options.view === 'diaporama') {
     url.addParam('ds', buildDsParams())
     if (
@@ -186,7 +191,7 @@ export function buildEsParams(
     ['verso', 5],
   ])
   let es = ''
-  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed|isReferenceDisplayed
+  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed|isReferenceDisplayed|isCorrectionOnlyOnError
   es += presentationMode.get(
     mode !== undefined ? mode : (options.presMode ?? 'liste_exos'),
   )
@@ -197,6 +202,7 @@ export function buildEsParams(
   es += options.twoColumns ? '1' : '0'
   es += options.isTitleDisplayed ? '1' : '0'
   es += options.isReferenceDisplayed !== false ? '1' : '0'
+  es += options.isCorrectionOnlyOnError ? '1' : '0'
   return es
 }
 

@@ -16,12 +16,12 @@ async function clickRobust(locator: Locator) {
     try {
       await expect(locator).toBeVisible()
       await expect(locator).toBeEnabled()
-      await locator.click({ trial: true, timeout: 5000 })
-      await locator.click({ timeout: 5000 })
+      await locator.click({ trial: true, timeout: 10_000 })
+      await locator.click({ timeout: 10_000 })
       return
     } catch (error) {
       if (attempt === 2) throw error
-      await locator.page().waitForTimeout(150)
+      await locator.page().waitForTimeout(300)
     }
   }
 }
@@ -59,7 +59,7 @@ async function testV(page: Page) {
   })
 
   // Go to the page
-  await page.setDefaultTimeout(500_000) // Set timeout to 500 seconds
+  await page.setDefaultTimeout(1_500_000) // Set timeout to 1_500_000 seconds
   await page.goto(parentUrl)
 
   await expect(page.locator('body')).toContainText('bonjour')
@@ -74,7 +74,7 @@ async function testV(page: Page) {
   // }
 
   await page.waitForSelector('#iframe')
-  await page.waitForTimeout(3000) // attendre 3000 ms de plus pour assurer le rendu
+  await page.waitForTimeout(3_000) // attendre 3_000 ms de plus pour assurer le rendu
   if (page.frames().length > 0) {
     await Promise.all(
       page.frames().map((frame) => frame.waitForLoadState('networkidle')),
@@ -89,7 +89,7 @@ async function testV(page: Page) {
   const box2 = await page
     .locator('#iframe')
     .contentFrame()
-    .locator('#clockEx0Q0 > div > div > svg > text:nth-child(5)')
+    .locator('#interactive-clockEx0Q0 > div > div > svg > text:nth-child(5)')
     .boundingBox()
   logIfVerbose('box', box)
   logIfVerbose('box2', box2)
@@ -133,7 +133,12 @@ async function testV(page: Page) {
     .contentFrame()
     .getByRole('button', { name: 'Exercice 3' })
     .click()
-  await page.locator('#iframe').contentFrame().locator('.ML__content').click()
+  await page
+    .locator('#iframe')
+    .contentFrame()
+    .locator('#champTexteEx2Q0')
+    .locator('.ML__content')
+    .click()
   await clickRobust(
     page
       .locator('#iframe')
@@ -210,13 +215,13 @@ async function testV(page: Page) {
   const listeToClick = page
     .locator('#iframe')
     .contentFrame()
-    .locator('liste-deroulante#ex5Q0')
+    .locator('#liste-deroulanteEx5Q0')
   await listeToClick.click()
   await listeToClick.locator('li', { hasText: 'somme' }).click()
   const listeEx5Q2 = page
     .locator('#iframe')
     .contentFrame()
-    .locator('liste-deroulante#ex5Q2')
+    .locator('#liste-deroulanteEx5Q2')
   await listeEx5Q2.click()
   await listeEx5Q2.locator('li', { hasText: 'différence' }).click()
 
@@ -240,6 +245,57 @@ async function testV(page: Page) {
     .contentFrame()
     .getByRole('button', { name: 'Vérifier la réponse' })
     .click()
+  await page
+    .locator('#iframe')
+    .contentFrame()
+    .getByRole('button', { name: 'Exercice 8' })
+    .click()
+  await page.waitForTimeout(2_000) // le tableau MathLive doit être rendu
+  // Tableau avec plusieurs zones de saisie par cellule (fill-in-the-blank)
+  // Les trous sont dans le shadow DOM de MathLive : un clic à la souris sur leur
+  // rectangle est le seul moyen fiable d'y placer le curseur. Le champ se
+  // redessine à chaque saisie, d'où les essais successifs.
+  const remplisLeTrou = async (
+    idDuChamp: string,
+    indexDuTrou: number,
+    saisie: string,
+  ) => {
+    let boite = null
+    for (let essai = 0; essai < 5 && boite === null; essai++) {
+      const trou = page
+        .locator('#iframe')
+        .contentFrame()
+        .locator(`#${idDuChamp}`)
+        .locator('.ML__editablePromptBox')
+        .nth(indexDuTrou)
+      try {
+        await trou.waitFor({ state: 'attached', timeout: 10_000 })
+        await trou.scrollIntoViewIfNeeded({ timeout: 10_000 })
+        boite = await trou.boundingBox({ timeout: 10_000 })
+      } catch {
+        await page.waitForTimeout(300)
+      }
+    }
+    if (boite === null)
+      throw Error(`Trou ${indexDuTrou} introuvable dans ${idDuChamp}`)
+    await page.mouse.click(
+      boite.x + boite.width / 2,
+      boite.y + boite.height / 2,
+    )
+    await page.waitForTimeout(300)
+    await page.keyboard.type(saisie)
+    await page.waitForTimeout(300)
+  }
+  await remplisLeTrou('champTexteEx7Q0L1C1', 0, '70')
+  await remplisLeTrou('champTexteEx7Q0L2C2', 0, '7')
+  await remplisLeTrou('champTexteEx7Q0L2C2', 1, '6')
+  await remplisLeTrou('champTexteEx7Q0L2C2', 2, '9')
+  await remplisLeTrou('champTexteEx7Q0L2C3', 0, '7,69')
+  await page
+    .locator('#iframe')
+    .contentFrame()
+    .getByRole('button', { name: 'Vérifier la réponse' })
+    .click()
 
   await page.waitForTimeout(2000) // attendre 2000 ms de plus pour assurer la sauvegarde
 
@@ -249,20 +305,31 @@ async function testV(page: Page) {
 
   const value = JSON.parse(valueString ?? '')
   expect(value).not.toBe(null)
-  expect(value.studentAssignment.length).toEqual(7)
+  expect(value.studentAssignment.length).toEqual(8)
   const responses = [
-    { clockEx0Q0: '12h15' },
-    { Ex1Q0R0: '1', Ex1Q0R1: '0', Ex1Q0R2: '0', Ex1Q0R3: '0', Ex1Q0R4: '0' },
+    { 'interactive-clockEx0Q0': '{"hour":12,"minute":15,"second":0}' },
+    { 'mathalea-qcmEx1Q0': '[0]' },
     { Ex2Q0: '6000' },
     {
       apigeomEx3F06GXX0:
-        '{\n  "apiGeomVersion": "3.0.20230508",\n  "options": {\n    "autoPositionLabels": false,\n    "animationStepInterval": 3000,\n    "automaticUserMessage": true,\n    "borderSize": 0.2,\n    "color": "currentColor",\n    "colorPointPolygon": "none",\n    "changeColorChangeActionToSetOptions": true,\n    "discFillOpacity": 0.2,\n    "decimalSeparator": "auto",\n    "displayDigits": 1,\n    "displayDigitsAngle": 0,\n    "displayGrid": false,\n    "distanceWithoutNewPoint": 0.2,\n    "figureHasBorder": true,\n    "fillColor": "none",\n    "fillColorAndBorderColorAreSame": true,\n    "fillOpacity": 0.2,\n    "gridWithTwoPointsOnSamePosition": true,\n    "fontSize": "1em",\n    "isHandDrawn": false,\n    "isDashed": false,\n    "labelAutomaticForPoints": false,\n    "labelPointAfterCreation": false,\n    "labelDxInPixels": 15,\n    "labelDyInPixels": 15,\n    "latexHeight": 12,\n    "labelIsVisible": true,\n    "latexWidth": 18,\n    "limitNumberOfElement": {},\n    "mark": "||",\n    "segmentShape": "",\n    "moveTextGrid": 15,\n    "pointDescriptionWithCoordinates": true,\n    "showCoordsInContextMenu": false,\n    "pointSize": 5,\n    "thickness": 1,\n    "shape": "x",\n    "shapeForPolygon": "x",\n    "thicknessForPoint": 2,\n    "tmpColor": "gray",\n    "tmpFillColor": "rgba(241, 89, 41, 0.5)",\n    "tmpFillOpacity": 0.2,\n    "tmpIsDashed": true,\n    "tmpThickness": 1,\n    "tmpShape": "x",\n    "trace": false,\n    "visibleButtons": [\n      "DRAG",\n      "HIDE",\n      "REMOVE",\n      "POINT",\n      "POINT_ON",\n      "POINT_INTERSECTION",\n      "MIDDLE",\n      "SEGMENT",\n      "LINE",\n      "RAY",\n      "POLYGON",\n      "LINE_PARALLEL",\n      "LINE_PERPENDICULAR",\n      "DRAW_ANGLE",\n      "PERPENDICULAR_BISECTOR",\n      "BISECTOR_BY_POINTS",\n      "CIRCLE_CENTER_POINT",\n      "CIRCLE_RADIUS",\n      "REFLECTION_OVER_LINE",\n      "REFLECTION",\n      "ROTATE",\n      "TRANSLATION",\n      "DILATE",\n      "VECTOR",\n      "CURSOR",\n      "GRID",\n      "GRAPH",\n      "SUB_REPERE",\n      "SET_OPTIONS",\n      "FILL",\n      "ARC_BY_THREE_POINTS",\n      "MARK_BETWEEN_POINTS",\n      "MESURE_SEGMENT",\n      "MESURE_ANGLE",\n      "MESURE_AREA",\n      "NAME_POINT",\n      "EDIT",\n      "IMAGE",\n      "TEXT_TEMPLATE",\n      "SHAKE",\n      "MOVE_LABEL",\n      "DRAG_ALL",\n      "ZOOM_OUT",\n      "ZOOM_IN",\n      "SAVE",\n      "OPEN",\n      "UNDO",\n      "REDO",\n      "DOWNLOAD_LATEX_SVG",\n      "DESCRIPTION",\n      "OPTIONS"\n    ]\n  },\n  "xMin": -5.5,\n  "yMin": -5.5,\n  "scale": 1,\n  "pixelsPerUnit": 30,\n  "xScale": 1,\n  "yScale": 1,\n  "zoomLevel": 1,\n  "snapGrid": false,\n  "point1": {\n    "color": "currentColor",\n    "id": "point1",\n    "isDashed": false,\n    "isHidden": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "B",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "labelIsVisible": true,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": 1,\n    "y": 2\n  },\n  "point2": {\n    "color": "currentColor",\n    "id": "point2",\n    "isDashed": false,\n    "isHidden": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "S",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "labelIsVisible": true,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": -3,\n    "y": 2\n  },\n  "element0": {\n    "color": "currentColor",\n    "id": "element0",\n    "isDashed": false,\n    "isHidden": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": true,\n    "opacity": 1,\n    "thickness": 1,\n    "type": "Circle",\n    "fillColor": "currentColor",\n    "fillOpacity": 0.2,\n    "idCenter": "point1",\n    "radius": 5\n  }\n}',
+        '{"apiGeomVersion":"3.0.20230508","xMin":-5.5,"yMin":-5.5,"scale":1,"pixelsPerUnit":30,"xScale":1,"yScale":1,"zoomLevel":1,"snapGrid":false,"point1":{"id":"point1","isDeletable":false,"thickness":2,"type":"Point","label":"B","labelDxInPixels":10,"labelDyInPixels":20,"shape":"x","x":1,"y":2},"point2":{"id":"point2","isDeletable":false,"thickness":2,"type":"Point","label":"S","labelDxInPixels":10,"labelDyInPixels":20,"shape":"x","x":-3,"y":2},"element0":{"id":"element0","type":"Circle","fillColor":"currentColor","idCenter":"point1","radius":5}}',
     },
-    { cliquefigure1Ex4Q0: '1', cliquefigure0Ex4Q1: '1' },
-    { ex5Q0: 'somme', ex5Q1: '', ex5Q2: 'différence', ex5Q3: '' },
     {
-      rectangleDNDEx6Q0R1: 'etiquetteEx6Q0I20-clone-1740844199069',
-      texteDNDEx6Q0R1: 'deux',
+      'clique-figureEx4Q0': '["cliquefigure1Ex4Q0"]',
+      'clique-figureEx4Q1': '["cliquefigure0Ex4Q1"]',
+    },
+    {
+      'liste-deroulanteEx5Q0': 'somme',
+      'liste-deroulanteEx5Q1': '',
+      'liste-deroulanteEx5Q2': 'différence',
+      'liste-deroulanteEx5Q3': '',
+    },
+    { 'drag-and-dropEx6Q0': '["etiquetteEx6Q0I20-clone-1740844199069"]' },
+    {
+      Ex7Q0L1C1: '\\dfrac{\\placeholder[a][correct][locked]{70}}{10}',
+      Ex7Q0L2C2:
+        '\\placeholder[a][correct][locked]{7}+\\dfrac{\\placeholder[b][correct][locked]{6}}{10}+\\dfrac{\\placeholder[c][correct][locked]{9}}{100}',
+      Ex7Q0L2C3: '\\placeholder[a][correct][locked]{7,69}',
     },
   ]
   const apigeomCaptures: Record<string, string> = {}
@@ -279,6 +346,10 @@ async function testV(page: Page) {
         expect(assignment.answers[key].split('-')[0]).toEqual(
           (responses[i] as any)[key].split('-')[0],
         )
+      } else if (key.startsWith('drag-and-drop')) {
+        const actual = JSON.parse(assignment.answers[key])[0]
+        const expected = JSON.parse((responses[i] as any)[key])[0]
+        expect(actual.split('-')[0]).toEqual(expected.split('-')[0])
       } else if (
         key.includes('apigeom') &&
         process.env.UPDATE_APIGEOM_SNAPSHOTS

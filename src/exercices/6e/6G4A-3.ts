@@ -1,6 +1,6 @@
-import VocabulaireAngles from '../5e/5G30-3'
+import VocabulaireAngles from '../5e/auto5G4A'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
+
 export const titre = 'Connaître le vocabulaire sur les angles'
 export const dateDePublication = '05/08/2025'
 
@@ -13,7 +13,7 @@ export const uuid = '04ea4'
 export const refs = {
   'fr-fr': ['6G4A-3'],
   'fr-2016': ['6G22-3'],
-  'fr-ch': [''],
+  'fr-ch': ['9ES1B-8'],
 }
 export default class VocabulaireAngles6e extends VocabulaireAngles {
   constructor() {

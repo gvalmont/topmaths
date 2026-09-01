@@ -2,6 +2,7 @@ import Figure from 'apigeom'
 import { distance } from 'apigeom/src/elements/calculus/Coords'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
 import type { MathfieldElement } from 'mathlive'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
@@ -18,13 +19,11 @@ import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const dateDePublication = '08/07/2025'
 export const titre = "Donner du sens à la définition d'un quotient"
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -46,7 +45,6 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
   goodAnswerQb!: number[]
   goodAnswerQc!: number[]
 
-  figuresApiGeom!: Figure[]
   constructor() {
     super()
 
@@ -333,10 +331,10 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
     if (this == null) return ['KO']
-    if (this.figures == null) return ['KO']
+    if (this.figuresApiGeom == null) return ['KO']
     const result: ('OK' | 'KO')[] = []
 
-    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom[i].id] = figureAnswerJson(this.figuresApiGeom[i])
     const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'

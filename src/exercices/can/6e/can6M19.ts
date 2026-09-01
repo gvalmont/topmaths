@@ -5,7 +5,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Manipuler les conversions de longueurs'
 export const dateDePublication = '27/07/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 
 /**
@@ -16,7 +16,7 @@ export const uuid = '9d3f3'
 
 export const refs = {
   'fr-fr': ['can6M19', 'auto6M1A-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CombienDeFoisMetres extends ExerciceSimple {
   constructor() {
@@ -28,13 +28,13 @@ export default class CombienDeFoisMetres extends ExerciceSimple {
 
   nouvelleVersion() {
     const unite = 'm'
-    const choix = choice([true, false])
+    const choix = this.quotaChoice('choix', [true, false])
     this.optionsChampTexte = { texteApres: 'fois.' }
     this.canReponseACompleter =
       'La réponse correcte à cette question est : <br>$\\ldots$'
     let Choixprefixes: [number, string][]
     let prefixes: [number, string] = [10, 'h']
-    switch (choice([0, 1, 1, 2, 2, 3, 3, 4])) {
+    switch (this.quotaChoice('cas', [0, 1, 1, 2, 2, 3, 3, 4])) {
       case 0:
         Choixprefixes = [
           [10, 'h'],

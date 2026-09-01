@@ -14,7 +14,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = 'fb6ec'
 export const refs = {
   'fr-fr': ['3Z1DNB-08'],
-  'fr-ch': ['11FA11-2'],
+  'fr-ch': ['11FA2B-1'],
 }
 export const titre =
   'Préparation DNB : Volume, fonctions, vitesse, grandeurs composées'
@@ -34,8 +34,8 @@ export default class ExercicePolynesie52024 extends ExerciceBrevetA {
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
     this.introduction = texteItalique(
-      "D'après l'exercice 5 du brevet Polynésie 2024.<br>",
-    )
+      "D'après l'exercice 5 du brevet Polynésie 2024.",
+    ) + '<br>'
 
     this.versionAleatoire()
   }

@@ -3,8 +3,9 @@
  */
 
 import Decimal from 'decimal.js'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -18,12 +19,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Lier un coefficient multiplicateur d'une variation à un pourcentage et réciproquement"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Déterminer le coefficient de proportionnalité associé à une évolution en pourcentage ou l'inverse
@@ -33,7 +32,7 @@ export const uuid = '4ce2d'
 
 export const refs = {
   'fr-fr': ['3P10-1', 'BP2CCF12'],
-  'fr-ch': ['10FA4-6'],
+  'fr-ch': ['10FA2B-14'],
 }
 export default class CoefficientEvolution extends Exercice {
   version = 1
@@ -96,7 +95,7 @@ export default class CoefficientEvolution extends Exercice {
          Ainsi, augmenter de $${taux}~\\%$ revient à multiplier par $${miseEnEvidence(coeff)}$.`
           }
           reponse = new Decimal(taux).div(100).add(1)
-          setReponse(this, i, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, i, { reponse: { value: reponse } })
 
           break
         case 'coef-':
@@ -109,7 +108,7 @@ export default class CoefficientEvolution extends Exercice {
           Ainsi, diminuer de $${taux}~\\%$ revient à multiplier par $${miseEnEvidence(coeff)}$.`
           }
           reponse = new Decimal(-taux).div(100).add(1)
-          setReponse(this, i, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, i, { reponse: { value: reponse } })
 
           break
         case 'taux+':
@@ -126,7 +125,12 @@ export default class CoefficientEvolution extends Exercice {
           `
           }
           reponse = `+${taux}\\%`
-          setReponse(this, i, reponse, { formatInteractif: 'texte' })
+          handleAnswers(this, i, {
+            reponse: {
+              value: [String(reponse)],
+              options: { texteAvecCasse: true },
+            },
+          })
 
           break
         case 'taux-':
@@ -143,7 +147,12 @@ export default class CoefficientEvolution extends Exercice {
           `
           }
           reponse = `-${taux}\\%`
-          setReponse(this, i, reponse, { formatInteractif: 'texte' })
+          handleAnswers(this, i, {
+            reponse: {
+              value: [String(reponse)],
+              options: { texteAvecCasse: true },
+            },
+          })
           break
       }
       texte += this.interactif

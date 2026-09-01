@@ -1,9 +1,9 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { Tableau } from '../../lib/2d/tableau'
-import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
+import figureApigeom from '../../lib/figureApigeom'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import {
   AddTabPropMathlive,
   type Icell,
@@ -23,7 +23,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = "Lire graphiquement l'image d'un nombre par une fonction"
 export const dateDePublication = '29/10/2023'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Lire une image sur une Spline
@@ -33,13 +32,11 @@ export const interactifType = 'mathLive'
 export const uuid = '6c6b3'
 
 export const refs = {
-  'fr-fr': ['3F10-4', 'BP2AutoO5'],
-  'fr-ch': ['10FA5-8', '11FA7-2', '1mF1-2'],
+  'fr-fr': ['3F10-4', '2F12-1', 'BP2AutoO5'],
+  'fr-ch': ['10FA1B-6', '1mF1-2'],
 }
 
 class LireImageParApiGeom extends Exercice {
-  // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
-  figure!: Figure
   nbImages: number
   X: number[]
   Y: number[]
@@ -61,31 +58,30 @@ class LireImageParApiGeom extends Exercice {
   }
 
   nouvelleVersion(): void {
-    this.figures = []
+    this.figuresApiGeom = []
     // on va chercher une spline aléatoire
     const noeuds = this.sup2
       ? noeudsSplineAleatoire(12, false, -6, 2, 1)
       : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
-    this.figure = new Figure({
+    const figure = new Figure({
       xMin: -6.3,
       yMin: -6.3,
       width: 378,
       height: 378,
     })
-    if (isFigureArray(this.figures)) this.figures.push(this.figure)
-    this.figure.create('Grid')
-    this.figure.options.limitNumberOfElement.Point = 1
+    figure.create('Grid')
+    figure.options.limitNumberOfElement.Point = 1
 
     this.listeCorrections = ['']
 
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
-    const mesPoints = spline.pointsOfSpline(this.figure)
-    const polyline = this.figure.create('Polyline', { points: mesPoints })
+    const mesPoints = spline.pointsOfSpline(figure)
+    const polyline = figure.create('Polyline', { points: mesPoints })
 
     if (context.isHtml) {
-      const pointMobile = this.figure.create('PointOnPolyline', {
+      const pointMobile = figure.create('PointOnPolyline', {
         polyline,
         x: 1,
         dx: 0.1,
@@ -100,10 +96,11 @@ class LireImageParApiGeom extends Exercice {
       })
       pointMobile.createSegmentToAxeX()
       pointMobile.createSegmentToAxeY()
-      const textX = this.figure.create('DynamicX', { point: pointMobile })
-      const textY = this.figure.create('DynamicY', { point: pointMobile })
+      const textX = figure.create('DynamicX', { point: pointMobile })
+      const textY = figure.create('DynamicY', { point: pointMobile })
       textX.dynamicText.maximumFractionDigits = 1
       textY.dynamicText.maximumFractionDigits = 1
+      this.figuresApiGeom[0] = figure
     }
 
     let enonce =
@@ -250,16 +247,16 @@ class LireImageParApiGeom extends Exercice {
       tableauValeursForLatex,
     )
 
-    this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
-    if (this.figure.ui) this.figure.ui.send({ type: 'DRAG' })
+    figure.setToolbar({ tools: ['DRAG'], position: 'top' })
+    if (figure.ui) figure.ui.send({ type: 'DRAG' })
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
     const emplacementPourFigure = figureApigeom({
       exercice: this,
       i: 0,
-      figure: this.figure,
+      figure: this.figuresApiGeom[0],
     })
-    this.figure.isDynamic = true
-    this.figure.divButtons.style.display = 'flex'
+    figure.isDynamic = true
+    figure.divButtons.style.display = 'flex'
     const repere = new RepereBuilder({
       xMin: -6.3,
       yMin: -6.3,
@@ -302,9 +299,8 @@ class LireImageParApiGeom extends Exercice {
     )
     if (context.isHtml) {
       this.listeCorrections[0] =
-        'Les images sont tolérées à $0{,}1$ près :' +
+        'Les images sont tolérées à $0,1$ près :' +
         tableauValeur.output +
-        '<br>' +
         figureCorrection
 
       this.listeQuestions = [emplacementPourFigure + enonce]
@@ -323,8 +319,7 @@ class LireImageParApiGeom extends Exercice {
     } else {
       this.listeCorrections[0] =
         figureCorrection +
-        '\\\\' +
-        'Les images sont tolérées à $0{,}1$ près :' +
+        'Les images sont tolérées à $0,1$ près :' +
         '\\\\' +
         tabValeurTex
       this.listeQuestions = [

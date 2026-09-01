@@ -13,7 +13,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre =
   'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
 
@@ -25,7 +25,7 @@ export const uuid = '960f9'
 
 export const refs = {
   'fr-fr': ['3G22', 'BP2G16'],
-  'fr-ch': [],
+  'fr-ch': ['11GM1C-1'],
 }
 export default class AgrandissementReduction extends Exercice {
   constructor() {
@@ -44,8 +44,8 @@ export default class AgrandissementReduction extends Exercice {
     ]
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
+    this.spacing = 2
 
     this.quatrieme = false
     this.sup = 1 //
@@ -105,10 +105,11 @@ export default class AgrandissementReduction extends Exercice {
             texteAvant: 'aire de la base de la pyramide',
             titreAide: "Formule : Aire d'un carré de côté $c$",
           }) +
-          `(arrondie à $0{,}01\\text{cm}^2$ près).${ajouteQuestionMathlive({
+          `(arrondie à $0,01\\text{cm}^2$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 0,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: { reponse: { value: texNombre(c * c, 2) } },
             classe: KeyboardType.clavierDeBaseAvecFraction,
             texteApres: ' $\\text{cm}^2$',
@@ -122,11 +123,12 @@ export default class AgrandissementReduction extends Exercice {
             titreAide:
               "Formule : Volume d'une pyramide d'aire de base $B$ et de hauteur $h$",
           }) +
-          ` $SABCD$ (arrondi à $0{,}001\\text{cm}^3$ près)${ajouteQuestionMathlive(
+          ` $SABCD$ (arrondi à $0,001\\text{cm}^3$ près)${ajouteQuestionMathlive(
             {
               exercice: this,
               question: 1,
               typeInteractivite: 'mathlive',
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: { value: texNombre((c * c * h1) / 3, 3) },
               },
@@ -144,11 +146,12 @@ export default class AgrandissementReduction extends Exercice {
               titreAide: "Définition : Section plane d'un solide",
             },
           ) +
-          ` $A'B'C'D'$ sachant que $SO'${sp()}=${sp()}${texNombre(h2, 0)}${sp()}\\text{cm}$ (arrondie à $0{,}01\\text{cm}^2$ près)${ajouteQuestionMathlive(
+          ` $A'B'C'D'$ sachant que $SO'${sp()}=${sp()}${texNombre(h2, 0)}${sp()}\\text{cm}$ (arrondie à $0,01\\text{cm}^2$ près)${ajouteQuestionMathlive(
             {
               exercice: this,
               question: 2,
               typeInteractivite: 'mathlive',
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: { value: texNombre(((c * h2) / h1) ** 2, 2) },
               },
@@ -158,11 +161,12 @@ export default class AgrandissementReduction extends Exercice {
           )}.<br>`
         texte +=
           numAlpha(3) +
-          ` Calculer le volume de la pyramide $SA'B'C'D'$ (arrondi à $0{,}001\\text{cm}^3$ près)${ajouteQuestionMathlive(
+          ` Calculer le volume de la pyramide $SA'B'C'D'$ (arrondi à $0,001\\text{cm}^3$ près)${ajouteQuestionMathlive(
             {
               exercice: this,
               question: 3,
               typeInteractivite: 'mathlive',
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: {
                   value: texNombre((h2 / h1) ** 3 * ((h1 * c ** 2) / 3), 3),
@@ -180,10 +184,11 @@ export default class AgrandissementReduction extends Exercice {
               texteAvant: 'tronc de la pyramide',
               titreAide: 'Définition : Tronc de pyramide',
             },
-          )} (arrondi à $0{,}001\\text{cm}^3$ près)${ajouteQuestionMathlive({
+          )} (arrondi à $0,001\\text{cm}^3$ près)${ajouteQuestionMathlive({
             exercice: this,
             question: 4,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre(
@@ -335,10 +340,11 @@ export default class AgrandissementReduction extends Exercice {
             texteAvant: 'aire de la base du cône',
             titreAide: 'Formule : Aire du disque de rayon R',
           }) +
-          ` (arrondie à $0{,}01\\text{cm}^2$ près).${ajouteQuestionMathlive({
+          ` (arrondie à $0,01\\text{cm}^2$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 0,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: { value: texNombre(Math.PI * r ** 2, 2) },
             },
@@ -357,10 +363,11 @@ export default class AgrandissementReduction extends Exercice {
                 "Formule : Volume d'un cône de rayon R et de hauteur h",
             },
           ) +
-          ` (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 1,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: { value: texNombre((h1 * Math.PI * r ** 2) / 3, 3) },
             },
@@ -378,11 +385,12 @@ export default class AgrandissementReduction extends Exercice {
               titreAide: "Définition : Section plane d'un solide",
             },
           ) +
-          ` sachant que $SO'=${texNombre(h2, 0)}${sp()}\\text{cm}$ (arrondie à $0{,}01\\text{cm}^2$ près).${ajouteQuestionMathlive(
+          ` sachant que $SO'=${texNombre(h2, 0)}${sp()}\\text{cm}$ (arrondie à $0,01\\text{cm}^2$ près).${ajouteQuestionMathlive(
             {
               exercice: this,
               question: 2,
               typeInteractivite: 'mathlive',
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: {
                   value: texNombre((Math.PI * r ** 2 * h2 * h2) / h1 / h1, 2),
@@ -394,11 +402,12 @@ export default class AgrandissementReduction extends Exercice {
           )}<br>`
         texte +=
           numAlpha(3) +
-          ` Calculer le volume du cône de hauteur $SO'$ (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive(
+          ` Calculer le volume du cône de hauteur $SO'$ (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive(
             {
               exercice: this,
               question: 3,
               typeInteractivite: 'mathlive',
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: {
                   value: texNombre(
@@ -422,10 +431,11 @@ export default class AgrandissementReduction extends Exercice {
               titreAide: 'Définition : Tronc de cône',
             },
           ) +
-          ` (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 4,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre(
@@ -611,10 +621,11 @@ export default class AgrandissementReduction extends Exercice {
             titreAide:
               "Formule : Aire d'un triangle rectangle de côtés de l'angle droit c et c'",
           }) +
-          ` (arrondie à $0{,}01\\text{cm}^2$ près).${ajouteQuestionMathlive({
+          ` (arrondie à $0,01\\text{cm}^2$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 0,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: { value: texNombre((c * c2) / 2, 2) },
             },
@@ -630,10 +641,11 @@ export default class AgrandissementReduction extends Exercice {
               "Formule : Volume d'une pyramide d'aire de base $B$ et de hauteur $h$",
           }) +
           ' SOAB' +
-          ` (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 1,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre((c * c * h1) / 6, 3),
@@ -654,10 +666,11 @@ export default class AgrandissementReduction extends Exercice {
             },
           ) +
           ` $O'A'B'$ sachant que $SO'=${texNombre(h2, 0)}${sp()}\\text{cm}$` +
-          ` (arrondie à $0{,}01\\text{cm}^2$ près).${ajouteQuestionMathlive({
+          ` (arrondie à $0,01\\text{cm}^2$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 2,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre((((c * c2) / 2) * h2 ** 2) / h1 ** 2, 2),
@@ -669,10 +682,11 @@ export default class AgrandissementReduction extends Exercice {
         texte +=
           numAlpha(3) +
           " Calculer le volume de la pyramide $SO'A'B'$" +
-          ` (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 3,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre((((c * c * h1) / 6) * h2 ** 3) / h1 ** 3, 3),
@@ -690,10 +704,11 @@ export default class AgrandissementReduction extends Exercice {
               titreAide: 'Définition : Tronc de pyramide',
             },
           )}` +
-          ` (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 4,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre(
@@ -981,10 +996,11 @@ export default class AgrandissementReduction extends Exercice {
         texte +=
           numAlpha(0) +
           ' Calculer le volume total du cône' +
-          ` (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 0,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre(r.mul(r).mul(h1).mul(pi).div(3), 3),
@@ -997,10 +1013,11 @@ export default class AgrandissementReduction extends Exercice {
         texte +=
           numAlpha(1) +
           ' En déduire le volume de chocolat présent dans le fond du cône' +
-          ` (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 1,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre(r2.mul(r2).mul(h2).mul(pi).div(3), 3),
@@ -1013,10 +1030,11 @@ export default class AgrandissementReduction extends Exercice {
         texte +=
           numAlpha(2) +
           ' Déduire des deux premières questions le volume de glace permettant de remplir le cône' +
-          ` (arrondi à $0{,}001\\text{cm}^3$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,001\\text{cm}^3$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 2,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre(
@@ -1038,10 +1056,11 @@ export default class AgrandissementReduction extends Exercice {
         texte +=
           numAlpha(3) +
           ' Si la glace avait été mise dans le cône avant le chocolat, quelle serait la hauteur atteinte par la glace dans le cône ?' +
-          ` (arrondi à $0{,}0001\\text{cm}$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,0001\\text{cm}$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 3,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre(kprime.mul(h1), 4),
@@ -1053,10 +1072,11 @@ export default class AgrandissementReduction extends Exercice {
         texte +=
           numAlpha(4) +
           " Quelle serait alors l'épaisseur de chocolat au dessus de la glace ?" +
-          ` (arrondi à $0{,}01\\text{mm}$ près).${ajouteQuestionMathlive({
+          ` (arrondi à $0,01\\text{mm}$ près).${ajouteQuestionMathlive({
             exercice: this,
             question: 4,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: texNombre(h1.sub(kprime.mul(h1)).mul(10), 2),

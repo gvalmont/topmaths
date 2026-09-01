@@ -1,11 +1,9 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer astucieusement avec une factorisation'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -16,8 +14,8 @@ export const interactifType = 'mathLive'
 export const uuid = '7d21c'
 
 export const refs = {
-  'fr-fr': ['can5C16'],
-  'fr-ch': [],
+  'fr-fr': ['can5C16', '5N1H-flash3'],
+  'fr-ch': ['9NO1G-3'],
 }
 export default class CalculAstucieuxAvecFactorisation extends ExerciceSimple {
   constructor() {
@@ -29,7 +27,7 @@ export default class CalculAstucieuxAvecFactorisation extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, c, d
     switch (
-      choice(['a', 'b', 'c', 'c', 'd', 'e']) //
+      this.quotaChoice('typeDeQuestions', ['a', 'b', 'c', 'c', 'd', 'e']) //
     ) {
       case 'a':
         a = randint(5, 99) / 10

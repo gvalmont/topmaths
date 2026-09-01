@@ -18,14 +18,14 @@ import Exercice from '../Exercice'
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Lire des abscisses décimales sous trois formes'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -42,7 +42,7 @@ export const uuid = '12774'
 export const refs = {
   'fr-fr': ['6N1H-2'],
   'fr-2016': ['6N23-2'],
-  'fr-ch': ['9NO11-7a'],
+  'fr-ch': [''],
 }
 export default class LireAbscisseDecimaleTroisFormes extends Exercice {
   niveau: string
@@ -271,7 +271,7 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
             },
             bareme: toutAUnPoint,
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       } else {
         let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`

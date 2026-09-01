@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 
@@ -8,7 +7,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 export const titre = 'Trouver un inverse ou un opposé'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '936a4'
 export const refs = {
   'fr-fr': [],
@@ -27,7 +26,7 @@ export default class InverseOppose extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const c = choice([2, 4, 5])
+    const c = this.quotaChoice('c', [2, 4, 5])
     const b = randint(1, c - 1)
     const maFraction = new FractionEtendue(b, c)
     const a = 2025

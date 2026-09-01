@@ -7,7 +7,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Métropole 05/22 : primitive'
@@ -54,7 +54,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
 
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionOriginale()
   }
 }

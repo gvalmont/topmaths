@@ -28,7 +28,6 @@ export const titre =
   'Résoudre des problèmes additifs et de comparaison sur les fractions'
 export const dateDeModifImportante = '05/11/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Résoudre des problèmes additifs et de comparaison sur les fractions
@@ -41,7 +40,7 @@ export const uuid = '9db08'
 
 export const refs = {
   'fr-fr': ['4C25-0'],
-  'fr-ch': ['9NO15-3'],
+  'fr-ch': ['9NO3F-10', '10NO3C-1'],
 }
 export default class ProblemesAdditifsFractionsBis extends Exercice {
   constructor() {
@@ -58,8 +57,8 @@ export default class ProblemesAdditifsFractionsBis extends Exercice {
 
     this.nbQuestions = 3
 
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
-    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+    this.spacing = context.isHtml ? 2 : 1.5
+    this.spacingCorr = context.isHtml ? 3 : 1.5
   }
 
   nouvelleVersion() {
@@ -104,7 +103,6 @@ export default class ProblemesAdditifsFractionsBis extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // on choisit un tableau de dénominateurs qui va bien
       if (denomsAmisToSelect.length === 0)

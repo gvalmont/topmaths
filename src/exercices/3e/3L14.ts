@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -19,12 +20,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Résoudre une équation produit nul'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCHybride'
 export const amcReady = true
 
@@ -40,7 +39,7 @@ export const uuid = 'ecf62'
 
 export const refs = {
   'fr-fr': ['3L14', 'BP2RES16'],
-  'fr-ch': ['11FA10-1'],
+  'fr-ch': ['11FA5B-2'],
 }
 export default class ResoudreUneEquationProduitNul extends Exercice {
   constructor() {
@@ -54,7 +53,7 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
     this.nbQuestions = 5
 
     this.sup = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    this.spacingCorr = context.isHtml ? 2 : 1.5
   }
 
   nouvelleVersion() {
@@ -408,29 +407,32 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           break
         }
       }
-      const solution1Interacif =
-        solution1 instanceof FractionEtendue ? solution1.texFSD : solution1
-      const solution2Interacif =
-        solution2 instanceof FractionEtendue ? solution2.texFSD : solution2
-      handleAnswers(this, i, {
-        reponse: {
-          value: `${solution1Interacif};${solution2Interacif}`,
-          options: { suiteDeNombres: true },
-        },
-      })
-      texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(`${solution1Interacif}`)}$ et $${miseEnEvidence(`${solution2Interacif}`)}$.`
-      texte += ajouteChampTexteMathLive(
-        this,
-        i,
-        KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
-      )
-      this.introduction =
-        this.interactif && context.isHtml
-          ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>"
-          : ''
+
       if (this.questionJamaisPosee(i, a, b, c, d)) {
+        const solution1Interactif =
+          solution1 instanceof FractionEtendue ? solution1.texFSD : solution1
+        const solution2Interactif =
+          solution2 instanceof FractionEtendue ? solution2.texFSD : solution2
+        texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(`${solution1Interactif}`)}$ et $${miseEnEvidence(`${solution2Interactif}`)}$.`
+
+        handleAnswers(this, i, {
+          reponse: {
+            value: `${solution1Interactif};${solution2Interactif}`,
+            options: { suiteDeNombres: true },
+          },
+        })
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions[i] = texte
+        this.listeQuestions[i] =
+          texte +
+          `${ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            {
+              texteAvant: `<br>Solutions de l'équation (séparer les solutions avec un point-virgule) : `,
+            },
+          )}`
+
         this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {

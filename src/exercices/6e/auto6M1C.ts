@@ -2,7 +2,7 @@ import ExerciceConversions from './_Exercice_conversions'
 export const titre =
   'Effectuer des conversions avec tous les préfixes de milli à kilo, voire tera'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '28/07/2025' // Rajout du paramètre this.sup3 et de la correction détaillée
@@ -18,7 +18,7 @@ export const uuid = 'c57cf'
 export const refs = {
   'fr-fr': ['auto6M1C'],
   'fr-2016': ['6N34'],
-  'fr-ch': ['10GM3-9'],
+  'fr-ch': ['9GM1A-3'],
 }
 export default class Reglages6N34 extends ExerciceConversions {
   constructor() {

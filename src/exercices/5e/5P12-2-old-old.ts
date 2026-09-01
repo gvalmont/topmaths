@@ -9,6 +9,7 @@ import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
@@ -24,7 +25,6 @@ import { gestionnaireFormulaireTexte } from '../../modules/outils'
 
 export const titre = "Trouver le ratio d'évolution d'un motif numérique"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '26/06/2025'
@@ -40,7 +40,7 @@ export const uuid = '328b9'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class PaternRatioOldOld extends Exercice {
@@ -91,10 +91,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
     const listePreDef = typesPattern.map((i) => listePatternRatio[i - 1])
 
-    for (
-      let i = 0;
-      i < Math.min(this.nbQuestions, listePatternRatio.length);
-    ) {
+    for (let i = 0; i < Math.min(this.nbQuestions, listePatternRatio.length);) {
       const objetsCorr: NestedObjetMathalea2dArray = []
       const popped = listePreDef.pop()
       if (!popped) {
@@ -174,7 +171,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 yMax,
                 yMin,
                 scale: 0.4,
-                style: 'display: inline-block',
+                display: 'inline-block' as const,
                 optionsTikz: 'transform shape',
               },
             ),
@@ -261,6 +258,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           .map((_, index) => `%{champ${index + 1}}`)
           .join('~:~')}`,
         objetReponse,
+        reponseParams: { formatInteractif: 'fill-in-the-blank' },
         typeInteractivite: 'fillInTheBlank',
       })
       texteCorr += `Au rang $${nbFigures + 1}$, le ratio "${(pat as PatternRiche).texRatio}" sera $${miseEnEvidence(ratio.toLatex())}$.<br>`
@@ -280,7 +278,8 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           id: `Motif${i}Correction`,
           pixelsParCm: 20,
           scale: 0.6,
-          style: 'display: block; margin: auto;',
+          display: 'block' as const,
+          center: !context.isHtml,
           optionsTikz: 'transform shape',
         }),
         figureCorr,

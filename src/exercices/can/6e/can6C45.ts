@@ -1,13 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème par soustraction/division'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '09/02/2023'
@@ -32,9 +30,9 @@ export default class ProblemeSoustractionDivision extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(2, 10)
-    const b = choice([50, 100])
-    const c = randint(2, 10)
+    const a = this.quotaRandint('a', 2, 10)
+    const b = this.quotaChoice('b', [50, 100])
+    const c = this.quotaRandint('c', 2, 10)
     const d = b / 10
     const res = a * b + c * d
     this.reponse = (res - a * b) / d

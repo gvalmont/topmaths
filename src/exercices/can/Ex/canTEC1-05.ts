@@ -1,23 +1,24 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { Complexe } from '../../../lib/mathFonctions/Complexe'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Déterminer le conjugué d'un nombre complexe"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '07/092025'
 
 /**
- * Question de can : Partie réelle/imaginaire
+ * Question de can : conjugué
  * @author Stéphane Guyon
 
 */
 export const uuid = 'ac62a'
 
 export const refs = {
-  'fr-fr': ['canTEC1-05'],
+  'fr-fr': ['canTEC1-05', 'TEC1-21'],
   'fr-ch': [],
 }
 export default class Conjugue extends ExerciceSimple {
@@ -26,6 +27,10 @@ export default class Conjugue extends ExerciceSimple {
 
     this.nbQuestions = 1
     this.typeExercice = 'simple'
+    this.formatChampTexte = {
+      clavierDeBase: KeyboardType.clavierDeBase,
+      complexes: KeyboardType.complexes,
+    }
   }
 
   nouvelleVersion() {

@@ -1,9 +1,9 @@
+import { bleuMathalea } from '../../lib/colors'
 import { context } from '../../modules/context'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { PointAbstrait, pointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
-import { bleuMathalea } from '../../lib/colors'
 
 export class CrochetD extends ObjetMathalea2D {
   A: PointAbstrait
@@ -47,7 +47,7 @@ export class CrochetD extends ObjetMathalea2D {
     }" fill="none" stroke="${this.color[0]}" ${this.style} />`
     code += `\n\t<text x="${this.A.xSVG(coeff)}" y="${
       this.A.ySVG(coeff) + this.taille * 20 * 5
-    }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}">${
+    }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}" style="font-size:16px">${
       this.A.nom
     }</text>\n `
     return code
@@ -57,7 +57,7 @@ export class CrochetD extends ObjetMathalea2D {
     let code = `\\draw[very thick,color=${this.color[1]}] (${this.A.x + this.taille / context.scale},${this.A.y + this.taille / context.scale})--(${
       this.A.x
     },${this.A.y + this.taille / context.scale})--(${this.A.x},${this.A.y - this.taille / context.scale})--(${this.A.x + this.taille / context.scale},${this.A.y - this.taille / context.scale});`
-    code += `\n\t\\draw[color=${this.color[1]}] (${this.A.x},${this.A.y - this.taille / context.scale}) node[below] {$${this.A.nom}$};`
+    code += `\t\\draw[color=${this.color[1]}] (${this.A.x},${this.A.y - this.taille / context.scale}) node[below] {$${this.A.nom}$};\n`
     return code
   }
 }
@@ -108,7 +108,7 @@ export class CrochetG extends ObjetMathalea2D {
     }" fill="none" stroke="${this.color[0]}" ${this.style} />`
     code += `\n\t<text x="${this.A.xSVG(coeff)}" y="${
       this.A.ySVG(coeff) + 5 * this.taille * 20
-    }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}">${
+    }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}" style="font-size:16px">${
       this.A.nom
     }</text>\n `
     return code
@@ -118,7 +118,7 @@ export class CrochetG extends ObjetMathalea2D {
     let code = `\\draw[very thick,color=${this.color[1]}] (${this.A.x - this.taille / context.scale},${this.A.y + this.taille / context.scale})--(${
       this.A.x
     },${this.A.y + this.taille / context.scale})--(${this.A.x},${this.A.y - this.taille / context.scale})--(${this.A.x - this.taille / context.scale},${this.A.y - this.taille / context.scale});`
-    code += `\n\t\\draw[color=${this.color[1]}] (${this.A.x},${this.A.y - this.taille / context.scale}) node[below] {$${this.A.nom}$};`
+    code += `\t\\draw[color=${this.color[1]}] (${this.A.x},${this.A.y - this.taille / context.scale}) node[below] {$${this.A.nom}$};\n`
     return code
   }
 }

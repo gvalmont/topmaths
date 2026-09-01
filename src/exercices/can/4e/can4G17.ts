@@ -4,6 +4,7 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { context } from '../../../modules/context'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -12,12 +13,11 @@ import { stringNombre } from '../../../lib/outils/texNombre'
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 
 export const titre =
   'Calculer une longueur dans un triangle à partir de son aire'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '09/12/2025'
 /**
  * @author Gilles Mora
@@ -40,8 +40,8 @@ export default class QuestionsAiresEtPerimetres6 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(2, 10) //
-    const b = randint(1, 5) * a
+    const a = this.quotaRandint('a', 2, 10) //
+    const b = this.quotaRandint('bMultiplicateur', 1, 5) * a
     const A = pointAbstrait(0, 0, 'A', 'below')
     const B = pointAbstrait(8, 0, 'B', 'below')
     const C = pointAbstrait(6, 3.46, 'C')
@@ -73,7 +73,7 @@ export default class QuestionsAiresEtPerimetres6 extends ExerciceSimple {
         mainlevee: true,
         amplitude: 0.5,
         scale: 0.7,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       objets,
     )

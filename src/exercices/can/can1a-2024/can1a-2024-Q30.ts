@@ -9,7 +9,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Calculer l'abscisse du sommet d'une parabole"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'e88e8'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -44,9 +44,7 @@ export default class SommetParabole extends ExerciceSimple {
     L'abscisse du sommet de la parabole qui représente $f$ est :`
     this.correction = `Pour un polynôme de degré $2$ du type $ax^2+bx+c$, l'abscisse du sommet 
     de la parabole $x_S$ est donnée par $-\\dfrac{b}{2a}$.<br>
-     L'abscisse du sommet est donnée  par $x_S=-\\dfrac{${b}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(this.reponse)}$.
-     <br>
-   `
+     L'abscisse du sommet est donnée  par $x_S=-\\dfrac{${b}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(this.reponse)}$.<br>`
 
     if (!this.interactif) {
       this.question += ' $\\ldots$'

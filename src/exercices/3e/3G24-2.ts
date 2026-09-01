@@ -19,10 +19,10 @@ import { mathalea2d } from '../../modules/mathalea2d'
 
 import { markTypeArray, MarqueAngle } from '../../lib/2d/MarkType'
 import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import {
   choice,
   combinaisonListes,
@@ -40,7 +40,6 @@ import {
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const titre = 'Calculer des longueurs avec des triangles semblables'
 export const dateDePublication = '30/12/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -49,7 +48,7 @@ export const dateDeModifImportante = '16/11/2025'
 export const uuid = '58a6f'
 export const refs = {
   'fr-fr': ['3G24-2'],
-  'fr-ch': ['11GM3-9', '1mG3-2'],
+  'fr-ch': ['11ES1C-3', '11GM1B-4', '1mG3-2'],
 }
 /**
  * calcul de longueurs avec des triangles semblables
@@ -80,7 +79,7 @@ export default class nomExercice extends Exercice {
       melange: 4,
       nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeDeNomsDePolygones: string[] = []
       let texte = ''
       let texteCorr = ''
@@ -365,7 +364,7 @@ export default class nomExercice extends Exercice {
             champ1: { value: texNombre(longueurAC * coeff, 1) },
             champ2: { value: texNombre(longueurBC * coeff, 1) },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       } else {
         texte += `Calculer les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$. Justifier.<br>`

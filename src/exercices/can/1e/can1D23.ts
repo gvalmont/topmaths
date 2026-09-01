@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
@@ -11,7 +10,6 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $a/u(x)$'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '24/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -41,7 +39,7 @@ export default class CalculFonctionDeriveeAsurU extends ExerciceSimple {
     let a
     let m
     let p
-    switch (choice([1, 2, 3])) {
+    switch (this.quotaChoice('type', [1, 2, 3])) {
       case 1: // //a/(mx+p)
         a = randint(-3, 5, [0, 1])
         m = randint(-4, 6, 0)

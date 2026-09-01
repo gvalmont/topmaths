@@ -2,11 +2,10 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { fraction } from '../../../modules/fractions'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -18,7 +17,7 @@ export const amcType = 'AMCNum'
 export const uuid = '47142'
 
 export const refs = {
-  'fr-fr': ['can3S01', 'BP2FLUC15', '3AutoP01-2'],
+  'fr-fr': ['can3S01', 'BP2FLUC15', '3AutoS01-2', 'BP1AUTO013'],
   'fr-ch': ['3mP-5'],
 }
 export default class CalculProbaSimple extends ExerciceSimple {
@@ -116,11 +115,11 @@ export default class CalculProbaSimple extends ExerciceSimple {
     ]
 
     const situ = choice(situations)
-    const a = randint(3, 10)
-    const k = choice([3, 4, 9])
+    const a = this.quotaRandint('a', 3, 10)
+    const k = this.quotaChoice('k', [3, 4, 9])
 
     // choisir aléatoirement si la question porte sur la première ou la seconde étiquette
-    const ciblePremiere = choice([true, false])
+    const ciblePremiere = this.quotaChoice('ciblePremiere', [true, false])
 
     // construction d'une phrase naturelle pour la cible (heuristique)
     const construitPhraseCible = (

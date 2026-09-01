@@ -3,7 +3,7 @@ import QuestionsPrix from './6N5-1'
 export const titre =
   'Résoudre des problèmes de prix avec des objets mettant en jeu des multiplications'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -14,7 +14,7 @@ export const uuid = '04314'
 export const refs = {
   'fr-fr': ['6N2G'],
   'fr-2016': ['6C12-0a'],
-  'fr-ch': ['9NO16-5'],
+  'fr-ch': [''], // Primaire anciennement :['9NO16-5'],
 }
 export default class QuestionsPrix1 extends QuestionsPrix {
   constructor() {

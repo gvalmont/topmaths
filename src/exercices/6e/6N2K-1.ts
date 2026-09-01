@@ -1,8 +1,8 @@
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -25,7 +25,6 @@ export const titre =
 export const dateDePublication = '11/12/2023'
 export const dateDeModifImportante = '09/01/2025'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 /**
  * Résolution de problèmes utilisant la division Euclidienne
@@ -37,7 +36,7 @@ export const uuid = '6d183'
 export const refs = {
   'fr-fr': ['6N2K-1'],
   'fr-2016': ['6C12-2'],
-  'fr-ch': ['9NO16-1'],
+  'fr-ch': [''], // Primaire anciennement :['9NO16-1'],
 }
 export default class QuestionsDivisionsEuclidiennes extends Exercice {
   constructor() {
@@ -368,7 +367,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           champ1: { value: reponse1 },
           champ2: { value: reponse2 },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
       if (this.questionJamaisPosee(i, dividende, diviseur)) {
         // Si la question n'a jamais été posée, on en crée une autre

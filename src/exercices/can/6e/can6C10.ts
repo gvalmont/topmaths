@@ -1,11 +1,10 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Connaitre les tables de multiplication (de 5 à 9)'
+export const titre = 'Connaître les tables de multiplication (de 5 à 9)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -16,7 +15,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'eae92'
 
 export const refs = {
-  'fr-fr': ['can6C10'],
+  'fr-fr': ['can6C10', 'auto5N3A-flash1', 'auto5N4A-flash1'],
   'fr-ch': [],
 }
 export default class Tables5A9 extends ExerciceSimple {
@@ -29,8 +28,8 @@ export default class Tables5A9 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(3, 9)
-    const b = randint(5, 9)
+    const a = this.quotaRandint('a', 3, 9)
+    const b = this.quotaRandint('b', 5, 9)
     this.reponse = a * b
     this.question = `Calculer $${a} \\times ${b}$.`
     this.correction = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`

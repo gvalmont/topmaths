@@ -197,6 +197,40 @@ const lectureLimitesCaps: CompleteKeysList = {
     'COMMA',
   ],
 }
+const limitesSimpleCaps: CompleteKeysList = {
+  inline: [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    0,
+    'COMMA',
+    'SUB',
+    'PLUS_INFTY',
+    'MINUS_INFTY',
+  ],
+  block: [
+    7,
+    8,
+    9,
+    'PLUS_INFTY',
+    4,
+    5,
+    6,
+    'MINUS_INFTY',
+    1,
+    2,
+    3,
+    'SUB',
+    0,
+    'COMMA',
+  ],
+}
 const numbersOperationsXCaps: CompleteKeysList = {
   inline: [
     1,
@@ -787,6 +821,32 @@ const eosnCaps: CompleteKeysList = {
   block: ['O', 'E', 'S', 'N', 'DEG', 'SEMICOLON'],
 }
 
+const algoCaps: CompleteKeysList = {
+  inline: [
+    'NORD',
+    'SUD',
+    'EST',
+    'OUEST',
+    'AVANCE',
+    'RECULE',
+    'TOURNE_DROITE',
+    'TOURNE_GAUCHE',
+    'DEMITOUR',
+    'SEMICOLON',
+  ],
+  block: [
+    'NORD',
+    'SUD',
+    'EST',
+    'OUEST',
+    'AVANCE',
+    'RECULE',
+    'TOURNE_DROITE',
+    'TOURNE_GAUCHE',
+    'DEMITOUR',
+    'SEMICOLON',
+  ],
+}
 const majusculesCaps: CompleteKeysList = {
   inline: [
     'A',
@@ -1016,6 +1076,13 @@ export const limites: KeyboardBlock = {
 
 export const lectureLimites: KeyboardBlock = {
   keycaps: lectureLimitesCaps,
+  cols: 4,
+  title: 'Lecture de limites',
+  isUnits: false,
+}
+
+export const limitesSimple: KeyboardBlock = {
+  keycaps: limitesSimpleCaps,
   cols: 4,
   title: 'Lecture de limites',
   isUnits: false,
@@ -1272,6 +1339,13 @@ export const estOuestSudNord: KeyboardBlock = {
   isUnits: false,
 }
 
+export const algo: KeyboardBlock = {
+  keycaps: algoCaps,
+  cols: 2,
+  title: 'Clavier Algorithme',
+  isUnits: false,
+}
+
 export const keyboardBlocks: {
   [key in Exclude<BlockForKeyboard, 'alphanumeric'>]: KeyboardBlock
 } = {
@@ -1296,6 +1370,7 @@ export const keyboardBlocks: {
   hms,
   lengths,
   lectureLimites,
+  limitesSimple,
   clavierFonctionsTerminales,
   majuscules,
   minuscules,
@@ -1319,4 +1394,5 @@ export const keyboardBlocks: {
   uppercaseQToW,
   uppercaseXToZ,
   estOuestSudNord,
+  algo,
 }

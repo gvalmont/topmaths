@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
@@ -12,7 +13,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Tracer une figure avec une aire donnée'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '7522d'
 export const refs = {
   'fr-fr': [],
@@ -53,7 +54,7 @@ export default class Can2025CM1Q16 extends ExerciceSimple {
        De combien de petits carreaux doit-elle être formée ? `
     this.question += mathalea2d(
       Object.assign(
-        { scale: 0.4, style: 'margin: auto' },
+        { scale: 0.4, center: !context.isHtml },
         fixeBordures(objets),
       ),
       objets,

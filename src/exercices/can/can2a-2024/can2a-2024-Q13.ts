@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context'
 /**
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/viewcan.2024.2e.test.ts ⚠️
  */
@@ -14,7 +15,7 @@ import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Calculer l'aire d'un triangle rectangle"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '1e8ea'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -53,7 +54,7 @@ export default class NomExercice extends ExerciceSimple {
             ymin: -1,
             ymax: 4,
             scale: 0.6,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         )

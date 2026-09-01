@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -22,12 +23,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Opérations avec deux entiers relatifs'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -41,7 +40,7 @@ export const uuid = '0b020'
 
 export const refs = {
   'fr-fr': ['4C10-7', '3AutoN02-2'],
-  'fr-ch': ['10NO4-9'],
+  'fr-ch': ['9NO2C-9'],
 }
 export default class ExerciceOperationsRelatifs extends Exercice {
   constructor() {
@@ -118,11 +117,16 @@ export default class ExerciceOperationsRelatifs extends Exercice {
             texte = `$ ${ecritureNombreRelatif(a)}  \\times ${ecritureNombreRelatif(b)}$`
             texteCorr = `$ ${ecritureNombreRelatifc(a)} \\times ${ecritureNombreRelatifc(b)}  = ${ecritureNombreRelatifc(a * b, { color: orangeMathalea })} $`
           }
-          setReponse(this, i, a * b, {
-            signe: true,
-            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a * b)),
-            decimals: 0,
-          })
+          handleAnswers(
+            this,
+            i,
+            { reponse: { value: a * b } },
+            {
+              signe: true,
+              digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a * b)),
+              decimals: 0,
+            },
+          )
           break
         case 2: // quotients
           if (this.sup) {
@@ -132,11 +136,12 @@ export default class ExerciceOperationsRelatifs extends Exercice {
             texte = `$ ${ecritureNombreRelatif(a)}  \\div ${ecritureNombreRelatif(b)}$`
             texteCorr = `$ ${ecritureNombreRelatifc(a)}  \\div ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a / b, { color: orangeMathalea })}$`
           }
-          setReponse(this, i, arrondi(a / b), {
-            signe: true,
-            digits: 1,
-            decimals: 0,
-          })
+          handleAnswers(
+            this,
+            i,
+            { reponse: { value: arrondi(a / b) } },
+            { signe: true, digits: 1, decimals: 0 },
+          )
           break
         case 3: // additions
           if (this.sup) {
@@ -146,11 +151,16 @@ export default class ExerciceOperationsRelatifs extends Exercice {
             texte = `$ ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(b)} $`
             texteCorr = `$  ${ecritureNombreRelatifc(a)} + ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a + b, { color: orangeMathalea })} $`
           }
-          setReponse(this, i, a + b, {
-            signe: true,
-            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)),
-            decimals: 0,
-          })
+          handleAnswers(
+            this,
+            i,
+            { reponse: { value: a + b } },
+            {
+              signe: true,
+              digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)),
+              decimals: 0,
+            },
+          )
           break
         case 4: // soustractions
         default:
@@ -161,11 +171,20 @@ export default class ExerciceOperationsRelatifs extends Exercice {
             texte = `$ ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} $`
             texteCorr = `$  ${ecritureNombreRelatifc(a)} - ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a - b, { color: orangeMathalea })} $`
           }
-          setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], {
-            signe: true,
-            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
-            decimals: 0,
-          })
+          handleAnswers(
+            this,
+            i,
+            {
+              reponse: {
+                value: [(a - b).toString(), `(${ecritureAlgebrique(a - b)})`],
+              },
+            },
+            {
+              signe: true,
+              digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
+              decimals: 0,
+            },
+          )
           break
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
@@ -192,7 +211,9 @@ export default class ExerciceOperationsRelatifs extends Exercice {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
+          texteAvant: sp() + '$=$',
+        })
         if (context.isAmc) {
           this.autoCorrectionAMC[i].propositions = [
             { statut: 0, sanscadre: false, texte: texteCorr },

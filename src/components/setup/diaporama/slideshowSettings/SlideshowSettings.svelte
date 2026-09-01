@@ -10,7 +10,9 @@
     type NumberRange,
   } from '../../../../lib/types'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
+  import ButtonIconTooltip from '../../../shared/forms/ButtonIconTooltip.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
+  import { goToTypstWithSeries } from '../goToTypstWithSeries'
   import type { SlideshowHistoryOptions } from '../types'
   import DisplaySettings from './presentationalComponents/DisplaySettings.svelte'
   import ExercisesSettings from './presentationalComponents/ExercisesSettings.svelte'
@@ -202,6 +204,16 @@
           {remove}
         />
         <div class="flex flex-row items-center justify-end w-full my-4 gap-3">
+          <ButtonIconTooltip
+            icon="bx-printer text-3xl"
+            tooltip="PDF sujets + corrigés"
+            on:click={goToTypstWithSeries}
+          />
+          <ButtonIconTooltip
+            icon="bxs-slideshow text-3xl"
+            tooltip="Diaporama PDF (une question par page)"
+            on:click={() => ($globalOptions.v = 'slides')}
+          />
           <button
             type="button"
             class="inline-flex items-center justify-center shadow-2xl rounded-lg p-4 pr-2

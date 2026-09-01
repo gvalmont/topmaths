@@ -35,7 +35,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Résoudre une équation trigonométrique dans $\\mathbb{R}$'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '08/05/2026'
 export const uuid = 'c6f91'
 export const refs = {
@@ -115,7 +115,7 @@ function renderCircle(points: FractionEtendue[], color?: string) {
       ymax: 3.7,
       pixelsParCm: 90,
       scale: 1,
-      style: 'display: block',
+      display: 'block',
     },
     cercleTrigo({
       radius: 2,
@@ -141,7 +141,7 @@ function renderFullReferenceCircle(points: FractionEtendue[]) {
       ymax: 3.7,
       pixelsParCm: 90,
       scale: 1,
-      style: 'display: block',
+      display: 'block',
     },
     cercleTrigo({
       radius: 2,
@@ -493,8 +493,10 @@ function correctionDetails(question: TrigoEquationQuestion) {
       })
       .join('<br>')
 
-    return [
-      `$${texEquation(question)}$ équivaut à ${rootEquations}.`,
+    return `$${texEquation(question)}$ équivaut à ${rootEquations}.<br>
+    On lit sur le cercle trigonométrique complet les angles qui vérifient ces équations.<br>
+    ${renderFullReferenceCircle(referenceSolutions)}
+    ${[
       'On lit sur le cercle trigonométrique complet les angles qui vérifient ces équations.',
       renderFullReferenceCircle(referenceSolutions),
       details,
@@ -504,7 +506,7 @@ function correctionDetails(question: TrigoEquationQuestion) {
       ...mergeExplanation,
       ...finalCircleStep,
       '',
-    ].join('<br>')
+    ].join('<br>')}`
   }
 
   const lines: string[] = []
@@ -627,7 +629,7 @@ export default class ResoudreEquationTrigoDansR extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const question = buildQuestion(Number(types[i]), Number(functionTypes[i]))
       const equation = texEquation(question)
       const families = periodicFamilies(question)
@@ -649,7 +651,10 @@ export default class ResoudreEquationTrigoDansR extends Exercice {
       }
 
       const texteCorr =
-        correctionDetails(question) +
+        correctionDetails(question).replaceAll(
+          '\\end{tikzpicture}\\\\',
+          '\\end{tikzpicture}\n',
+        ) +
         `L'ensemble des solutions est donc $S=\\left\\{${miseEnEvidence(expectedAnswer)}\\mid n\\in\\mathbb{Z}\\right\\}$.`
 
       if (this.questionJamaisPosee(i, equation, this.sup2, this.sup3)) {

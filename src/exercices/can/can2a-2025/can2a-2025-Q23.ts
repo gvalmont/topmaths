@@ -4,12 +4,13 @@ import { labelPoint } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Déterminer un vecteur égal sur une grille'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '57688'
 export const refs = {
   'fr-fr': [],
@@ -60,7 +61,7 @@ export default class VecteurEgal extends ExerciceSimple {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.5,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       ) + '<br>Compléter :'
@@ -78,7 +79,7 @@ export default class VecteurEgal extends ExerciceSimple {
         mainlevee: false,
         amplitude: 0.5,
         scale: 0.5,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       objets,
     )

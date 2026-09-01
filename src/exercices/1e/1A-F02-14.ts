@@ -5,6 +5,7 @@ import { bleuMathalea } from '../../lib/colors'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -12,11 +13,11 @@ export const dateDePublication = '15/09/2025'
 export const uuid = '11090'
 
 export const refs = {
-  'fr-fr': ['1A-F02-14'],
+  'fr-fr': ['1A-F02-14', 'BP1F2D02'],
   'fr-ch': ['1mF3-15'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Reconnaître une parabole (forme factorisée)'
@@ -60,7 +61,7 @@ export default class AutoF2f extends ExerciceQcmA {
           ymax: yMax,
           pixelsParCm: 20,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         r,
         o,
@@ -250,6 +251,6 @@ export default class AutoF2f extends ExerciceQcmA {
   constructor() {
     super()
     this.versionAleatoire()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
   }
 }

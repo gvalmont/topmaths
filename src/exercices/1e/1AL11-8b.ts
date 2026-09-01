@@ -7,7 +7,6 @@ import ExerciceSimple from '../ExerciceSimple'
 
 export const titre = "Calculer la somme des termes d'une suite arithmétique"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '30/11/2021'
 
@@ -18,7 +17,7 @@ export const dateDePublication = '30/11/2021'
 export const uuid = 'cfac9'
 
 export const refs = {
-  'fr-fr': ['1AL11-8b'],
+  'fr-fr': ['1AL11-8b', 'BP1AA06'],
   'fr-ch': [],
 }
 export default class SommeSuiteArithmetique extends ExerciceSimple {

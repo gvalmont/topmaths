@@ -23,6 +23,7 @@
   import { downloadFile } from '../../../lib/files'
   import handleCapytale from '../../../lib/handleCapytale'
   import { sendActivityParams } from '../../../lib/handleRecorder'
+  import { hasSeenTour, startTour } from '../../../lib/onboarding/tour'
   import {
     getExercisesFromExercicesParams,
     mathaleaUpdateExercicesParamsFromUrl,
@@ -61,17 +62,23 @@
   import ModalThirdApps from './presentationalComponents/ModalThirdApps.svelte'
   import Placeholder from './presentationalComponents/Placeholder.svelte'
   import MobileCarouselCards from './presentationalComponents/carousel/MobileCarouselCards.svelte'
+  import MobileView from '../mobile/MobileView.svelte'
   import { getLang } from '../../../lib/stores/languagesStore'
   import SideMenu from './presentationalComponents/sideMenu/SideMenu.svelte'
+  import TypstAddExerciseModal from '../typst/addExercise/TypstAddExerciseModal.svelte'
 
   const lang = getLang()
   let isNavBarVisible: boolean = true
-  let innerWidth = 0
+  let innerWidth = window.innerWidth
   let isBackToTopButtonVisible = false
   let selectedThirdApps: string[]
   let thirdAppsChoiceModal: BasicClassicModal | undefined
   let showThirdAppsChoiceDialog = false
   let isMd: boolean
+  let isMobileViewUsed: boolean = false
+  // Bascule manuelle depuis le menu général de la vue mobile (« Afficher comme
+  // sur un ordinateur ») : force la vue bureau tant que la page n'est pas rechargée.
+  let forceDesktopView: boolean = false
   let localeValue: Language = get(referentielLocale)
   let isSidenavOpened: boolean = true
 
@@ -103,8 +110,32 @@
       handleCapytale()
     }
     addScrollListener()
+    maybeStartOnboardingTour()
     log('Fin Start.svelte onMount')
   })
+
+  // Ne se déclenche qu'une fois par poste (localStorage), et uniquement sur
+  // la page d'accueil « vierge » en mode bureau (pas dans Capytale/Moodle,
+  // pas si des exercices sont déjà chargés depuis une URL partagée).
+  // Pas non plus en localhost (hors navigateur piloté par un test e2e) : la
+  // visite guidée s'y déclencherait à chaque rechargement pendant le
+  // développement, tant que le localStorage n'a pas encore mémorisé qu'elle a
+  // été vue.
+  let onboardingTourTriggered = false
+  function maybeStartOnboardingTour() {
+    if (
+      onboardingTourTriggered ||
+      hasSeenTour() ||
+      $globalOptions.recorder ||
+      !isMd ||
+      $exercicesParams.length !== 0 ||
+      (window.location.hostname === 'localhost' && !navigator.webdriver)
+    ) {
+      return
+    }
+    onboardingTourTriggered = true
+    setTimeout(startTour, 400)
+  }
 
   onDestroy(() => {
     log('Start.svelte destroyed')
@@ -223,6 +254,10 @@
     isNavBarVisible = $globalOptions.v !== 'l'
     updateSelectedThirdApps()
     isMd = innerWidth >= SM_BREAKPOINT
+    // La vue mobile dédiée remplace la vue par défaut sur téléphone, sauf dans
+    // les intégrations (Capytale, Moodle…) qui ont leur propre barre d'outils,
+    // ou si l'utilisateur a demandé la vue bureau depuis le menu général.
+    isMobileViewUsed = !isMd && !$globalOptions.recorder && !forceDesktopView
   }
 
   function addScrollListener() {
@@ -295,13 +330,6 @@
     toggleSidenav(true)
   }
 
-  function setFullScreen(isFullScreen: boolean) {
-    globalOptions.update((params) => {
-      isFullScreen ? (params.v = 'l') : (params.v = '')
-      return params
-    })
-  }
-
   function handleExport(vue: VueType) {
     $previousView = ''
     globalOptions.update((params) => {
@@ -319,6 +347,25 @@
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
+  }
+
+  /** Modale « Ajouter un exercice » (Ctrl/Cmd+K), même modale que la vue Typst */
+  let isAddExerciseModalOpen = false
+
+  function addExerciseFromModal(params: InterfaceParams) {
+    exercicesParams.update((list) => [...list, params])
+  }
+
+  function handleGlobalKeydown(event: KeyboardEvent) {
+    if (
+      (event.ctrlKey || event.metaKey) &&
+      !event.shiftKey &&
+      !event.altKey &&
+      event.key.toLowerCase() === 'k'
+    ) {
+      event.preventDefault()
+      isAddExerciseModalOpen = true
+    }
   }
 
   function backToTop() {
@@ -414,143 +461,157 @@
   }
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth onkeydown={handleGlobalKeydown} />
 {#if $globalOptions.v === '' || $globalOptions.v === undefined || $globalOptions.v === 'l' || $globalOptions.v === 'start'}
   <div
     class="{$darkMode.isActive
       ? 'dark'
-      : ''} relative flex w-screen h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      : ''} relative flex w-screen {isMobileViewUsed
+      ? 'min-h-screen'
+      : 'h-screen'} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     id="startComponent"
   >
     <div class="flex-1 flex flex-col w-full md:overflow-hidden">
-      <Header
-        {isNavBarVisible}
-        isExerciseDisplayed="{$exercicesParams.length !== 0}"
-        {zoomUpdate}
-        {setAllInteractive}
-        {newDataForAll}
-        {trash}
-        {setFullScreen}
-        {handleExport}
-        handleRecorder="{sendActivityParams}"
-        locale="{localeValue}"
-        {handleLanguage}
-        isCapytale="{$globalOptions.recorder === 'capytale'}"
-        isRecorder="{!!$globalOptions.recorder}"
-        {buildUrlAndOpenItInNewTab}
-        {showSettingsDialog}
-        {importExercises}
-        isExercisesListEmpty="{$exercicesParams.length === 0}"
-        {isSidenavOpened}
-        {toggleSidenav}
-        {exportQcmCam}
-        {isMd}
-        isFlowmath={$globalOptions.recorder === 'flowmath'}
-      />
-      {#if isMd}
+      {#if isMobileViewUsed}
         <!-- ====================================================================================
+                  VUE MOBILE (téléphone)
+========================================================================================= -->
+        <MobileView
+          {newDataForAll}
+          {setAllInteractive}
+          {trash}
+          {handleExport}
+          useDesktopView={() => (forceDesktopView = true)}
+        />
+      {:else}
+        <Header
+          {isNavBarVisible}
+          isExerciseDisplayed={$exercicesParams.length !== 0}
+          {zoomUpdate}
+          {setAllInteractive}
+          {newDataForAll}
+          {trash}
+          {handleExport}
+          handleRecorder={sendActivityParams}
+          locale={localeValue}
+          {handleLanguage}
+          isCapytale={$globalOptions.recorder === 'capytale'}
+          isRecorder={!!$globalOptions.recorder}
+          {buildUrlAndOpenItInNewTab}
+          {showSettingsDialog}
+          {importExercises}
+          isExercisesListEmpty={$exercicesParams.length === 0}
+          {isSidenavOpened}
+          {toggleSidenav}
+          {exportQcmCam}
+          {isMd}
+          isFlowmath={$globalOptions.recorder === 'flowmath'}
+        />
+        {#if isMd}
+          <!-- ====================================================================================
                     MODE NORMAL
   ========================================================================================= -->
-        <!-- Menu choix + Exos en mode non-smartphone -->
-        <div
-          class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-        >
-          {#if $globalOptions.recorder}
-            <SideMenuWrapper
-              isRecorder="{$globalOptions.recorder === 'capytale'}"
-              {isSidenavOpened}
-              {toggleSidenav}
-              {isMd}
-            />
-          {/if}
-          <Sidenav isOpen="{isSidenavOpened}" width="{400}">
-            <div
-              class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-            >
-              <SideMenu {addExercise} />
-            </div>
-          </Sidenav>
-          <!-- Affichage exercices -->
-          <main
-            id="exercisesPart"
-            class="absolute right-0 top-0 flex flex-col w-full h-full px-6 overflow-x-auto overflow-y-auto
-            transition-[padding-left] duration-300
-            bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-            style="padding-left: {$globalOptions.recorder
-              ? isSidenavOpened
-                ? '425px'
-                : '25px'
-              : isSidenavOpened
-                ? '400px'
-                : '0px'}"
+          <!-- Menu choix + Exos en mode non-smartphone -->
+          <div
+            class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
           >
-            <!-- MGu si la vue n'est pas START, le composant va être detruit et ici ca empeche de charger des exos inutilement-->
-            {#if $exercicesParams.length !== 0 && ($globalOptions.v === '' || $globalOptions.v === undefined || $globalOptions.v === 'l' || $globalOptions.v === 'start')}
-              <Exercices exercicesParams="{$exercicesParams}" {toggleSidenav} />
-            {:else}
-              <Placeholder text="Sélectionner les exercices" />
+            {#if $globalOptions.recorder}
+              <SideMenuWrapper
+                isRecorder={$globalOptions.recorder === 'capytale'}
+                {isSidenavOpened}
+                {toggleSidenav}
+                {isMd}
+              />
             {/if}
-          </main>
-        </div>
-      {:else}
-        <!-- ====================================================================================
-                  MODE SMARTPHONE
-========================================================================================= -->
-        <div
-          class="flex flex-col h-full justify-between bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-        >
-          <!-- Menu choix en mode smartphone -->
-          <div>
-            {#if lang === 'fr-FR'}
-              <MobileCarouselCards />
-            {/if}
-            <div
-              class="w-full flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
-            >
-              <button
-                type="button"
-                class="group w-full flex flex-row justify-between items-center p-4"
-                aria-expanded="{isSidenavOpened}"
-                aria-controls="choiceMenuWrapper"
-                on:click="{() => (isSidenavOpened = !isSidenavOpened)}"
+            <Sidenav isOpen={isSidenavOpened} width={400}>
+              <div
+                class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
               >
-                <div
-                  class="text-lg font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
-                >
-                  Choix des exercices
-                </div>
-                <i
-                  class="bx bxs-up-arrow text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest transition-transform duration-300 {isSidenavOpened
-                    ? 'rotate-0'
-                    : 'rotate-180'}"
-                ></i>
-              </button>
-              {#if isSidenavOpened}
-                <div
-                  id="choiceMenuWrapper"
-                  class="w-full overflow-y-visible overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-                >
-                  <SideMenu {addExercise} />
-                </div>
-              {/if}
-            </div>
-            <!-- Affichage exercices en mode smartphone -->
+                <SideMenu {addExercise} />
+              </div>
+            </Sidenav>
+            <!-- Affichage exercices -->
             <main
               id="exercisesPart"
-              class="flex w-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+              class="absolute right-0 top-0 flex flex-col w-full h-full px-6 overflow-x-auto overflow-y-auto
+            transition-[padding-left] duration-300
+            bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+              style="padding-left: {$globalOptions.recorder
+                ? isSidenavOpened
+                  ? '425px'
+                  : '25px'
+                : isSidenavOpened
+                  ? '400px'
+                  : '0px'}"
             >
-              {#if $exercicesParams.length !== 0}
-                <Exercices
-                  exercicesParams="{$exercicesParams}"
-                  {toggleSidenav}
-                />
+              <!-- MGu si la vue n'est pas START, le composant va être detruit et ici ca empeche de charger des exos inutilement-->
+              {#if $exercicesParams.length !== 0 && ($globalOptions.v === '' || $globalOptions.v === undefined || $globalOptions.v === 'l' || $globalOptions.v === 'start')}
+                <Exercices exercicesParams={$exercicesParams} {toggleSidenav} />
               {:else}
                 <Placeholder text="Sélectionner les exercices" />
               {/if}
             </main>
           </div>
-          <Footer />
-        </div>
+        {:else}
+          <!-- ====================================================================================
+                  MODE SMARTPHONE
+========================================================================================= -->
+          <div
+            class="flex flex-col h-full justify-between bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+          >
+            <!-- Menu choix en mode smartphone -->
+            <div>
+              {#if lang === 'fr-FR'}
+                <MobileCarouselCards />
+              {/if}
+              <div
+                class="w-full flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-t border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
+              >
+                <button
+                  type="button"
+                  class="group w-full flex flex-row justify-between items-center p-4"
+                  aria-expanded={isSidenavOpened}
+                  aria-controls="choiceMenuWrapper"
+                  on:click={() => (isSidenavOpened = !isSidenavOpened)}
+                >
+                  <div
+                    class="text-lg font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+                  >
+                    Choix des exercices
+                  </div>
+                  <i
+                    class="bx bxs-up-arrow text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest transition-transform duration-300 {isSidenavOpened
+                      ? 'rotate-0'
+                      : 'rotate-180'}"
+                  ></i>
+                </button>
+                {#if isSidenavOpened}
+                  <div
+                    id="choiceMenuWrapper"
+                    class="w-full overflow-y-visible overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+                  >
+                    <SideMenu {addExercise} />
+                  </div>
+                {/if}
+              </div>
+              <!-- Affichage exercices en mode smartphone -->
+              <main
+                id="exercisesPart"
+                class="flex w-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+              >
+                {#if $exercicesParams.length !== 0}
+                  <Exercices
+                    exercicesParams={$exercicesParams}
+                    {toggleSidenav}
+                  />
+                {:else}
+                  <Placeholder text="Sélectionner les exercices" />
+                {/if}
+              </main>
+            </div>
+            <Footer />
+          </div>
+        {/if}
       {/if}
     </div>
     <Keyboard />
@@ -559,16 +620,22 @@
   <ModalThirdApps
     {thirdAppsChoiceModal}
     {showThirdAppsChoiceDialog}
-    appsTierceInExercisesList="{selectedThirdApps}"
+    appsTierceInExercisesList={selectedThirdApps}
   />
   <ModalCapytalSettings
     bind:isSettingsDialogDisplayed
-    globalOptions="{$globalOptions}"
-    canOptions="{$canOptions}"
+    globalOptions={$globalOptions}
+    canOptions={$canOptions}
     {toggleCan}
     {buildUrlAndOpenItInNewTab}
     {updateParams}
   />
+  {#if isAddExerciseModalOpen}
+    <TypstAddExerciseModal
+      onAdd={addExerciseFromModal}
+      onClose={() => (isAddExerciseModalOpen = false)}
+    />
+  {/if}
 {/if}
 
 <style>

@@ -14,15 +14,15 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre =
   'Calculer mentalement le périmètre de carrés, rectangles et cercles'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '13/12/2024'
 export const dateDeModifImportante = '03/04/2025'
 
 export const uuid = 'e9252'
 export const refs = {
-  'fr-fr': ['auto6M1E-2', '3AutoG08-1'],
+  'fr-fr': ['auto6M1E-2', '3AutoM05-1'],
   'fr-2016': ['6M25-1'],
-  'fr-ch': ['9GM1-18'],
+  'fr-ch': ['9GM1B-2'],
 }
 /**
  * Les longueurs sont choisies de telle sorte que le calcul mental soit possible.
@@ -73,7 +73,7 @@ export default class PerimetresCalculMental extends Exercice {
       defaut: 5,
     }).map(String)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let texteInteractif = ''

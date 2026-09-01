@@ -15,7 +15,7 @@ import { randint } from '../../../modules/outils'
 
 export const titre = "Calculer la longueur d'un côté d'un carré"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'c12df'
 export const refs = {
   'fr-fr': [],
@@ -67,7 +67,7 @@ export default class Can2025N6Q18 extends ExerciceSimple {
 
     this.question = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: block', pixelsParCm: 25 },
+        { scale: 0.5, display: 'block', pixelsParCm: 25 } as const,
         fixeBordures(objets),
       ),
       objets,
@@ -81,7 +81,7 @@ export default class Can2025N6Q18 extends ExerciceSimple {
     Complète. `
     this.canReponseACompleter = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: block', pixelsParCm: 25 },
+        { scale: 0.5, display: 'block', pixelsParCm: 25 } as const,
         fixeBordures(objets),
       ),
       objets,

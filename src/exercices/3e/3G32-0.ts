@@ -33,12 +33,10 @@ import {
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/Sphere3dPerspectiveCavaliere'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -63,13 +61,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '05/03/2022'
@@ -166,7 +162,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
     ]
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
-      min: 1,
       max: 6,
       melange: 7,
       defaut: 7,
@@ -451,8 +446,11 @@ export default class ProblemesTrigoLongueur extends Exercice {
                 texteApres: sp(4) + "(Préciser l'unité)",
               },
             )
-            setReponse(this, i + ii, new Grandeur(taille, 'm'), {
-              formatInteractif: 'unites',
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: new Grandeur(taille, 'm'),
+                options: { unite: true, precisionUnite: 1 },
+              },
             })
             ii++
           } else if (context.isAmc) {
@@ -616,8 +614,11 @@ export default class ProblemesTrigoLongueur extends Exercice {
               KeyboardType.longueur,
               { texteApres: sp(4) + "(Préciser l'unité)" },
             )
-            setReponse(this, i + ii, new Grandeur(reponse, 'km'), {
-              formatInteractif: 'unites',
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: new Grandeur(reponse, 'km'),
+                options: { unite: true, precisionUnite: 1000 },
+              },
             })
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -731,7 +732,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteApres: '$^\\circ$',
                 },
               )
-              setReponse(this, i + ii, arrondi(beta))
+              handleAnswers(this, i + ii, {
+                reponse: { value: arrondi(beta) },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -781,7 +784,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteApres: '$^\\circ$',
                 },
               )
-              setReponse(this, i + ii, arrondi(alpha - beta))
+              handleAnswers(this, i + ii, {
+                reponse: { value: arrondi(alpha - beta) },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -817,12 +822,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
                 KeyboardType.longueur,
                 { texteApres: sp(4) + "(Préciser l'unité)" },
               )
-              setReponse(
-                this,
-                i + ii,
-                new Grandeur(arrondi(taille - hauteur), 'm'),
-                { formatInteractif: 'unites' },
-              )
+              handleAnswers(this, i + ii, {
+                reponse: {
+                  value: new Grandeur(arrondi(taille - hauteur), 'm'),
+                  options: { unite: true, precisionUnite: 1 },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -873,8 +878,11 @@ export default class ProblemesTrigoLongueur extends Exercice {
               KeyboardType.longueur,
               { texteApres: sp(4) + "(Préciser l'unité)" },
             )
-            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), {
-              formatInteractif: 'unites',
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: new Grandeur(arrondi(taille, 0), 'm'),
+                options: { unite: true, precisionUnite: 1 },
+              },
             })
             ii++
           } else if (context.isAmc) {
@@ -1135,8 +1143,11 @@ export default class ProblemesTrigoLongueur extends Exercice {
               KeyboardType.longueur,
               { texteApres: sp(4) + "(Préciser l'unité)" },
             )
-            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), {
-              formatInteractif: 'unites',
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: new Grandeur(arrondi(taille, 0), 'm'),
+                options: { unite: true, precisionUnite: 1 },
+              },
             })
             ii++
           } else if (context.isAmc) {
@@ -1191,24 +1202,15 @@ export default class ProblemesTrigoLongueur extends Exercice {
               KeyboardType.longueur,
               { texteApres: sp(4) + "(Préciser l'unité)" },
             )
-            context.isAmc
-              ? setReponse(
-                  this,
-                  i + ii,
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: new Grandeur(
                   arrondi(taille / Math.tan(((alpha + 5) * Math.PI) / 180), 0),
-                )
-              : setReponse(
-                  this,
-                  i + ii,
-                  new Grandeur(
-                    arrondi(
-                      taille / Math.tan(((alpha + 5) * Math.PI) / 180),
-                      0,
-                    ),
-                    'm',
-                  ),
-                  { formatInteractif: 'unites' },
-                )
+                  'm',
+                ),
+                options: { unite: true, precisionUnite: 1 },
+              },
+            })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -1382,15 +1384,13 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteAvant: `$${sp(20)}\\widehat{CAS}=$`,
                 },
               )
-              setReponse(
-                this,
-                i + ii,
-                [
+              handleAnswers(this, i + ii, {
+                reponse: {
                   // Attention, l'emplacement des espaces est primordial
-                  `90-${baitaInteractif}`,
-                ],
-                { formatInteractif: 'texte' },
-              )
+                  value: [`90-${baitaInteractif}`],
+                  options: { texteAvecCasse: true },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -1417,15 +1417,13 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteAvant: `$${sp(20)}\\widehat{${lB}${lA}${lS}}=$`,
                 },
               )
-              setReponse(
-                this,
-                i + ii,
-                [
+              handleAnswers(this, i + ii, {
+                reponse: {
                   // Attention, l'emplacement des espaces est primordial
-                  `90-${alfaInteractif}`,
-                ],
-                { formatInteractif: 'texte' },
-              )
+                  value: [`90-${alfaInteractif}`],
+                  options: { texteAvecCasse: true },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -1614,8 +1612,11 @@ export default class ProblemesTrigoLongueur extends Exercice {
               i + ii,
               KeyboardType.longueur,
             )
-            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), {
-              formatInteractif: 'unites',
+            handleAnswers(this, i + ii, {
+              reponse: {
+                value: new Grandeur(arrondi(taille, 0), 'm'),
+                options: { unite: true, precisionUnite: 1 },
+              },
             })
             ii++
           } else if (context.isAmc) {
@@ -1737,12 +1738,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
                 i + ii,
                 KeyboardType.longueur,
               )
-              setReponse(
-                this,
-                i + ii,
-                new Grandeur(arrondi(longueur(A, B), 1), 'cm'),
-                { formatInteractif: 'unites' },
-              )
+              handleAnswers(this, i + ii, {
+                reponse: {
+                  value: new Grandeur(arrondi(longueur(A, B), 1), 'cm'),
+                  options: { unite: true, precisionUnite: 0.01 },
+                },
+              })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {

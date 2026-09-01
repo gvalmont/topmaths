@@ -22,15 +22,13 @@ import { listeDeProblemesTransfoAvant } from '../../lib/problems/problemesTransf
 import { listeDeProblemesTransfoTransfo } from '../../lib/problems/problemesTransformations/problemesTransfoTransfo'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
-// import { listeDeProblemesPartageAvecResteRetire } from '../../lib/problems/problemesMultiplicatifs/ProblemesPartageAvecResteRetire/promblemePartageAvecResteRetire'
-// import { listeDeProblemesMultiplicatifsComplexes } from '../../lib/problems/problemesMultiplicatifs/problemesMultiplicatifsComplexes/problemesMultiplicatifsComplexes'
 
 export const dateDePublication = '06/06/2025'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 export const uuid = 'b3aa4'
 export const refs = {
-  'fr-fr': ['6N5-10'],
+  'fr-fr': ['6N5-10', '5N1D'],
   'fr-2016': ['6C32-0'],
   'fr-ch': [],
 }
@@ -92,7 +90,7 @@ export default class ProblemesVaries extends Exercice {
       this.nbQuestions,
     )
     const problemesMultiplicatifs = fonctionCombinaison(
-      listeDeProblemesMultiplicatifsParts,
+      listeDeProblemesMultiplicatifs,
       this.nbQuestions,
     )
     const problemesPartageSimple = fonctionCombinaison(
@@ -281,7 +279,7 @@ export default class ProblemesVaries extends Exercice {
           break
       }
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       const probleme = fonctionsProblemes[i](this.sup2 ?? false)
       const question = this.interactif
         ? `${probleme.enonce}<br>${ajouteChampTexteMathLive(this, i, probleme.styleChampTexteMathlive ?? KeyboardType.clavierNumbers, probleme.optionsChampTexteMathlive)}`

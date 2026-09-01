@@ -4,10 +4,9 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { prenomF } from '../../../lib/outils/Personne'
-import { randint } from '../../../modules/outils'
 export const titre = 'Trouver un âge'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '95a83'
 export const refs = {
   'fr-fr': [],
@@ -28,7 +27,7 @@ export default class ageATrouver extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(2040, 2080)
+    const a = this.quotaRandint('a', 2040, 2080)
     const prenom = prenomF(1)
     this.question =
       'Si ' + prenom + ` naît en $2025$, quel âge aura-t-elle en $${a}$ ?`

@@ -7,7 +7,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Compléter une égalité avec un produit'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const dateDePublication = '02/01/2026'
 
@@ -18,7 +18,7 @@ export const dateDePublication = '02/01/2026'
 export const uuid = '6ccf5'
 
 export const refs = {
-  'fr-fr': ['can5C32'],
+  'fr-fr': ['can5C32', 'auto5N1D-flash1'],
   'fr-ch': [],
 }
 export default class MultiplicationATrou extends ExerciceSimple {
@@ -35,7 +35,7 @@ export default class MultiplicationATrou extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([1, 2])
+    const choix = this.quotaChoice('choix', [1, 2])
     const a = randint(2, 9) * choice([10, 100, 1000])
     const numB = randint(2, 9)
     const denB = choice([10, 100, 1000])

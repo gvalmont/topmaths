@@ -1,7 +1,8 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { texPrix } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   miseEnEvidence,
@@ -24,13 +25,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -229,8 +228,18 @@ function questionAchat(exo: Exercice, i: number): QuestionReturn {
     `Conclusion : ${prenoms[1]} pourra acheter $${miseEnEvidence(texNombre((z * n) / x))}$ ${objet}.` +
     '<br>'
   if (!context.isAmc) {
-    setReponse(exo, i, ((y * x) / n).toFixed(2))
-    setReponse(exo, i + 1, ((z * n) / x).toFixed(2))
+    handleAnswers(
+      exo,
+      i,
+      { reponse: { value: ((y * x) / n).toFixed(2) } },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
+    handleAnswers(
+      exo,
+      i + 1,
+      { reponse: { value: ((z * n) / x).toFixed(2) } },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
   } else {
     exo.autoCorrectionAMC[i] = {
       enonce: '',
@@ -356,8 +365,22 @@ function questionRecette(exo: Exercice, i: number): QuestionReturn {
     `$${nbPersonneInit}$${sp()}g $\\times  ${miseEnEvidence(texNombre(quantite2 / quantite), bleuMathalea)} = ${(nbPersonneInit * quantite2) / quantite}$. <br>` +
     `Conclusion : ${prenoms[1]} peut donc préparer sa recette pour $${miseEnEvidence((nbPersonneInit * quantite2) / quantite)}$ personnes.`
   if (!context.isAmc) {
-    setReponse(exo, i, quantiteReponse)
-    setReponse(exo, i + 1, ((nbPersonneInit * quantite2) / quantite).toFixed(3))
+    handleAnswers(
+      exo,
+      i,
+      { reponse: { value: quantiteReponse } },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
+    handleAnswers(
+      exo,
+      i + 1,
+      {
+        reponse: {
+          value: ((nbPersonneInit * quantite2) / quantite).toFixed(3),
+        },
+      },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
   } else {
     exo.autoCorrectionAMC[i] = {
       enonce: '',
@@ -493,7 +516,9 @@ function questionDistance(exo: Exercice, i: number): QuestionReturn {
             `${texNombre(distance)}${sp()}$\\text{km}$ $\\times $ ${miseEnEvidence(texNombre(dureeR / dureeQ))} = ${texNombre(distance * dureeR / dureeQ)}${sp()}$\\text{km}$.<br>` +
     `Conclusion : Le ${liste[alea1].locomotion} parcourra ${miseEnEvidence(texNombre(distance * dureeR / dureeQ))}${sp()}$\\text{km}$ à la même vitesse en ${dureeR} heures.`
     if (!context.isAmc) {
-      setReponse(exo, i, (distance * dureeR / dureeQ).toFixed(3))
+      handleAnswers(exo, i, {
+        reponse: { value: (distance * dureeR / dureeQ).toFixed(3) },
+      })
     } else {
       exo.autoCorrection[i] = {
         enonce: '',
@@ -559,8 +584,18 @@ function questionDistance(exo: Exercice, i: number): QuestionReturn {
     `Il va mettre donc $${miseEnEvidence(texNombre(rapportQuestion2[alea3]), bleuMathalea)}$ fois une heure à parcourir $${distance}\\text{ km}$. <br>` +
     `Conclusion : Le ${liste[alea1].locomotion} va donc mettre  $${texNombre(rapportQuestion2[alea3])}$ heure${rapportQuestion2[alea3] >= 2 ? 's' : ''} à parcourir $${distance}\\text{ km}$,  ce qui fait $${miseEnEvidence(rapportQuestion2[alea3] * 60)}$ minutes ($${texNombre(rapportQuestion2[alea3])} \\times 60$ minutes).`
   if (!context.isAmc) {
-    setReponse(exo, i, reponseQ1)
-    setReponse(exo, i + 1, (rapportQuestion2[alea3] * 60).toFixed(2))
+    handleAnswers(
+      exo,
+      i,
+      { reponse: { value: reponseQ1 } },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
+    handleAnswers(
+      exo,
+      i + 1,
+      { reponse: { value: (rapportQuestion2[alea3] * 60).toFixed(2) } },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
   } else {
     exo.autoCorrectionAMC[i] = {
       enonce: '',
@@ -670,8 +705,18 @@ Or $${distanceReel}\\text{ km}$ est représenté par $${miseEnEvidence(texNombre
     `$${miseEnEvidence(texNombre(rapport[alea2]), bleuMathalea)} \\times ${miseEnEvidence(texNombre(distanceCarte), bleuMathalea)}\\text{ cm} = ${texNombre(rapport[alea2] * distanceCarte, 2)}\\text{ cm}$ <br>` +
     `Conclusion : Les deux villes sont séparées de $${miseEnEvidence(texNombre(rapport[alea2] * distanceCarte, 2))}\\text{ cm}$ sur la carte.`
   if (!context.isAmc) {
-    setReponse(exo, i, (rapport[alea1] * distanceReel).toFixed(2))
-    setReponse(exo, i + 1, (rapport[alea2] * distanceCarte).toFixed(2))
+    handleAnswers(
+      exo,
+      i,
+      { reponse: { value: (rapport[alea1] * distanceReel).toFixed(2) } },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
+    handleAnswers(
+      exo,
+      i + 1,
+      { reponse: { value: (rapport[alea2] * distanceCarte).toFixed(2) } },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
   } else {
     exo.autoCorrectionAMC[i] = {
       enonce: '',
@@ -815,14 +860,25 @@ fois $${miseEnEvidence(texNombre(liste[alea1].qtt_surface[alea3]), bleuMathalea)
         ' <br>'
 
   if (!context.isAmc) {
-    setReponse(exo, i, (rapport[alea4] * quantite).toFixed(3))
-    setReponse(
+    handleAnswers(
+      exo,
+      i,
+      { reponse: { value: (rapport[alea4] * quantite).toFixed(3) } },
+      { formatInteractif: 'mathalea-mathfield' },
+    )
+    handleAnswers(
       exo,
       i + 1,
-      rapport[alea5] * liste[alea1].qtt_surface[alea3] > surfaceFinale2
-        ? 'O'
-        : 'N',
-      { formatInteractif: 'ignorerCasse' },
+      {
+        reponse: {
+          value:
+            rapport[alea5] * liste[alea1].qtt_surface[alea3] > surfaceFinale2
+              ? 'O'
+              : 'N',
+          options: { texteSansCasse: true },
+        },
+      },
+      { formatInteractif: 'mathalea-mathfield' },
     )
   } else {
     exo.autoCorrectionAMC[i] = {
@@ -884,13 +940,13 @@ export const uuid = 'f7a14'
 export const refs = {
   'fr-fr': ['6P3C', 'BP2AutoL5'],
   'fr-2016': ['6P11', 'BP2AutoL5'],
-  'fr-ch': ['9FA3-9'],
+  'fr-ch': ['9FA2B-4'],
 }
 export default class ProportionnaliteParLinearite extends Exercice {
   constructor() {
     super()
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
     this.nbQuestions = 6
 
     this.besoinFormulaireCaseACocher = [
@@ -906,8 +962,8 @@ export default class ProportionnaliteParLinearite extends Exercice {
 
   nouvelleVersion() {
     let question
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
 
     if (this.interactif) {
       this.consigne = ''
@@ -928,7 +984,7 @@ export default class ProportionnaliteParLinearite extends Exercice {
       saisie: this.sup2,
     }).map(Number)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       indexN = randint(0, couplePremiersEntreEux.length - 1)
       if (this.sup) {
         versionSimplifiee = true

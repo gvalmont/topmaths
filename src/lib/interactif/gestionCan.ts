@@ -1,73 +1,106 @@
-import type { IExercice } from '../../lib/types'
+import { orangeMathalea } from '../../lib/colors'
+import {
+  interactivityTypeToCustomElementFormat,
+  type IExercice,
+} from '../../lib/types'
 import { context } from '../../modules/context'
+import {
+  listOfCustomElements,
+  mathaleaCustomElementsRegistry,
+} from '../customElements/MathaleaCustomElement'
+import { verifQuestionCliqueFigure } from '../customElements/CliqueFigureElement'
 import { addElement, get } from '../html/dom'
 import type { ButtonWithMathaleaListener } from '../types/can'
-import { verifQuestionCliqueFigure } from './cliqueFigure'
-import { verifQuestionMathLive } from './mathLive'
-import { verifQuestionQcm } from './qcm'
-import { verifQuestionSvgSelection } from './questionSvgSelection/questionSvgSelection'
-import { orangeMathalea } from '../../lib/colors'
 
 export function gestionCan(exercice: IExercice) {
   context.nbBonnesReponses = 0
   context.nbMauvaisesReponses = 0
   for (let i = 0; i < exercice.nbQuestions; i++) {
+    const type = exercice.autoCorrection[i]?.formatInteractif ?? ''
     const button1question = document.querySelector(
       `#boutonVerifexercice${exercice.numeroExercice}Q${i}`,
     ) as ButtonWithMathaleaListener
     if (button1question) {
       if (!button1question.hasMathaleaListener) {
         button1question.addEventListener('click', () => {
-          let resultat
-          if (exercice.interactifType === 'mathLive') {
-            resultat = verifQuestionMathLive(exercice, i)?.isOk ? 'OK' : 'KO'
-          }
-          if (exercice.interactifType === 'qcm') {
-            resultat = verifQuestionQcm(exercice, i)
-          }
-          if (exercice.interactifType === 'cliqueFigure') {
+          let resultat:
+            | {
+                isOk: boolean
+                feedback?: string
+                score: {
+                  nbBonnesReponses: number
+                  nbReponses: number
+                }
+              }
+            | string
+            | string[] = 'KO'
+          const customElementType =
+            interactivityTypeToCustomElementFormat(type) ?? type
+          if (
+            type === 'cliqueFigure' &&
+            customElementType !== 'clique-figure'
+          ) {
             resultat = verifQuestionCliqueFigure(exercice, i)
           }
-          if (
-            exercice.interactifType === 'custom' &&
-            exercice.correctionInteractive
-          ) {
-            resultat = exercice.correctionInteractive(i)
+          if (listOfCustomElements.includes(customElementType ?? '')) {
+            // On traite le cas de tous les MathaleaCustomElement ici
+            const liste = Array.from(mathaleaCustomElementsRegistry)
+            const [tag, elementClasse] =
+              liste.find((custom) => custom[0] === customElementType) ?? []
+            if (tag == null || elementClasse == null) {
+              throw Error(
+                "Une classe de listOfCustomElements n'est pas enregistrée dans le registre mathaleaCustomElementsRegistry",
+              )
+            }
+            if (
+              elementClasse.verifQuestion == null ||
+              typeof elementClasse.verifQuestion !== 'function'
+            ) {
+              throw Error(
+                `L'élément '${tag}' n'a pas de méthode verifQuestion ou celle-ci n'est pas une fonction`,
+              )
+            }
+            const result = elementClasse.verifQuestion(exercice, i)
+            if (
+              result == null ||
+              typeof result !== 'object' ||
+              !('isOk' in result) ||
+              !('score' in result)
+            ) {
+              throw Error(
+                `L'élément '${tag}' a une fonction verifQuestion qui n'a pas retourné une valeur conforme.`,
+              )
+            }
+            resultat = result
           }
-          if (exercice.interactifType === 'svgSelection') {
-            resultat = verifQuestionSvgSelection(exercice, i)
-          }
-          if (exercice.interactifType === 'MetaInteractif2d') {
-            resultat = verifQuestionMathLive(exercice, i)?.isOk ? 'OK' : 'KO'
-          }
-          if (exercice.interactifType === 'qcm_mathLive')
-            throw Error(
-              "qcm_mathLive ça n'existe pas comme formatInteractif, c'est qcm ou mathlive",
-            )
           // Mise en couleur du numéro de la question dans le menu du haut
-          if (resultat === 'OK') {
+          if (
+            (typeof resultat === 'string' && resultat === 'OK') ||
+            (Array.isArray(resultat) &&
+              resultat.every((s) => typeof s === 'string')) ||
+            (typeof resultat === 'object' &&
+              'isOk' in resultat &&
+              resultat.isOk)
+          ) {
             document
               .getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`)
               ?.classList.add('green')
             context.nbBonnesReponses++
-          }
-          if (resultat === 'KO') {
+          } else {
             document
               .getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`)
               ?.classList.add('red')
             context.nbMauvaisesReponses++
           }
-          if (resultat === 'OK' || resultat === 'KO') {
-            button1question.classList.add('disabled')
-            if (exercicesCanRestants().length) {
-              ;(exercicesCanDispoApres() as HTMLButtonElement).click()
-            } else {
-              afficheScoreCan(
-                exercice,
-                context.nbBonnesReponses,
-                context.nbMauvaisesReponses,
-              )
-            }
+          button1question.classList.add('disabled')
+          if (exercicesCanRestants().length) {
+            ;(exercicesCanDispoApres() as HTMLButtonElement).click()
+          } else {
+            afficheScoreCan(
+              exercice,
+              context.nbBonnesReponses,
+              context.nbMauvaisesReponses,
+            )
           }
         })
         button1question.hasMathaleaListener = true

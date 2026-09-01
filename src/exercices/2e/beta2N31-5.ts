@@ -12,21 +12,21 @@ import Exercice from '../Exercice'
 export const uuid = 'a1d0b'
 export const titre = 'Calculer avec des nombres en notation scientifique'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '18/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**
  * Calculer avec des nombres en notation scientifique
  * @author Matthieu Devillers
- * 2N31-5
+ * 2N32-1
  */
 export default class CalculerAvecEcritureScientifique extends Exercice {
   constructor() {
     super()
 
     this.correctionDetailleeDisponible = true
-    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.spacingCorr = context.isHtml ? 3 : 2
     if (!context.isHtml) {
       this.correctionDetaillee = false
     }
@@ -62,7 +62,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       let n = 0
       const a: number[] = []

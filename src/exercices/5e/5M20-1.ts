@@ -3,6 +3,7 @@
  */
 
 import Decimal from 'decimal.js'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -20,14 +21,12 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Calculer le volume de solides donnés'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+
 export const dateDeModifImportante = '10/06/2024'
 /**
  * Calcul de volumes.
@@ -37,9 +36,9 @@ export const dateDeModifImportante = '10/06/2024'
 export const uuid = '04b0d'
 
 export const refs = {
-  'fr-fr': ['5M20-1'],
+  'fr-fr': ['BP1AUTO097'],
   'fr-2016': ['6M30'],
-  'fr-ch': ['9GM3-2'],
+  'fr-ch': ['9GM2A-5'],
 }
 export default class CalculDeVolumes extends Exercice {
   classe: number
@@ -73,7 +72,6 @@ export default class CalculDeVolumes extends Exercice {
   nouvelleVersion() {
     let thissup4Max
 
-    this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     let piApprox = false
     if (this.sup === 3) {
       this.sup = 1
@@ -576,7 +574,7 @@ export default class CalculDeVolumes extends Exercice {
       resultat3 = resultat3.toNumber()
       resultat4 = resultat4.toNumber()
       const props = propositionsQcm(this, i)
-      if (this.interactif && this.interactifType === 'qcm') {
+      if (this.interactif && this.sup3 !== 2) {
         texte += props.texte
       } else {
         handleAnswers(

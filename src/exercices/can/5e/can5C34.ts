@@ -9,7 +9,7 @@ import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre =
   'Calculer dans une pyramide additive inverse de nombres relatifs'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '28/03/2026'
@@ -19,8 +19,8 @@ export const dateDePublication = '28/03/2026'
 export const uuid = '7a19e'
 
 export const refs = {
-  'fr-fr': ['can5C34'],
-  'fr-ch': [],
+  'fr-fr': ['can5C34', '5N2I-flash4'],
+  'fr-ch': ['9NO2B-17'],
 }
 export default class PyramideAdd3EtagesBaseInconnue extends ExerciceSimple {
   constructor() {

@@ -17,7 +17,7 @@ export const titre = 'Calculer des expressions fractionnaires avec parenthèses'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 /** Styles d'expressions :
  * 1 : produit avec une somme ou une différence
  * 2 : produit de deux sommes ou différences
@@ -31,7 +31,7 @@ export const uuid = '18dde'
 
 export const refs = {
   'fr-fr': ['4C23-2'],
-  'fr-ch': [],
+  'fr-ch': ['10NO3C-3', '11NO2-2'],
 }
 
 function supprimeDoublons(correction: string) {
@@ -100,7 +100,7 @@ export default class ExerciceCalculFractionnairesAvecParenthèses extends Exerci
       nbQuestions: this.nbQuestions,
     }).map(Number)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let fractions = ''
 
       let compteur = 0

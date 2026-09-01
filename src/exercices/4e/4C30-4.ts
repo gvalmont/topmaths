@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import {
@@ -11,14 +11,13 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../lib/outils/texNombre'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Associer puissances de 10 et préfixes'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '12/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -31,7 +30,7 @@ export const uuid = 'b0b3c'
 
 export const refs = {
   'fr-fr': ['4C30-4'],
-  'fr-ch': [],
+  'fr-ch': ['10NO3D-4'],
 }
 export default class PuissancesEtPrefixe extends Exercice {
   constructor() {
@@ -48,7 +47,6 @@ export default class PuissancesEtPrefixe extends Exercice {
   }
 
   nouvelleVersion() {
-    this.interactifType = this.sup === 1 ? 'listeDeroulante' : 'mathLive'
     this.consigne =
       this.sup === 1
         ? 'Trouver le préfixe correspondant ' +
@@ -85,27 +83,29 @@ export default class PuissancesEtPrefixe extends Exercice {
       if (this.sup === 1) {
         texte =
           `$10^{${exposant}}$` +
-          choixDeroulant(this, i, [
-            { label: 'Choisir le bon préfixe', value: '' },
-            ...shuffle([
-              { label: 'nano', value: 'nano' },
-              { label: 'micro', value: 'micro' },
-              { label: 'milli', value: 'milli' },
-              { label: 'centi', value: 'centi' },
-              { label: 'déci', value: 'déci' },
-              { label: 'déca', value: 'déca' },
-              { label: 'hecto', value: 'hecto' },
-              { label: 'kilo', value: 'kilo' },
-              { label: 'méga', value: 'méga' },
-              { label: 'giga', value: 'giga' },
-              //    { label: 'téra', value: 'téra' },
-            ]),
-          ])
+          choixDeroulant(this, i, {
+            choices: [
+              { label: 'Choisir le bon préfixe', value: '' },
+              ...shuffle([
+                { label: 'nano', value: 'nano' },
+                { label: 'micro', value: 'micro' },
+                { label: 'milli', value: 'milli' },
+                { label: 'centi', value: 'centi' },
+                { label: 'déci', value: 'déci' },
+                { label: 'déca', value: 'déca' },
+                { label: 'hecto', value: 'hecto' },
+                { label: 'kilo', value: 'kilo' },
+                { label: 'méga', value: 'méga' },
+                { label: 'giga', value: 'giga' },
+                //    { label: 'téra', value: 'téra' },
+              ]),
+            ],
+          })
         handleAnswers(
           this,
           i,
           { reponse: { value: prefixe } },
-          { formatInteractif: 'listeDeroulante' },
+          { formatInteractif: 'liste-deroulante' },
         )
         texteCorr = `$10^{${exposant}}$, c'est ${description} donc le préfixe correspondant est ${texteEnCouleurEtGras(prefixe)}.`
       } else {
@@ -114,7 +114,7 @@ export default class PuissancesEtPrefixe extends Exercice {
             ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.clavierDeBaseAvecFraction,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
             )
           : `${prefixe}`
         handleAnswers(this, i, { reponse: { value: `10^{${exposant}}` } })

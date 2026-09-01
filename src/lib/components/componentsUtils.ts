@@ -1,4 +1,5 @@
 import uuidToUrl from '../../json/uuidsToUrlFR.json'
+import { estUuidBanqueExterne } from '../types/banquesExternes'
 
 /**
  * Détermine si l'uuid a un préfixe d'exercice statique
@@ -11,6 +12,7 @@ export function isStatic(uuid: string | undefined) {
     return false
   }
   return (
+    estUuidBanqueExterne(uuid) ||
     uuid.startsWith('crpe') ||
     uuid.startsWith('dnb_') ||
     uuid.startsWith('dnbpro_') ||
@@ -21,7 +23,8 @@ export function isStatic(uuid: string | undefined) {
     uuid.startsWith('eam_') ||
     uuid.startsWith('stl_') ||
     uuid.startsWith('sti2d_') ||
-    uuid.startsWith('2nd_')
+    uuid.startsWith('2nd_') ||
+    uuid.startsWith('md-')
   )
 }
 

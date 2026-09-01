@@ -18,7 +18,6 @@ export const titre =
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 /** Savoir que la fraction peut représenter un nombre entier, un nombre décimal non entier ou un nombre non décimal
  * @author Eric Elter
@@ -26,9 +25,9 @@ export const interactifType = 'qcm'
 export const uuid = '28e58'
 
 export const refs = {
-  'fr-fr': ['6N3F'],
+  'fr-fr': ['6N3F', '6AutoF1-2'],
   'fr-2016': ['6N22-6'],
-  'fr-ch': ['9NO12-13'],
+  'fr-ch': ['9NO3C-1'],
 }
 
 /**
@@ -141,7 +140,7 @@ export default class FractionRepresenteNb extends Exercice {
       numerateurMax = numerateurMin
       numerateurMin = tampon
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let typeNombre = ''

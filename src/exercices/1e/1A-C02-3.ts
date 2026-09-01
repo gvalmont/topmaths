@@ -8,11 +8,11 @@ export const dateDePublication = '10/08/2025'
 export const uuid = '90725'
 // @Author Stéphane Guyon
 export const refs = {
-  'fr-fr': ['1A-C02-3'],
+  'fr-fr': ['1A-C02-3', '2A-N2-3'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Écrire des expressions rationnelles au même dénominateur'
@@ -71,6 +71,15 @@ export default class Puissances extends ExerciceQcmA {
 
   constructor() {
     super()
+    this.tip = `
+  <p style="margin: 0 0 10px 0;">
+    Il faut simplifier cette expression algébrique.
+  </p>
+  <ul style="list-style-type: disc; padding-left: 1.5em; margin: 0 0 14px 0; line-height: 2;">
+    <li>Effectuer au brouillon le même genre de calcul avec des nombres si les expressions littérales gênent.</li>
+    <li>Identifier la stratégie sur ce calcul plus simple.</li>
+    <li>Appliquer ensuite la même méthode à l'expression algébrique.</li>
+  </ul>`
     this.versionAleatoire()
   }
 }

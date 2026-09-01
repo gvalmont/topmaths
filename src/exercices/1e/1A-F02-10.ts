@@ -14,10 +14,9 @@ export const dateDePublication = '07/01/2026'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
- * Clone de can2F20 pour les auto 1er
+ * Clone de can2F21-05 pour les auto 1er
  * @author Gilles Mora
  */
 
@@ -72,15 +71,10 @@ export default class AutoFO2j extends ExerciceQcmA {
     
     L'image de $${xDemande}$ par cette fonction correspond à  l'ordonnée du point de  $\\mathscr{D}$ dont l'abscisse est $${xDemande}$ :<br>
     $\\begin{aligned}
-    g(${xDemande})&=${m === 1 ? `${xDemande}` : `${m}\\times ${ecritureParentheseSiNegatif(xDemande)}`}${ecritureAlgebrique(b)}${
-      m === 1
-        ? ''
-        : `\\\\
-    &=${m * xDemande}${ecritureAlgebrique(b)}`
-    }\\\\
+    g(${xDemande})&=${m === 1 ? `${xDemande}` : `${m}\\times ${ecritureParentheseSiNegatif(xDemande)}`}${ecritureAlgebrique(b)}\\\\
+    ${m === 1 ? '' : `&=${m * xDemande}${ecritureAlgebrique(b)}\\\\`}
     &=${miseEnEvidence(bonneReponse)}
-    \\end{aligned}$
-    `
+    \\end{aligned}$`
 
     // Réponses
     this.reponses = [
@@ -160,10 +154,7 @@ export default class AutoFO2j extends ExerciceQcmA {
         distracteur3,
       })
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {})
-    )
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true))
   }
 
   constructor() {

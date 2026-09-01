@@ -8,11 +8,11 @@ export const dateDePublication = '12/10/2025'
 export const uuid = 'da442'
 // @Author Gilles Mora
 export const refs = {
-  'fr-fr': ['1A-C05-1'],
+  'fr-fr': ['1A-C05-1', '2A-N5-1'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -43,11 +43,15 @@ export default class auto1AC5 extends ExerciceQcmA {
         : (pourcentageArrondi * nombreArrondi) / 100
 
     // Énoncé
-    this.enonce = `La valeur la plus proche  de $${pourcentageReel}\\,\\%$ de $${texNombre(nombreReel)}$ est :`
+    this.enonce = `Parmi les valeurs proposées, la valeur la plus proche  de $${pourcentageReel}\\,\\%$ de $${texNombre(nombreReel)}$ est :`
 
     // Correction
     this.correction = `$${pourcentageReel}\\,\\%$ est proche de $${pourcentageArrondi}\\,\\%$ et $${texNombre(nombreReel)}$ est proche de $${texNombre(nombreArrondi)}$.<br>
-      Ainsi, le calcul de $${pourcentageReel}\\,\\%$ de $${texNombre(nombreReel)}$ est proche de $${pourcentageArrondi}\\,\\%$ de $${texNombre(nombreArrondi)}$ soit $${miseEnEvidence(texNombre(bonneReponse))}$.`
+      Ainsi, le calcul de $${pourcentageReel}\\,\\%$ de $${texNombre(nombreReel)}$ est proche de $${pourcentageArrondi}\\,\\%$ de $${texNombre(nombreArrondi)}$`
+    this.correction +=
+      pourcentageArrondi === 50
+        ? `, soit la moitié de $${texNombre(nombreArrondi)}$, soit $${miseEnEvidence(texNombre(bonneReponse))}$.`
+        : `.<br>Et $${pourcentageArrondi}\\,\\%$ de $${texNombre(nombreArrondi)}=\\dfrac{${pourcentageArrondi}}{100}\\times${texNombre(nombreArrondi)}=${pourcentageArrondi}\\times\\dfrac{${texNombre(nombreArrondi)}}{100}=${pourcentageArrondi}\\times${texNombre(nombreArrondi / 100)}=${miseEnEvidence(texNombre(bonneReponse))}$.`
 
     // Réponses
     if (reponsesPersonnalisees) {
@@ -120,10 +124,7 @@ export default class auto1AC5 extends ExerciceQcmA {
 
       this.appliquerLesValeurs(pourcentageReel, nombreReel)
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {})
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {

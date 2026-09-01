@@ -15,7 +15,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre =
   'Convertir des heures décimales en heures/minutes et inversement'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '08/02/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**
  * @author Jean-claude Lhote & Gilles Mora
@@ -24,8 +24,8 @@ export const dateDeModifImportante = '08/02/2022' // Une date de modification im
 export const uuid = 'd8797'
 
 export const refs = {
-  'fr-fr': ['can5D01'],
-  'fr-ch': [],
+  'fr-fr': ['can5D01', '6M4C-flash8'],
+  'fr-ch': ['NR'],
 }
 export default class ConversionHeuresDecimalesMinutes extends Exercice {
   constructor() {
@@ -35,7 +35,7 @@ export default class ConversionHeuresDecimalesMinutes extends Exercice {
 
   nouvelleVersion() {
     let a, b, d, texte, texteCorr
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (
         choice([1, 2]) //, 'b'
       ) {

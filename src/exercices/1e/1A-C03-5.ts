@@ -6,11 +6,11 @@ export const dateDePublication = '10/08/2025'
 export const uuid = '66ec4'
 // @Author Stéphane Guyon
 export const refs = {
-  'fr-fr': ['1A-C03-5'],
-  'fr-ch': [],
+  'fr-fr': ['1A-C03-5', '2A-N3-5'],
+  'fr-ch': ['10NO3D-15'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Appliquer la propriété des quotients avec des puissances'
@@ -20,7 +20,7 @@ export default class Auto1AC3e extends ExerciceQcmA {
       // Cas inversé : a^n / a^(n^k)
       this.enonce = `Soit $a$ un nombre réel non nul et $n$ un entier non nul.<br> À quelle expression est égale $\\dfrac{a^{n}}{a^{n^{${k}}}}$ ?`
 
-      this.correction = `On applique la propriété du quotient des puissances d'un réel : <br>
+      this.correction = `On applique la propriété du quotient des puissances d'un réel.<br>
       Soit $n$ et $p$ deux entiers et $a$ un réel :  $\\dfrac{a^n}{a^p}=a^{n-p}$<br>
       $\\begin{aligned} \\dfrac{a^{n}}{a^{n^{${k}}}}&=a^{n-n^{${k}}}\\\\
       &=a^{-n(-1+n^{${rienSi1(k - 1)}})}\\\\
@@ -37,7 +37,7 @@ export default class Auto1AC3e extends ExerciceQcmA {
       // Cas normal : a^(n^k) / a^n
       this.enonce = `Soit $a$ un nombre réel non nul et $n$ un entier non nul.<br> À quelle expression est égale $\\dfrac{a^{n^{${k}}}}{a^{n}}$ ?`
 
-      this.correction = `On applique la propriété du quotient des puissances d'un réel : <br>
+      this.correction = `On applique la propriété du quotient des puissances d'un réel.<br>
       Soit $n$ et $p$ deux entiers et $a$ un réel :  $\\dfrac{a^n}{a^p}=a^{n-p}$<br>
       $\\begin{aligned} \\dfrac{a^{n^{${k}}}}{a^{n}}&=a^{n^{${k}}-n}\\\\
       &=${miseEnEvidence(`a^{n(n^{${rienSi1(k - 1)}}-1)}`)}
@@ -71,6 +71,17 @@ export default class Auto1AC3e extends ExerciceQcmA {
 
   constructor() {
     super()
+    this.tip = `
+  <p style="margin: 0 0 10px 0;">
+    Il faut simplifier un quotient de puissances ayant la même base.
+  </p>
+  <ul style="list-style-type: disc; padding-left: 1.5em; margin: 0 0 14px 0; line-height: 2;">
+    <li>Identifier l'exposant du numérateur et celui du dénominateur.</li>
+    <li>Se rappeler la règle pour diviser deux puissances de même base (le nombre élevé à une puissance).</li>
+    <li>Respecter l'ordre de la soustraction des exposants.</li>
+    <li>Faire le même calcul avec des nombres à la place de $n$ si la variable gêne.</li>
+  </ul>
+`
     this.versionAleatoire()
   }
 }

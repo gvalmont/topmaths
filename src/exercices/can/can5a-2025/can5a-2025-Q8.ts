@@ -6,7 +6,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Multiplication par 100 de nombres décimaux'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'a343n'
 export const refs = {
   'fr-fr': [],
@@ -21,10 +21,10 @@ export default class Can2025N5Q8 extends ExerciceCan {
   enonce(a?: number, b?: number) {
     if (a == null || b == null) {
       a =
-        randint(2, 9) +
-        randint(1, 9) / 10 +
+        this.quotaRandint('a1', 2, 9) +
+        this.quotaRandint('a2', 1, 9) / 10 +
         choice([0, 0, randint(1, 9)]) / 1000
-      b = choice([100, 1000])
+      b = this.quotaChoice('b', [100, 1000])
     }
     this.reponse = (a * b).toFixed(1)
     this.question = `$${texNombre(a, 3)}\\times ${texNombre(b, 0)}$`

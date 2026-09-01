@@ -21,7 +21,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes algébriques avec des balances'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '3/06/2025'
 
@@ -34,7 +33,7 @@ export const refs = {
   // exercice conservé pour retrocompatibilité
   'fr-fr': [],
   'fr-2016': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 const items = [
@@ -113,7 +112,7 @@ export default class ResoudreDesProblemes extends Exercice {
       melange: 5,
       defaut: 5,
     }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = 'On a effectué deux pesées :<br>'
       let texteCorr = ''
       const [fruit1, fruit2] = combinaisonListes(items, 2)
@@ -189,12 +188,10 @@ export default class ResoudreDesProblemes extends Exercice {
         mathalea2d(
           Object.assign(
             {
-              style: context.isHtml
-                ? 'display: block'
-                : 'display: inline-block',
+              display: context.isHtml ? 'block' : 'inline-block',
               pixelsParCm: 30,
               scale: 1,
-            },
+            } as const,
             fixeBordures(objetsA, {
               rxmin: 0,
               rymin: 0,
@@ -208,12 +205,10 @@ export default class ResoudreDesProblemes extends Exercice {
         mathalea2d(
           Object.assign(
             {
-              style: context.isHtml
-                ? 'display: block'
-                : 'display: inline-block',
+              display: context.isHtml ? 'block' : 'inline-block',
               pixelsParCm: 30,
               scale: 1,
-            },
+            } as const,
             fixeBordures(objetsB, {
               rxmin: 0,
               rymin: 0,
@@ -232,7 +227,7 @@ export default class ResoudreDesProblemes extends Exercice {
             rxmax: 0,
             rymax: 0,
           }),
-          { style: 'display: inline-block', pixelsParCm: 23, scale: 0.5 },
+          { display: 'inline-block' as const, pixelsParCm: 23, scale: 0.5 },
         ),
         [shape1.shapeDef, shape1.shape2D],
       )
@@ -245,7 +240,7 @@ export default class ResoudreDesProblemes extends Exercice {
             rxmax: 0,
             rymax: 0,
           }),
-          { style: 'display: inline-block', pixelsParCm: 23, scale: 0.5 },
+          { display: 'inline-block' as const, pixelsParCm: 23, scale: 0.5 },
         ),
         [shape2.shapeDef, shape2.shape2D],
       )
@@ -256,7 +251,9 @@ export default class ResoudreDesProblemes extends Exercice {
       }
       et celle d'${shape2.articleSingulier} ${shape2.nomSingulier} ${
         this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.masse, { texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' })
+          ? ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.masse, {
+              texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
+            })
           : ''
       }?`
       handleAnswers(this, 2 * i, {

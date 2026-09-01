@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Simplifier des fractions (cas simples)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const dateDePublication = '07/09/2023'
 
@@ -18,7 +18,7 @@ export const uuid = '471bf'
 
 export const refs = {
   'fr-fr': ['can4C17'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SimplifierFractionSimple extends ExerciceSimple {
   constructor() {
@@ -32,7 +32,7 @@ export default class SimplifierFractionSimple extends ExerciceSimple {
 
   nouvelleVersion() {
     switch (
-      choice([1, 2, 3]) // 1, 2, 3, 4, 5, 6
+      this.quotaChoice('cas', [1, 2, 3]) // 1, 2, 3, 4, 5, 6
     ) {
       case 1:
         {

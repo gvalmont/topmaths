@@ -11,7 +11,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Calculer un produit, une somme ou une différence d'images par une fonction affine"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '26/07/2025'
@@ -23,7 +23,7 @@ export const dateDePublication = '26/07/2025'
 export const uuid = '2bbd1'
 
 export const refs = {
-  'fr-fr': ['can3F14'],
+  'fr-fr': ['can3F14', 'can2F13-08'],
   'fr-ch': ['10QCM-9', '11QCM-11'],
 }
 export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSimple {
@@ -38,7 +38,7 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
   }
 
   nouvelleVersion() {
-    const typeOperation = choice([1, 2, 3]) // 1 = produit, 2 = somme 3=différence
+    const typeOperation = this.quotaChoice('typeOperation', [1, 2, 3]) // 1 = produit, 2 = somme 3=différence
 
     // Paramètres selon le type d'opération
     let a, b
@@ -51,7 +51,7 @@ export default class CalculProduitSommeImageParFonctionAffine extends ExerciceSi
       a = randint(-6, 6, [0])
       b = randint(-6, 6, [0])
     }
-    const x1 = randint(-4, 4)
+    const x1 = this.quotaRandint('x1', -4, 4)
     const x2 = randint(-3, 3, x1)
     const nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
 

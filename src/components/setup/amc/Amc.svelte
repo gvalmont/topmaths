@@ -8,6 +8,11 @@
   import { mergeLatexTextsOnPropositions } from '../../../lib/amc/amcAutoCorrectionMerge'
   import { mathaleaEnsureAMCCompatibility } from '../../../lib/amc/amcInference'
   import { normalizeAMCNumBlocks } from '../../../lib/amc/amcNormalize'
+  import {
+    getHtmlQuestionsForAMCPreview,
+    latexLineBreaksToHtmlOutsideMath,
+    latexTextToHtmlForAMCPreview,
+  } from '../../../lib/amc/amcPreviewText'
   import type { IExerciceAMC } from '../../../lib/amc/amcTypes'
   import {
     checkAMCGroupConsistency,
@@ -87,6 +92,12 @@
     autoCorrectionAMC: any[]
   }
 
+  type AmcLoadIssue = {
+    id: string
+    title: string
+    message: string
+  }
+
   type AmcBuilderConfigV1 = {
     version: 1
     exportedAt: string
@@ -100,6 +111,7 @@
   const AMC_HIDDEN_TEXT_TOKEN = '[[AMC_HIDDEN]]'
 
   let exercices: IExercice[] = []
+  let loadIssues: AmcLoadIssue[] = []
   let groupSettings: GroupSetting[] = []
   let documentSettings = {
     correctionsDisplayMode: 'per-question' as 'per-question' | 'end-of-copy',
@@ -109,9 +121,7 @@
     mergedGroupTitle: 'Automatismes',
     mergedGroupExerciseIndexes: [] as number[],
     identificationMode: 'AMCcodeGrid' as
-      | 'AMCcodeGrid'
-      | 'AMCassociation'
-      | 'AMCnom',
+      'AMCcodeGrid' | 'AMCassociation' | 'AMCnom',
     associationRoster: '',
     showWarningMessage: true,
     warningMessage:
@@ -315,20 +325,21 @@
         sanitizedCandidate.trim().length === 0
           ? fallback
           : replaceFigureEnvsWithSvg(sanitizedCandidate, fallback)
-      return previewSource
-        .replaceAll('\\\\', '<br>')
-        .replaceAll('\n\n', '<br>')
-        .replaceAll('\\medskip', '<br><br>')
+      return latexTextToHtmlForAMCPreview(previewSource)
     }
 
     return autoCorrection.map((item: any, i: number) => {
       const fallback = htmlQuestions[i] ?? ''
 
-      // En AMCHybride, enonceAvant=false signifie qu'il ne faut pas afficher
-      // d'enonce "chapeau" en preview, ni via substitution/fallback.
+      // En AMCHybride, enonceAvant=false masque l'enonce commun uniquement
+      // lorsqu'il n'est pas demandé comme question séparée. Dans ce dernier
+      // cas, conserver la preview permet notamment de substituer le SVG au
+      // tikzpicture de la passe AMC.
       const showOnlyOnce = Boolean(item?.enonceAvantUneFois)
       const shouldHideHeader =
-        item?.enonceAvant === false && !(showOnlyOnce && i === 0)
+        item?.enonceAvant === false &&
+        item?.enonceApresNumQuestion !== true &&
+        !(showOnlyOnce && i === 0)
       if (shouldHideHeader) return ''
 
       const propositions = Array.isArray(item?.propositions)
@@ -394,55 +405,6 @@
     return Math.max(1, Number((exercise as any)?.nbQuestions) || 1)
   }
 
-  function ensureAmcAutoCorrectionFallback(exercice: IExercice): void {
-    const ex = exercice as any
-    const current = getAmcAutoCorrection(exercice)
-    if (current.length > 0) return
-
-    const htmlQuestions: string[] = Array.isArray(ex.htmlQuestions)
-      ? ex.htmlQuestions
-      : []
-    const sourceQuestions =
-      exercice.listeQuestions.length > 0
-        ? exercice.listeQuestions
-        : exercice.question != null
-          ? [String(exercice.question)]
-          : htmlQuestions
-
-    if (sourceQuestions.length === 0) return
-
-    const sourceCorrections =
-      exercice.listeCorrections.length > 0
-        ? exercice.listeCorrections
-        : exercice.correction != null
-          ? [String(exercice.correction)]
-          : []
-
-    const fallbackAutoCorrection = sourceQuestions.map((enonce, i) => ({
-      enonce,
-      propositions: [
-        {
-          texte: sourceCorrections[i] ?? sourceCorrections[0] ?? '',
-          statut: 3,
-          sanscadre: false,
-          pointilles: true,
-        },
-      ],
-    }))
-
-    ex.autoCorrectionAMC = fallbackAutoCorrection
-    if (
-      !Array.isArray(exercice.autoCorrection) ||
-      exercice.autoCorrection.length === 0
-    ) {
-      exercice.autoCorrection = fallbackAutoCorrection.map((item) => ({
-        ...item,
-      }))
-    }
-    exercice.amcType = 'AMCOpen'
-    exercice.amcReady = true
-  }
-
   function generateHtmlQuestionsForExercise(
     exercice: IExercice,
     seed: string,
@@ -477,12 +439,7 @@
 
     // 2. Passe HTML non interactive hors AMC : apercu papier avec SVG.
     runHtmlGeneration(false)
-    if (exercice.typeExercice === 'simple') {
-      ex.htmlQuestions =
-        exercice.question != null ? [String(exercice.question)] : []
-    } else {
-      ex.htmlQuestions = [...exercice.listeQuestions]
-    }
+    ex.htmlQuestions = getHtmlQuestionsForAMCPreview(exercice)
 
     exercice.interactif = originalInteractif
     context.isAmc = originalIsAmc
@@ -497,6 +454,7 @@
   function buildLatexSnapshotForAmc(
     exercice: IExercice,
     seed: string,
+    isAmcPass = true,
   ): {
     autoCorrection: any[]
     listeQuestions: string[]
@@ -517,7 +475,7 @@
     ex.lastCallback = ''
     exercice.interactif = false
     context.isHtml = false
-    context.isAmc = true
+    context.isAmc = isAmcPass
     seedrandom(seed, { global: true })
 
     if (exercice.typeExercice === 'simple') {
@@ -528,7 +486,9 @@
 
     const snapshot = {
       autoCorrection: cloneDeep(
-        Array.isArray(exercice.autoCorrectionAMC)
+        isAmcPass &&
+          Array.isArray(exercice.autoCorrectionAMC) &&
+          exercice.autoCorrectionAMC.length > 0
           ? exercice.autoCorrectionAMC
           : Array.isArray(exercice.autoCorrection)
             ? exercice.autoCorrection
@@ -559,6 +519,15 @@
     const ex = exercice as any
     const targetAutoCorrection = getAmcAutoCorrection(exercice)
     const latexSnapshot = buildLatexSnapshotForAmc(exercice, seed)
+    const isQcmItem = (item: any): boolean =>
+      Array.isArray(item?.propositions) &&
+      item.propositions.length >= 2 &&
+      item.propositions.every(
+        (proposition: any) => typeof proposition?.statut === 'boolean',
+      )
+    const qcmLatexSnapshot = targetAutoCorrection.some(isQcmItem)
+      ? buildLatexSnapshotForAmc(exercice, seed, false)
+      : undefined
     const latexAutoCorrection = latexSnapshot.autoCorrection
     const latexQuestions = latexSnapshot.listeQuestions
     const latexCorrections = latexSnapshot.listeCorrections
@@ -628,11 +597,15 @@
       if (merged[i] == null) merged[i] = {}
 
       const targetItem = merged[i]
-      const sourceItem = latexAutoCorrection[i]
-      const sourceQuestion = latexQuestions[i]
+      const itemSnapshot =
+        isQcmItem(targetItem) && qcmLatexSnapshot != null
+          ? qcmLatexSnapshot
+          : latexSnapshot
+      const sourceItem = itemSnapshot.autoCorrection[i]
+      const sourceQuestion = itemSnapshot.listeQuestions[i]
       const sourceCorrection =
-        latexCorrections[i] ??
-        latexCorrections[0] ??
+        itemSnapshot.listeCorrections[i] ??
+        itemSnapshot.listeCorrections[0] ??
         (i === 0 ? (exercice.correction ?? '') : '')
 
       if (sourceItem && typeof sourceItem.enonce === 'string') {
@@ -718,19 +691,32 @@
     )
 
     const amcReadyExercices: IExercice[] = []
+    const nextLoadIssues: AmcLoadIssue[] = []
 
     for (const exercice of loaded) {
       try {
         const seed = exercice.seed ?? ''
         prepareExerciseForAmc(exercice, seed)
-        if (exercice.amcType != null) {
+        if (exercice.amcReady && exercice.amcType != null) {
           amcReadyExercices.push(exercice)
+        } else if (exercice.amcReady === false) {
+          nextLoadIssues.push({
+            id: exercice.id ?? exercice.uuid ?? 'Exercice inconnu',
+            title: exercice.titre ?? 'Sans titre',
+            message: 'Cet exercice est explicitement exclu de l’export AMC.',
+          })
         }
       } catch (error) {
-        // On ignore un exercice invalide pour ne pas bloquer l'ajout des suivants.
         console.warn('[AMC] Exercice ignoré pendant le chargement:', error)
+        nextLoadIssues.push({
+          id: exercice.id ?? exercice.uuid ?? 'Exercice inconnu',
+          title: exercice.titre ?? 'Sans titre',
+          message: error instanceof Error ? error.message : String(error),
+        })
       }
     }
+
+    loadIssues = nextLoadIssues
 
     const previousSettings = groupSettings
     const previousExercices = exercices
@@ -1728,36 +1714,6 @@
     }
   }
 
-  /**
-   * Convertit les commandes LaTeX textuelles (produites lors de la passe isAmc)
-   * en HTML pour l'affichage dans la preview.
-   * Gère les patterns générés par texteEnCouleurEtGras(), numAlpha(), etc.
-   */
-  function latexTextToHtml(latex: string): string {
-    let html = stripAmcHiddenToken(latex)
-    // \textbf {text} ou \textbf{text} → <strong>text</strong> (ex: numAlpha en mode LaTeX)
-    html = html.replace(/\\textbf\s*\{([^}]*)\}/g, '<strong>$1</strong>')
-    // {\bfseries \color[HTML]{hexcolor}text} → <strong style="color:#hex">text</strong>
-    html = html.replace(
-      /\{\\bfseries\s+\\color\[HTML\]\{([0-9a-fA-F]{6})\}([^{}]*)\}/g,
-      (_, hex, text) =>
-        hex === '000000'
-          ? `<strong>${text}</strong>`
-          : `<strong style="color:#${hex}">${text}</strong>`,
-    )
-    // {\bfseries \color{colorname}text} → <strong style="color:colorname">text</strong>
-    html = html.replace(
-      /\{\\bfseries\s+\\color\{([^}]+)\}([^{}]*)\}/g,
-      (_, color, text) =>
-        color === 'black'
-          ? `<strong>${text}</strong>`
-          : `<strong style="color:${color}">${text}</strong>`,
-    )
-    // Sauts de ligne LaTeX
-    html = html.replace(/\\\\/g, '<br>').replace(/\\medskip/g, '<br><br>')
-    return html
-  }
-
   function getBlocks(exercise: IExercice, exerciseIndex: number) {
     const blocks: PreviewBlock[] = []
 
@@ -1853,7 +1809,7 @@
               propType === 'qcmMono' ||
               propType === 'qcmMult'
             ) {
-              return latexTextToHtml(raw)
+              return latexTextToHtmlForAMCPreview(raw)
             }
             return raw
               .replaceAll('\\\\', '<br>')
@@ -2638,6 +2594,25 @@
             </p>
           </div>
 
+          {#if loadIssues.length > 0}
+            <div
+              class="rounded-xl border border-red-400 bg-red-50 p-4 text-sm text-red-900 dark:border-red-700 dark:bg-red-950/40 dark:text-red-100"
+              role="alert"
+            >
+              <p class="font-semibold">
+                {loadIssues.length} exercice{loadIssues.length > 1 ? 's' : ''}
+                non exporté{loadIssues.length > 1 ? 's' : ''} vers AMC
+              </p>
+              <ul class="mt-2 list-disc space-y-1 pl-5">
+                {#each loadIssues as issue}
+                  <li>
+                    <strong>{issue.id} — {issue.title}</strong> : {issue.message}
+                  </li>
+                {/each}
+              </ul>
+            </div>
+          {/if}
+
           {#if exercices.length === 0}
             <div
               class="rounded-xl border p-6 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
@@ -2808,6 +2783,8 @@
                                   exercice.amcType === 'qcmMult'
                                     ? 'qcmMult'
                                     : 'qcmMono'}
+                                  vertical={block.data?.options?.vertical ===
+                                    true}
                                   choix={block.data?.propositions ?? []}
                                 />
                               {:else if block.previewKind === 'num'}
@@ -2900,6 +2877,7 @@
                             exercice.amcType === 'qcmMult'
                               ? 'qcmMult'
                               : 'qcmMono'}
+                            vertical={block.data?.options?.vertical === true}
                             choix={block.data?.propositions ?? []}
                           />
                         {:else if block.previewKind === 'num'}
@@ -3045,8 +3023,7 @@
                   documentSettings = {
                     ...documentSettings,
                     format: (event.currentTarget as HTMLSelectElement).value as
-                      | 'A4'
-                      | 'A3',
+                      'A4' | 'A3',
                   }
                   updateLatexPreview()
                 }}

@@ -5,7 +5,6 @@ import { context } from '../modules/context'
 import Exercice from './Exercice'
 
 export const interactifReady = true
-export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 
@@ -39,13 +38,21 @@ export default class ExerciceQcm extends Exercice implements IExerciceQcm {
 
     this.spacingCorr = 2 // idem pour la correction
     // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
-    this.options = { vertical: false, ordered: false, lastChoice: 8 }
+    this.options = {
+      vertical: false,
+      ordered: false,
+      lastChoice: 8,
+      radio: true,
+    }
     this.enonce = ''
     this.reponses = []
     this.correction = ''
   }
 
   nouvelleVersion() {
+    if (this.bonnesReponses != null)
+      // Un seul = et non deux pour tester pour aussi undefined.
+      this.options.radio = false
     if (this.sup2) {
       this.consigne =
         this.bonnesReponses == null
@@ -56,22 +63,29 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
     } else {
       this.consigne = ''
     }
-    const statuts: boolean[] = Array(this.reponses.length).fill(false)
-    if (this.bonnesReponses == null) {
-      statuts.fill(false, 0, this.reponses.length - 1)
-      statuts[0] = true
-    } else {
-      for (let k = 0; k < this.reponses.length; k++) {
-        statuts[k] = this.bonnesReponses[k] ?? false
+    // Calculée en fonction et appelée après versionAleatoire()/versionOriginale() (pas avant la boucle) :
+    // ces méthodes peuvent réassigner this.bonnesReponses (ex. QCM où la bonne réponse change selon le
+    // tirage comme 1A-S03-4), donc un calcul figé en amont validerait le tirage précédent au lieu de celui affiché.
+    const calculerStatuts = (): boolean[] => {
+      const statuts: boolean[] = Array(this.reponses.length).fill(false)
+      if (this.bonnesReponses == null) {
+        statuts.fill(false, 0, this.reponses.length - 1)
+        statuts[0] = true
+      } else {
+        for (let k = 0; k < this.reponses.length; k++) {
+          statuts[k] = this.bonnesReponses[k] ?? false
+        }
       }
+      return statuts
     }
     if (this.versionAleatoire != null) {
-      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30; ) {
+      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
         if (this.sup && this.versionOriginale != null) this.versionOriginale()
         else this.versionAleatoire()
 
         const bonneReponse = this.reponses[0]
         if (this.questionJamaisPosee(i, this.enonce, bonneReponse)) {
+          const statuts = calculerStatuts()
           const qcmData = buildQcmForExercise(this, i, {
             question: this.enonce,
             correction: this.correction,
@@ -97,6 +111,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
       }
     } else {
       if (this.versionOriginale != null) this.versionOriginale()
+      const statuts = calculerStatuts()
       const qcmData = buildQcmForExercise(this, 0, {
         question: this.enonce,
         correction: this.correction,

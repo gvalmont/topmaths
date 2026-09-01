@@ -2,7 +2,7 @@ import { amcConvert } from '../../lib/amc/amcBuilders'
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
@@ -17,7 +17,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Calculer la fraction d'un nombre"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModificationImportante = '03/06/2026'
@@ -33,7 +33,7 @@ export const uuid = 'ddb83'
 export const refs = {
   'fr-fr': ['6N3L'],
   'fr-2016': ['6N33'],
-  'fr-ch': ['9NO14-1'],
+  'fr-ch': ['9NO3E-1', '10NO3A-2'],
 }
 export default class FractionDUnNombre extends Exercice {
   constructor() {
@@ -224,9 +224,13 @@ export default class FractionDUnNombre extends Exercice {
         }
       }
 
-      setReponse(this, i, (n * a) / b)
+      handleAnswers(this, i, { reponse: { value: (n * a) / b } })
       if ((n * a) % b !== 0 && !context.isAmc) {
-        setReponse(this, i, [(n * a) / b, texFractionFromString(n * a, b)])
+        handleAnswers(this, i, {
+          reponse: {
+            value: new FractionEtendue(n * a, b).texFraction,
+          },
+        })
       }
       texte += ajouteChampTexteMathLive(
         this,

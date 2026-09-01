@@ -1,10 +1,11 @@
 import { courbe } from '../../../lib/2d/Courbe'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceQcm from '../../ExerciceQcm'
-import { bleuMathalea } from '../../../lib/colors'
 
 export const uuid = 'fa682'
 export const refs = {
@@ -12,7 +13,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Métropole 05/22 : convexité'
@@ -62,11 +63,11 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       {
         xmin: -1,
         xmax: 11,
-        ymin: -6,
+        ymin: -7,
         ymax: 1,
         pixelsParCm: 30,
         scale: 1,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       [
         courbe(f, {
@@ -93,7 +94,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
 
     this.enonce =
       "On donne la représentation graphique de la fonction dérivée $f'$ d'une fonction $f$ définie sur $\\R$.<br>"
-    this.enonce += `${graphique}<br>`
+    this.enonce += `${graphique}`
     this.enonce += 'Parmi les affirmations suivantes, laquelle est correcte ?'
 
     this.correction =
@@ -105,7 +106,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
 
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionOriginale()
   }
 }

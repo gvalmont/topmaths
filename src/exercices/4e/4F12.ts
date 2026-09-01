@@ -16,18 +16,17 @@ import Exercice from '../Exercice'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { grille } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Résoudre un problème s'appuyant sur la lecture d'une représentation graphique"
-export const interactifType = 'multiMathfield'
+
 export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -40,8 +39,8 @@ export const dateDeModifImportante = '28/12/2024' // Changements pour homogéné
 export const uuid = 'b429f'
 
 export const refs = {
-  'fr-fr': ['4F12', '3AutoP09-1'],
-  'fr-ch': ['10FA5-2'],
+  'fr-fr': ['4F12', '3AutoP04-1'],
+  'fr-ch': ['10FA1B-18'],
 }
 export default class ExploiterRepresentationGraphique extends Exercice {
   constructor() {
@@ -80,7 +79,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
       nbQuestions: this.nbQuestions,
       defaut: 4,
     }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       if (typesDeProblemes[i] === 1) {
@@ -155,7 +154,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 },
                 bareme: toutAUnPoint,
               },
-              { formatInteractif: 'multiMathfield' },
+              { formatInteractif: 'multi-mathfield' },
             )
             texteCorr = `${numAlpha(0)} Au bout de $${miseEnEvidence(
               texNombre(t1) + sp() + '\\text{s}',
@@ -286,7 +285,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 },
                 bareme: toutAUnPoint,
               },
-              { formatInteractif: 'multiMathfield' },
+              { formatInteractif: 'multi-mathfield' },
             )
             texteCorr = `${numAlpha(0)} Le projectile retombe au sol à une distance de $${miseEnEvidence(texNombre(t1) + sp() + '\\text{m}')}$, car la courbe passe par le point de coordonnées $(${texNombre(
               t1,
@@ -454,7 +453,7 @@ c) Quelle distance a-t-elle parcourue au total ? %{champ3}`,
                 },
                 bareme: toutAUnPoint,
               },
-              { formatInteractif: 'multiMathfield' },
+              { formatInteractif: 'multi-mathfield' },
             )
             texteCorr = `${numAlpha(0)} Après ${tempsPause} minutes de vélo, ${fille} fait une pause car la courbe devient horizontale.<br>`
             texteCorr += `${numAlpha(1)} ${fille} est partie 40 min et a fait une pause de 10 min donc elle a fait réellement du vélo pendant $${miseEnEvidence(texNombre(30) + sp() + '\\text{min}')}$.<br>
@@ -628,7 +627,7 @@ c) Quelle distance a-t-elle parcourue au total ? %{champ3}`,
                 },
                 bareme: toutAUnPoint,
               },
-              { formatInteractif: 'multiMathfield' },
+              { formatInteractif: 'multi-mathfield' },
             )
 
             texteCorr = `${numAlpha(0)} La température la plus basse est $${miseEnEvidence(`${tmin}^\\circ\\text{C}`)}$.<br>

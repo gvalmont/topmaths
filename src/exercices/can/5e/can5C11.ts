@@ -1,9 +1,8 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une différence'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -15,8 +14,8 @@ export const amcType = 'AMCNum'
 export const uuid = '606fd'
 
 export const refs = {
-  'fr-fr': ['can5C11'],
-  'fr-ch': [],
+  'fr-fr': ['can5C11', '5N2I-flash1'],
+  'fr-ch': ['NR'],
 }
 export default class DifferenceNegative extends ExerciceSimple {
   constructor() {
@@ -27,8 +26,8 @@ export default class DifferenceNegative extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(8, 15)
-    const b = randint(18, 30)
+    const a = this.quotaRandint('a', 8, 15)
+    const b = this.quotaRandint('b', 18, 30)
     this.question = `Calculer $${a}-${b}$.`
     this.correction = `$${a}-${b}=${a - b}$`
     this.reponse = a - b

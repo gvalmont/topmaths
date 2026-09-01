@@ -1,11 +1,10 @@
-import EvolSuccessives from '../can/2e/can2C25'
+import EvolSuccessives from '../can/2e/can2I21-02'
 export const titre =
   'Déterminer une évolution globale après deux évolutions successives'
 export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can5P01 pour les auto 1er

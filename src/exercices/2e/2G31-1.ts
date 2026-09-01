@@ -19,7 +19,7 @@ import Exercice from '../Exercice'
 export const titre = "Déterminer le coefficient directeur d'une droite"
 export const dateDeModifImportante = '27/04/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -31,7 +31,7 @@ export const uuid = '1ea16'
 
 export const refs = {
   'fr-fr': ['2G31-1'],
-  'fr-ch': ['11FA9-9', '1mF2-1'],
+  'fr-ch': ['11FA1B-21', '1mF2-1'],
 }
 export default class CoefficientDirecteurDeDroite extends Exercice {
   constructor() {
@@ -74,7 +74,7 @@ export default class CoefficientDirecteurDeDroite extends Exercice {
       }
     }
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let xA: number

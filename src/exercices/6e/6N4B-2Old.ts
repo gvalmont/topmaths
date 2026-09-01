@@ -16,7 +16,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Comprendre un algorithme itératif sur des élements en 3D'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '10/06/2025'
@@ -35,7 +34,7 @@ export const uuid = '328b7'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class PaternNum06emeOld extends Exercice {
@@ -143,7 +142,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
             ? `<div style="display: inline-block; width: 250px; height: 250px; margin-right: 10px;">${canvas3d[j]}<h1>motif ${j + 1}</h1></div>`
             : mathalea2d(
                 Object.assign(
-                  { style: 'display: inline-block' },
+                  { display: 'inline-block' } as const,
                   fixeBordures(figsLatex[j]),
                 ),
                 cubeDef(`cubeIsoQ${i}F0`),
@@ -167,7 +166,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                   ? `<div style="display: inline-block; width: 250px; height: 250px; margin-right: 10px;">${canvas3d[nbFigures + 1]}</div>`
                   : mathalea2d(
                       Object.assign(
-                        { style: 'display: inline-block' },
+                        { display: 'inline-block' } as const,
                         fixeBordures(figsLatex[nbFigures]),
                       ),
                       cubeDef(`cubeIsoQ${i}F0`),
@@ -185,6 +184,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                   {
                     exercice: this,
                     question: indexInteractif++,
+                    reponseParams: { formatInteractif: 'mathalea-mathfield' },
                     objetReponse: { reponse: { value: nbTex } },
                     typeInteractivite: 'mathlive',
                   },
@@ -203,6 +203,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: { reponse: { value: nbTex } },
                   typeInteractivite: 'mathlive',
                 },
@@ -222,6 +223,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: { reponse: { value: etape.toString() } },
                   typeInteractivite: 'mathlive',
                 },
@@ -247,6 +249,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: { reponse: { value: nbTex } },
                   typeInteractivite: 'mathlive',
                 },

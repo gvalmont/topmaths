@@ -5,7 +5,7 @@ import { prenom } from '../../lib/outils/Personne'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre =
   'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
 
@@ -17,7 +17,7 @@ export const uuid = '8b18b'
 
 export const refs = {
   'fr-fr': ['4L13-1', 'BP2RES2'],
-  'fr-ch': ['9FA2-9', '10FA3-10'],
+  'fr-ch': ['10FA5A-3'],
 }
 
 const pluriel = function (
@@ -163,7 +163,7 @@ export default class FormeLitteraleIntroduireUneLettre extends Exercice {
             lettre: 'p',
             article: 'un',
             sing: 'pantalon',
-            plur: 'patallons',
+            plur: 'pantalons',
           },
           elt2: {
             lettre: 't',
@@ -183,8 +183,8 @@ export default class FormeLitteraleIntroduireUneLettre extends Exercice {
           elt2: {
             lettre: 'v',
             article: 'un',
-            sing: 'vynil',
-            plur: 'vynils',
+            sing: 'disque vinyle',
+            plur: 'disques vinyles',
           },
         },
         {
@@ -289,13 +289,11 @@ export default class FormeLitteraleIntroduireUneLettre extends Exercice {
         ? choice(['x', 'y', 'a', 'z', 'b', 'c', 'h', 'k', 'n'], lettre1)
         : situation.elt2.lettre
       enonces.push({
-        enonce: `${situation.prenom} veut acheter ${n} ${pluriel(n, situation.elt1)} et ${p} ${pluriel(p, situation.elt2)}.
+        enonce: `${situation.prenom} veut acheter $${n}$ ${pluriel(n, situation.elt1)} et $${p}$ ${pluriel(p, situation.elt2)}.
 <br>On note $${lettre1}$ le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${lettre2}$ le prix d'${situation.elt2.article} ${situation.elt2.sing}.`,
         question: '',
         correction: `
-        ${situation.prenom} va payer $${n}$ fois le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${p}$ fois le prix d'${situation.elt2.article} ${situation.elt2.sing}.
-        <br> C'est-à-dire $${n}\\times ${lettre1} + ${p}\\times ${lettre2} = ${sliceUn(n)}${lettre1} + ${sliceUn(p)}${lettre2}$.
-        <br>Donc le prix total de l'achat est $${miseEnEvidence(`${sliceUn(n)}${lettre1} + ${sliceUn(p)}${lettre2}`)}$.
+        ${situation.prenom} va payer $${n}$ fois le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${p}$ fois le prix d'${situation.elt2.article} ${situation.elt2.sing}.<br> C'est-à-dire $${n}\\times ${lettre1} + ${p}\\times ${lettre2} = ${sliceUn(n)}${lettre1} + ${sliceUn(p)}${lettre2}$.<br>Donc le prix total de l'achat est $${miseEnEvidence(`${sliceUn(n)}${lettre1} + ${sliceUn(p)}${lettre2}`)}$.
         `,
       })
       texte = `${enonces[0].enonce}`
@@ -313,6 +311,7 @@ export default class FormeLitteraleIntroduireUneLettre extends Exercice {
             question: i, // ça, c'est pour qu'il numérote correctement l'input
             typeInteractivite: 'mathlive', // ça, c'est l'input le plus souvent utilisé
             classe: 'clavierMinuscules',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               // ça c'est ce qui définit la réponse attendue et la façon dont elle doit être vérifiée
               reponse: {

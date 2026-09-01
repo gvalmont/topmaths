@@ -6,9 +6,10 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { triangle2points2angles } from '../../lib/2d/triangles'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -23,13 +24,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Déterminer la valeur d'un angle en utilisant la somme des angles dans un triangle"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '06/04/2025'
@@ -66,7 +65,7 @@ export const uuid = 'dc8c9'
 export const refs = {
   'fr-fr': [],
   'fr-2016': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 const troisiemeAngle = function (a1: number, a2: number) {
   if (a1 + a2 <= 180) {
@@ -116,12 +115,10 @@ export default class ExerciceAnglesTrianglesOld extends Exercice {
     this.sup2 = false
     this.sup3 = true
     this.sup4 = '1'
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.spacingCorr = context.isHtml ? 2 : 1.5
+    this.spacing = 2
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
-    this.nbCols = 2
-    this.nbColsCorr = 2
   }
 
   nouvelleVersion() {
@@ -1328,20 +1325,27 @@ export default class ExerciceAnglesTrianglesOld extends Exercice {
       // Le code ci-dessous permet de changer de l'ordre des angles dans les questions interactives
       // Cela ne permet pas à un petit malin de noter les réponses et de refaire la question en les remettant à la même place
       const reponsesAMC = [reponseInteractive[choixAngle[0]]]
-      setReponse(this, indiceSetReponse, reponseInteractive[choixAngle[0]])
+      handleAnswers(
+        this,
+        indiceSetReponse,
+        { reponse: { value: reponseInteractive[choixAngle[0]] } },
+        { formatInteractif: 'mathlive' },
+      )
       if (reponseInteractive.length > 1) {
         reponsesAMC.push(reponseInteractive[choixAngle[1]])
-        setReponse(
+        handleAnswers(
           this,
           indiceSetReponse + 1,
-          reponseInteractive[choixAngle[1]],
+          { reponse: { value: reponseInteractive[choixAngle[1]] } },
+          { formatInteractif: 'mathlive' },
         )
         if (reponseInteractive.length > 2) {
           reponsesAMC.push(reponseInteractive[choixAngle[2]])
-          setReponse(
+          handleAnswers(
             this,
             indiceSetReponse + 2,
-            reponseInteractive[choixAngle[2]],
+            { reponse: { value: reponseInteractive[choixAngle[2]] } },
+            { formatInteractif: 'mathlive' },
           )
         }
       }

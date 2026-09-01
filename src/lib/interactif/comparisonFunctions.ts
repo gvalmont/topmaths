@@ -14,7 +14,7 @@ import {
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { pgcd } from '../outils/primalite'
-import type { OptionsComparaisonType } from '../types'
+import type { CleaningOperation, OptionsComparaisonType } from '../types'
 import { generateCleaner } from './cleaners'
 
 const ce = new ComputeEngine()
@@ -464,7 +464,7 @@ function handleHMS(saisie: string, goodAnswer: string): ResultType {
 /**
  * Compare deux chaînes de coordonnées (2D ou 3D), en normalisant les formats.
  * Gère : parenthèses, séparateur (;), fractions, décimaux, espaces, etc.
- * Exemples acceptés : (3;3), 3;4, (-3;2{,}5), (\frac35;-frac{2}{5}), 1,2,3
+ * Exemples acceptés : (3;3), 3;4, (-3;2,5), (\frac35;-frac{2}{5}), 1,2,3
  * @author Jean-claude Lhote
  */
 export function handleCoordinates(saisie: string, answer: string): ResultType {
@@ -542,9 +542,9 @@ function handleIntervalle(saisie: string, answer: string): ResultType {
     )
     // Nettoie le code saisi pour uniformiser toute saisie
     const clean = generateCleaner([
+      'espaces',
       'virgules',
       'parentheses',
-      'espaces',
       'accolades',
     ])
 
@@ -867,9 +867,9 @@ function handleNombreAvecEspace(saisie: string, answer: string): ResultType {
   let goodAnswerNew = goodAnswerClean.replace(/\s+/g, '') // EE : On enlève tous les espaces s'il y en a.
 
   // Gestion pénible de la virgule ci-dessous dans le cas de plus de 3 chiffres dans la partie décimale.
-  goodAnswerNew = goodAnswerNew.replace('{,}', ',') // EE : On enlève toutes les virgules sous la forme {,} s'il y en a.
+  goodAnswerNew = goodAnswerNew.replace(',', ',') // EE : On enlève toutes les virgules sous la forme , s'il y en a.
   goodAnswerNew = formatNumberWithSpaces(goodAnswerNew) // EE : On rajoute tous les espaces adéquats.
-  goodAnswerNew = goodAnswerNew.replace(',', '{,}') // EE : On rajoute toutes les virgules sous la forme {,} s'il y en a.
+  goodAnswerNew = goodAnswerNew.replace(',', ',') // EE : On rajoute toutes les virgules sous la forme , s'il y en a.
 
   let feedback = ''
   if (inputCleanFirst !== goodAnswerNew && inputClean === goodAnswerClean) {
@@ -1041,6 +1041,26 @@ function handleEcritureScientifique(
  * @param {string} input la chaine qui contient le nombre avec son unité
  * @return {Grandeur|false} l'objet de type Grandeur qui contient la valeur et l'unité... ou false si c'est pas une grandeur.
  */
+const CLEANER_STEPS_UNITE: CleaningOperation[] = [
+  'virgules',
+  'espaces',
+  'fractions',
+  'parentheses',
+  'mathrm',
+  'operatorName',
+]
+
+/**
+ * Indique si une saisie non vide ne contient pas d'unité reconnaissable.
+ * Utilisée pour bloquer une première vérification tant que l'unité n'a pas été saisie.
+ */
+export function estUniteManquante(saisie: string): boolean {
+  if (saisie == null || saisie.trim() === '') return false
+  const localInput = saisie.replace('^\\circ', '°').replace('\\degree', '°')
+  const cleaner = generateCleaner(CLEANER_STEPS_UNITE)
+  return inputToGrandeur(cleaner(localInput)) === false
+}
+
 function inputToGrandeur(input: string): Grandeur | false {
   if (input.indexOf('°C') > 0) {
     const split = input.split('°C')
@@ -1087,14 +1107,7 @@ function handleUnite(
   */
   // Version Jean-claude Lhote
   const localInput = saisie.replace('^\\circ', '°').replace('\\degree', '°')
-  const cleaner = generateCleaner([
-    'virgules',
-    'espaces',
-    'fractions',
-    'parentheses',
-    'mathrm',
-    'operatorName',
-  ])
+  const cleaner = generateCleaner(CLEANER_STEPS_UNITE)
   const inputGrandeur = inputToGrandeur(cleaner(localInput))
 
   const goodAnswerGrandeur = Grandeur.fromString(
@@ -1272,11 +1285,13 @@ function handleFraction(
   const clean = generateCleaner(['virgules', 'fractionsMemesNegatives'])
   const sFrac = parseFractionLatex(clean(saisie))
 
-  if (
-    options.nombreDecimalSeulement &&
-    handleNombreDecimalSeulement(saisie, answer).isOk
-  )
-    return ok()
+  if (options.nombreDecimalSeulement) {
+    const decimalResult = handleNombreDecimalSeulement(saisie, answer)
+    if (decimalResult.isOk) return ok()
+    // La saisie n'est pas une fraction : inutile de la juger sur ce critère,
+    // on renvoie directement le message adapté à une réponse décimale.
+    if (!sFrac) return decimalResult
+  }
 
   if (
     Number.isInteger(ce.parse(clean(saisie)).re) &&
@@ -1362,7 +1377,6 @@ function handleFraction(
   // options.fractionEgale
   return mathEqual(parse(saisie), parse(answer)) ? ok() : fail()
 }
-
 /*
 function handleFractionIrreductible(
   saisie: string,
@@ -1522,7 +1536,7 @@ function handleNombreDecimalSeulement(
       'Résultat incorrect car une valeur décimale (ou entière) est attendue.',
     )
 
-  return mathEqual(parse(saisie), parse(answer)) ? ok() : fail()
+  return mathEqual(parse(saisie), parse(answer)) ? ok() : fail('Résultat incorrect.')
 }
 
 function handleExpressionNumerique(
@@ -2265,7 +2279,7 @@ function handletexteAvecCasse(
     'fractions',
     'virgules',
   ])
-  // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S30-5
+  // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S40-5
   saisie = saisie.replace(
     /\\lparen\s*([^{}]+)\s*\{,\}\s*([^{}]+)\s*\\rparen/g,
     '($1,$2)',

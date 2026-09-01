@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Trouver un nombre'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'rg0k0'
 export const refs = {
   'fr-fr': [],
@@ -26,8 +25,10 @@ export default class nombreATrouver2026 extends ExerciceSimple {
 
   nouvelleVersion() {
     const annee = 2026
-    const choix = this.canOfficielle ? 3 : choice([1, 2, 3])
-    const nbre = this.canOfficielle ? annee : choice([-annee, annee])
+    const choix = this.canOfficielle ? 3 : this.quotaChoice('choix', [1, 2, 3])
+    const nbre = this.canOfficielle
+      ? annee
+      : this.quotaChoice('nbre', [-annee, annee])
     if (choix === 1) {
       this.question = `En multipliant un nombre positif par lui-même, on trouve $${texNombre(annee, 0)}$. <br>
             Quel est ce nombre ? `

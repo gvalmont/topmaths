@@ -1,11 +1,10 @@
 import FabriqueAYohaku from '../6e/_Yohaku'
 export const titre =
-  'Résoudre un Yohaku multiplicatif nombres relatifs niveau 1'
+  'Résoudre un Yohaku multiplicatif avec des nombres relatifs'
 export const dateDePublication = '10/08/2022'
 export const dateDeModifImportante = '16/12/2023'
 
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -13,7 +12,7 @@ export const uuid = '2fbc0'
 
 export const refs = {
   'fr-fr': ['4C10-8'],
-  'fr-ch': ['10NO4-10'],
+  'fr-ch': ['9NO2C-10'],
 }
 /**
  * @author Jean-claude Lhote

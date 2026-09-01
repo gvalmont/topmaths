@@ -4,6 +4,7 @@
 
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   Spline,
@@ -16,11 +17,10 @@ import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 
 export const titre = "Déterminer le signe d'une fonction graphiquement "
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'eb73a'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -122,7 +122,12 @@ export default class NomExercice extends ExerciceSimple {
       const courbe1 = theSpline.courbe({
         epaisseur: 1.5,
         ajouteNoeuds: true,
-        optionsNoeuds: { color: bleuMathalea, taille: 2, style: 'x', epaisseur: 2 },
+        optionsNoeuds: {
+          color: bleuMathalea,
+          taille: 2,
+          style: 'x',
+          epaisseur: 2,
+        },
         color: bleuMathalea,
       })
       const objetsEnonce = [repere1, courbe1]
@@ -131,7 +136,7 @@ export default class NomExercice extends ExerciceSimple {
         this.question = 'On donne le graphique d’une fonction $f$ : <br>'
         this.question += mathalea2d(
           Object.assign(
-            { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
+            { pixelsParCm: 30, scale: 0.55, center: !context.isHtml },
             {
               xmin: bornes.xMin - 1,
               ymin: bornes.yMin - 1,
@@ -189,7 +194,12 @@ export default class NomExercice extends ExerciceSimple {
       const courbe1 = theSpline.courbe({
         epaisseur: 1.5,
         ajouteNoeuds: true,
-        optionsNoeuds: { color: bleuMathalea, taille: 2, style: 'x', epaisseur: 2 },
+        optionsNoeuds: {
+          color: bleuMathalea,
+          taille: 2,
+          style: 'x',
+          epaisseur: 2,
+        },
         color: bleuMathalea,
       })
       const objetsEnonce = [repere1, courbe1]
@@ -203,7 +213,7 @@ export default class NomExercice extends ExerciceSimple {
           `Sur quel intervalle, $f$ est-elle ${choix ? 'positive' : 'négative'} ou nulle ?<br>` +
           mathalea2d(
             Object.assign(
-              { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+              { pixelsParCm: 30, scale: 0.65, center: !context.isHtml },
               {
                 xmin: bornes.xMin - 1,
                 ymin: bornes.yMin - 1,
@@ -237,7 +247,7 @@ export default class NomExercice extends ExerciceSimple {
         this.question = 'On donne le graphique d’une fonction $f$ : <br>'
         this.question += mathalea2d(
           Object.assign(
-            { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+            { pixelsParCm: 30, scale: 0.65, center: !context.isHtml },
             {
               xmin: bornes.xMin - 1,
               ymin: bornes.yMin - 1,

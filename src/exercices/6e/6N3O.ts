@@ -1,8 +1,8 @@
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { createList } from '../../lib/format/lists'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
@@ -18,7 +18,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Comprendre le sens d'un pourcentage"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDePublication = '22/07/2025'
 
 /** Comprendre le sens d'un pourcentage
@@ -30,7 +30,7 @@ export const uuid = '44e2e'
 export const refs = {
   'fr-fr': ['6N3O'],
   'fr-2016': ['6N33-5'],
-  'fr-ch': [],
+  'fr-ch': ['10FA2B-1'],
 }
 
 export default class ComprendreSensPourcentage extends Exercice {
@@ -126,7 +126,7 @@ export default class ComprendreSensPourcentage extends Exercice {
     }).map(Number)
 
     let pourcentage = 0
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texteCorr = ''
       const texteAvant = []
       let texteApres = ''
@@ -287,7 +287,7 @@ export default class ComprendreSensPourcentage extends Exercice {
         case 12:
           unites = 'kWh'
           pourcentage = randint(3, 29, [10, 20])
-          texteAvant[0] = `Si un appareil utilise $${pourcentage}\\ \\%$ de l'énergie d'un foyer, alors pour $100$ kilowattheures (kWh), cet appareil consomme`
+          texteAvant[0] = `Si un appareil utilise $${pourcentage}\\ \\%$ de l'énergie d'un foyer, alors pour $100$ kilowatt-heures (kWh), cet appareil consomme`
           texteApres = `${unites}.`
 
           texteAvant[1] = `On peut en déduire que pour $${multiplePour100[i] * 100}$ kWh, cet appareil consomme`
@@ -352,7 +352,7 @@ export default class ComprendreSensPourcentage extends Exercice {
             options: { nombreDecimalSeulement: true },
           },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       const itemsCorr = []

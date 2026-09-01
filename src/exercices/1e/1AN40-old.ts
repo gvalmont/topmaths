@@ -1,6 +1,6 @@
 import { cercleTrigo } from '../../lib/2d/angles'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Angle, valeursTrigo } from '../../lib/mathFonctions/Angle'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -14,7 +14,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Utiliser les valeurs remarquables  du cosinus et sinus'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '16/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '12/01/2024'
@@ -159,7 +159,12 @@ export default class CosEtsin extends Exercice {
       // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc ça permet d'atteindre la propriété souhaitée dans l'objet Angle.
       // monAngle[listeTypeQuestions[i][0]] fait référence à monAngle.cos ou à monAngle.sin selon la valeur de listeTypeQuestions[i][0].
 
-      setReponse(this, i, monAngle[listeTypeQuestions[i][0]])
+      handleAnswers(
+        this,
+        i,
+        { reponse: { value: monAngle[listeTypeQuestions[i][0]] } },
+        { formatInteractif: 'mathlive' },
+      )
       // dans quelques cas, les valeurs de cos et sin sont multiples et contenues dans une liste avec en premier '1/2', en deuxième la valeur décimale '0.5'
       valeurFonction = Array.isArray(monAngle[listeTypeQuestions[i][0]])
         ? monAngle[listeTypeQuestions[i][0]][0]

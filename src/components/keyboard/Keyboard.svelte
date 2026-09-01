@@ -5,6 +5,7 @@
   import { mathaleaRenderDiv } from '../../lib/mathalea'
   import { keyboardBlocks } from './layouts/keysBlocks'
   import { GAP_BETWEEN_BLOCKS, getMode } from './lib/sizes'
+  import { enregistreTouchesPersonnalisees } from './lib/touchesPersonnalisees'
   import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
   import KeyboardPage from './presentationalComponents/keyboardpage/KeyboardPage.svelte'
   import { keyboardState } from './stores/keyboardStore'
@@ -59,6 +60,17 @@
     isInLine = value.isInLine
     pageType = value.alphanumericLayout
     myKeyboard.empty()
+    // Les touches propres à la question sont présentées en premier : ce sont
+    // celles dont l'élève a besoin pour cette réponse précise.
+    if (value.customKeys != null && value.customKeys.length > 0) {
+      const noms = enregistreTouchesPersonnalisees(value.customKeys)
+      myKeyboard.add({
+        keycaps: { inline: noms, block: noms },
+        cols: Math.min(noms.length, 3),
+        title: 'Pour cette question',
+        isUnits: false,
+      })
+    }
     for (const block of value.blocks) {
       if (block !== 'alphanumeric') myKeyboard.add(keyboardBlocks[block])
     }
@@ -136,10 +148,13 @@
         let mf = document.querySelector(
           ('#' + idMathField).replace('-button', ''),
         ) as MathfieldElement | null
-        // Si non trouvé, cherche dans les shadowRoot des multi-mathfield
+        // Si non trouvé, cherche dans les shadowRoot des custom elements
+        // qui embarquent des math-field (multi-mathfield, tableau-signes-variations, ...)
         if (!mf) {
-          const multiMathfields = document.querySelectorAll('multi-mathfield')
-          for (const el of multiMathfields) {
+          const shadowHosts = document.querySelectorAll(
+            'multi-mathfield, tableau-signes-variations',
+          )
+          for (const el of shadowHosts) {
             const shadow = el.shadowRoot
             if (shadow) {
               const found = shadow.querySelector(
@@ -183,6 +198,7 @@
     role="none"
     transition:fly|global={{ y: '100%', opacity: 1 }}
     bind:this={divKeyboard}
+    id="mathalea-virtual-keyboard"
     class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999] drop-shadow-[0_-3px_5px_rgba(130,130,130,0.25)] dark:drop-shadow-[0_-3px_5px_rgba(250,250,250,0.25)]"
   >
     {#if alphanumericDisplayed}

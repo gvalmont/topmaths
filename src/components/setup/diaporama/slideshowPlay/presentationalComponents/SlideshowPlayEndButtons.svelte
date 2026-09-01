@@ -3,6 +3,7 @@
   import ButtonQRCode from '../../../../shared/forms/ButtonQRCode.svelte'
   import ButtonActionInfo from '../../../../shared/forms/ButtonActionInfo.svelte'
   import ButtonIconTooltip from '../../../../shared/forms/ButtonIconTooltip.svelte'
+  import { goToTypstWithSeries } from '../../goToTypstWithSeries'
 
   export let returnToStart: () => void
   export let backToSettings: () => void
@@ -19,6 +20,11 @@
     icon="bx-detail mx-[3vw] my-2 text-[6vw]"
     tooltip="Questions + Réponses"
     on:click={goToOverview}
+  />
+  <ButtonIconTooltip
+    icon="bx-printer mx-[3vw] my-2 text-[6vw]"
+    tooltip="PDF sujets + corrigés"
+    on:click={goToTypstWithSeries}
   />
   <ButtonActionInfo
     action="copy"

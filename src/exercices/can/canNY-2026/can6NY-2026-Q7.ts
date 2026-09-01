@@ -1,13 +1,12 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
-import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { sp } from '../../../lib/outils/outilString'
+import { texNombre } from '../../../lib/outils/texNombre'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Compléter une suite'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'aqed6'
 export const refs = {
   'fr-fr': [],
@@ -27,8 +26,8 @@ export default class CompleterUneSuite extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const annee=2026
-    const k = this.canOfficielle ? 5 : randint(3, 9)
+    const annee = 2026
+    const k = this.canOfficielle ? 5 : this.quotaRandint('k', 3, 9)
     const nbre2 = annee + k
     const nbre3 = nbre2 + k
     this.reponse = nbre3 + k

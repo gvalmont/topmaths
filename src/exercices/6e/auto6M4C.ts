@@ -1,5 +1,5 @@
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -8,7 +8,6 @@ import Exercice from '../Exercice'
 export const dateDePublication = '02/08/2025'
 export const titre = 'Choisir les bonnes unités de mesure de durées courtes'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
 
 /**
  * Choisir les bonnes unités de mesure de durées courtes
@@ -17,7 +16,7 @@ export const interactifType = 'listeDeroulante'
 export const uuid = 'd040a'
 
 export const refs = {
-  'fr-fr': ['auto6M4C', '3AutoG06-6'],
+  'fr-fr': ['auto6M4C', '3AutoM01-2'],
   'fr-2016': ['6D10-1'],
   'fr-ch': [''],
 }
@@ -29,7 +28,7 @@ export default class AutoChoisirDureeMinutes extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const durees = [
         ['jour', 'heures', 24, 'j', 'h'],
         ['heure', 'minutes', 60, 'h', 'min'],
@@ -57,12 +56,12 @@ export default class AutoChoisirDureeMinutes extends Exercice {
         const texte = unite1ATrouver
           ? '$1$ ' +
             (this.interactif
-              ? choixDeroulant(this, i, choixListeDeroulante)
+              ? choixDeroulant(this, i, { choices: choixListeDeroulante })
               : '$\\ldots\\ldots\\ldots\\ldots$') +
             ` = $${durees[choix][2]}$ ${durees[choix][1]}`
           : `$1$ ${durees[choix][0]} = $${durees[choix][2]}$ ` +
             (this.interactif
-              ? choixDeroulant(this, i, choixListeDeroulante)
+              ? choixDeroulant(this, i, { choices: choixListeDeroulante })
               : '$\\ldots\\ldots\\ldots\\ldots$')
 
         const texteCorr = unite1ATrouver
@@ -73,7 +72,7 @@ export default class AutoChoisirDureeMinutes extends Exercice {
           this,
           i,
           { reponse: { value: reponse } },
-          { formatInteractif: 'listeDeroulante' },
+          { formatInteractif: 'liste-deroulante' },
         )
 
         this.listeQuestions[i] = texte

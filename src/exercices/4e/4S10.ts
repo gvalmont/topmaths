@@ -1,10 +1,10 @@
-import ConstruireUnDiagramme from '../5e/5S12'
+import ConstruireUnDiagramme from '../5e/5D1D'
 export const titre = 'Construire un diagramme'
 export const interactifReady = false
 export const uuid = '26ea7'
 export const refs = {
   'fr-fr': ['4S10'],
-  'fr-ch': ['10FA5-1'],
+  'fr-ch': ['10FA3A-2'],
 }
 export default class ConstruireUnDiagramme4e extends ConstruireUnDiagramme {
   constructor() {

@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Calculer une image'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '28fc0'
 export const refs = {
   'fr-fr': [],
@@ -26,7 +25,7 @@ export default class calculImage extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const c = randint(-5, -1)
+    const c = this.quotaRandint('c', -5, -1)
     this.question = `$f(x)=x^2+${texNombre(2025, 0)}$<br>`
     this.reponse = c * c + 2025
     this.correction = `$f(${c})=(${c})^2+${texNombre(2025, 0)}$<br>`

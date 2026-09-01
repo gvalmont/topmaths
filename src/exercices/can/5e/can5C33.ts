@@ -9,7 +9,7 @@ import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer dans une pyramide additive de nombres relatifs'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '28/03/2026'
@@ -19,8 +19,8 @@ export const dateDePublication = '28/03/2026'
 export const uuid = '109af'
 
 export const refs = {
-  'fr-fr': ['can5C33'],
-  'fr-ch': [],
+  'fr-fr': ['can5C33', '5N2G-flash3'],
+  'fr-ch': ['9NO2B-10'],
 }
 export default class Pyramide3Etages extends ExerciceSimple {
   constructor() {

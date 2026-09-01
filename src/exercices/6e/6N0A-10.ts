@@ -26,7 +26,6 @@ import Exercice from '../Exercice'
 export const titre = 'Ranger des nombres entiers'
 export const dateDeModifImportante = '13/05/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * * Ranger une liste de nombres dans l'ordre croissant ou décroissant
@@ -38,7 +37,7 @@ export const uuid = '3bba9'
 export const refs = {
   'fr-fr': ['6N0A-10'],
   'fr-2016': ['6N11-4'],
-  'fr-ch': ['9NO2-4'],
+  'fr-ch': [''], // Primaire anciennement :['9NO2-4'],
 }
 // une fonction pour gérer l'ordre
 function myOrdre(ordre: 'croissant' | 'décroissant', tab: number[]) {
@@ -53,7 +52,7 @@ function myOrdre(ordre: 'croissant' | 'décroissant', tab: number[]) {
 
 // Fonctions from EE
 function generateNumbers(
-  niveaux: Number[] = [1, 2, 3],
+  niveaux: number[] = [1, 2, 3],
   proximite: boolean = true,
 ): number[] {
   let numbers: number[] = []
@@ -229,7 +228,7 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
     )
     typesDeNombresEntiers = enleveDoublonNum(typesDeNombresEntiers)
 
-    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // les chiffres
       const croissant = listeTypeDeQuestions[i] === 1
       const ordre = croissant ? 'croissant' : 'décroissant'

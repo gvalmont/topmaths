@@ -1,5 +1,6 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
@@ -8,13 +9,11 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
-  'Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)'
+  'Multiplier ou diviser un entier par 10, 100, 1 000... avec résultat entier'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -29,9 +28,9 @@ export const dateDeModifImportante = '09/08/2022'
 export const uuid = 'bb9d8'
 
 export const refs = {
-  'fr-fr': ['6N2C-1'],
+  'fr-fr': ['6N2C-1', 'auto5N1E', '6AutoN4-2'],
   'fr-2016': ['6N12'],
-  'fr-ch': ['9NO3-2'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-2'],
 }
 export default class MultiplierEntierPar101001000 extends Exercice {
   constructor() {
@@ -121,13 +120,15 @@ export default class MultiplierEntierPar101001000 extends Exercice {
             b = c
           }
           texte = `$${texNombre(a)}\\times${texNombre(b)}$`
-          setReponse(this, i, [texNombre(a * b), a * b])
+          handleAnswers(this, i, {
+            reponse: { value: texNombre(a * b) },
+          })
           texteCorr = `$${texNombre(a)}\\times${texNombre(b)}=${texNombre(a * b)}$`
           break
         case 'division':
         default:
           texte = `$${texNombre(a * b)}\\div${texNombre(b)}$`
-          setReponse(this, i, a)
+          handleAnswers(this, i, { reponse: { value: a } })
           texteCorr = `$${texNombre(a * b)}\\div${texNombre(b)}=${texNombre(a)}$`
           break
       }

@@ -1,10 +1,12 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
@@ -13,13 +15,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre = "Calculer mentalement le pourcentage d'un nombre"
 
@@ -33,7 +32,7 @@ export const uuid = '66756'
 export const refs = {
   'fr-fr': ['6N3Q'],
   'fr-2016': ['6N33-1'],
-  'fr-ch': ['9NO14-3'],
+  'fr-ch': ['9NO3E-3', '10FA2B-5'],
 }
 export default class PourcentageDunNombre extends Exercice {
   constructor() {
@@ -118,8 +117,13 @@ $${p}~\\%~\\text{de }${n}= ${p / 10} \\times ${n}\\div${10} =  ${texNombre((p * 
           }
       }
       if (context.isHtml && this.interactif)
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-      setReponse(this, i, (n * p) / 100)
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierNumbers,
+          { texteAvant: `${sp()}= ` },
+        )
+      handleAnswers(this, i, { reponse: { value: (n * p) / 100 } })
       if (context.isAmc) {
         this.autoCorrectionAMC[i].enonce = texte + '='
         this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
@@ -149,7 +153,8 @@ $${p}~\\%~\\text{de }${n}= ${p / 10} \\times ${n}\\div${10} =  ${texNombre((p * 
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
-      } else cpt++
+      }
+      cpt++
     }
     listeQuestionsToContenu(this)
   }

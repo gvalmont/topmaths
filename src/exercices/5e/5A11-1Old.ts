@@ -16,7 +16,6 @@ import Exercice from '../Exercice'
 export const dateDePublication = '7/12/2020'
 export const dateDeModifImportante = '29/10/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre =
   'Parcourir un labyrinthe de multiples basé sur les critères de divisibilité'
@@ -80,7 +79,7 @@ export default class ExerciceLabyrintheDivisibilite1Old extends Exercice {
       melange: 0,
     }).map(Number)
 
-    for (let q = 0; q < this.nbQuestions; ) {
+    for (let q = 0; q < this.nbQuestions;) {
       const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
       const nbC =
         this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)

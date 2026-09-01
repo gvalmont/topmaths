@@ -6,7 +6,7 @@ export const refs = {
   'fr-ch': ['NR'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Nouvelle Calédonie 08/23 : produit scalaire'
@@ -55,7 +55,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
 
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionOriginale()
   }
 }

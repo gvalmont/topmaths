@@ -1,11 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { abs, arrondi } from '../../../lib/outils/nombres'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec des carrés/priorité opératoire'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '08/12/2021'
@@ -33,7 +32,7 @@ export default class CalculDivers1 extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, c
     switch (
-      choice(['a', 'b', 'c', 'd']) //
+      this.quotaChoice('cas', ['a', 'b', 'c', 'd']) //
     ) {
       case 'a':
         a = randint(-5, 5, [0, 1])

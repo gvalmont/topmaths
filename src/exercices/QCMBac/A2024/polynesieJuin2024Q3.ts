@@ -6,7 +6,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Polynésie 06/2024 : intégration'
@@ -24,7 +24,7 @@ export const dateDePublication = '28/10/2024'
  */
 export default class PolynesieJuin2024Ex2Q3 extends ExerciceQcm {
   versionOriginale: () => void = () => {
-    this.reponses = ['$8{,}3$', '$4{,}9$', '$1{,}7$', '$7{,}5$']
+    this.reponses = ['$8,3$', '$4,9$', '$1,7$', '$7,5$']
     this.enonce = ` On considère la fonction $g$ définie sur $\\R$ par $g(x) = x^2 \\ln \\left(x^2 + 4\\right) $.
 Alors $\\displaystyle\\int_0^2 g'(x)\\:\\text{d}x$ vaut, à $10^{-1}$ près :
 <br>`
@@ -35,7 +35,7 @@ $\\displaystyle\\int_0^2 g'(x)\\:\\text{d}x = \\left[x^2 \\ln \\left(x^2 + 4\\ri
 
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionOriginale()
   }
 }

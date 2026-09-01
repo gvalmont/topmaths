@@ -1,3 +1,50 @@
+/**
+ * Dictionnaire des sujets EAM (Évaluation en Autonomie Modulée)
+ *
+ * Tags utilisés par filière :
+ *
+ * SPÉCIALITÉ :
+ * - Automatismes
+ * - Dérivation
+ * - Exponentielle
+ * - Produit scalaire
+ * - Probabilités
+ * - Python
+ * - QCM
+ * - Second degré
+ * - Suites
+ * - Variables aléatoires
+ *
+ * SPÉCIFIQUE (Tronc commun) :
+ * - Analyse de l'information
+ * - Automatismes
+ * - Croissance linéaire
+ * - Exponentielle
+ * - Modélisation
+ * - Pourcentages (évolutions)
+ * - Probabilités
+ * - QCM
+ * - Second degré
+ * - Suites
+ * - Tableur
+ * - Vrai/Faux
+ *
+ * TECHNOLOGIQUE :
+ * - Automatismes
+ * - Analyse de l'information
+ * - Dérivation
+ * - Probabilités
+ * - Python
+ * - QCM
+ * - Second degré
+ * - Suites
+ * - Troisième degré
+ * - Variables aléatoires
+ * - Vrai/Faux
+ * - Tableur
+ *
+ */
+
 export const dictionnaireEAM = {
   eam_specialite_2025_06_sujet0v1_1: {
     annee: '2025',
@@ -204,7 +251,7 @@ export const dictionnaireEAM = {
     numeroInitial: '2',
     typeExercice: 'eam',
     filiere: 'Technologique',
-    tags: ['VRAI/Faux', 'Suites', 'Probabilités', 'Second degré'],
+    tags: ['Vrai/Faux', 'Suites', 'Probabilités', 'Second degré'],
   },
   eam_technologique_2025_06_sujet0v2_3: {
     annee: '2025',
@@ -367,7 +414,7 @@ export const dictionnaireEAM = {
     numeroInitial: '1',
     typeExercice: 'eam',
     filiere: 'Specifique',
-    tags: [''],
+    tags: ['Probabilités'],
   },
   eam_specifique_2026_06_etrangers_2: {
     annee: '2026',
@@ -376,7 +423,7 @@ export const dictionnaireEAM = {
     numeroInitial: '2',
     typeExercice: 'eam',
     filiere: 'Specifique',
-    tags: [''],
+    tags: ['Dérivation'],
   },
   eam_specifique_2026_06_etrangers_3: {
     annee: '2026',
@@ -385,7 +432,7 @@ export const dictionnaireEAM = {
     numeroInitial: '3',
     typeExercice: 'eam',
     filiere: 'Specifique',
-    tags: [''],
+    tags: ['Suites'],
   },
   eam_specifique_2026_06_etrangers_automatismes: {
     annee: '2026',
@@ -394,6 +441,372 @@ export const dictionnaireEAM = {
     numeroInitial: 'automatismes',
     typeExercice: 'eam',
     filiere: 'Specifique',
-    tags: [''],
+    tags: ['Automatismes'],
+  },
+  eam_specialite_2026_06_antilles_1: {
+    annee: '2026',
+    lieu: 'Spécialité antilles',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Suites', 'Python'],
+  },
+  eam_specialite_2026_06_antilles_2: {
+    annee: '2026',
+    lieu: 'Spécialité antilles',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Probabilités', 'Variables aléatoires'],
+  },
+  eam_specialite_2026_06_antilles_3: {
+    annee: '2026',
+    lieu: 'Spécialité antilles',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Vrai/Faux', 'Produit scalaire', 'Exponentielle', 'Dérivation'],
+  },
+  eam_specialite_2026_06_metropole_1: {
+    annee: '2026',
+    lieu: 'Spécialité Métropole',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Probabilités'],
+  },
+  eam_specialite_2026_06_metropole_2: {
+    annee: '2026',
+    lieu: 'Spécialité Métropole',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: [
+      'Vrai/Faux',
+      'Second degré',
+      'Suites',
+      'Exponentielle',
+      'Dérivation',
+    ],
+  },
+  eam_specialite_2026_06_metropole_3: {
+    annee: '2026',
+    lieu: 'Spécialité Métropole',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Produit scalaire'],
+  },
+  eam_specialite_2026_06_metropole_automatismes: {
+    annee: '2026',
+    lieu: 'Spécialité Métropole',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Automatismes'],
+  },
+  eam_specialite_2026_06_polynesie_1: {
+    annee: '2026',
+    lieu: 'Spécialité Polynésie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Suites', 'Python', 'Probabilités'],
+  },
+  eam_specialite_2026_06_polynesie_2: {
+    annee: '2026',
+    lieu: 'Spécialité Polynésie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Dérivation', 'Exponentielle'],
+  },
+  eam_specialite_2026_06_polynesie_automatismes: {
+    annee: '2026',
+    lieu: 'Spécialité Polynésie',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Automatismes'],
+  },
+  eam_specifique_2026_06_antilles_1: {
+    annee: '2026',
+    lieu: 'Spécifique antilles',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Probabilités'],
+  },
+  eam_specifique_2026_06_antilles_2: {
+    annee: '2026',
+    lieu: 'Spécifique antilles',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Suites'],
+  },
+  eam_specifique_2026_06_antilles_automatismes: {
+    annee: '2026',
+    lieu: 'Spécifique antilles',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Automatismes'],
+  },
+  eam_specifique_2026_06_metropole_1: {
+    annee: '2026',
+    lieu: 'Spécifique Métropole',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Probabilités'],
+  },
+  eam_specifique_2026_06_metropole_2: {
+    annee: '2026',
+    lieu: 'Spécifique Métropole',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Suites'],
+  },
+  eam_specifique_2026_06_metropole_automatismes: {
+    annee: '2026',
+    lieu: 'Spécifique Métropole',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Automatismes'],
+  },
+  eam_specifique_2026_06_polynesie_1: {
+    annee: '2026',
+    lieu: 'Spécifique Polynésie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ["Analyse de l'information", 'Suites', 'Tableur'],
+  },
+  eam_specifique_2026_06_polynesie_2: {
+    annee: '2026',
+    lieu: 'Spécifique Polynésie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Probabilités'],
+  },
+  eam_specifique_2026_06_polynesie_3: {
+    annee: '2026',
+    lieu: 'Spécifique Polynésie',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Dérivation'],
+  },
+  eam_specifique_2026_06_polynesie_automatismes: {
+    annee: '2026',
+    lieu: 'Spécifique Polynésie',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Automatismes'],
+  },
+  eam_technologique_2026_06_antilles_1: {
+    annee: '2026',
+    lieu: 'Antilles',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Suites'],
+  },
+  eam_technologique_2026_06_antilles_2: {
+    annee: '2026',
+    lieu: 'Antilles',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Probabilités', 'Variables aléatoires'],
+  },
+  eam_technologique_2026_06_antilles_3: {
+    annee: '2026',
+    lieu: 'Antilles',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Vrai/Faux', 'Second degré', 'Troisième degré', 'Dérivation'],
+  },
+  eam_technologique_2026_06_antilles_automatismes: {
+    annee: '2026',
+    lieu: 'Antilles',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Automatismes'],
+  },
+  eam_technologique_2026_06_metropole_1: {
+    annee: '2026',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Dérivation', 'Second degré'],
+  },
+  eam_technologique_2026_06_metropole_2: {
+    annee: '2026',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Suites', 'Tableur'],
+  },
+  eam_technologique_2026_06_metropole_3: {
+    annee: '2026',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Vrai/Faux', 'Probabilités', "Analyse de l'information"],
+  },
+  eam_technologique_2026_06_polynesie_1: {
+    annee: '2026',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Probabilités'],
+  },
+  eam_technologique_2026_06_polynesie_2: {
+    annee: '2026',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Suites', 'Tableur'],
+  },
+  eam_technologique_2026_06_polynesie_3: {
+    annee: '2026',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Dérivation', 'Second degré'],
+  },
+  eam_technologique_2026_06_polynesie_automatismes: {
+    annee: '2026',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Automatismes'],
+  },
+  eam_specialite_2026_06_antilles_automatismes: {
+    annee: '2026',
+    lieu: 'Spécialité antilles',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Automatismes'],
+  },
+  eam_specialite_2026_06_asie_1: {
+    annee: '2026',
+    lieu: 'Spécialité Asie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Suites', 'Python', 'Exponentielle', 'Dérivation'],
+  },
+  eam_specialite_2026_06_asie_2: {
+    annee: '2026',
+    lieu: 'Spécialité Asie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Produit scalaire'],
+  },
+  eam_specialite_2026_06_asie_automatismes: {
+    annee: '2026',
+    lieu: 'Spécialité Asie',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Specialite',
+    tags: ['Automatismes'],
+  },
+  eam_technologique_2026_06_metropole_automatismes: {
+    annee: '2026',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Technologique',
+    tags: ['Automatismes'],
+  },
+  eam_specifique_2026_06_asie_1: {
+    annee: '2026',
+    lieu: 'Spécifique Asie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Vrai/Faux', 'Probabilités', "Analyse de l'information"],
+  },
+  eam_specifique_2026_06_asie_2: {
+    annee: '2026',
+    lieu: 'Spécifique Asie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ["Analyse de l'information", 'Suites'],
+  },
+  eam_specifique_2026_06_asie_3: {
+    annee: '2026',
+    lieu: 'Spécifique Asie',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Dérivation'],
+  },
+  eam_specifique_2026_06_asie_automatismes: {
+    annee: '2026',
+    lieu: 'Spécifique Asie',
+    mois: 'Juin',
+    numeroInitial: 'automatismes',
+    typeExercice: 'eam',
+    filiere: 'Specifique',
+    tags: ['Automatismes'],
   },
 }

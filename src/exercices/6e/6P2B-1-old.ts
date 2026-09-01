@@ -22,7 +22,6 @@ import Exercice from '../Exercice'
 export const titre =
   'Calculer des probabilités dans une expérience aléatoire à une épreuve'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
@@ -35,7 +34,7 @@ export const uuid = '69e1f'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [''],
+  'fr-ch': ['NR'],
 }
 
 export default class FonctionsProbabilite6e extends Exercice {
@@ -95,7 +94,7 @@ export default class FonctionsProbabilite6e extends Exercice {
       'la couleur',
       'la couleur',
     ]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       const index1 = listeIndex[i]
@@ -194,8 +193,8 @@ export default class FonctionsProbabilite6e extends Exercice {
         })
         texteCorr +=
           numAlpha(2) +
-          ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets} et il y a ${somme} ${objets} possibles.
-          <br>La probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} est `
+          ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets} et il y a ${somme} ${objets} possibles.<br>
+          La probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} est `
         reponseValue = new FractionEtendue(somme - n[q], somme).texFSD
         texteCorr +=
           this.niveau === 5

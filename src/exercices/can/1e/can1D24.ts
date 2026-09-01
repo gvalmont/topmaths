@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   reduireAxPlusB,
@@ -11,7 +10,6 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer une dérivée et écrire le résultat sous la forme d’un quotient'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '24/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -41,7 +39,7 @@ export default class CalculFonctionDeriveeQuotient extends ExerciceSimple {
     let p
     let a
     switch (
-      choice([1, 2, 3, 4, 5, 6, 7]) //,
+      this.quotaChoice('type', [1, 2, 3, 4, 5, 6, 7]) //,
     ) {
       case 1: // //mx+p+a/x
         a = randint(1, 10)

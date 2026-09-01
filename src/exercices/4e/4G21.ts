@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import {
   choice,
@@ -10,12 +11,11 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
 
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const interactifType = 'qcm'
+
 export const interactifReady = true
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer s'il est rectangle ou pas.
@@ -26,7 +26,7 @@ export const uuid = 'ab5d4'
 
 export const refs = {
   'fr-fr': ['4G21', 'BP2G9'],
-  'fr-ch': ['11GM1-3'],
+  'fr-ch': ['11GM1A-1'],
 }
 export default class ReciproquePythagore extends Exercice {
   constructor() {
@@ -49,7 +49,7 @@ export default class ReciproquePythagore extends Exercice {
 
     this.sup = 3
     this.sup2 = false
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacingCorr = context.isHtml ? 2 : 1
   }
 
   nouvelleVersion() {
@@ -251,6 +251,7 @@ export default class ReciproquePythagore extends Exercice {
       } else {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions![0].feedback = texteCorr
+        this.autoCorrection[i].propositions![1].feedback = texteCorr
       }
       const props = propositionsQcm(this, i)
       if (this.interactif) {

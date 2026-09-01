@@ -6,7 +6,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Amérique 08/23 : TVI'
@@ -42,7 +42,7 @@ On peut affirmer que :`
 
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionOriginale()
   }
 }

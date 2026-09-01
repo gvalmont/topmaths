@@ -5,24 +5,25 @@ import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
+import { DomReadyActionElement } from '../../lib/customElements/DomReadyAction'
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
 
 export const titre = 'Appartenir ou ne pas appartenir'
 export const dateDePublication = '05/10/2022'
 export const dateDeModifImportante = '4/10/2023'
 // Ajout de l'interactivité et suppression de (AB] par Rémi Angot
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
@@ -33,10 +34,14 @@ export const amcType = 'AMCHybride'
 export const uuid = '9af23'
 
 export const refs = {
-  'fr-fr': ['6G0-5'],
+  'fr-fr': ['6G0-5', '6AutoG1-2'],
   'fr-2016': ['6G10-6'],
-  'fr-ch': ['9ES1-5'],
+  'fr-ch': ['9ES1A-5'],
 }
+
+const responsiveColumnsAction = '6G0-5:responsive-columns'
+let responsiveColumnsRegistered = false
+
 export default class constructionElementaire extends Exercice {
   //
   constructor() {
@@ -143,13 +148,14 @@ export default class constructionElementaire extends Exercice {
           ymax: Ymax,
           pixelsParCm: ppc,
           scale: sc,
+          display: 'block',
         },
         objetsEnonce,
       )
       colonne1 =
         (context.vue === 'diap' ? '<center>' : '') +
         figure +
-        (context.vue === 'diap' ? '</center>' : '<br>')
+        (context.vue === 'diap' ? '</center>' : '')
 
       colonne2 = 'Compléter avec $\\in$ ou $\\notin$. <br>'
       let correction2 = colonne2
@@ -214,17 +220,19 @@ export default class constructionElementaire extends Exercice {
           colonne2 +=
             numAlpha(questind) +
             `$${points[ind].nom}${sp(3)}$` +
-            choixDeroulant(this, i * this.sup2 + k, [
-              { label: '?', value: '' },
-              { latex: '\\in', value: 'in' },
-              { latex: '\\notin', value: 'notin' },
-            ]) +
+            choixDeroulant(this, i * this.sup2 + k, {
+              choices: [
+                { label: '?', value: '' },
+                { latex: '\\in', value: 'in' },
+                { latex: '\\notin', value: 'notin' },
+              ],
+            }) +
             `$${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
           handleAnswers(
             this,
             i * this.sup2 + k,
             { reponse: { value: sol.replace('\\', '') } },
-            { formatInteractif: 'listeDeroulante' },
+            { formatInteractif: 'liste-deroulante' },
           )
         } else {
           const enonce = `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$`
@@ -266,12 +274,29 @@ export default class constructionElementaire extends Exercice {
         largeur1: 60,
       }
       const correction = deuxColonnesResp(colonne1, correction2, optionsSol)
+      registerResponsiveColumns()
+      const enonceResponsiveReady = DomReadyActionElement.create({
+        action: responsiveColumnsAction,
+        payload: {
+          targetId: `cols-responsive1-${options.eleId}`,
+          widthMinCol2: options.widthmincol2,
+        },
+      })
+      const correctionResponsiveReady = DomReadyActionElement.create({
+        action: responsiveColumnsAction,
+        payload: {
+          targetId: `cols-responsive1-${optionsSol.eleId}`,
+          widthMinCol2: optionsSol.widthmincol2,
+        },
+      })
 
       /****************************************************/
       if (this.questionJamaisPosee(i, correction)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = enonce + '<br>'
-        this.listeCorrections[i] = correction + '<br>'
+        this.listeQuestions[i] =
+          `${enonce}${enonceResponsiveReady}${context.isHtml && i < this.nbQuestions - 1 ? '<br>' : ''}`
+        this.listeCorrections[i] =
+          `${correction}${correctionResponsiveReady}${context.isHtml && i < this.nbQuestions - 1 ? '<br>' : ''}`
 
         if (context.isAmc) {
           this.autoCorrectionAMC[i] = {
@@ -286,76 +311,60 @@ export default class constructionElementaire extends Exercice {
           }
           this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         }
-
-        // listener
-        const reportWindowSize = function () {
-          const element = document.getElementById(
-            'cols-responsive1-' + options.eleId,
-          )
-          const element3 = document.getElementById(
-            'cols-responsive1-s-' + options.eleId,
-          )
-          if (
-            element !== null &&
-            element3 !== null &&
-            element !== undefined &&
-            element3 !== undefined &&
-            element.clientWidth !== 0
-          ) {
-            const qcms = element.querySelectorAll('.mathalea2d')
-            const widthMathalea2d = parseInt(
-              qcms[0].getAttribute('width') ?? '800',
-            )
-            let col1 = parseInt(options.widthmincol1.replaceAll('px', ''))
-            const col2 = parseInt(options.widthmincol2.replaceAll('px', ''))
-            col1 = widthMathalea2d
-            options.widthmincol1 = col1 + 'px'
-            const diff =
-              (element.parentElement != null
-                ? element.parentElement.clientWidth
-                : 1000) - parseInt(options.widthmincol1.replaceAll('px', ''))
-            element.style.minWidth = options.widthmincol1
-            element3.style.minWidth = options.widthmincol1
-            if (
-              element.parentElement != null &&
-              element3.parentElement != null
-            ) {
-              if (diff > col2) {
-                element.parentElement.style.gridTemplateColumns =
-                  'repeat(2, 1fr)'
-                element3.parentElement.style.gridTemplateColumns =
-                  'repeat(2, 1fr)'
-              } else {
-                element.parentElement.style.gridTemplateColumns = 'auto'
-                element3.parentElement.style.gridTemplateColumns = 'auto'
-              }
-            }
-          }
-        }
-
-        const removelistener = function () {
-          document.removeEventListener('exercicesAffiches', reportWindowSize)
-          document.removeEventListener('exercicesDiap', reportWindowSize)
-          document.removeEventListener('zoominOrout', reportWindowSize)
-          document.removeEventListener('pleinEcran', reportWindowSize)
-          window.removeEventListener('resize', reportWindowSize)
-          document.removeEventListener('buildex', removelistener)
-        }
-
-        const createlistener = function () {
-          document.addEventListener('exercicesAffiches', reportWindowSize)
-          document.addEventListener('exercicesDiap', reportWindowSize)
-          document.addEventListener('zoominOrout', reportWindowSize)
-          document.addEventListener('pleinEcran', reportWindowSize)
-          window.addEventListener('resize', reportWindowSize)
-          document.addEventListener('buildex', removelistener)
-        }
-        createlistener()
         i++
       }
       cpt++
     }
-
-    listeQuestionsToContenu(this)
   }
+}
+
+function registerResponsiveColumns() {
+  if (responsiveColumnsRegistered) return
+  responsiveColumnsRegistered = true
+  DomReadyActionElement.registerCallback<{
+    targetId: string
+    widthMinCol2: string
+  }>(responsiveColumnsAction, ({ payload }) => {
+    const resizeColumns = () => {
+      const element = document.getElementById(payload.targetId)
+      if (!element || element.clientWidth === 0) return
+
+      const mathalea2dElement = element.querySelector('.mathalea2d')
+      const widthMathalea2d = parseInt(
+        mathalea2dElement?.getAttribute('width') ?? '800',
+      )
+      const col1 = `${widthMathalea2d}px`
+      const col2 = parseInt(payload.widthMinCol2.replaceAll('px', ''))
+      const parent = element.parentElement
+      const diff = (parent?.clientWidth ?? 1000) - widthMathalea2d
+
+      element.style.minWidth = col1
+      if (!parent) return
+      parent.style.gridTemplateColumns = diff > col2 ? 'repeat(2, 1fr)' : 'auto'
+    }
+
+    const resizeAfterRender = () => window.requestAnimationFrame(resizeColumns)
+    const resizeObserver =
+      typeof ResizeObserver === 'undefined'
+        ? null
+        : new ResizeObserver(resizeAfterRender)
+
+    const target = document.getElementById(payload.targetId)
+    if (target) {
+      resizeObserver?.observe(target)
+    }
+    resizeAfterRender()
+    document.addEventListener('exercicesDiap', resizeAfterRender)
+    document.addEventListener('zoominOrout', resizeAfterRender)
+    document.addEventListener('pleinEcran', resizeAfterRender)
+    window.addEventListener('resize', resizeAfterRender)
+
+    return () => {
+      resizeObserver?.disconnect()
+      document.removeEventListener('exercicesDiap', resizeAfterRender)
+      document.removeEventListener('zoominOrout', resizeAfterRender)
+      document.removeEventListener('pleinEcran', resizeAfterRender)
+      window.removeEventListener('resize', resizeAfterRender)
+    }
+  })
 }

@@ -5,17 +5,17 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre =
   'Déterminer graphiquement la valeur de $b$ avec une parabole'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '08/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -43,7 +43,7 @@ export default class LectureGraphiqueParabolebEtc extends Exercice {
     let alpha: number
     let beta: number
     let a: number
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       alpha = randint(-3, 3)
       beta = randint(-2, 2)
       a = choice([-1, 1])
@@ -79,7 +79,7 @@ export default class LectureGraphiqueParabolebEtc extends Exercice {
           ymax: 4, // Math.max(3, f(0) + 1),
           pixelsParCm: 25,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         r,
         o,
@@ -95,7 +95,7 @@ export default class LectureGraphiqueParabolebEtc extends Exercice {
           { texteAvant: '$b=$' },
         )
 
-        setReponse(this, i, -2 * a * alpha)
+        handleAnswers(this, i, { reponse: { value: -2 * a * alpha } })
       }
 
       texteCorr = `L'abscisse du sommet de la parabole est $${alpha}$.<br>

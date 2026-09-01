@@ -1,4 +1,5 @@
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -8,12 +9,10 @@ import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Lire des abscisses fractionnaires de points (niv 2)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '25/01/2024'
@@ -28,7 +27,7 @@ export const uuid = '442f4'
 export const refs = {
   'fr-fr': ['CM2N2F-2'],
   'fr-2016': ['6N21-2'],
-  'fr-ch': ['9NO11-6'],
+  'fr-ch': ['9NO3A-8'],
 }
 export default class LireAbscissesFractionnairesComplexes extends Exercice {
   constructor() {
@@ -213,8 +212,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
             xmin: -0.2,
             xmax: (data[tab].max - origine) * tailleUnite + 1,
             ymin: -1,
-            ymax: 1,
-            style: 'margin-top:10px ',
+            ymax: 1.5,
             scale: 0.6,
           },
           d,
@@ -245,8 +243,7 @@ export default class LireAbscissesFractionnairesComplexes extends Exercice {
           xmin: -0.2,
           xmax: (data[tab].max - origine) * tailleUnite + 1,
           ymin: -2.5,
-          ymax: 1,
-          style: 'margin-top:10px ',
+          ymax: 1.5,
           scale: 0.6,
         },
         dCorr,

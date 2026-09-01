@@ -14,7 +14,7 @@ export const refs = {
   'fr-ch': ['10QCM-8'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Résoudre un problème avec des proportions'
@@ -47,20 +47,15 @@ export default class Auto1C19b extends ExerciceQcmA {
     )
 
     this.enonce = `Une personne doit rembourser un crédit de $${texNombre(credit, 0)}$ en trois mois.<br>
-        En janvier, elle rembourse $${frac1.texFraction}$ du crédit et en février elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
-        En mars elle doit rembourser :`
+        En janvier, elle rembourse $${frac1.texFraction}$ du crédit et en février, elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
+        En mars, elle doit rembourser :`
 
     this.correction = `
        
         En février, elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
         Elle rembourse donc $${frac2.texFraction} \\times ${frac1.texFraction} = ${fracFevrier.texFractionSimplifiee}$ du crédit total.<br>
-        
-        
         Au total, en janvier et février, elle aura remboursé : $${frac1.texFraction} + ${fracFevrier.texFraction}=${frac1Equiv.texFraction} + ${fracFevrierEquiv.texFraction} = ${totalRembourse.texFractionSimplifiee}$ du crédit. <br>
-        
-       
-        Il lui restera à rembourser en mars : $1 - ${totalRembourse.texFractionSimplifiee} = ${miseEnEvidence(reponse.texFractionSimplifiee)}$ du crédit.
-        `
+        Il lui restera à rembourser en mars : $1 - ${totalRembourse.texFractionSimplifiee} = ${miseEnEvidence(reponse.texFractionSimplifiee)}$ du crédit.`
 
     this.reponses = [
       `$${reponse.texFractionSimplifiee}\\text{ du crédit.}$`,
@@ -132,15 +127,10 @@ export default class Auto1C19b extends ExerciceQcmA {
 
       this.correction = `
        
-        En février, elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
-        Elle rembourse donc $${frac2.texFraction} \\times ${frac1.texFraction} = ${fracFevrier.texFractionSimplifiee}$ du crédit total.<br>
-        
-        
-        Au total, en janvier et février, elle aura remboursé :  $${frac1.texFraction} + ${fracFevrier.texFraction}=${frac1Equiv.texFraction} + ${fracFevrierEquiv.texFraction} = ${totalRembourse.texFractionSimplifiee}$ du crédit. <br>
-        
-       
-        Il lui restera à rembourser en mars : $1 - ${totalRembourse.texFractionSimplifiee} = ${miseEnEvidence(reponse.texFractionSimplifiee)}$ du crédit.
-        `
+      En février, elle rembourse $${frac2.texFraction}$ de ce qu'elle a remboursé en janvier.<br>
+      Elle rembourse donc $${frac2.texFraction} \\times ${frac1.texFraction} = ${fracFevrier.texFractionSimplifiee}$ du crédit total.<br>
+      Au total, en janvier et février, elle aura remboursé :  $${frac1.texFraction} + ${fracFevrier.texFraction}=${frac1Equiv.texFraction} + ${fracFevrierEquiv.texFraction} = ${totalRembourse.texFractionSimplifiee}$ du crédit. <br>
+      Il lui restera à rembourser en mars : $1 - ${totalRembourse.texFractionSimplifiee} = ${miseEnEvidence(reponse.texFractionSimplifiee)}$ du crédit.`
 
       // Génération de réponses erronées plausibles
       const fausseReponse1 = frac2
@@ -154,10 +144,7 @@ export default class Auto1C19b extends ExerciceQcmA {
         `$${fausseReponse3.texFractionSimplifiee}\\text{ du crédit.}$`,
       ]
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, { texteSansCasse: true })
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
     if (compteur >= 100) {
       console.warn(
         '100 tentatives de génération aléatoire sans succès pour obtenir 4 réponses différentes. Vérifiez la liste des fractions ou les conditions de génération.',
@@ -168,7 +155,7 @@ export default class Auto1C19b extends ExerciceQcmA {
   // Ici il n'y a rien à faire, on appelle juste la version originale pour un exercice statique
   constructor() {
     super()
-    // this.options = { vertical: true, ordered: false }
+
     this.versionOriginale() // Changé de versionAleatoire() à versionOriginale()
     this.spacing = 1.5
     this.spacingCorr = 2.5

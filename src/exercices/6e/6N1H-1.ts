@@ -1,9 +1,9 @@
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
@@ -18,7 +18,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Lire l'abscisse décimale d'un point (niveau 2)"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '5/04/2026' // Passage à MultiMathfield
@@ -34,7 +34,7 @@ export const uuid = '8418f'
 export const refs = {
   'fr-fr': ['6N1H-1'],
   'fr-2016': ['6N30-1'],
-  'fr-ch': ['9NO7-2'],
+  'fr-ch': ['PR-36'],
 }
 export default class LireAbscisseDecimaleBis2d extends Exercice {
   niveau: number = 6
@@ -236,7 +236,7 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
             },
             bareme: toutAUnPoint,
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
 
         texte += addMultiMathfield(this, i, {

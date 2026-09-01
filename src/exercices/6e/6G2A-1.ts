@@ -24,7 +24,7 @@ export const titre =
   "Trouver la longueur d'un segment quand on connaît sa moitié (rayon, diamètre, milieu), et inversement"
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 export const dateDePublication = '08/10/2025'
 export const dateDeModificationImportante = '19/10/2025'
@@ -37,7 +37,7 @@ export const uuid = '4d9ca'
 
 export const refs = {
   'fr-fr': ['6G2A-1'],
-  'fr-ch': [],
+  'fr-ch': ['10GM1B-2'],
 }
 export default class RayonDiametreMilieu extends Exercice {
   constructor() {
@@ -67,7 +67,7 @@ export default class RayonDiametreMilieu extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let reponse: number
       let texte = ''
       let texteCorr = ''

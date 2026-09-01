@@ -1,31 +1,31 @@
-import Exercice from '../Exercice'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import Exercice from '../Exercice'
 
-import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { sp } from '../../lib/outils/outilString'
 export const titre =
   "Calculer des probabilités avec des unions et intersections d'événements"
 export const dateDePublication = '25/05/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 /**
  *
  * @author Gilles Mora
  */
 export const uuid = 'ea35b'
 export const refs = {
-  'fr-fr': ['2S30-6'],
+  'fr-fr': ['2S30-6', 'BP1SP01'],
   'fr-ch': [],
 }
 export default class ProbaUnionInter extends Exercice {
@@ -63,7 +63,7 @@ export default class ProbaUnionInter extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 20)
       let reponse = ''
       let texte = ''
@@ -95,7 +95,7 @@ export default class ProbaUnionInter extends Exercice {
             Calculer $P(A\\cup B)$.
            `
           texteCorr = `On sait que $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.<br><br>
-            $\\begin{aligned} 
+            $\\begin{aligned}
             P(A\\cup B)&=P(A)+P(B)-P(A\\cap B)\\\\
             &=${texNombre(pA, 2)}+${texNombre(pB, 2)}-${texNombre(pAinterB, 2)}\\\\
             &=${reponse}
@@ -114,7 +114,7 @@ export default class ProbaUnionInter extends Exercice {
           Calculer $P(A\\cap B)$.
          `
           texteCorr = `On sait que $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.<br><br>
-          $\\begin{aligned} 
+          $\\begin{aligned}
           P(A\\cup B)&=P(A)+P(B)-P(A\\cap B)\\\\
           ${texNombre(pAunionB, 2)} &=${texNombre(pA, 2)}+${texNombre(pB, 2)}-P(A\\cap B)\\\\
           P(A\\cap B) &=${texNombre(pA, 2)}+${texNombre(pB, 2)}-${texNombre(pAunionB, 2)}\\\\
@@ -135,7 +135,7 @@ export default class ProbaUnionInter extends Exercice {
             Calculer $P(A)$.
            `
           texteCorr = `On sait que $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.<br><br>
-            $\\begin{aligned} 
+            $\\begin{aligned}
             P(A\\cup B)&=P(A)+P(B)-P(A\\cap B)\\\\
             ${texNombre(pAunionB, 2)}&=P(A)+${texNombre(pB, 2)}-${texNombre(pAinterB, 2)}\\\\
             P(A)&=${texNombre(pAunionB, 2)}-${texNombre(pB, 2)}+${texNombre(pAinterB, 2)}\\\\
@@ -158,10 +158,10 @@ export default class ProbaUnionInter extends Exercice {
           $\\bullet$  $P(A)=${texNombre(pAI, 2)}$ ${sp(4)} $\\bullet$  $P(B)=${texNombre(pBI, 2)}$.<br>
            Calculer $P(A\\cup B)$.`
             texteCorr = `Lorsque deux événements sont incompatibles,  $P(A\\cup B)=P(A)+P(B)$.<br><br>
-          $\\begin{aligned} 
+          $\\begin{aligned}
             P(A\\cup B)&=P(A)+P(B)\\\\
             P(A\\cup B)&=${texNombre(pAI, 2)}+${texNombre(pBI, 2)}\\\\
-            P(A\\cup B) &=${reponse}           
+            P(A\\cup B) &=${reponse}
             \\end{aligned}$<br>
             Ainsi $P(A\\cup B)=${miseEnEvidence(reponse)}$.`
             texte +=
@@ -182,7 +182,7 @@ export default class ProbaUnionInter extends Exercice {
               Calculer $P(A\\cup B)$.`
             texteCorr = `On sait que $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.<br><br>
              Or $P(A)=1-P(\\bar{A})=${texNombre(pA, 2)}$ et $P(B)=1-P(\\bar{B})=${texNombre(pB, 2)}$.<br>
-             <br>$\\begin{aligned} 
+             <br>$\\begin{aligned}
              P(A\\cup B)&=P(A)+P(B)-P(A\\cap B)\\\\
              P(A\\cup B)&=${texNombre(pA, 2)}+${texNombre(pB, 2)}-${texNombre(pAinterB, 2)}\\\\
              P(A\\cup B)&=${texNombre(pAunionB, 2)}
@@ -227,10 +227,10 @@ export default class ProbaUnionInter extends Exercice {
             reponse = texNombre(pAunionB, 2)
             texte = `Voici un tableau d'effectifs concernant deux événements $A$ et $B$ :  <br>
             ${tableau}
-              
+
                 Calculer $P(A\\cup B)$.`
             texteCorr = `On sait que $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.<br><br>
-               <br>$\\begin{aligned} 
+               <br>$\\begin{aligned}
                P(A\\cup B)&=P(A)+P(B)-P(A\\cap B)\\\\
                P(A\\cup B)&=${texNombre(pA, 2)}+${texNombre(pB, 2)}-${texNombre(pAinterB, 2)}\\\\
                P(A\\cup B)&=${texNombre(pAunionB, 2)}

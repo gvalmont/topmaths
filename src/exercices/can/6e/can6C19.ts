@@ -3,13 +3,12 @@ import {
   miseEnEvidence,
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 
 import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le complément à 100'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -33,13 +32,12 @@ export default class ComplementACent extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(11, 49, [20, 30, 40])
+    const a = this.quotaRandint('a', 11, 49, [20, 30, 40])
     this.question = `Calculer $100-${a}$.`
     this.correction = `$100-${a}=${miseEnEvidence(100 - a)}$<br>`
     this.reponse = 100 - a
     this.correction += texteEnCouleur(
-      `
-    <br> Mentalement : <br>
+      `Mentalement : <br>
     On décompose $${a}$ en $${a - (a % 10)}+${a % 10}$. Retrancher $${a}$ revient à retrancher d'abord  $${a - (a % 10)}$  puis $${a % 10}$. <br>
     Ainsi, $100-${a}=\\underbrace{100-${a - (a % 10)}}_{${100 - (a - (a % 10))}}-${a % 10}=${100 - (a - (a % 10))}-${a % 10}=${100 - a}$.
      `,

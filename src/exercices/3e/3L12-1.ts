@@ -1,5 +1,6 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
@@ -14,12 +15,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCHybride'
 export const amcReady = true
 export const dateDeModifImportante = '26/02/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -32,8 +31,8 @@ export const dateDeModifImportante = '26/02/2023' // Une date de modification im
 export const uuid = 'be157'
 
 export const refs = {
-  'fr-fr': ['3L12-1', 'BP2AutoI9'],
-  'fr-ch': ['11FA2-12'],
+  'fr-fr': ['3L12-1', 'BP2AutoI9', 'BP1AUTO081'],
+  'fr-ch': ['10FA4F-2', '11FA4A-3'],
 }
 export default class DevelopperIdentitesRemarquables3 extends Exercice {
   constructor() {
@@ -156,8 +155,8 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
               : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
         })
       }
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (!context.isAmc) {
-        setReponse(this, i, reponse)
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
             ajouteChampTexteMathLive(

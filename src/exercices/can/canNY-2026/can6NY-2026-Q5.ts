@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Trouver le nombres d'unités, de dizaines, ..."
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'k3jyp'
 export const refs = {
   'fr-fr': [],
@@ -31,7 +30,9 @@ export default class calcAvecChiffres2026 extends ExerciceSimple {
     const dizaine = 2
     const centaine = 0
     const mille = 2
-    const choix = this.canOfficielle ? 1 : choice([1, 2, 3, 4])
+    const choix = this.canOfficielle
+      ? 1
+      : this.quotaChoice('choix', [1, 2, 3, 4])
     if (choix === 1) {
       this.question = `Quel est le chiffre des unités dans $${texNombre(annee, 0)}$ ?`
       this.correction = `$${texNombre(annee, 0)}=(${mille}\\times${texNombre(1000, 0)})+(${centaine}\\times100)+(2\\times10)+(${miseEnEvidence(texNombre(unite, 0))}\\times1)$`

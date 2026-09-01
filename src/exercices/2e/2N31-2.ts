@@ -1,21 +1,17 @@
-import PuissancesDunRelatif1 from '../4e/4C33-1'
-export const titre = 'Effectuer des calculs avec des puissances'
-export const interactifReady = true
-export const interactifType = 'mathLive'
+import ExerciceMultiplierFractions from '../4e/4C22'
+export const titre = 'Multiplier ou/et diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '09/05/2025'
-export const uuid = '1e42b'
+export const interactifReady = true
+
+export const uuid = '29919'
 export const refs = {
-  'fr-fr': ['2N31-2'],
+  'fr-fr': ['2N31-2', 'BP2AutoH2'],
   'fr-ch': ['NR'],
 }
-export default class PuissancesDunRelatif12e extends PuissancesDunRelatif1 {
+export default class ExerciceMultiplierFractions2nde extends ExerciceMultiplierFractions {
   constructor() {
     super()
-    this.classe = 2
-    this.correctionDetaillee = false
-    this.sup2 = 3
-    this.sup = 6
+    this.sup = '3'
   }
 }

@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { formatMinute } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -7,7 +7,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Transformer un nombre de secondes en minutes et secondes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'p3stx'
 export const refs = {
   'fr-fr': [],

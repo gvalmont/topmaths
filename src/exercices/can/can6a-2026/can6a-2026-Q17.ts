@@ -7,7 +7,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer un prix avec une proportionnalité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'zacxo'
 export const refs = {
   'fr-fr': [],
@@ -29,6 +29,7 @@ export default class Can20266Q17 extends ExerciceCan {
   }
 
   enonce(nbKilos?: number, prixUnitaire?: number, coeff?: number) {
+    const fruit = choice(['pommes', 'poires', 'pêches'])
     if (nbKilos == null || prixUnitaire == null || coeff == null) {
       nbKilos = randint(1, 3) * 2
       prixUnitaire = choice([1.5, 2.5])
@@ -43,7 +44,6 @@ export default class Can20266Q17 extends ExerciceCan {
     $${texNombre(nbKilos * prixUnitaire, 1)}\\div${texNombre(nbKilos, 1)}=${texNombre(prixUnitaire, 1)}$ € par $\\text{kg}$.<br>
     Ainsi, $${texNombre(nbKilos * coeff, 2)}\\text{ kg}$ de ${fruit} coûtent $${texNombre(nbKilos * coeff, 2)}\\times${texNombre(prixUnitaire, 1)}=${miseEnEvidence(texNombre(nbKilos * coeff * prixUnitaire, 1))}$ €.`
 
-    
     this.canEnonce = ''
     this.canReponseACompleter = '$\\ldots$ €'
   }

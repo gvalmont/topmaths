@@ -1,7 +1,8 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { Tableau } from '../../lib/2d/tableau'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import {
   AddTabPropMathlive,
   type Icell,
@@ -22,12 +23,10 @@ import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Compléter un tableau de valeurs'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '20/02/2023'
@@ -45,8 +44,8 @@ export const dateDeModifImportante = '20/02/2023'
 export const uuid = 'bfb2f'
 
 export const refs = {
-  'fr-fr': ['3F12-3'],
-  'fr-ch': ['10FA5-11', '11FA8-5', '1mF1-11'],
+  'fr-fr': ['3F12-3', '2F14-1'],
+  'fr-ch': ['10FA1B-10', '11FA1A-2', '1mF1-11'],
 }
 export default class TableauDeValeurs extends Exercice {
   constructor() {

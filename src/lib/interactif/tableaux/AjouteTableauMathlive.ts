@@ -1,4 +1,6 @@
 import { notify } from '../../../bugsnag'
+import { TableauMathliveElement } from '../../customElements/TableauMathlive'
+import type { TableauMathliveType } from '../../types'
 import { buildDataKeyboardFromStyle } from '../claviers/keyboard'
 import './tableauMathlive.scss'
 export interface Icell {
@@ -21,6 +23,58 @@ export type Fleche = [number, number, string, number] | [number, number, string]
 export type Raws = Array<Icell[]>
 type ObjetParams = Record<string, string>
 
+export function creeTableauMathliveElement({
+  numeroExercice,
+  question,
+  tableau,
+  typeTableau = 'doubleEntree',
+  classes = '',
+  texteAvant = '',
+  texteApres = '',
+  blocCenter = false,
+  espace = false,
+}: {
+  numeroExercice: number
+  question: number
+  tableau: ItabDbleEntry | Itableau
+  typeTableau?: TableauMathliveType
+  classes?: string
+  texteAvant?: string
+  texteApres?: string
+  blocCenter?: boolean
+  espace?: boolean
+}): string {
+  const leTableau =
+    typeTableau === 'doubleEntree'
+      ? AddTabDbleEntryMathlive.create(
+          numeroExercice,
+          question,
+          tableau as ItabDbleEntry,
+          classes,
+          true,
+          {
+            texteAvant,
+            texteApres,
+            blocCenter: blocCenter ? ' bloccenter' : '',
+            espace: espace ? ' ' : '',
+          },
+        )
+      : AddTabPropMathlive.create(
+          numeroExercice,
+          question,
+          tableau as Itableau,
+          classes,
+          true,
+          {
+            texteAvant,
+            texteApres,
+            blocCenter: blocCenter ? ' bloccenter' : '',
+            espace: espace ? ' ' : '',
+          },
+        )
+  return leTableau.output
+}
+
 // Le TabPropMathlive ne gère pas les flèches... alors, je ne sais pas pourquoi j'ai mis toutes ces propriétés faculatives... Pour l'avenir ?
 // Si quelqu'un sait faire, qu'il ne se gêne pas !
 export interface Itableau {
@@ -39,6 +93,8 @@ export interface ItabDbleEntry {
   raws: Array<Icell[]>
   headingCols: Icell[]
   headingLines: Icell[]
+  colFooters: Icell[]
+  lineFooters: Icell[]
 }
 
 /**
@@ -335,10 +391,15 @@ export class AddTabPropMathlive {
       })
     }
     table.appendChild(secondLine)
-    const spanCheckOuterHTML = `<span id="resultatCheckEx${numeroExercice}Q${question}"></span>`
+    const divFeedbackOuterHTML = `<div id="feedbackEx${numeroExercice}Q${question}"></div>`
     // pour l'instant je retourne l'objet complet avec le HTML de la table dans sa propriété output,
     // mais il sera peut-être possible de ne retourner que le HTML comme pour ajouteChampTexteMathlive...
-    tableauMathlive.output = table.outerHTML + spanCheckOuterHTML
+    tableauMathlive.output = TableauMathliveElement.create({
+      numeroExercice: NoEx,
+      questionIndex: question,
+      tableHtml: table.outerHTML,
+      feedbackHtml: divFeedbackOuterHTML,
+    })
     return tableauMathlive
   }
 
@@ -413,6 +474,8 @@ export class AddTabDbleEntryMathlive {
   raws!: Raws
   headingCols: Icell[]
   headingLines: Icell[]
+  footerCols: Icell[]
+  footerLines: Icell[]
   classes: string
   isInteractif: boolean
   private constructor(
@@ -423,13 +486,15 @@ export class AddTabDbleEntryMathlive {
     isInteractif: boolean,
   ) {
     if (numeroExercice == null) {
-      // @ts-expect-error
       window.notify(
         "AddTabDbleEntryMathlive a besoin absolument d'un numero d'exercice",
+        {},
       )
     }
     this.headingCols = tableau.headingCols
     this.headingLines = tableau.headingLines
+    this.footerCols = tableau.colFooters
+    this.footerLines = tableau.lineFooters
     this.numeroExercice = numeroExercice ?? 0
     this.numeroQuestion = question
     this.id = `tabMLEx${this.numeroExercice}Q${this.numeroQuestion}`
@@ -439,7 +504,7 @@ export class AddTabDbleEntryMathlive {
   }
 
   static create(
-    numeroExercice: number,
+    numeroExercice: number = 0,
     question: number,
     tableau: ItabDbleEntry,
     classes: string,
@@ -475,6 +540,13 @@ export class AddTabDbleEntryMathlive {
     tableauMathlive.headingCols = tableau.headingCols.map((el) =>
       JSON.parse(JSON.stringify(el)),
     ) // on clone les lignes pour ne pas modifier le tableau passé en argument
+    tableauMathlive.headingLines = tableau.headingLines.map((el) =>
+      JSON.parse(JSON.stringify(el)),
+    ) // on clone les lignes pour ne pas modifier le tableau passé en argument 
+    tableauMathlive.raws = tableau.raws.map((el) =>
+      JSON.parse(JSON.stringify(el)),
+    ) // on clone les raws pour ne pas modifier le tableau passé en argument
+ 
     if (tableau.headingCols != null) {
       fillLine({
         isInteractif,
@@ -493,9 +565,6 @@ export class AddTabDbleEntryMathlive {
       const newLine = document.createElement('tr')
       table.appendChild(newLine)
       if (tableau.headingLines != null) {
-        tableauMathlive.headingLines = tableau.headingLines.map((el) =>
-          JSON.parse(JSON.stringify(el)),
-        ) // on clone les lignes pour ne pas modifier le tableau passé en argument
         const sty =
           style[`L${tableau.headingCols != null ? 1 + j : j}C${0}`] ||
           style[`LC${0}`]
@@ -517,9 +586,6 @@ export class AddTabDbleEntryMathlive {
         newLine.appendChild(head)
         */
       }
-      tableauMathlive.raws = tableau.raws.map((el) =>
-        JSON.parse(JSON.stringify(el)),
-      ) // on clone les raws pour ne pas modifier le tableau passé en argument
       const raw = tableau.raws[j]
       if (Array.isArray(raw) && raw.length > 0) {
         for (let i = 0; i < raw.length; i++) {
@@ -538,13 +604,52 @@ export class AddTabDbleEntryMathlive {
                 `L${tableau.headingCols != null ? 1 + j : j}C${tableau.headingLines != null ? i + 1 : i}`
               ],
           })
-        }
+        } 
+      }
+      if (tableau.lineFooters.length > 0) {
+        const sty =
+          style[`L${tableau.headingCols != null ? 2 + j : 1 + j}C${raw.length}`] ||
+          style[`LC${raw.length}`]
+        appendCell({
+          isInteractif,
+          line: newLine,
+          icell: tableau.lineFooters[j],
+          indexCol: raw.length,
+          indexLine: tableau.headingCols != null ? 2 + j : 1 + j,
+          tag: 'th',
+          classes,
+          NoEx,
+          NoQ,
+          style: sty,
+        })
       }
     }
-    const spanCheckOuterHTML = `<span id="feedbackEx${numeroExercice}Q${question}"></span>`
+    if (tableau.colFooters.length != 0) {
+      const lastLine = document.createElement('tr')
+      table.appendChild(lastLine)
+      let lineIndex = tableau.raws.length
+      if (tableau.headingCols.length != 0) { lineIndex++ }
+      fillLine({
+        isInteractif,
+        line: lastLine,
+        content: tableau.colFooters,
+        index: lineIndex,
+        tag: 'th',
+        classes,
+        NoEx,
+        NoQ,
+        style,
+      })
+    }
+    const divFeedbackOuterHTML = `<div id="feedbackEx${numeroExercice}Q${question}"></div>`
     // pour l'instant je retourne l'objet complet avec le HTML de la table dans sa propriété output,
     // mais il sera peut-être possible de ne retourner que le HTML comme pour ajouteChampTexteMathlive...
-    tableauMathlive.output = table.outerHTML + spanCheckOuterHTML
+    tableauMathlive.output = TableauMathliveElement.create({
+      numeroExercice: NoEx,
+      questionIndex: question,
+      tableHtml: table.outerHTML,
+      feedbackHtml: divFeedbackOuterHTML,
+    })
     return tableauMathlive
   }
 
@@ -584,14 +689,19 @@ export class AddTabDbleEntryMathlive {
    * @param tabEntetesColonnes
    * @param tabEntetesLignes
    * @param tabLignes
+   * @param tabColsFooters
+   * @param tabLinesFooters
    */
   static convertTclToTableauMathlive(
     tabEntetesColonnes: (string | number)[],
     tabEntetesLignes: (string | number)[],
     tabLignes: (string | number)[],
+    tabColFooters: (string | number)[] = [],
+    tabLineFooters: (string | number)[] = [],
     gras: boolean = true,
     color: string = 'black',
-  ) {
+  ): ItabDbleEntry
+   {
     const headingCols: Icell[] = []
     for (const enTete of tabEntetesColonnes) {
       headingCols.push({ texte: enTete.toString(), latex: true, gras, color })
@@ -610,15 +720,16 @@ export class AddTabDbleEntryMathlive {
     const haveHeadL = headingLines.length > 0
     if (!haveHeadL && !haveHeadC)
       throw Error(
-        'Un tableau à double entrée doit avoir des entête de colonne et des entête de ligne',
+        'Un tableau à double entrée doit avoir des entête de colonne ou des entête de ligne',
       )
     // on boucle sur les lignes mais il peut ne pas y avoir de headingLines ! On doit alors diviser le nombre de cellules par le nombre de colonnes à remplir.
-    const nbCols =
-      haveHeadL && haveHeadC
-        ? headingCols.length - 1
-        : haveHeadC
-          ? headingCols.length
-          : tabLignes.length / headingLines.length
+    let nbCols: number = headingCols.length;
+    if (haveHeadC) {
+      if (haveHeadL) nbCols--
+      if (tabLineFooters.length > 0) nbCols--
+    } else {
+      nbCols = tabLignes.length / headingLines.length
+    }
     const nbLines = haveHeadL ? headingLines.length : tabLignes.length / nbCols
     for (let i = 0; i < nbLines; i++) {
       const raw: Icell[] = []
@@ -632,6 +743,21 @@ export class AddTabDbleEntryMathlive {
       }
       raws.push(raw)
     }
-    return { headingLines, headingCols, raws }
+
+    if ((haveHeadL && tabLineFooters.length > 0 && tabLineFooters.length != headingLines.length)
+       || (haveHeadC && tabColFooters.length > 0 && tabColFooters.length != headingCols.length))
+      throw Error(
+        'Les pieds de colonne ou ligne ne sont pas de même taille que les entêtes',
+      )
+    const colFooters: Icell[] = [];
+    for (const footer of tabColFooters) {
+      colFooters.push({ texte: footer.toString(), latex: true, gras, color })
+    }
+    const lineFooters: Icell[] = [];
+    for (const footer of tabLineFooters) {
+      lineFooters.push({ texte: footer.toString(), latex: true, gras, color })
+    }
+    
+    return { raws, headingCols, headingLines, colFooters, lineFooters }
   }
 }

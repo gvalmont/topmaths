@@ -9,7 +9,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une moyenne avec des décimaux'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -19,7 +19,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'debe7'
 
 export const refs = {
-  'fr-fr': ['can3C02'],
+  'fr-fr': ['can3C02', 'BP1AUTO047'],
   'fr-ch': [],
 }
 export default class MoyenneEntiereDeDecimaux extends ExerciceSimple {
@@ -31,7 +31,7 @@ export default class MoyenneEntiereDeDecimaux extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    this.reponse = randint(7, 15) // la moyenne attendue on la multiplie par 10 pour l'avoir en 1/10e
+    this.reponse = this.quotaRandint('reponse', 7, 15) // la moyenne attendue on la multiplie par 10 pour l'avoir en 1/10e
     const a = randint(4, this.reponse, [10, 20]) * 10 + randint(1, 9) // premier nombre à ajouter multiplié par 10 pour l'avoir en 1/10e
     let b, c
     do {

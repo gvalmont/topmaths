@@ -9,16 +9,14 @@ import Exercice from '../Exercice'
 
 import Decimal from 'decimal.js'
 import type { MathfieldElement } from 'mathlive'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Recomposer un entier'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '14/08/2022'
@@ -47,7 +45,7 @@ export const uuid = 'c96de'
 export const refs = {
   'fr-fr': ['CM2N1D-2'],
   'fr-2016': ['c3N10-1'],
-  'fr-ch': ['9NO1-8'],
+  'fr-ch': [''],
 }
 export default class RecomposerEntierC3 extends Exercice {
   nombreDeChiffresMin: number
@@ -167,7 +165,9 @@ export default class RecomposerEntierC3 extends Exercice {
                 texte += enLettre
                   ? `${ajouteChampTexteMathLive(this, indexChamp, KeyboardType.clavierDeBase)}~${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}+`
                   : `($${ajouteChampTexteMathLive(this, indexChamp, KeyboardType.clavierDeBase)}$\\times${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-                setReponse(this, indexChamp, this.morceaux[i][k])
+                handleAnswers(this, indexChamp, {
+                  reponse: { value: this.morceaux[i][k] },
+                })
                 indexChamp++
               } else {
                 texte += `${
@@ -219,15 +219,15 @@ export default class RecomposerEntierC3 extends Exercice {
               if (this.morceaux[i][k] !== '0') {
                 texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase)}$)+`
 
-                setReponse(
-                  this,
-                  indexChamp,
-                  enLettre
-                    ? glossaire[this.exposantMorceaux[i][k]][
-                        Number(this.morceaux[i][k]) > 1 ? 1 : 0
-                      ]
-                    : 10 ** this.exposantMorceaux[i][k],
-                )
+                handleAnswers(this, indexChamp, {
+                  reponse: {
+                    value: enLettre
+                      ? glossaire[this.exposantMorceaux[i][k]][
+                          Number(this.morceaux[i][k]) > 1 ? 1 : 0
+                        ]
+                      : 10 ** this.exposantMorceaux[i][k],
+                  },
+                })
                 indexChamp++
               }
             } else {
@@ -284,7 +284,9 @@ export default class RecomposerEntierC3 extends Exercice {
           if (!this.interactif) {
             texte += '= \\ldots\\ldots\\ldots$'
           } else {
-            setReponse(this, indexChamp, nombre)
+            handleAnswers(this, indexChamp, {
+              reponse: { value: nombre },
+            })
             texte += `=$${ajouteChampTexteMathLive(this, indexChamp, enLettre ? KeyboardType.numeration : KeyboardType.clavierDeBase)}`
             indexChamp++
           }
@@ -342,7 +344,9 @@ export default class RecomposerEntierC3 extends Exercice {
           if (!this.interactif) {
             texte += ' = \\ldots\\ldots\\ldots$'
           } else {
-            setReponse(this, indexChamp, nombre)
+            handleAnswers(this, indexChamp, {
+              reponse: { value: nombre },
+            })
             texte += `=$${ajouteChampTexteMathLive(this, indexChamp, this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase)}`
             indexChamp++
           }

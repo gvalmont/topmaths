@@ -1,13 +1,12 @@
-import { choice } from '../../../lib/outils/arrayOutils'
+import { bleuMathalea } from '../../../lib/colors'
 import {
   miseEnEvidence,
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Résoudre un problème de vitesse'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -20,7 +19,7 @@ export const uuid = '7374f'
 
 export const refs = {
   'fr-fr': ['can4P02'],
-  'fr-ch': [],
+  'fr-ch': ['11FA2A-3'],
 }
 export default class ProblemesDeVitesse extends ExerciceSimple {
   constructor() {
@@ -31,9 +30,9 @@ export default class ProblemesDeVitesse extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = choice([2, 3, 5, 6, 10]) // diviseur de l'heure
+    const a = this.quotaChoice('a', [2, 3, 5, 6, 10]) // diviseur de l'heure
     const b = 60 / a // nombre de minutes de l'énoncé
-    const c = choice([30, 60, 90, 120])
+    const c = this.quotaChoice('c', [30, 60, 90, 120])
     this.reponse = c / a
     this.question = `Une voiture roule à $${c}\\text{ km/h}$. <br>
     

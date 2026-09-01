@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème avec "fois plus", "fois moins"*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '23/07/2022'
@@ -18,7 +18,7 @@ export const dateDePublication = '23/07/2022'
 export const uuid = '06268'
 
 export const refs = {
-  'fr-fr': ['canc3C10', 'auto6P3B-flash2'],
+  'fr-fr': ['canc3C10', 'auto6P3B-flash2', '6AutoP2-2'],
   'fr-ch': ['PR-10'],
 }
 export default class FoisPlusFoisMoins2 extends ExerciceSimple {
@@ -60,7 +60,7 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
       clubs,
       choix2
     switch (
-      choice([1, 2, 3]) // 1, 2
+      this.quotaChoice('typeProbleme', [1, 2, 3]) // 1, 2
     ) {
       case 1:
         choix1 = choice([true, false])

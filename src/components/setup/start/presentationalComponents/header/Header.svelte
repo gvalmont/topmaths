@@ -13,7 +13,6 @@
   export let setAllInteractive: (isAllInteractive: boolean) => void
   export let newDataForAll: () => void
   export let trash: () => void
-  export let setFullScreen: (isFullScreen: boolean) => void
   export let handleExport: (vue: VueType) => void
   export let handleRecorder: () => void
   export let locale: Language
@@ -56,6 +55,7 @@
         {locale}
         {handleLanguage}
         {isFlowmath}
+        {handleExport}
       />
     </div>
   {:else}
@@ -66,7 +66,7 @@
         class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
       >
         <NavBar
-          subtitle="Conception de document"
+          subtitle={isExerciseDisplayed ? 'Conception de document' : undefined}
           subtitleType="design"
           {locale}
           {handleLanguage}
@@ -84,7 +84,6 @@
         {setAllInteractive}
         {newDataForAll}
         {trash}
-        {setFullScreen}
         {handleExport}
         {exportQcmCam}
       />

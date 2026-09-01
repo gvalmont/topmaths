@@ -1,14 +1,12 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Additionner deux fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'eebe6'
 export const refs = {
   'fr-fr': [],
@@ -29,9 +27,9 @@ export default class additionFraction extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 10)
+    const a = this.quotaRandint('a', 1, 10)
 
-    if (choice([true, false])) {
+    if (this.quotaChoice('sens', [true, false])) {
       this.reponse = new FractionEtendue(1 + 2 * a, 4050).toLatex()
       this.question = `Calculer sous la forme d'une fraction :<br>
     $\\dfrac{${a}}{${texNombre(2025, 0)}} +\\dfrac{1}{${texNombre(4050)}}$`

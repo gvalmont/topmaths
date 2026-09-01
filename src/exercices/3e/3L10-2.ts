@@ -3,7 +3,7 @@ import OpposeExpression from './3L10'
 export const titre =
   "Supprimer les parenthèses puis réduire l'expression (niveau 2)"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCHybride'
 export const amcReady = true
 
@@ -19,7 +19,7 @@ export const uuid = 'c88ba'
 
 export const refs = {
   'fr-fr': ['3L10-2'],
-  'fr-ch': ['11FA1-3'],
+  'fr-ch': ['10FA4E-3'],
 }
 export default class ReduireExpressionComplexe extends OpposeExpression {
   constructor() {

@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un antécédent par fonction affine'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '13/10/2022'
@@ -17,7 +17,7 @@ export const dateDeModifImportante = '13/10/2022'
 export const uuid = '83a8a'
 
 export const refs = {
-  'fr-fr': ['can3F05'],
+  'fr-fr': ['can3F05', 'can2F13-06', '2F13-flash3'],
   'fr-ch': [],
 }
 export default class CalculAntecedentAffine extends ExerciceSimple {
@@ -30,8 +30,8 @@ export default class CalculAntecedentAffine extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const x = randint(-9, 9, [0, 1, -1])
-    const m = randint(-9, 9, [0, 1, -1])
+    const x = this.quotaRandint('x', -9, 9, [0, 1, -1])
+    const m = this.quotaRandint('m', -9, 9, [0, 1, -1])
     const y = randint(-9, 9, [x, 0])
     const nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
     this.question = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${m}x${ecritureAlgebrique(y)}$.<br>

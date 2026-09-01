@@ -21,7 +21,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer la longueur d'une ligne brisée"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'd0a64'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -131,7 +131,7 @@ export default class NomExercice extends ExerciceSimple {
             mainlevee: false,
             amplitude: 0.5,
             scale: 0.5,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         ) + '<br>'
@@ -149,7 +149,7 @@ export default class NomExercice extends ExerciceSimple {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.5,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )
@@ -215,7 +215,7 @@ export default class NomExercice extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.5,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           ) + '<br>'
@@ -275,7 +275,7 @@ export default class NomExercice extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.5,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           ) + '<br>'
@@ -335,7 +335,7 @@ export default class NomExercice extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.5,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           ) + '<br>'
@@ -395,7 +395,7 @@ export default class NomExercice extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.5,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           ) + '<br>'
@@ -455,7 +455,7 @@ export default class NomExercice extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.5,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           ) + '<br>'

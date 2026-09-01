@@ -1,5 +1,6 @@
+import { bleuMathalea } from '../../lib/colors'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { AddTabPropMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import {
   choice,
@@ -16,12 +17,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   'Compléter un tableau de proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '20/05/2025'
@@ -30,7 +30,7 @@ export const uuid = 'f7a15'
 export const refs = {
   'fr-fr': ['6P3D-2'],
   'fr-2016': ['6P11-5'],
-  'fr-ch': ['9FA3-19'],
+  'fr-ch': ['9FA2A-1'],
 }
 /**
  * @author Jean-claude Lhote
@@ -354,8 +354,8 @@ function redaction(
 export default class ProportionnaliteParLinearite2 extends Exercice {
   constructor() {
     super()
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
     this.nbQuestions = 6
     this.besoinFormulaireCaseACocher = ['calculs entiers', true]
     this.sup = true
@@ -378,8 +378,8 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
   }
 
   nouvelleVersion() {
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       min: 1,
@@ -401,7 +401,7 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
         ? 'Compléter le tableau de proportionnalité ci dessous.'
         : 'Compléter les tableaux de proportionnalité ci-dessous.'
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const fonctionChoisie = choice([achat, achat, dillution, carrelage])
       const nbo: number[] = []
       const prix: number[] = []
@@ -421,7 +421,7 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
       const B: number[] = []
       const X: number[] = []
       const Y: number[] = []
-      for (let j = 2, index = 0; j < 5; ) {
+      for (let j = 2, index = 0; j < 5;) {
         // On va chercher les 3 autres nombres
         if (index >= coefficients.length) {
           index = 0
@@ -525,7 +525,7 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
       }
       answers.push(['bareme', toutAUnPoint])
       handleAnswers(this, i, Object.fromEntries(answers), {
-        formatInteractif: 'mathlive',
+        formatInteractif: 'tableauMathlive',
       })
       const cells = AddTabPropMathlive.convertTableauToTableauMathlive(
         ligne1,

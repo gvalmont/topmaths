@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -15,13 +16,11 @@ import {
   listeQuestionsToContenuSansNumero,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Factoriser une expression littérale (Niveau 1)'
 export const dateDePublication = '20/04/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -36,7 +35,7 @@ export const amcType = 'AMCOpen'
 export const uuid = '0ee90'
 export const refs = {
   'fr-fr': ['4L11-0'],
-  'fr-ch': ['11FA3-6', '1mCL2-0'],
+  'fr-ch': ['10FA4G-3', '11FA4B-2', '1mCL2-0'],
 }
 
 export default class FactoriserExpressionsNiv1 extends Exercice {
@@ -46,7 +45,7 @@ export default class FactoriserExpressionsNiv1 extends Exercice {
     this.nbQuestions = 8
     this.nbCols = 2
     this.nbColsCorr = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacingCorr = context.isHtml ? 2 : 1
     this.listeAvecNumerotation = false
     this.besoinFormulaireTexte = [
       "Type d'expressions",
@@ -103,7 +102,7 @@ export default class FactoriserExpressionsNiv1 extends Exercice {
       defaut: 4,
     }).map(String)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let reponse = ''

@@ -1,15 +1,22 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher, getContext } from 'svelte'
   import refProfs from '../../../../../json/referentielProfs.json'
   import uuidsRessources from '../../../../../json/uuidsRessources.json'
   import { toMap } from '../../../../../lib/components/toMap'
   import { mathaleaGenerateSeed } from '../../../../../lib/mathalea'
   import { exercicesParams } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
-  import PdfDialog from '../../../../setup/latex/PdfDialog.svelte'
+  import MobileMenuAction from '../../../../setup/mobile/MobileMenuAction.svelte'
+  import MobileOverlay from '../../../../setup/mobile/MobileOverlay.svelte'
   import InteractivityIcon from '../../../icons/TwoStatesIcon.svelte'
+  import BugReportModal from '../BugReportModal.svelte'
   import BoutonDescendre from './BoutonDescendre.svelte'
   import BoutonMonter from './BoutonMonter.svelte'
+
+  // Dans la vue mobile, la barre d'actions est remplacée par une icône unique
+  // qui ouvre un menu plein écran (voir `MobileView.svelte`).
+  const isMobileView = getContext('mobileView') === true
+  let isMobileMenuOpen = false
 
   // paramètres obligatoires
   export let title: string | undefined
@@ -23,6 +30,7 @@
   export let correctionReady = true
   export let correctionExists = true
   export let isInteractif: boolean = false
+  export let interactifObligatoire = false
   export let isSortable: boolean = true
   export let isDeletable: boolean = true
   export let isHidable: boolean = true
@@ -30,7 +38,7 @@
   export let isSettingsVisible = true
   const isContentVisible = true
   let isCorrectionVisible = false
-  let showPdfDialog = false
+  let isBugReportDisplayed = false
   // redéfinition du titre lorsqu'un exercice apparait plusieurs fois :
   // si le titre contient le caractère | (ajouté lors de la création de l'exercice)
   // on coupe le titre en deux et on distingue le titre de base de l'addendum
@@ -110,15 +118,145 @@
   }
   <HeaderExerciceVueProf {...headerExerciceProps}/>
   ```
+
+  Dans la vue mobile (contexte `mobileView`), la barre d'actions est remplacée
+  par une icône unique ouvrant un menu plein écran qui recouvre les exercices.
  -->
 
-<div class="z-0 flex-1">
+{#if isMobileView}
+  <div class="z-0 flex-1">
+    <div
+      class="flex flex-row items-center justify-between gap-2 mt-4 pb-1
+      border-b border-coopmaths-struct dark:border-coopmathsdark-struct"
+    >
+      <h1
+        id="exerciceHeader{indiceExercice}"
+        class="min-w-0 flex flex-row items-center gap-2 text-coopmaths-struct dark:text-coopmathsdark-struct"
+      >
+        <span
+          class="{$exercicesParams.length <= 1
+            ? 'hidden'
+            : 'flex'} shrink-0 items-center justify-center h-5 w-5 text-xs font-light
+          bg-coopmaths-struct dark:bg-coopmathsdark-struct
+          text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+        >
+          {indiceExercice + 1}
+        </span>
+        <span
+          id="exotitle-{indiceExercice}"
+          class="min-w-0 truncate font-bold text-base">{titleBase}</span
+        >
+        {#if titleAddendum}
+          <span
+            class="flex shrink-0 justify-center items-center rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm"
+          >
+            {titleAddendum}
+          </span>
+        {/if}
+      </h1>
+      <button
+        type="button"
+        aria-label="Régler l'exercice"
+        class="print-hidden shrink-0 p-1 text-coopmaths-action dark:text-coopmathsdark-action"
+        on:click={() => (isMobileMenuOpen = true)}
+      >
+        <i class="bx bx-slider-alt text-2xl"></i>
+      </button>
+    </div>
+  </div>
+
+  {#if isMobileMenuOpen}
+    <div
+      class="fixed inset-0 z-[1100] flex flex-col overflow-y-auto
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      <div
+        class="sticky top-0 flex flex-row items-center justify-between gap-2 px-4 py-3
+        border-b border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest
+        bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      >
+        <h2
+          class="min-w-0 truncate text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
+        >
+          {titleBase}
+        </h2>
+        <button
+          type="button"
+          aria-label="Fermer le menu de l'exercice"
+          class="shrink-0 p-1 text-coopmaths-action dark:text-coopmathsdark-action"
+          on:click={() => (isMobileMenuOpen = false)}
+        >
+          <i class="bx bx-x text-3xl"></i>
+        </button>
+      </div>
+      <div class="flex flex-col gap-2 p-4">
+        {#if randomReady}
+          <MobileMenuAction
+            icon="bx-refresh"
+            label="Nouvelles données"
+            description="Régénère l'énoncé de cet exercice"
+            onclick={() => {
+              isMobileMenuOpen = false
+              newData()
+            }}
+          />
+        {/if}
+        {#if settingsReady}
+          <MobileMenuAction
+            icon="bx-slider"
+            label={isSettingsVisible
+              ? 'Masquer les paramètres'
+              : "Paramétrer l'exercice"}
+            onclick={() => {
+              isMobileMenuOpen = false
+              isSettingsVisible = !isSettingsVisible
+              dispatch('clickSettings', { isSettingsVisible })
+            }}
+          />
+        {/if}
+        {#if interactifReady && !interactifObligatoire}
+          <MobileMenuAction
+            icon={isInteractif ? 'bx-toggle-right' : 'bx-toggle-left'}
+            label={isInteractif
+              ? "Désactiver l'interactivité"
+              : "Activer l'interactivité"}
+            onclick={() => {
+              isMobileMenuOpen = false
+              switchInteractif()
+            }}
+          />
+        {/if}
+        {#if isDeletable}
+          <MobileMenuAction
+            icon="bx-trash"
+            label="Supprimer l'exercice"
+            onclick={() => {
+              isMobileMenuOpen = false
+              remove()
+            }}
+          />
+        {/if}
+        <!-- toujours en dernier -->
+        <MobileMenuAction
+          icon="bx-bug"
+          label="Signaler un problème"
+          description="Nous aider à corriger cet exercice"
+          onclick={() => {
+            isMobileMenuOpen = false
+            isBugReportDisplayed = true
+          }}
+        />
+      </div>
+    </div>
+  {/if}
+{:else}
+  <div class="z-0 flex-1">
   <h1
     class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 mt-4 flex flex-col lg:flex-row justify-start lg:justify-between items-start xl:items-baseline"
   >
     <div
       class="flex flex-col xl:flex-row xl:justify-start xl:items-center"
-      id="exercice{indiceExercice}"
+      id="exerciceHeader{indiceExercice}"
     >
       <div
         class="flex flex-row items-center whitespace-pre font-bold text-sm md:text-base lg:text-xl pb-1 lg:pb-0"
@@ -195,29 +333,27 @@
               : 'bx-check-circle'}"
           ></i>
         </button>
+        {#if interactifReady && !interactifObligatoire}
+          <button
+            class="mx-2 tooltip tooltip-left tooltip-neutral"
+            data-tip={isInteractif
+              ? "Désactiver l'interactivité"
+              : 'Rendre interactif'}
+            type="button"
+            on:click={switchInteractif}
+          >
+            <InteractivityIcon isOnStateActive={isInteractif} />
+          </button>
+        {/if}
         <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral {interactifReady
-            ? ''
-            : 'hidden'}"
-          data-tip={isInteractif
-            ? "Désactiver l'interactivité"
-            : 'Rendre interactif'}
-          type="button"
-          on:click={switchInteractif}
-        >
-          <InteractivityIcon isOnStateActive={isInteractif} />
-        </button>
-        <button
-          class="mx-2 tooltip tooltip-left"
+          class="mx-2 tooltip tooltip-left {randomReady ? '' : 'hidden'}"
           data-tip="Nouvel énoncé"
           type="button"
           aria-label="Nouvel énoncé"
           on:click={newData}
         >
           <i
-            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady
-              ? ''
-              : 'hidden'}"
+            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
           ></i>
         </button>
         {#if isHidable}
@@ -278,24 +414,22 @@
             class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-slider"
           ></i>
         </button>
-        <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral"
-          data-tip="Fichier PDF"
-          aria-label="pdf"
-          type="button"
-          on:click={() => (showPdfDialog = true)}
-        >
-          <i
-            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bxs-file-pdf"
-          ></i>
-        </button>
-        {#if showPdfDialog}
-          <PdfDialog {indiceExercice} onClose={() => (showPdfDialog = false)} />
-        {/if}
       </div>
       <div
         class="flex flex-row justify-start items-center space-x-4 md:space-x-1"
       >
+        <!-- en dernier des actions, juste avant les boutons monter/descendre -->
+        <button
+          class="mx-2 tooltip tooltip-left tooltip-neutral text-xl"
+          data-tip="Signaler un problème"
+          type="button"
+          aria-label="Signaler un problème"
+          on:click={() => (isBugReportDisplayed = true)}
+        >
+          <i
+            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-bug"
+          ></i>
+        </button>
         {#if isSortable}
           <BoutonMonter indice={indiceExercice} />
           <BoutonDescendre indice={indiceExercice} {indiceLastExercice} />
@@ -303,4 +437,14 @@
       </div>
     </div>
   </h1>
-</div>
+  </div>
+{/if}
+
+{#if isBugReportDisplayed}
+  <BugReportModal
+    bind:isDisplayed={isBugReportDisplayed}
+    exerciceId={id}
+    exerciceTitle={titleBase}
+    exerciceIndex={indiceExercice}
+  />
+{/if}

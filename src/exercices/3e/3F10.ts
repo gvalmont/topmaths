@@ -1,7 +1,8 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
@@ -10,12 +11,10 @@ import { getLang } from '../../lib/stores/languagesStore'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Lire images et antécédents depuis un tableau de valeurs'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -25,8 +24,8 @@ export const amcType = 'AMCHybride'
 export const uuid = 'b92de'
 
 export const refs = {
-  'fr-fr': ['3F10', 'BP2AutoO1'],
-  'fr-ch': ['10FA5-4', '1mF1-6'],
+  'fr-fr': ['3F10', '2F11-1', 'BP2AutoO1'],
+  'fr-ch': ['10FA1B-2', '1mF1-6'],
 }
 export default class ImageAntecedentDepuisTableauOuFleche extends Exercice {
   constructor() {
@@ -217,7 +216,7 @@ f) Compléter $f($%{champ6}$)=${c}$`,
           champ6: { value: f },
         },
         {
-          formatInteractif: 'multiMathfield',
+          formatInteractif: 'multi-mathfield',
         },
       )
       if (context.isAmc) {

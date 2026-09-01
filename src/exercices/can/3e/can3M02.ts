@@ -8,7 +8,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un volume de pyramide'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -21,7 +21,7 @@ export const uuid = 'f0128'
 
 export const refs = {
   'fr-fr': ['can3M02'],
-  'fr-ch': [],
+  'fr-ch': ['11GM2A-2'],
 }
 export default class CalculVolumePyramide extends ExerciceSimple {
   constructor() {

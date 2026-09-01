@@ -11,11 +11,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '2e7a5'
 export const refs = {
-  'fr-fr': ['1A-C10-8'],
+  'fr-fr': ['1A-C10-8', '2A-C3-6'],
   'fr-ch': ['11QCM-12', '1mQCM-12'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Résoudre une équation du premier degré'
@@ -78,10 +78,9 @@ export default class Auto1C11 extends ExerciceQcmA {
  ${rienSi1(k * a - c)}x${ecritureAlgebrique(k * b)}&=${d}\\\\
  ${rienSi1(k * a - c)}x${ecritureAlgebrique(k * b)}${miseEnEvidence(ecritureAlgebrique(-k * b))}&=${d}${miseEnEvidence(ecritureAlgebrique(-k * b))}\\\\
  ${rienSi1(k * a - c)}x&=${d - k * b}\\\\
- x&=${texFractionFromString(d - k * b, k * a - c)}
- ${pgcd(abs(d - k * b), abs(k * a - c)) > 1 || k * a - c < 0 ? `\\\\x&=${new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee}` : ''}\\end{aligned}$
- `
-        this.correction += `<br> La solution est $${miseEnEvidence(new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee)}$.`
+ x&=${texFractionFromString(d - k * b, k * a - c)}\\\\
+ ${pgcd(abs(d - k * b), abs(k * a - c)) > 1 || k * a - c < 0 ? `x&=${new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee}` : ''}\\end{aligned}$<br>`
+        this.correction += `La solution est $${miseEnEvidence(new FractionEtendue(d - k * b, k * a - c).texFractionSimplifiee)}$.`
 
         bonnereponse = new FractionEtendue(d - k * b, k * a - c)
           .texFractionSimplifiee
@@ -112,9 +111,8 @@ export default class Auto1C11 extends ExerciceQcmA {
  ${rienSi1(newA - c)}x${ecritureAlgebrique(newB)}&=${d}\\\\
  ${rienSi1(newA - c)}x${ecritureAlgebrique(newB)}${miseEnEvidence(ecritureAlgebrique(-1 * newB))}&=${d}${miseEnEvidence(ecritureAlgebrique(-1 * newB))}\\\\
  ${rienSi1(newA - c)}x&=${d - newB}\\\\
- x&=${texFractionFromString(d - newB, newA - c)}
- ${pgcd(abs(d - newB), abs(newA - c)) > 1 || newA - c < 0 ? `\\\\x&=${new FractionEtendue(d - newB, newA - c).texFractionSimplifiee}\n` : ''}\\end{aligned}$
- `
+ x&=${texFractionFromString(d - newB, newA - c)}\\\\
+ ${pgcd(abs(d - newB), abs(newA - c)) > 1 || newA - c < 0 ? `x&=${new FractionEtendue(d - newB, newA - c).texFractionSimplifiee}` : ''}\\end{aligned}$`
 
         this.correction += `<br> La solution est $${miseEnEvidence(new FractionEtendue(d - newB, newA - c).texFractionSimplifiee)}$.`
 
@@ -134,16 +132,13 @@ export default class Auto1C11 extends ExerciceQcmA {
         `$${erreur3}$`,
       ]
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, { fractionEgale: true })
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    // this.options = { vertical: true, ordered: false }
+
     this.versionAleatoire()
     this.spacing = 1.5
   }

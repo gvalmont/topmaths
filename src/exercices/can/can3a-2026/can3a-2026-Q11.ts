@@ -3,7 +3,6 @@ import { repere } from '../../../lib/2d/reperes'
 import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -12,7 +11,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Lire une coordonnée d'un point"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'riest'
 export const refs = {
   'fr-fr': [],
@@ -38,7 +37,7 @@ export default class Can32026Q11 extends ExerciceCan {
         b = randint(-2, 2)
         a = randint(-2, 4, [b])
       } while (a === 0 && b === 0)
-      choix = choice([true, false])
+      choix = this.quotaChoice('choix', [true, false])
     }
 
     this.reponse = choix ? a : b
@@ -80,7 +79,7 @@ export default class Can32026Q11 extends ExerciceCan {
         ymax: 3,
         scale: 0.7,
         pixelsParCm: 30,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       r,
       o,
@@ -104,7 +103,7 @@ On lit : $${miseEnEvidence(this.reponse)}$.`
         ymax: 3,
         scale: 0.7,
         pixelsParCm: 30,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       r,
       o,

@@ -11,7 +11,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Développer avec la simple distributivité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '28/07/2025'
@@ -21,7 +21,7 @@ export const dateDeModifImportante = '28/07/2025'
 export const uuid = '56a2d'
 
 export const refs = {
-  'fr-fr': ['can4L05'],
+  'fr-fr': ['can4L05', 'BP1AUTO084'],
   'fr-ch': [],
 }
 export default class DeveloppementNiveau1 extends ExerciceSimple {
@@ -36,7 +36,7 @@ export default class DeveloppementNiveau1 extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b, k, inconnue
-    switch (randint(1, 2)) {
+    switch (this.quotaRandint('cas', 1, 2)) {
       case 1: // developpement k*(a+b)
         a = randint(-5, 4, 0)
         b = randint(1, 10) * choice([-1, 1])

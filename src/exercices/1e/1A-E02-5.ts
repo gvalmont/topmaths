@@ -9,7 +9,7 @@ export const dateDePublication = '20/02/2026'
 export const uuid = '4ed30'
 
 export const refs = {
-  'fr-fr': ['1A-E02-5'],
+  'fr-fr': ['1A-E02-5', '2A-E2-5'],
   'fr-ch': [],
 }
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
  */
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Retrouver le calcul pour obtenir la valeur initiale'
@@ -36,13 +36,13 @@ export default class Auto1AE025 extends ExerciceQcmA {
     const bonnesReponses = [
       {
         reponse: `$\\dfrac{${texNombre(prixFinal)}}{${coefficientTexte}}$`,
-        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $${coefficientTexte}$ (coefficient multiplicateur).<br>
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $1 -  ${texNombre(pourcentage / 100, 2)}=${coefficientTexte}$ (coefficient multiplicateur).<br>
         Si $V_I$ est le prix initial, on a : $ V_I \\times ${coefficientTexte}=${texNombre(prixFinal)}$.<br>
         Ainsi, le prix initial est donné par : $${miseEnEvidence(`\\dfrac{${texNombre(prixFinal)}}{${coefficientTexte}}`)}$.`,
       },
       {
         reponse: `$\\dfrac{${texNombre(prixFinal)}}{1 - \\dfrac{${pourcentage}}{100}}$`,
-        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $1 - \\dfrac{${pourcentage}}{100}$ (coefficient multiplicateur).<br>
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $1 - ${texNombre(pourcentage / 100, 2)}$ (coefficient multiplicateur).<br>
         Si $V_I$ est le prix initial, on a : $ V_I \\times \\left(1 - \\dfrac{${pourcentage}}{100}\\right)=${texNombre(prixFinal)}$.<br>
         Ainsi, le prix initial est donné par : $${miseEnEvidence(`\\dfrac{${texNombre(prixFinal)}}{1 - \\dfrac{${pourcentage}}{100}}`)}$.`,
       },
@@ -55,19 +55,19 @@ Ainsi, le prix initial est donné par : $${miseEnEvidence(`\\dfrac{${texNombre(p
       },
       {
         reponse: `$\\dfrac{${texNombre(prixFinal)}}{1 - ${texNombre(pourcentage / 100, 2)}}$`,
-        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $1 - ${texNombre(pourcentage / 100, 2)}$ (coefficient multiplicateur).<br>
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $1 -  ${texNombre(pourcentage / 100, 2)}$ (coefficient multiplicateur).<br>
 Si $V_I$ est le prix initial, on a : $ V_I \\times \\left(1 - ${texNombre(pourcentage / 100, 2)}\\right)=${texNombre(prixFinal)}$.<br>
 Ainsi, le prix initial est donné par : $${miseEnEvidence(`\\dfrac{${texNombre(prixFinal)}}{1 - ${texNombre(pourcentage / 100, 2)}}`)}$.`,
       },
       {
         reponse: `$${texNombre(prixFinal)} \\times \\dfrac{100}{${100 - pourcentage}}$`,
-        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $\\dfrac{${100 - pourcentage}}{100}$.<br>
+        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $1 - \\dfrac{${pourcentage}}{100}=\\dfrac{${100 - pourcentage}}{100}$.<br>
 Si $V_I$ est le prix initial, on a : $V_I \\times \\dfrac{${100 - pourcentage}}{100}=${texNombre(prixFinal)}$.<br>
 Ainsi, le prix initial est donné par : $${miseEnEvidence(`${texNombre(prixFinal)} \\times \\dfrac{100}{${100 - pourcentage}}`)}$.`,
       },
       {
         reponse: `$${texNombre(prixFinal)} \\div ${coefficientTexte}$`,
-        correction: `Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $${coefficientTexte}$ (coefficient multiplicateur).<br>
+        correction: `6Diminuer de $${pourcentage}\\,\\%$ revient à multiplier par $1 - ${texNombre(pourcentage / 100, 2)}=${coefficientTexte}$ (coefficient multiplicateur).<br>
 Si $V_I$ est le prix initial, on a : $ V_I \\times ${coefficientTexte}=${texNombre(prixFinal)}$.<br>
 Ainsi, le prix initial est donné par : $${miseEnEvidence(`${texNombre(prixFinal)} \\div ${coefficientTexte}`)}$.`,
       },
@@ -125,10 +125,7 @@ Ainsi, le prix initial est donné par : $${miseEnEvidence(`${texNombre(prixFinal
 
       this.appliquerLesValeurs(prixFinal, pourcentage)
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {})
-    )
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true))
   }
 
   constructor() {

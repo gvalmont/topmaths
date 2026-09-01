@@ -7,7 +7,7 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const titre = 'Reconnaitre diviseur, multiple, divisible'
 
 export const dateDeModifImportante = '07/03/2023'
@@ -23,7 +23,7 @@ export const uuid = 'bbdd6'
 export const refs = {
   'fr-fr': [], // ['auto6N3D'],
   'fr-2016': [], // ['6N43-3'],
-  'fr-ch': [], // ['9NO4-2'],
+  'fr-ch': ['NR'], // ['9NO4-2'],
 }
 
 function justification(N: number, a: number, booleen: boolean) {

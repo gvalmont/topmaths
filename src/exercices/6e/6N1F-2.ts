@@ -1,9 +1,6 @@
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
   ajouteChampTexte,
   ajouteChampTexteMathLive,
@@ -19,8 +16,7 @@ export const dateDeModifImportante = '08/09/2024'
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 export const amcReady = true
 export const amcType = 'AMCNum'
-// export const interactifReady = true // EE : J'enlève l'interactivité car elle a été mal codée. Faudrait le refaire avec des remplisLesBlancs ou Drag & Drop
-// export const interactifType = 'mathLive'
+export const interactifReady = true
 
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
@@ -33,7 +29,7 @@ export const uuid = '5eb83'
 export const refs = {
   'fr-fr': ['6N1F-2'],
   'fr-2016': ['6N23-0'],
-  'fr-ch': ['9NO7-10'],
+  'fr-ch': ['9NO3C-12'],
 }
 export default class ÉcrireNombresDecimal extends Exercice {
   constructor() {
@@ -148,7 +144,7 @@ export default class ÉcrireNombresDecimal extends Exercice {
         }
         handleAnswers(this, i, {
           reponse: {
-            value: nombreEnLettres(200.3, 1),
+            value: nombreEnLettres(nombre, type),
             options: { texteSansCasse: true },
           },
         })
@@ -163,7 +159,7 @@ export default class ÉcrireNombresDecimal extends Exercice {
         } else {
           texteCorr = `$${texNombre(nombre)}$.`
         }
-        setReponse(this, i, nombre, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: nombre } })
       }
 
       texte = texte.replace('et-un unités', 'et-une unités')

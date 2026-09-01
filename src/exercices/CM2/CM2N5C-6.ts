@@ -18,12 +18,12 @@ export const uuid = 'ab18c'
 export const refs = {
   'fr-fr': ['CM2N5C-6'],
   'fr-2016': ['c3C32-05'],
-  'fr-ch': ['9NO15-7'],
+  'fr-ch': ['9NO3C-16'],
 }
 export const titre =
   'La bouteille (problème de conversion avec fraction simple)'
 export const dateDePublication = '30/11/2024'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 /**
  * @Author Jean-claude Lhote
@@ -55,7 +55,7 @@ export default class ExerciceProbleme005 extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 5; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 5;) {
       const volume = new Decimal(randint(1, 7)).div(10)
       const frac = choice([
         new FractionEtendue(1, 2),
@@ -77,6 +77,7 @@ export default class ExerciceProbleme005 extends Exercice {
                       question: i * 2,
                       typeInteractivite: 'mathlive',
                       texteApres: ' mL',
+                      reponseParams: { formatInteractif: 'mathalea-mathfield' },
                       objetReponse: {
                         reponse: {
                           value: texNombre(
@@ -94,6 +95,7 @@ export default class ExerciceProbleme005 extends Exercice {
                   question: i * 2 + 1,
                   typeInteractivite: 'mathlive',
                   texteApres: ' mL',
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: {
                     reponse: {
                       value: texNombre(
@@ -132,6 +134,7 @@ export default class ExerciceProbleme005 extends Exercice {
                 typeInteractivite: 'mathlive',
 
                 texteAvant: 'O pour oui, N pour non.',
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: volume
@@ -151,6 +154,7 @@ export default class ExerciceProbleme005 extends Exercice {
               typeInteractivite: 'mathlive',
               texteApres: ' cL',
               texteAvant: "Quel est le volume total d'eau dans la bouteille ?",
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: {
                   value: texNombre(
@@ -187,6 +191,7 @@ export default class ExerciceProbleme005 extends Exercice {
                       question: i * 2,
                       typeInteractivite: 'mathlive',
                       texteApres: ' L',
+                      reponseParams: { formatInteractif: 'mathalea-mathfield' },
                       objetReponse: {
                         reponse: { value: texNombre(frac.valeurDecimale, 2) },
                       },
@@ -199,6 +204,7 @@ export default class ExerciceProbleme005 extends Exercice {
                   question: i * 2 + 1,
                   typeInteractivite: 'mathlive',
                   texteApres: ' L',
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: {
                     reponse: {
                       value: texNombre(volume.plus(frac.valeurDecimale), 2),

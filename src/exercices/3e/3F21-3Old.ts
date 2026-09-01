@@ -6,6 +6,7 @@ import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { milieu } from '../../lib/2d/utilitairesPoint'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -19,13 +20,11 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { contraindreValeur, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '28/05/2023'
@@ -39,7 +38,7 @@ export const uuid = '056fa'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class PenteEtOrdonneeOrigineDroite extends Exercice {
   constructor() {
@@ -94,8 +93,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
           : (this.sup3 === 3 ? choice([-1, 1]) : this.sup3 === 2 ? -1 : 1) *
             randint(this.sup4 === 2 ? 1 : 0, 4)
       const vocabulaire = b === 0 ? 'linéaire' : 'affine'
-      let xMin
-      context.isHtml ? (xMin = -10) : (xMin = -8)
+      const xMin = context.isHtml ? -10 : -8
       const xMax = -xMin
       const yMin = xMin
       const yMax = -yMin
@@ -190,7 +188,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
           questionInteractif,
           KeyboardType.clavierDeBase,
         )
-        correction1 = consigneCorrection + '<br>'
+        correction1 = consigneCorrection
         correction1 +=
           numAlpha(indice) +
           `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$. L'ordonnée de $${nomFonction}$ à l'origine est donc $${miseEnEvidence(b)}$.`

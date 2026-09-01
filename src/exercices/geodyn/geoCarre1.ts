@@ -1,11 +1,11 @@
 import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const titre = 'Tracer un carré'
 export const dateDePublication = '10/11/2023'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * Tracer un carré
@@ -86,15 +86,15 @@ class ConstructionCarre extends ExerciceSimple {
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
-  correctionInteractive = () => {
+  correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figure.id] = this.figure.json
+    this.answers[this.figure.id] = figureAnswerJson(this.figure)
     const resultat = []
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le carré est tracé)
     const divFeedback = document.querySelector(
-      `#feedbackEx${this.numeroExercice}Q0`,
+      `#feedbackEx${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
     const { isValid, message } = this.figure.checkAngle({
       angle: 90,

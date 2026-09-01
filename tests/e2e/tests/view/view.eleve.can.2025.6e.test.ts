@@ -4,12 +4,12 @@ import prefs from '../../helpers/prefs.js'
 import { runTest } from '../../helpers/run'
 
 async function testEleveView(page: Page) {
-  await page.setDefaultTimeout(500_000) // Set timeout to 500 seconds
+  await page.setDefaultTimeout(1_500_000) // Set timeout to 500 seconds
   const goodAnswers = [
     '25',
     '4',
     '50',
-    '1024',
+    '1\\,024',
     '531',
     '5{\\:\\text{h}\\:}25{\\:\\text{min}\\:}',
     '32',

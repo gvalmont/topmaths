@@ -15,7 +15,7 @@ import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Comparer deux fractions (dénominateurs multiples)'
@@ -30,9 +30,9 @@ export const dateDeModifImportante = '19/05/2026'
 export const uuid = '234ae'
 
 export const refs = {
-  'fr-fr': ['6N3I-3', 'BP2AutoG6'],
+  'fr-fr': ['6N3I-3', 'BP2AutoG6', 'auto5N3F-3'],
   'fr-2016': ['5N14', 'BP2AutoG6'],
-  'fr-ch': ['9NO12-5'],
+  'fr-ch': ['NR'],
 }
 export default class ExerciceComparerDeuxFractions extends Exercice {
   constructor(max = 11) {

@@ -12,13 +12,13 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = "Connaitre les tables de multiplication « à l'envers »"
+export const titre = "Connaître les tables de multiplication « à l'envers »"
 export const dateDePublication = '4/4/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'ac64a'
 export const refs = {
-  'fr-fr': ['auto6N3D-6'],
+  'fr-fr': ['auto6N3D-6, auto5N1C', 'auto5N3A-2', 'auto5N4A-2'],
   'fr-2016': ['6C10-9'],
   'fr-ch': [],
 }
@@ -57,7 +57,7 @@ export default class nomExercice extends Exercice {
     const facteurMax = Number(this.sup2) > 5 ? Number(this.sup2) : 5
     const facteurs1 = combinaisonListes(tables, this.nbQuestions)
     const facteurs2 = Array.from({ length: facteurMax - 1 }, (_, i) => i + 2)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = facteurs1[i]
       const b = choice(facteurs2)
       let texte = ''

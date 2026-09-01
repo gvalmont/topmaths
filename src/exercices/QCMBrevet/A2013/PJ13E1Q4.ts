@@ -4,11 +4,11 @@ import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '67e19'
 export const refs = {
-  'fr-fr': ['3L1QCM-06', 'BP2AutoI20'],
+  'fr-fr': ['3L1QCM-06', 'BP2AutoI20', 'BP1AUTO089'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calcul littéral factorisation (2013 Polynésie)'

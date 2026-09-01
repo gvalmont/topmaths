@@ -6,7 +6,6 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme de nombres avec des unités'
 export const dateDePublication = '05/11/2022'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * @author Gilles Mora
@@ -34,11 +33,11 @@ export default class CalculAvecUnite extends ExerciceSimple {
   nouvelleVersion() {
     const prefixes = ['k', 'h', 'da', '', 'd', 'c', 'm']
 
-    const unite = choice(['g', 'm', 'L'])
+    const unite = this.quotaChoice('unite', ['g', 'm', 'L'])
     let k
-    const a = randint(1, 9)
-    const b = randint(1, 19)
-    switch (choice([1, 2, 3])) {
+    const a = this.quotaRandint('a', 1, 9)
+    const b = this.quotaRandint('b', 1, 19)
+    switch (this.quotaChoice('cas', [1, 2, 3])) {
       case 1:
         k = randint(0, 5)
         if (choice([true, false])) {

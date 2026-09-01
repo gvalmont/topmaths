@@ -1,7 +1,7 @@
 import ExercicePerimetresEtAiresOld from './_Exercice_perimetres_et_aires-old'
 export const titre = 'Calculer le périmètre de polygones usuels'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -13,9 +13,9 @@ export const dateDePublication = '28/07/2025'
 export const uuid = '2a997'
 
 export const refs = {
-  'fr-fr': ['auto6M1E-3'],
-  'fr-2016': ['6M10a'],
-  'fr-ch': [''],
+  'fr-fr': [],
+  'fr-2016': [],
+  'fr-ch': ['NR'],
 }
 
 export default class Reglagesauto6M1E3Old extends ExercicePerimetresEtAiresOld {

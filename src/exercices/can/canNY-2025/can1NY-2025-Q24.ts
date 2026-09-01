@@ -3,11 +3,10 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 export const titre = 'Résoudre une inéquation'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '9e17a'
 export const refs = {
   'fr-fr': [],
@@ -29,9 +28,14 @@ export default class inequationAResoudre extends ExerciceSimple {
 
   nouvelleVersion() {
     let solution1
-    const a = choice([-2025, 2025])
-    const b = choice([-2025, 2025])
-    const inégalité = choice(['>', '\\geqslant', '<', '\\leqslant'])
+    const a = this.quotaChoice('a', [-2025, 2025])
+    const b = this.quotaChoice('b', [-2025, 2025])
+    const inégalité = this.quotaChoice('inegalite', [
+      '>',
+      '\\geqslant',
+      '<',
+      '\\leqslant',
+    ])
     this.question = `Donner l'ensemble $S$ des solutions dans $\\mathbb R$ de l'inéquation
           $${texNombre(a, 0)}(x${ecritureAlgebrique(-b)})^2 ${inégalité} 0$.`
 

@@ -18,14 +18,13 @@ import Exercice from '../Exercice'
 
 export const titre = 'Déterminer si deux programmes de calcul sont équivalents'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '21/11/2025'
 
 export const uuid = '97ceb'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [''],
+  'fr-ch': ['NR'],
 }
 
 /**

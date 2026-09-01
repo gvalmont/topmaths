@@ -1,11 +1,9 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { abs } from '../../../lib/outils/nombres'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Rechercher un nombre à ajouter'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -16,8 +14,8 @@ export const interactifType = 'mathLive'
 export const uuid = '6b25b'
 
 export const refs = {
-  'fr-fr': ['can5C15'],
-  'fr-ch': [],
+  'fr-fr': ['can5C15', '5N2I-flash2'],
+  'fr-ch': ['NR'],
 }
 export default class NombreATrouver extends ExerciceSimple {
   constructor() {
@@ -27,8 +25,8 @@ export default class NombreATrouver extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(-9, 9, 0)
-    const b = randint(1, 8)
+    const a = this.quotaRandint('a', -9, 9, [0])
+    const b = this.quotaRandint('b', 1, 8)
     const c = a - b
 
     this.question = `Quel nombre doit-on ajouter à $${a}$ pour obtenir $${c}$ ?

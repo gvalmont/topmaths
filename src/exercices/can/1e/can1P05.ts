@@ -9,14 +9,14 @@ import Exercice from '../../Exercice'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre =
   'Utiliser la formule des probabilités totales dans un arbre'
 export const dateDePublication = '05/07/2022'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -134,7 +134,7 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
               xmax: 14,
               ymin: 0,
               ymax: 7,
-              style: 'inline',
+              display: 'inline',
               scale: 0.5,
             },
             ...objets,
@@ -160,7 +160,7 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
       &=${texNombre(pA, 1)}\\times ${texNombre(pBsachantA, 1)}+${texNombre(pAbarre, 1)}\\times ${texNombre(pBsachantAbarre, 1)}\\\\
       &=${texNombre(reponse1, 2)}\\end{aligned}$
       `
-          setReponse(this, i, reponse1)
+          handleAnswers(this, i, { reponse: { value: reponse1 } })
           this.canEnonce = texte
 
           break
@@ -224,7 +224,7 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
               xmax: 14,
               ymin: 0,
               ymax: 7,
-              style: 'inline',
+              display: 'inline',
               scale: 0.5,
             },
             ...objets,
@@ -250,7 +250,7 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
         &=${texNombre(pA, 1)}\\times ${texNombre(pBbarresachantA, 1)}+${texNombre(pAbarre, 1)}\\times ${texNombre(pBbarresachantAbarre, 1)}\\\\
         &=${texNombre(reponse2, 2)}\\end{aligned}$
         `
-          setReponse(this, i, reponse2)
+          handleAnswers(this, i, { reponse: { value: reponse2 } })
           this.canEnonce = texte
 
           break

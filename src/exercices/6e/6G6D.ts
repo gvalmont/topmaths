@@ -6,14 +6,15 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { triangle2points2angles } from '../../lib/2d/triangles'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutPourUnPoint } from '../../lib/interactif/mathLive'
 import {
   addMultiMathfield,
   type DataOptionsMultiMathfield,
-} from '../../lib/interactif/MultiMathfield/MultiMathfield'
+} from '../../lib/customElements/MultiMathfield'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutPourUnPoint } from '../../lib/interactif/fonctionsBaremes'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
@@ -28,13 +29,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Déterminer la valeur d'un angle en utilisant la somme des mesures des angles dans un triangle"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '06/04/2025'
@@ -70,9 +69,9 @@ Correction de quelques coquilles
 export const uuid = 'dc8ce'
 
 export const refs = {
-  'fr-fr': ['6G6D', '3AutoG05-1'],
+  'fr-fr': ['6G6D', '3AutoG05'],
   'fr-2016': ['5G31'],
-  'fr-ch': ['9ES2-9', '1mG1-2'],
+  'fr-ch': ['9ES1C-4', '11ES1A-1', '1mG1-2'],
 }
 const troisiemeAngle = function (a1: number, a2: number) {
   if (a1 + a2 <= 180) {
@@ -122,12 +121,10 @@ export default class ExerciceAnglesTriangles extends Exercice {
     this.sup2 = false
     this.sup3 = true
     this.sup4 = '1'
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.spacingCorr = context.isHtml ? 2 : 1.5
+    this.spacing = 2
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
-    this.nbCols = 2
-    this.nbColsCorr = 2
   }
 
   nouvelleVersion() {
@@ -1370,7 +1367,7 @@ export default class ExerciceAnglesTriangles extends Exercice {
           }
         }
 
-        handleAnswers(this, i, answers, { formatInteractif: 'multiMathfield' })
+        handleAnswers(this, i, answers, { formatInteractif: 'multi-mathfield' })
       }
 
       const nom = nommePolygone(triangle)

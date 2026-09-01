@@ -96,7 +96,7 @@ export class TraceGraphiqueCartesien extends ObjetMathalea2D {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      code += '\n\t' + objet.tikz()
+      code += `\t${objet.tikz()}\n`
     }
     return code
   }
@@ -115,8 +115,8 @@ export class TraceGraphiqueCartesien extends ObjetMathalea2D {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      if (typeof objet.tikzml === 'undefined') code += '\n\t' + objet.tikz()
-      else code += '\n\t' + objet.tikzml(amp)
+      if (typeof objet.tikzml === 'undefined') code += `\t${objet.tikz()}\n`
+      else code += `\t${objet.tikzml(amp)}\n`
     }
     return code
   }
@@ -538,7 +538,7 @@ export class DiagrammeBarres extends ObjetMathalea2D {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      code += '\n\t' + objet.tikz()
+      code += `\t${objet.tikz()}\n`
     }
     return code
   }
@@ -719,7 +719,7 @@ export class DiagrammeCirculaire extends ObjetMathalea2D {
         a.couleurDesHachures = colorToLatexOrHTML(texcolors(i + 1))
         a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 2))
       } else {
-        hachure = ''
+        hachure = false
         a.hachures = ''
       }
       a.opaciteDeRemplissage = 0.7
@@ -857,7 +857,7 @@ export class DiagrammeCirculaire extends ObjetMathalea2D {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      code += '\n\t' + objet.tikz()
+      code += `\t${objet.tikz()}\n`
     }
     return code
   }

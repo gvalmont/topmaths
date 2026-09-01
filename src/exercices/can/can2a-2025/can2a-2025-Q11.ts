@@ -1,12 +1,12 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Calculer les coordonnées d'un milieu"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '50ee5'
 export const refs = {
   'fr-fr': [],

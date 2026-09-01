@@ -9,7 +9,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec une proportion'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
@@ -21,8 +21,8 @@ export const amcType = 'AMCNum'
 export const uuid = 'eb6bc'
 
 export const refs = {
-  'fr-fr': ['can5P04'],
-  'fr-ch': [],
+  'fr-fr': ['can5P04', '5P1A-flash1'],
+  'fr-ch': ['9FA2B-9'],
 }
 export default class PoucentageP1 extends ExerciceSimple {
   constructor() {
@@ -43,7 +43,9 @@ export default class PoucentageP1 extends ExerciceSimple {
       'un sac à roulettes',
     ])
 
-    switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) {
+    switch (
+      this.quotaChoice('typeDeQuestions', ['a', 'b', 'c', 'd', 'e', 'f'])
+    ) {
       case 'a':
         b = randint(3, 7) * 5
         this.question = `$\\dfrac{1}{5}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>

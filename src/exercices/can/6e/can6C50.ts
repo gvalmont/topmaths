@@ -6,7 +6,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Établir une relation entre unité, dixième, centième et millième '
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '03/07/2025'
@@ -17,7 +17,7 @@ export const dateDePublication = '03/07/2025'
 export const uuid = '59129'
 
 export const refs = {
-  'fr-fr': ['can6C50', 'auto6N2A-flash1'],
+  'fr-fr': ['can6C50', 'auto6N2A-flash1', '6AutoN1-1'],
   'fr-ch': ['NR'],
 }
 export default class RelationUniteDixiemeCentiemeMillieme extends ExerciceSimple {
@@ -32,7 +32,7 @@ export default class RelationUniteDixiemeCentiemeMillieme extends ExerciceSimple
   nouvelleVersion() {
     let a, b, resultat
     switch (
-      choice([1, 2]) //, 2, 3
+      this.quotaChoice('typeDeQuestions', [1, 2]) //, 2, 3
     ) {
       case 1:
         a = choice([1, 10, 100, 1000])

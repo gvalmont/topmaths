@@ -85,37 +85,32 @@ function applyPrefsFromEnv(defaultHeadless: boolean) {
   }
 }
 
-async function waitForExercicesAffiches(page: Page, buttonZoom: Locator) {
-  const waitForEvent = page.evaluate(() => {
-    return new Promise<void>((resolve) => {
-      const listener = () => {
-        document.removeEventListener('exercicesAffiches', listener)
-        resolve()
-      }
-      document.addEventListener('exercicesAffiches', listener)
-    })
-  })
+async function clickZoomAndWaitForExercise(page: Page, buttonZoom: Locator) {
+  const previousZoom = new URL(page.url()).searchParams.get('z') ?? ''
   await buttonZoom.click()
-  // Attendre que l'événement exercicesAffiches soit déclenché
-  const eventDetected = await Promise.race([
-    waitForEvent,
-    new Promise((resolve, reject) =>
-      setTimeout(
-        () =>
-          reject(
-            new Error(
-              "Timeout: L'événement exercicesAffiches n'a pas été détecté",
-            ),
-          ),
-        5000,
-      ),
-    ),
-  ])
-  if (eventDetected instanceof Error) {
-    logError(eventDetected.message)
-  } else {
-    logDebug('Événement exercicesAffiches détecté')
+  const exerciseLocator = page.locator('div.mb-5>ul>div#consigne0-0')
+  try {
+    await page.waitForFunction(
+      (zoom) => new URL(window.location.href).searchParams.get('z') !== zoom,
+      previousZoom,
+      { timeout: 5_000 },
+    )
+  } catch (error) {
+    const exerciseIsVisible = await exerciseLocator.isVisible()
+    if (!exerciseIsVisible) throw error
+    logDebug(`Zoom inchangé, exercice déjà visible: z=${previousZoom}`)
   }
+  await exerciseLocator.waitFor({
+    state: 'visible',
+    timeout: 60_000,
+  })
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+      }),
+  )
+  logDebug('Exercice affiché après zoom')
 }
 
 async function action(page: Page, description: string) {
@@ -123,10 +118,16 @@ async function action(page: Page, description: string) {
   logDebug(`Test avec les paramètres ${description}`)
   // clic sur nouvel énoncé 3 fois
   const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé' })
-  logDebug('Actualier (nouvel énoncé)')
-  setLastAction('click Nouvel énoncé')
-  await buttonNewData.click({ force: true })
-  logDebug('fin Actualier (nouvel énoncé)')
+  // Le bouton est masqué pour les exercices avec pasDeVersionAleatoire = true
+  const hasButtonNewData = await buttonNewData.isVisible()
+  if (hasButtonNewData) {
+    logDebug('Actualier (nouvel énoncé)')
+    setLastAction('click Nouvel énoncé')
+    await buttonNewData.click({ force: true })
+    logDebug('fin Actualier (nouvel énoncé)')
+  } else {
+    logDebug('Pas de bouton « Nouvel énoncé » (exercice non aléatoire)')
+  }
   const buttonZoom = page.locator(
     '#setupButtonsBar > div > div:nth-child(2) > button',
   )
@@ -139,11 +140,11 @@ async function action(page: Page, description: string) {
   if (z < 1.4) {
     // await buttonZoom.highlight()
     setLastAction('click Zoom +')
-    await waitForExercicesAffiches(page, buttonZoom)
+    await clickZoomAndWaitForExercise(page, buttonZoom)
   } else {
     // await buttonZoomMoins.highlight()
     setLastAction('click Zoom -')
-    await waitForExercicesAffiches(page, buttonZoomMoins)
+    await clickZoomAndWaitForExercise(page, buttonZoomMoins)
   }
   log('Fin zoom')
   // Active le mode interactif
@@ -175,10 +176,20 @@ async function action(page: Page, description: string) {
     await page.waitForSelector('article + div')
     const buttonResult = await page.locator('article + div').innerText()
     log(buttonResult)
-    logDebug('Actualier (nouvel énoncé) 3 fois')
-    setLastAction('click Nouvel énoncé x3')
-    await buttonNewData.click({ clickCount: 3 })
-    logDebug('fin Actualier (nouvel énoncé) 3 fois')
+    const scratchModal = page.locator('dialog[data-scratch-sim="true"]')
+    if (await scratchModal.isVisible()) {
+      setLastAction('fermer la modale scratch-simulator')
+      await scratchModal.getByRole('button', { name: '✕' }).click()
+      await scratchModal.waitFor({ state: 'hidden' })
+    }
+    // Même garde que plus haut : sans bouton (pasDeVersionAleatoire = true),
+    // le clic attendrait en vain jusqu'au timeout.
+    if (hasButtonNewData) {
+      logDebug('Actualier (nouvel énoncé) 3 fois')
+      setLastAction('click Nouvel énoncé x3')
+      await buttonNewData.click({ clickCount: 3 })
+      logDebug('fin Actualier (nouvel énoncé) 3 fois')
+    }
   } else {
     // MGu : obligé car parfois on rate l'exception car trop rapide
     // await new Promise((resolve) => setTimeout(resolve, 1000)) // GV : Si on attend 1 seconde après chaque cas, il va falloir 1 an si on veut tester toutes les possibilités

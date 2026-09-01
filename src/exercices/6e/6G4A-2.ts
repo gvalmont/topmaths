@@ -29,7 +29,7 @@ function degSin(deg: number): number {
 }
 
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcType = 'qcmMono'
 export const amcReady = true
 
@@ -45,9 +45,9 @@ export const dateDePublication = '03/12/2022'
 export const uuid = 'fe08e'
 
 export const refs = {
-  'fr-fr': ['6G4A-2', '3AutoG03-1'],
+  'fr-fr': ['6G4A-2', '3AutoG03-1', '6AutoG1-6'],
   'fr-2016': ['6G22-2'],
-  'fr-ch': ['9ES5-2'],
+  'fr-ch': ['9ES1B-2'],
 }
 export default class ReconnaitreUnAngleParticulier extends Exercice {
   constructor() {
@@ -71,7 +71,6 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
     for (
       let i = 0, texte, texteCorr, triangle, explications, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const objets2d = []
       const indiceNomA = randint(1, 26)
@@ -216,9 +215,9 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       texte += monQcm.texte
       texteCorr += context.isAmc ? '' : questionReponse.question + '<br>'
       texteCorr += monQcm.texteCorr
-      this.correctionDetaillee
-        ? (texteCorr += questionReponse.explications + '<br>')
-        : (texteCorr += '<br>')
+      if (this.correctionDetaillee) {
+        texteCorr += questionReponse.explications + '<br>'
+      }
       if (
         this.questionJamaisPosee(
           i,

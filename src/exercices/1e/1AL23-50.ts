@@ -1,5 +1,6 @@
 import { courbe } from '../../lib/2d/Courbe'
 import { repere } from '../../lib/2d/reperes'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -20,12 +21,11 @@ import {
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Utiliser la représentation graphique d'un polynôme du second degré"
 export const dateDeModifImportante = '13/11/2025'
-export const interactifType = ['mathLive', 'qcm']
+
 export const interactifReady = true
 
 /**
@@ -45,6 +45,11 @@ export const refs = {
   'fr-ch': ['1mF3-1'],
 }
 export default class LireElementsCarac extends Exercice {
+  /**
+   * Nom donné au coefficient de $x^2$ dans les énoncés et les corrections.
+   * Le clone BP1F2D06 (Bac Pro Première) le remplace par « coefficient $a$ ».
+   */
+  nomDuCoefficientDominant = 'coefficient dominant'
   constructor() {
     super()
     this.besoinFormulaireNumerique = [
@@ -75,7 +80,7 @@ export default class LireElementsCarac extends Exercice {
     let Ymax
     let Xmin
     let Xmax
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       fName.push(lettreMinusculeDepuisChiffre(i + 6))
       let texteCorr = ''
       let texte = ''
@@ -89,7 +94,7 @@ export default class LireElementsCarac extends Exercice {
       // Générons les coefficients du trinôme, la consigne, la correction
       switch (listeTypeDeQuestions[i]) {
         case 1: // Signe du coefficient dominant
-          texte = 'Quel est le signe du coefficient dominant'
+          texte = `Quel est le signe du ${this.nomDuCoefficientDominant}`
           // On choisit 2 racines entières distinctes dans [-10;10]
           do {
             x1 = randint(-10, 10)
@@ -99,7 +104,7 @@ export default class LireElementsCarac extends Exercice {
           b = -a * (x1 + x2)
           c = x1 * x2 * a
 
-          texteCorr = `La parabole est orientée vers le ${a < 0 ? 'bas' : 'haut'}, on en déduit que le coefficient dominant de $\\mathscr{${fName[i]}}$ est ${texteEnCouleurEtGras(a < 0 ? 'négatif' : 'positif')}.`
+          texteCorr = `La parabole est orientée vers le ${a < 0 ? 'bas' : 'haut'}, on en déduit que le ${this.nomDuCoefficientDominant} de $\\mathscr{${fName[i]}}$ est ${texteEnCouleurEtGras(a < 0 ? 'négatif' : 'positif')}.`
           break
         case 2: // Racines
           texte = 'Quelles sont les racines'

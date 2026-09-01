@@ -13,12 +13,13 @@ import {
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le périmètre d’une figure'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -42,7 +43,7 @@ export default class Perimetre extends ExerciceSimple {
 
   nouvelleVersion() {
     const nom = creerNomDePolygone(4, ['QD'])
-    const a = randint(3, 6) //
+    const a = this.quotaRandint('a', 3, 6) //
     const c = (randint(3, 5) * 10 + randint(3, 9)) / 10
     const A = pointAbstrait(0, 0, nom[0])
     const B = pointAdistance(A, c, 0, nom[1])
@@ -98,7 +99,7 @@ export default class Perimetre extends ExerciceSimple {
           mainlevee: true,
           amplitude: 0.5,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )

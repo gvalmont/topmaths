@@ -1,10 +1,9 @@
-import Exercice from '../Exercice'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 export const titre =
   'Différencier événéments impossibles, certains, ou possibles (lancer de dés)'
@@ -13,7 +12,7 @@ export const dateDePublication = '30/7/2024'
 export const uuid = '48b39'
 export const refs = {
   'fr-fr': ['4S20-2'],
-  'fr-ch': [],
+  'fr-ch': ['11NO4A-4'],
 }
 /**
  *  Différencier événéments impossibles, certains, ou possibles
@@ -30,8 +29,6 @@ export default class ExerciceProbaLancerDeDes extends Exercice {
   }
 
   nouvelleVersion() {
-    this.consigne =
-      "Classer chaque événement suivant qu'il est impossible, certain, ou possible."
     const typeDeQuestionsDisponibles = [
       'type1',
       'type2',
@@ -46,9 +43,9 @@ export default class ExerciceProbaLancerDeDes extends Exercice {
     let texteCorr = ''
     const n = randint(1, 5) // n est le nombre le plus petit du dé
     const m = randint(10, 17) // m est le nombre le plus grand du dé
-    this.consigne += `<br><br>On lance un dé équilibré à $ ${texNombre(m - n + 1)}$ faces numérotées de $ ${texNombre(n)}$ à $ ${texNombre(m)}$. On regarde la face du dessus.<br>`
+    this.consigne = `Classer chaque événement suivant qu'il est impossible, certain, ou possible.<br>On lance un dé équilibré à $ ${texNombre(m - n + 1)}$ faces numérotées de $ ${texNombre(n)}$ à $ ${texNombre(m)}$. On regarde la face du dessus.<br>`
 
-    for (let i = 0, k, p, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, k, p, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let bonneReponse
       k = choice([1, 2, 3, 4])

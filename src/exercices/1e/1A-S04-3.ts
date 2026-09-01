@@ -1,5 +1,6 @@
 import Stat from '../../lib/mathFonctions/Stat'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { creerSerieDeMoyenneEtEtendue } from '../../modules/outilsStat'
 import { nombreElementsDifferents } from '../ExerciceQcm'
@@ -7,14 +8,15 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '4ba2a'
 export const refs = {
-  'fr-fr': ['1A-S04-3'],
+  'fr-fr': ['1A-S04-3', '2A-S4-3'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = "Calculer le pourcentage d'élèves obtenant la moyenne"
+export const titre =
+  "Calculer le pourcentage d'élèves à partir d'un diagramme en barres"
 export const dateDePublication = '31/12/2025'
 /**
  * @author Jean-claude Lhote
@@ -33,6 +35,9 @@ export default class CalculPourcentageEtMoyenneQCM extends ExerciceQcmA {
       cumul: false,
       barres: true,
       valuesOn: true,
+      titre: 'Notes obtenues par la classe de première',
+      labelHorizontal: `Notes sur $${noteMax}$`,
+      labelVertical: "Nombre d'élèves",
     })
     const effectifCible = maSerie.serieTableau
       .filter(([note]) => Number(note) >= valeurCible)
@@ -72,17 +77,17 @@ export default class CalculPourcentageEtMoyenneQCM extends ExerciceQcmA {
       `${texNombre(distracteur2, 0)}~\\%`,
       `${texNombre(distracteur3, 0)}~\\%`,
     ].map((r) => `$${r}$`)
-    this.enonce = `Voici la répartition des notes sur ${noteMax} d'une classe de première.<br>
+    this.enonce = `Voici la répartition des notes sur $${noteMax}$ d'une classe de première.<br>
       ${histogramme}<br><br>
       Quel est le pourcentage d'élèves ayant obtenu la moyenne ?`
 
     // Correction : explication simple, claire
-    this.correction = `Le pourcentage d'élèves ayant obtenu la moyenne est calculé en divisant l'effectif des élèves ayant obtenu une note supérieure ou égale à la moyenne par l'effectif total, puis en multipliant par 100.<br>
-      L'effectif total est le nombre de notes représentées dans l'histogramme.<br>
+    this.correction = `Le pourcentage d'élèves ayant obtenu la moyenne est calculé en divisant l'effectif des élèves ayant obtenu une note supérieure ou égale à la moyenne par l'effectif total, puis en multipliant par $100$.<br>
+      L'effectif total est le nombre de notes représentées dans le diagramme en barres.<br>
       Ici, on trouve un effectif total de $${n}$ élèves.<br>
       L'effectif des élèves ayant obtenu une note supérieure ou égale à la moyenne est de $${effectifCible}$.<br>
       $\\dfrac{${effectifCible}}{${n}} \\times 100 = ${pourCent}$.<br>
-      Donc le pourcentage est de $${pourCent}~\\%$.`
+      Donc le pourcentage est de $${miseEnEvidence(pourCent + `~\\%`)}$.`
   }
 
   versionOriginale: () => void = () => {
@@ -114,7 +119,6 @@ export default class CalculPourcentageEtMoyenneQCM extends ExerciceQcmA {
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }
 }

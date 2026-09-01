@@ -6,11 +6,11 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = '28e39'
 export const refs = {
-  'fr-fr': ['3S2QCM-2', 'BP2FLUC3'],
+  'fr-fr': ['3S2QCM-2', 'BP2FLUC3', 'BP1AUTO003'],
   'fr-ch': ['4mProbStat-17'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Probabilité simple (12/2020 Nouvelle Calédonie)'

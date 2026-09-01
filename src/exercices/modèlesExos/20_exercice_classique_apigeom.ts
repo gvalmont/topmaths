@@ -3,12 +3,12 @@ import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const titre = 'TITRE'
 
 export const dateDePublication = '11/01/2025'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 export const uuid = 'babybel'
 export const refs = {
@@ -20,7 +20,6 @@ export const refs = {
  * @author
  */
 export default class nomExercice extends Exercice {
-  figuresApiGeom!: Figure[]
   constructor() {
     super()
     this.consigne = 'Consigne'
@@ -63,10 +62,15 @@ export default class nomExercice extends Exercice {
     listeQuestionsToContenu(this)
   }
 
+  // Toujours indexer par `i` (figure, feedback, resultatCheck) et jamais en dur
+  // par 0 : c'est ce qui permet à l'exercice d'être agrégé comme une question
+  // parmi d'autres par un méta-exercice (MetaExerciceCan, « Sélection
+  // d'automatismes »), qui appelle alors la correction avec l'index de la
+  // question dans l'exercice affiché.
   correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom![i].id] = figureAnswerJson(this.figuresApiGeom![i])
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,
     )

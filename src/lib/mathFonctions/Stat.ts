@@ -1,19 +1,23 @@
+import { bleuMathalea } from '../../lib/colors'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import { arc } from '../2d/Arc'
 import { BoiteBuilder } from '../2d/BoiteBuilder'
 import { colorToLatexOrHTML } from '../2d/colorToLatexOrHtml'
 import { fixeBordures } from '../2d/fixeBordures'
-import { pointAbstrait } from '../2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../2d/PointAbstrait'
 import { polygone } from '../2d/polygones'
+import { polyline } from '../2d/Polyline'
 import { segment } from '../2d/segmentsVecteurs'
 import { latex2d } from '../2d/textes'
 import { tracePoint } from '../2d/TracePoint'
+import { homothetie, rotation } from '../2d/transformations'
 import { milieu } from '../2d/utilitairesPoint'
 import { vide2d } from '../2d/Vide2d'
 import { shuffle } from '../outils/arrayOutils'
+import { texcolors } from '../outils/embellissements'
 import { texNombre } from '../outils/texNombre'
-import { bleuMathalea } from '../../lib/colors'
 
 /**
  * Classe pour les statistiques descriptives
@@ -414,19 +418,19 @@ export default class Stat {
     // Ajout des étiquettes (valeurs numériques)
     if (valeursOn) {
       objetsToTrace.push(
-        latex2d(texNombre(boxplotData.min), minPoint.x, minPoint.y - 0.8, {
+        latex2d(texNombre(boxplotData.min), minPoint.x, minPoint.y - 0.45, {
           letterSize: 'scriptsize',
         }),
-        latex2d(texNombre(boxplotData.q1), q1Point.x, q1Point.y - 0.8, {
+        latex2d(texNombre(boxplotData.q1), q1Point.x, q1Point.y + 0.45, {
           letterSize: 'scriptsize',
         }),
-        latex2d(texNombre(boxplotData.q2), q2Point.x, q2Point.y - 0.8, {
+        latex2d(texNombre(boxplotData.q2), q2Point.x, q2Point.y - 0.45, {
           letterSize: 'scriptsize',
         }),
-        latex2d(texNombre(boxplotData.q3), q3Point.x, q3Point.y - 0.8, {
+        latex2d(texNombre(boxplotData.q3), q3Point.x, q3Point.y + 0.45, {
           letterSize: 'scriptsize',
         }),
-        latex2d(texNombre(boxplotData.max), maxPoint.x, maxPoint.y - 0.8, {
+        latex2d(texNombre(boxplotData.max), maxPoint.x, maxPoint.y - 0.45, {
           letterSize: 'scriptsize',
         }),
       )
@@ -544,6 +548,105 @@ export default class Stat {
     }
   }
 
+  diagrammeCirc({
+    percentVsEffectifs = true,
+    effectifsOn = false,
+    valuesOn = true,
+    colors = texcolors,
+    semi = false,
+    rayon = 5,
+  }) {
+    const pairs: Array<[number | string, number]> = (
+      this.serieTableau as Array<[number | string, number]>
+    ).slice()
+    const total = pairs.reduce((s, [, f]) => s + f, 0)
+    const secteurs: { angle: number; color: string; label: string }[] = []
+    for (let i = 0; i < pairs.length; i++) {
+      secteurs.push({
+        angle: ((360 / (semi ? 2 : 1)) * pairs[i][1]) / total,
+        color: colors(i),
+        label: this.isQualitative
+          ? String(pairs[i][0])
+          : texNombre(Number(pairs[i][0])),
+      })
+    }
+    const O = pointAbstrait(0, 0)
+    let A = pointAbstrait(rayon, 0)
+    const objets: NestedObjetMathalea2dArray = []
+    for (let i = 0; i < pairs.length; i++) {
+      objets.push(arc(A, O, secteurs[i].angle, true, colors(i)))
+      const P = rotation(A, O, secteurs[i].angle / 2)
+      const C = homothetie(P, O, 0.75)
+      A = rotation(A, O, secteurs[i].angle)
+
+      let Q: PointAbstrait
+      let R: PointAbstrait
+      let justify = 'droite'
+      if (P.x >= O.x) {
+        //légende à droite
+        if (P.y > O.y) {
+          // légende au-dessus
+          Q = pointAbstrait(P.x + 0.5, P.y + 1)
+          R = pointAbstrait(P.x + 2, P.y + 1)
+          justify = 'droite'
+        } else {
+          // légende en dessous
+          Q = pointAbstrait(P.x + 0.5, P.y - 1)
+          R = pointAbstrait(P.x + 2, P.y - 1)
+          justify = 'droite'
+        }
+      } else {
+        if (P.y > O.y) {
+          // légende au-dessus
+          Q = pointAbstrait(P.x - 0.5, P.y + 1)
+          R = pointAbstrait(P.x - 2, P.y + 1)
+          justify = 'gauche'
+        } else {
+          // légende en dessous
+          Q = pointAbstrait(P.x - 0.5, P.y - 1)
+          R = pointAbstrait(P.x - 2, P.y - 1)
+          justify = 'gauche'
+        }
+      }
+      objets.push(polyline(P, Q, R))
+      objets.push(
+        latex2d(
+          `\\text{${secteurs[i].label}}`,
+          R.x + (justify === 'droite' ? 0.5 : -0.5),
+          R.y,
+          {
+            justify: justify as 'droite' | 'gauche',
+          },
+        ),
+      )
+      if (effectifsOn) {
+        if (percentVsEffectifs) {
+          objets.push(
+            latex2d(
+              `${texNombre((pairs[i][1] / total) * 100, 2)}\\,\\%`,
+              C.x,
+              C.y,
+              { letterSize: 'small' },
+            ),
+          )
+        } else {
+          objets.push(
+            latex2d(`${texNombre(pairs[i][1], 2)}`, C.x, C.y, {
+              letterSize: 'small',
+            }),
+          )
+        }
+      }
+    }
+    return mathalea2d(
+      Object.assign(
+        { scale: 0.5 },
+        fixeBordures(objets, { rxmin: -3, rxmax: 3 }),
+      ),
+      objets,
+    )
+  }
+
   diagramme({
     cumul = false,
     croissance = true,
@@ -551,6 +654,9 @@ export default class Stat {
     percentVsEffectifs = false,
     effectifsOn = false,
     valuesOn = true,
+    titre = '',
+    labelVertical = '',
+    labelHorizontal = '',
   } = {}) {
     const precision = 2
     // copier et trier selon croissance
@@ -604,16 +710,30 @@ export default class Stat {
     }
 
     const yName = percentVsEffectifs ? 'fréquences' : 'effectifs'
-    const ylabel = percentVsEffectifs ? 'Fréquences en \\%' : 'Effectifs'
-    const title = `${
-      barres
-        ? cumul
-          ? `diagramme cumulé (${croissance ? 'croissant' : 'décroissant'})`
-          : 'Diagramme en barres'
-        : cumul
-          ? `Polygone des ${yName} cumulé${yName === 'fréquences' ? 'es' : 's'} (${croissance ? 'croissantes' : 'décroissantes'})`
-          : `Polygone des ${yName}`
-    } `
+    const labelY =
+      labelVertical !== ''
+        ? labelVertical
+        : percentVsEffectifs
+          ? 'Fréquences en \\%'
+          : 'Effectifs'
+    const labelX =
+      labelHorizontal !== ''
+        ? labelHorizontal
+        : this.isQualitative
+          ? 'Modalités'
+          : 'Valeurs'
+    const title =
+      titre !== ''
+        ? titre
+        : `${
+            barres
+              ? cumul
+                ? `diagramme cumulé (${croissance ? 'croissant' : 'décroissant'})`
+                : 'Diagramme en barres'
+              : cumul
+                ? `Polygone des ${yName} cumulé${yName === 'fréquences' ? 'es' : 's'} (${croissance ? 'croissantes' : 'décroissantes'})`
+                : `Polygone des ${yName}`
+          } `
 
     if (context.isHtml) {
       // code HTML existant inchangé
@@ -629,14 +749,15 @@ export default class Stat {
       let min: number, max: number
       if (this.isQualitative) {
         min = 0
-        max = (this.serieTableau as [any, number][]).length + 1
+        max = (this.serieTableau as [string | number, number][]).length + 1
       } else {
         const numericSerie = (this.serie as number[]).map(Number)
         min = Math.min(...numericSerie) - 1
         max = Math.max(...numericSerie) + 1
       }
 
-      const echelleY = effectifMax < 15 ? 2 : effectifMax < 30 ? 3 : 4
+      const echelleY =
+        effectifMax < 10 ? 1 : effectifMax < 20 ? 2 : effectifMax < 40 ? 4 : 10
       let yLabelsAndOrdinate: [number, number][] = []
       if (percentVsEffectifs) {
         yLabelsAndOrdinate = Array.from({ length: 5 }, (_, i) => [
@@ -770,26 +891,38 @@ export default class Stat {
             }),
           )
         }
-        const texLabel = latex2d(`\\text{${ylabel}}`, -1.5, topCadre / 2, {
-          letterSize: 'normalsize',
-          orientation: 90,
-          opacity: 0.7,
-        })
-        histo.push(texLabel)
-        const texteTitle = latex2d(
-          `\\text{${title}}`,
-          nbValeursDifferentes + 1,
-          topCadre + 0.5,
-          {
-            letterSize: 'normalsize',
-            opacity: 0.7,
-          },
-        )
-        histo.push(texteTitle)
       }
+      const texLabelY = latex2d(`\\text{${labelY}}`, -1.5, topCadre / 2, {
+        letterSize: 'normalsize',
+        orientation: 90,
+        opacity: 0.7,
+      })
 
+      histo.push(texLabelY)
+      const texLabelX = latex2d(`\\text{${labelX}}`, max - min, -1.4, {
+        letterSize: 'normalsize',
+        orientation: 0,
+        opacity: 0.7,
+        justify: 'milieu',
+      })
+
+      histo.push(texLabelX)
+      const texteTitle = latex2d(
+        `\\text{${title}}`,
+        max - min,
+        topCadre + 0.7,
+        {
+          letterSize: 'normalsize',
+          opacity: 0.7,
+          justify: 'milieu',
+        },
+      )
+      histo.push(texteTitle)
       return mathalea2d(
-        Object.assign({ style: 'display: inline-block' }, fixeBordures(histo)),
+        Object.assign(
+          { display: 'inline-block' } as const,
+          fixeBordures(histo),
+        ),
         histo,
       )
     } else {
@@ -816,8 +949,8 @@ export default class Stat {
       // Options conditionnelles pour pgfplots selon les flags fournis
       const axisOptionsArr: string[] = []
       axisOptionsArr.push(`title={${title}}`)
-      axisOptionsArr.push(`ylabel={${ylabel}}`)
-      axisOptionsArr.push(`xlabel={Valeurs}`)
+      axisOptionsArr.push(`ylabel={${labelY}}`)
+      axisOptionsArr.push(`xlabel={${labelX}}`)
       axisOptionsArr.push(`ymin=0`)
       axisOptionsArr.push(`enlarge x limits=0.15`)
       axisOptionsArr.push(`grid=major`)

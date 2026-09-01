@@ -17,10 +17,10 @@ import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '2c2db'
 export const refs = {
   'fr-fr': ['3G1QCM-5'],
-  'fr-ch': ['10ES2-19'],
+  'fr-ch': ['9ES3D-4'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Rotations (2024 Métropole sujet de secours)'

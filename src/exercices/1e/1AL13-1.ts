@@ -7,8 +7,8 @@ import { createList } from '../../lib/format/lists'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
+import { scriptPython } from '../../lib/outils/scriptPython'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -60,7 +60,6 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
   nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
-      min: 1,
       max: 10,
       melange: 11,
       defaut: 11,
@@ -70,7 +69,7 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       const ListeNomS = ['u', 'w', 'v']
@@ -122,7 +121,7 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
           num = new Decimal(cm).pow(12).mul(-1).add(1)
           den = new Decimal(1).sub(cm)
           b = new Decimal(u0).mul(num).div(den).round()
-          texte = `Dans un pays, le nombre de créations d'entreprise augmente $${texNombre(p, 1)}\\,\\%$ par mois.<br>
+          texte = `Dans un pays, le nombre de créations d'entreprise augmente de $${texNombre(p, 1)}\\,\\%$ par mois.<br>
 En janvier $2024$ on compte $${texNombre(u0 * 1000, 0)}$ créations d'entreprise.<br>
 On modélise le nombre de créations d'entreprise au $n$-ième mois par une suite $(${NomS}_n)$ telle que : 
 $${NomS}_0 = ${u0}$ et $${NomS}_{n+1} = ${NomS}_n \\times ${texNombre(cm, 3)}$<br>
@@ -132,8 +131,8 @@ où $${NomS}_n$ est exprimé en milliers d'euros. `
               `Calculer $${NomS}_1$ puis interpréter ce résultat dans le contexte de l'exercice.`,
               createList({
                 items: [
-                  'Quelle est la nature de la suite $(u_n)$ ? Justifier.',
-                  `Exprimer $${NomSA}_n$ en fonction de $n$.`,
+                  `Quelle est la nature de la suite $(${NomS}_n)$ ? Justifier.`,
+                  `Exprimer $${NomS}_n$ en fonction de $n$.`,
                   `Un journaliste annonce qu'au total dans l'année $2024$, environ $${texNombre(new Decimal(b).mul(1000), 0)}$ entreprises se sont
 créées.<br>
 Donner un calcul permettant de justifier les propos du journaliste.`,
@@ -204,17 +203,17 @@ Préciser sa raison et son premier terme.`,
               `Exprimer, pour tout entier $n$, $${NomS}_n$ en fonction de $n$.`,
               `Compléter la fonction Python ci-dessous pour qu'elle détermine le nombre minimum d'années nécessaires afin que le prix du téléphone dépasse $${texNombre(b, 0)}$
 euros.<br>
-  $\\begin{array}{|l|}\n
-        \\hline\n
-        \\\n \\texttt{def nombreAnnees():}  \\\n 
-         \\\\\n ${sp(6)} \\texttt{n = 0}\\\n 
-       \\\\\n ${sp(6)} \\texttt{u = ${u0}}\\\n 
-        \\\\\n ${sp(6)} \\texttt{while ${sp(3)}\\ldots${sp(3)} :}\\\n 
-       \\\\\n ${sp(12)} \\texttt{n = \\ldots}\\\n 
-       \\\\\n ${sp(12)} \\texttt{u = \\ldots}\\\n 
-        \\\\\n ${sp(6)} \\texttt{return n}\\\\\n 
-        \\hline\n
-        \\end{array}\n$`,
+${scriptPython(
+  `def nombreAnnees():
+ n = 0
+ u = ${u0}
+ while u < ${b}:
+  n = \\ldots
+  u = \\ldots
+ return n`,
+  6,
+)}<br>
+       `,
               'Quelle est la valeur de $n$ renvoyée par cette fonction Python ?',
             ],
             style: 'nombres',
@@ -231,17 +230,16 @@ euros.<br>
               `Pour tout entier naturel $n$, $${NomS}_n=${u0}\\times ${texNombre(cm, 2)}^n$.`,
               `On complète la fonction Python ci-dessous pour qu'elle détermine le nombre minimum d'années nécessaires afin que le prix du téléphone dépasse $${texNombre(b, 0)}$
 euros.<br><br>
-$\\begin{array}{|l|}\n
-    \\hline\n
-    \\\n \\texttt{def nombreAnnees():}  \\\n 
-     \\\\\n ${sp(6)} \\texttt{n = 0}\\\n 
-   \\\\\n ${sp(6)} \\texttt{${NomS} = ${u0}}\\\n 
-    \\\\\n ${sp(6)} \\texttt{while ${sp(3)}${NomS} < ${b} :}\\\n 
-   \\\\\n ${sp(12)} \\texttt{n = n+1}\\\n 
-   \\\\\n ${sp(12)} \\texttt{${NomS} = ${texNombre(cm, 2)} * ${NomS}}\\\n 
-    \\\\\n ${sp(6)} \\texttt{return n}\\\\\n 
-    \\hline\n
-    \\end{array}\n$<br>
+${scriptPython(
+  `def nombreAnnees():
+ n = 0
+ ${NomS} = ${u0}
+ while ${NomS} < ${b}:
+  n = n + 1
+  ${NomS} = ${cm} * ${NomS}
+ return n`,
+  6,
+)}<br>
      `,
               ` On obtient à l'aide de la calcultarice le tableau suivant : <br>
    $\\begin{array}{|c|c|c|}\n \\hline\n
@@ -277,15 +275,14 @@ Préciser sa raison et son premier terme.`,
               `Exprimer, pour tout entier $n$, $${NomS}_n$ en fonction de $n$.`,
               `Calculer une valeur approchée, à l'entier près, du nombre d'habitants dans cette commune en $${2024 + Rannee}$.`,
               `Compléter la fonction écrite en langage Python ci-dessous, afin qu'elle permette de calculer, pour tout entier naturel $n$, le terme $${NomS}_n$.<br>
-$\\begin{array}{|l|}\n
-      \\hline\n
-      \\\n \\texttt{def ${NomS}(n):}  \\\n 
-       \\\\\n ${sp(6)} \\texttt{${NomS} = \\ldots}\\\n 
-      \\\\\n ${sp(6)} \\texttt{for i in range(1,\\ldots) :}\\\n 
-     \\\\\n ${sp(12)} \\texttt{${NomS} = \\ldots}\\\n 
-      \\\\\n ${sp(6)} \\texttt{return \\ldots}\\\\\n 
-      \\hline\n
-      \\end{array}\n$`,
+              ${scriptPython(
+                `def ${NomS}(n):
+ ${NomS} = \\ldots
+ for i in range(1, \\ldots):
+  ${NomS} = \\ldots
+ return \\ldots`,
+                6,
+              )}`,
             ],
             style: 'nombres',
           })
@@ -304,15 +301,14 @@ $\\begin{array}{|l|}\n
 $${NomS}_{${Rannee}}=${u0}\\times (${texNombre(cm, 2)})^{${Rannee}}\\approx ${texNombre(new Decimal(cm).pow(Rannee).mul(u0), 0)}$.<br>
 Ce modèle prévoit $${texNombre(new Decimal(cm).pow(Rannee).mul(u0), 0)}$ habitants en $${2024 + Rannee}$.`,
               `On complète la fonction Python ci-dessous afin qu'elle permette de calculer, pour tout entier naturel $n$, le terme $${NomS}_n$.<br><br>
-$\\begin{array}{|l|}\n
-      \\hline\n
-      \\\n \\texttt{def ${NomS}(n):}  \\\n 
-       \\\\\n ${sp(6)} \\texttt{${NomS} = ${u0}}\\\n 
-      \\\\\n ${sp(6)} \\texttt{for i in range(1,n+1) :}\\\n 
-     \\\\\n ${sp(12)} \\texttt{${NomS} = ${NomS}*${texNombre(cm, 2)}}\\\n 
-      \\\\\n ${sp(6)} \\texttt{return ${NomS}}\\\\\n 
-      \\hline\n
-      \\end{array}\n$<br>
+              ${scriptPython(
+                `def ${NomS}(n):
+ ${NomS} = ${u0}
+ for i in range(1, n+1):
+  ${NomS} = ${cm} * ${NomS}
+ return ${NomS}`,
+                6,
+              )}<br>
    `,
             ],
             style: 'nombres',
@@ -401,16 +397,16 @@ On a donc $${NomS}_0 = ${texNombre(u0, 0)}$.`
               `Justifier que pour tout entier naturel $n$ : $${NomS}_n = ${texNombre(u0, 0)} \\times  ${texNombre(cm, 2)}^n$.`,
               `À partir de combien de semaines le nombre de visionnages hebdomadaire sera-t-il supérieur à $${texNombre(b1, 0)}$ ?`,
               `Voici un algorithme écrit en langage Python:<br>
-$\\begin{array}{|l|}\n
-    \\hline\n
-    \\\n \\texttt{def seuil():}  \\\n 
-     \\\\\n ${sp(6)} \\texttt{${NomS} = ${u0}}\\\n 
-      \\\\\n ${sp(6)} \\texttt{n = 0}\\\n
-    \\\\\n ${sp(6)} \\texttt{while ${NomS} < ${b}  :}\\\n 
-   \\\\\n ${sp(12)} \\texttt{${NomS} = ${cm}*${NomS}}\\\n 
-    \\\\\n ${sp(6)} \\texttt{return n}\\\\\n 
-    \\hline\n
-    \\end{array}\n$<br>
+              ${scriptPython(
+                `def seuil():
+ ${NomS} = ${u0}
+ n = 0
+ while ${NomS} < ${b}:
+  ${NomS} = ${cm}*${NomS}
+  n = n+1
+ return n`,
+                6,
+              )}<br>
     Déterminer la valeur affichée par cet algorithme et interpréter le résultat précédent
 dans le contexte de l'exercice.`,
               `On pose pour tout entier naturel $n$ : $S_n = ${NomS}_0 + \\ldots + ${NomS}_n$.<br>
@@ -567,16 +563,16 @@ On a ainsi $d_1 = ${u0}$.
                  En déduire la nature de la suite $(d_n)$. Justifier.`,
               'Exprimer, pour tout entier $n$ non nul, $d_n$ en fonction de $n$.',
               `On considère la fonction définie de la façon suivante en langage Python.<br>
-$\\begin{array}{|l|}\n
-      \\hline\n
-      \\\n \\texttt{def distance(k):}  \\\n 
-       \\\\\n ${sp(6)} \\texttt{d = ${u0}}\\\n 
-       \\\\\n ${sp(6)} \\texttt{n = 1}\\\n 
-      \\\\\n ${sp(6)} \\texttt{while d<=k :}\\\n 
-     \\\\\n ${sp(12)} \\texttt{d = d*${texNombre(cm, 2)}}\\\n 
-      \\\\\n ${sp(6)} \\texttt{return n}\\\\\n 
-      \\hline\n
-      \\end{array}\n$<br>
+              ${scriptPython(
+                `def distance(k):
+ d = ${u0}
+ n = 1
+ while d<=k :
+  d = d*${cm}
+  n = n+1
+ return n`,
+                6,
+              )}<br>
       Donner l'information obtenue par le calcul de $\\texttt{distance(${b})}$ ?
       `,
               `Calculer la distance totale parcourue par le cycliste pendant les $${n1 + 1}$ premières semaines d'entraînement.`,
@@ -644,17 +640,16 @@ Préciser sa raison et son premier terme.`,
               'Exprimer, pour tout entier $n$, $h_n$ en fonction de $n$.',
               `Déterminer la hauteur, arrondie au cm, de la balle après $${n}$ rebonds.`,
               `La fonction  « seuil » est définie ci-dessous en langage Python.<br>
-$\\begin{array}{|l|}\n
-      \\hline\n
-      \\\n \\texttt{def seuil():}  \\\n 
-       \\\\\n ${sp(6)} \\texttt{h = ${u0}}\\\n 
-       \\\\\n ${sp(6)} \\texttt{n = 0}\\\n 
-      \\\\\n ${sp(6)} \\texttt{while \\ldots :}\\\n 
-     \\\\\n ${sp(12)} \\texttt{h = \\ldots}\\\n 
-     \\\\\n ${sp(12)} \\texttt{n = n+1}\\\n 
-      \\\\\n ${sp(6)} \\texttt{return n}\\\\\n 
-      \\hline\n
-      \\end{array}\n$<br>
+              ${scriptPython(
+                `def seuil():
+ h = ${u0}
+ n = 0
+ while h >= ${b1} :
+  h = h*${cm}
+  n = n+1
+ return n`,
+                6,
+              )}<br>
       Compléter les pointillés pour que cette fonction renvoie le nombre de rebonds à partir duquel la hauteur maximale de la balle sera inférieure ou égale à $${b}$ centimètres.<br>
       Déterminer ce nombre.
       `,
@@ -673,17 +668,16 @@ Son premier terme est $h_0=${u0}$.`,
               `$h_{${n}}=${texNombre(u0, 0)}\\times (${texNombre(cm, 2)})^{${n}}\\approx ${texNombre(cm.pow(n).mul(u0), 2)}$.<br>
 La balle rebondit à une hauteur de $${texNombre(cm.pow(n).mul(u0), 2)}\\text{ m}$ après $${n}$ rebonds.`,
               `On compléte les pointillés pour que cette fonction renvoie le nombre de rebonds à partir duquel la hauteur maximale de la balle sera inférieure ou égale à $${b}$ centimètres : <br>
-   $\\begin{array}{|l|}\n
-      \\hline\n
-      \\\n \\texttt{def seuil():}  \\\n 
-       \\\\\n ${sp(6)} \\texttt{h = ${u0}}\\\n 
-       \\\\\n ${sp(6)} \\texttt{n = 0}\\\n 
-      \\\\\n ${sp(6)} \\texttt{while h >= ${b1} :}\\\n 
-     \\\\\n ${sp(12)} \\texttt{h = h*${cm}}\\\n 
-     \\\\\n ${sp(12)} \\texttt{n = n+1}\\\n 
-      \\\\\n ${sp(6)} \\texttt{return n}\\\\\n 
-      \\hline\n
-      \\end{array}\n$<br>
+              ${scriptPython(
+                `def seuil():
+ h = ${u0}
+ n = 0
+ while h >= ${b1} :
+  h = h*${cm}
+  n = n+1
+ return n`,
+                6,
+              )}<br>
             
             En utilisant une calcultarice, on obtient le tableau suivant : <br>
             $\\begin{array}{|c|c|c|}\n \\hline\n
@@ -741,19 +735,18 @@ Exprimer $v_{n+1}$ en fonction de $v_n$, puis $v_n$ en fonction de $n$.`,
               `On veut déterminer à partir de quelle année le salaire de ${quidam[1]} dépassera celui de ${quidam[0]}. <br>
 Pour cela, on dispose du programme incomplet ci-dessous écrit en langage Python.<br>
 Compléter les quatre parties en pointillé du programme ci-dessous, puis déterminer l'année cherchée :<br>
-$\\begin{array}{|l|}\n
-      \\hline\n
-      \\\n \\texttt{def algo():}  \\\n 
-       \\\\\n ${sp(6)} \\texttt{A = ${u0}}\\\n 
-       \\\\\n ${sp(6)} \\texttt{B = ${v0}}\\\n 
-       \\\\\n ${sp(6)} \\texttt{n = 0}\\\n
-      \\\\\n ${sp(6)} \\texttt{while \\ldots :}\\\n 
-     \\\\\n ${sp(12)} \\texttt{A = \\ldots}\\\n 
-       \\\\\n ${sp(12)} \\texttt{B = \\ldots}\\\n
-     \\\\\n ${sp(12)} \\texttt{n = \\ldots}\\\n 
-      \\\\\n ${sp(6)} \\texttt{return n}\\\\\n 
-      \\hline\n
-      \\end{array}\n$`,
+${scriptPython(
+  `def algo():
+ A = ${u0}
+ B = ${v0}
+ n = 0
+ while \\ldots :
+  A = \\ldots
+  B = \\ldots
+  n = \\ldots
+ return n`,
+  6,
+)}`,
             ],
             style: 'nombres',
           })
@@ -797,19 +790,18 @@ $v_{${texNombre(annee - 2020, 0)}}=${texNombre(v0, 0)}\\times ${texNombre(cm, 2)
                 style: 'alpha',
               }),
               `Le programme ci-dessous  permet de déterminer à partir de quelle année le salaire de ${quidam[1]} dépassera celui de ${quidam[0]} :<br>
-$\\begin{array}{|l|}\n
-  \\hline\n
-  \\\n \\texttt{def algo():}  \\\n 
-   \\\\\n ${sp(6)} \\texttt{A = ${u0}}\\\n 
-   \\\\\n ${sp(6)} \\texttt{B = ${v0}}\\\n 
-   \\\\\n ${sp(6)} \\texttt{n = 0}\\\n
-  \\\\\n ${sp(6)} \\texttt{while A >= B :}\\\n 
- \\\\\n ${sp(12)} \\texttt{A = A+${r}}\\\n 
-   \\\\\n ${sp(12)} \\texttt{B = B*${cm}}\\\n
- \\\\\n ${sp(12)} \\texttt{n = n+1}\\\n 
-  \\\\\n ${sp(6)} \\texttt{return n}\\\\\n 
-  \\hline\n
-  \\end{array}\n$<br>
+              ${scriptPython(
+                `def algo():
+  A = ${u0}
+  B = ${v0}
+  n = 0
+  while A >= B :
+   A = A+${r}
+   B = B*${cm}
+   n = n+1
+  return n`,
+                6,
+              )}<br>
   En utilisant une calcultarice, on obtient le tableau suivant : <br>
             $\\begin{array}{|c|c|c|}\n \\hline\n
             \n n&u_n  &v_n \\\\\n \\hline\n
@@ -880,7 +872,11 @@ $\\begin{array}{|l|}\n
             ]
             graphique = mathalea2d(
               Object.assign(
-                { pixelsParCm: 15, scale: 0.4, style: 'inline-block' },
+                {
+                  pixelsParCm: 15,
+                  scale: 0.4,
+                  display: 'inline-block',
+                } as const,
                 fixeBordures(objets),
               ),
               objets,

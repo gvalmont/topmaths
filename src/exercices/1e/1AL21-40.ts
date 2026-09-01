@@ -16,7 +16,7 @@ import { egal, listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = false
-// export const interactifType = 'mathLive'
+//
 export const titre = 'Factoriser un polynôme du second degré'
 
 /**
@@ -29,7 +29,7 @@ export const uuid = '334ca'
 
 export const refs = {
   'fr-fr': ['1AL21-40'],
-  'fr-ch': ['11FA10-12'], // OK?
+  'fr-ch': [''], // OK?
 }
 export default class Resolutionavecformecanonique extends Exercice {
   constructor() {
@@ -199,13 +199,9 @@ export default class Resolutionavecformecanonique extends Exercice {
         texteCorr += `<br> Après simplification, on obtient : $x_1= ${stringX1}$ et  $x_2=${stringX2}$.` // Solution
         texteCorr +=
           "<br> D'après le cours, on sait que le polynôme se factorise alors sous la forme : $a(x-x_1)(x-x_2)$"
-        if (!egal(Math.abs(2 * a) / p, 1)) {
-          // présence de traits de fraction donc réécriture du produit nul
-          texteCorr += `<br> Finalement, $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=${rienSi1(a)}\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)$`
-        } else {
-          // cas de delta  = 0
-          // pour l'instant pas de delta nul avec choisiDelta
-        }
+        // x1String et x2String contiennent ce qui suit le x dans chaque facteur,
+        // que les racines soient rationnelles ou irrationnelles, avec ou sans dénominateur.
+        texteCorr += `<br> Finalement, $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=${rienSi1(a)}\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)$`
       }
       texte += ajouteChampTexteMathLive(
         this,

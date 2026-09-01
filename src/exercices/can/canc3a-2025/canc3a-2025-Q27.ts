@@ -1,11 +1,11 @@
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Convertir des minutes en heures/minutes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '50cd1'
 export const refs = {
   'fr-fr': [],

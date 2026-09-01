@@ -13,7 +13,7 @@ import {
 export const titre =
   "Réduire une expression avec des parenthèses précédées d'un signe $+$ ou $-$"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '19/05/2024'
 export const uuid = '8e42a'
 export const refs = {
@@ -35,7 +35,7 @@ export default class ReduireAvecParentheses extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('cas', [1, 2])) {
       case 1: // ax+(cx+d) ou a+(cx+d)
         {
           const variable = choice(['x', 'y', 'a', 'b', 'n'])

@@ -1,16 +1,17 @@
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { bleuMathalea } from '../../../lib/colors'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 export const titre =
   "Lire l'abscisse décimale d'un point sur une droite graduée"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '29/08/2021'
@@ -36,7 +37,7 @@ export default class LireAbscisseDecimaleDeFraction extends ExerciceSimple {
   nouvelleVersion() {
     let a
     switch (
-      choice([1, 2]) //
+      this.quotaChoice('cas', [1, 2]) //
     ) {
       case 1: // droite graduée     /4 resultat décimal
         a = choice([1, 3, 5, 6, 7, 9, 10, 11]) // numérateur
@@ -52,7 +53,7 @@ export default class LireAbscisseDecimaleDeFraction extends ExerciceSimple {
             ymax: 1,
             pixelsParCm: 35,
             scale: 0.6,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           latex2d('A', (3 * a) / 4, 0.5, { color: bleuMathalea }),
           droiteGraduee({
@@ -91,7 +92,7 @@ export default class LireAbscisseDecimaleDeFraction extends ExerciceSimple {
             ymax: 1,
             pixelsParCm: 35,
             scale: 0.6,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           latex2d('A', (3 * a) / 5, 0.5, { color: bleuMathalea }),
           droiteGraduee({

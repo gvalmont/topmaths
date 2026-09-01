@@ -1,29 +1,21 @@
-import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '22/08/2024'
 
 /**
@@ -36,7 +28,7 @@ export const uuid = 'ace0a'
 export const refs = {
   'fr-fr': ['6N0A-1'],
   'fr-2016': ['6C10-4'],
-  'fr-ch': ['9NO3-16'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-16'],
 }
 export default class ExerciceTablesAdditions extends Exercice {
   constructor(max = 20) {
@@ -100,36 +92,11 @@ export default class ExerciceTablesAdditions extends Exercice {
             : `$ ${miseEnEvidence(texNombre(b, 0))} + ${texNombre(a, 0)} = ${texNombre(a + b, 0)} $`
           : `$ ${texNombre(a, 0)} + ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a + b, 0))} $`
 
-      if (this.interactif) {
-        handleAnswers(this, i, {
-          champ1: {
-            value: String(listeTypeDeQuestions[i] === 'somme' ? a + b : b),
-          },
-        })
-      }
-
-      if (context.isAmc) {
-        setReponse(
-          this,
-          i,
-          String(listeTypeDeQuestions[i] === 'somme' ? a + b : b),
-        )
-        this.autoCorrectionAMC[i].enonce = texte
-        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-        this.autoCorrectionAMC[i].propositions = [
-          { texte: texteCorr, statut: '' },
-        ]
-        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-        const amcParam = ensureAmcParam(this, i)
-        amcParam.digits = Math.max(
-          2,
-          nombreDeChiffresDansLaPartieEntiere(a + b),
-        )
-        amcParam.decimals = 0
-        amcParam.exposantNbChiffres = 0
-        amcParam.exposantSigne = false
-        amcParam.signe = false
-      }
+      handleAnswers(this, i, {
+        champ1: {
+          value: String(listeTypeDeQuestions[i] === 'somme' ? a + b : b),
+        },
+      })
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte

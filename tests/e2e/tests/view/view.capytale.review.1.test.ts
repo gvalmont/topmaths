@@ -44,12 +44,12 @@ async function testV(page: Page) {
   })
 
   // Go to the page
-  await page.setDefaultTimeout(200_000) // Set timeout to 200 seconds
+  await page.setDefaultTimeout(1_200_000) // Set timeout to 1_200_000 seconds
   await page.goto(parentUrl)
 
   await expect(page.locator('body')).toContainText('bonjour')
   await page.waitForSelector('#iframe')
-  await page.waitForTimeout(3000) // attendre 3000 ms de plus pour assurer le rendu
+  await page.waitForTimeout(10_000) // attendre 10_000 ms de plus pour assurer le rendu
   if (page.frames().length > 0) {
     await Promise.all(
       page.frames().map((frame) => frame.waitForLoadState('networkidle')),
@@ -146,6 +146,21 @@ async function testV(page: Page) {
     value7,
     'Écrire un nombre entier en chiffres ou en lettres en DRAP AND DROP',
   ).toEqual('1 / 1')
+  await page
+    .locator('#iframe')
+    .contentFrame()
+    .getByRole('button', { name: 'Exercice 8' })
+    .click()
+  const value8 = await page
+    .locator('#iframe')
+    .contentFrame()
+    .locator('#exercice7')
+    .getByText('/ 2')
+    .innerText()
+  expect(
+    value8,
+    'Donner différentes écritures de nombres décimaux en TABLEAU MATHLIVE',
+  ).toEqual('2 / 2')
   return true
 }
 

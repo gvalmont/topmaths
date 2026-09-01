@@ -7,13 +7,13 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer une longueur avec le théorème de Thalès (agrandissement/réduction)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -38,7 +38,7 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
 
   nouvelleVersion() {
     let nom, a, b, c, k, A, B, C, D, E, objets
-    if (choice([true, false])) {
+    if (this.quotaChoice('cas', [true, false])) {
       nom = creerNomDePolygone(5, ['QD'])
       k = choice([1.5, 2, 2.5])
       b = randint(2, 5) * 2 //
@@ -147,7 +147,7 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.2,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
       ),
       objets,

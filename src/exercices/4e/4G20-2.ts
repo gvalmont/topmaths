@@ -1,9 +1,5 @@
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -26,14 +22,13 @@ import { sp } from '../../lib/outils/outilString'
 import type { IExercice } from '../../lib/types'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
-import { amcConvert } from '../../lib/amc/amcBuilders'
 
 export const titre =
   "Déterminer la racine carrée d'un carré parfait (calcul mental)"
 export const dateDeModifImportante = '04/02/2026'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const interactifType = 'MetaInteractif2d'
+
 export const interactifReady = true
 
 /**
@@ -44,7 +39,7 @@ export const uuid = 'f5cbd'
 
 export const refs = {
   'fr-fr': ['4G20-2'],
-  'fr-ch': ['10NO3-1'],
+  'fr-ch': ['10NO3E-1'],
 }
 const figureCarre = (aire: number, exercice: IExercice, question: number) => {
   const c = Math.sqrt(aire) / 4
@@ -185,46 +180,19 @@ export default class RacineCareeDeCarresParfaits extends Exercice {
       }
 
       texteCorr = `$\\sqrt{${c}}${this.sup3 ? '\\text{ cm}' : ''}=${miseEnEvidence(a.toString())}${this.sup3 ? '\\text{ cm}' : ''}$`
-      if (!context.isAmc) {
-        if (this.sup3) {
-          handleAnswers(
-            this,
-            i,
-            {
-              field0: { value: a, options: { noFeedback: true } },
-            },
-            { formatInteractif: 'MetaInteractif2d' },
-          )
-        } else {
-          handleAnswers(this, i, { reponse: { value: a.toString() } })
-        }
+      if (this.sup3) {
+        handleAnswers(
+          this,
+          i,
+          {
+            field0: { value: a, options: { noFeedback: true } },
+          },
+          { formatInteractif: 'MetaInteractif2d' },
+        )
+      } else {
+        handleAnswers(this, i, { reponse: { value: a.toString() } })
       }
       if (this.questionJamaisPosee(i, a)) {
-        if (context.isAmc) {
-          setReponse(this, i, a)
-          if (listeQuestions[i] === 1) {
-            this.autoCorrectionAMC[i].enonce = `$\\sqrt{${c}}=\\dots$`
-            this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-            this.autoCorrectionAMC[i].propositions = [
-              { texte: `$\\sqrt{${c}}=${a}$`, statut: false },
-            ]
-            this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-          } else {
-            this.autoCorrectionAMC[i].enonce = `$${c} = \\dots^2$`
-            this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-            this.autoCorrectionAMC[i].propositions = [
-              { texte: `$${c}=${a}^2$`, statut: false },
-            ]
-            this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-          }
-          this.autoCorrectionAMC[i].reponse!.param = {
-            digits: 2,
-            decimals: 0,
-            exposantNbChiffres: 0,
-            exposantSigne: false,
-            signe: false,
-          }
-        }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

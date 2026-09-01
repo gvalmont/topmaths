@@ -1,11 +1,9 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 export const titre = 'Convertir une durée en minutes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'h278j'
 export const refs = {
   'fr-fr': [],
@@ -19,8 +17,8 @@ export const refs = {
 export default class Can2a2025CQ8 extends ExerciceCan {
   enonce(h?: number, m?: number): void {
     if (h == null || m == null) {
-      h = randint(2, 4)
-      m = choice([ 25,  35,  45, 55])
+      h = this.quotaRandint('h', 2, 4)
+      m = this.quotaChoice('m', [25, 35, 45, 55])
     }
 
     const resultat = h * 60 + m

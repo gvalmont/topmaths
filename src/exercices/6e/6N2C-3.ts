@@ -1,3 +1,4 @@
+import { bleuMathalea } from '../../lib/colors'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -9,12 +10,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 export const titre = 'Diviser par 10, 100 ou 1 000'
 
@@ -29,9 +28,9 @@ export const dateDeModifImportante = '22/08/2024'
 export const uuid = '9540b'
 
 export const refs = {
-  'fr-fr': ['6N2C-3'],
+  'fr-fr': ['6N2C-3', '6AutoN4-3'],
   'fr-2016': ['6C30-8'],
-  'fr-ch': ['9NO8-16'],
+  'fr-ch': ['PR-24'],
 }
 export default class DiviserPar101001000 extends Exercice {
   constructor() {

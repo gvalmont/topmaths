@@ -5,6 +5,8 @@ import { homothetie, similitude } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangles'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { bleuMathalea } from '../../lib/colors'
 import { texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -18,13 +20,11 @@ import Grandeur from '../../modules/Grandeur'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre = 'Calculer des longueurs avec le théorème de Thalès'
 
 /**
@@ -209,7 +209,7 @@ export default class Thales2D extends Exercice {
       const boutonAideMathalea2d = ajouterBoutonMathalea2d(
         numeroExercice + '_' + i,
         `if (!document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == 'false')){
-          document.getElementById('M2D_${numeroExercice}_${i}_1').style.stroke = 'blue';
+          document.getElementById('M2D_${numeroExercice}_${i}_1').style.stroke = '${bleuMathalea}';
           document.getElementById('M2D_${numeroExercice}_${i}_2').style.stroke = 'red';
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.opacity = .5;
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.strokeWidth = ${epaisseurTriangle};
@@ -233,16 +233,17 @@ export default class Thales2D extends Exercice {
       )
 
       if (k > 0 && this.sup2 === 1) {
-        texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :
-       <br> $\\leadsto$ $${nomM}\\in${'[' + nomC + nomA + ']'}$,
-       <br> $\\leadsto$ $${nomN}\\in${'[' + nomC + nomB + ']'}$,
-       <br> $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,
-       <br> donc d'après le théorème de Thalès, `
+        texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :<br>
+ $\\leadsto$ $${nomM}\\in${'[' + nomC + nomA + ']'}$,<br>
+ $\\leadsto$ $${nomN}\\in${'[' + nomC + nomB + ']'}$,<br>
+ $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,<br>
+       donc d'après le théorème de Thalès, `
         texteCorr += this.correctionDetaillee
           ? `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
           : 'on a:'
       } else {
-        texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, `
+        texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> 
+        donc d'après le théorème de Thalès, `
         texteCorr += this.correctionDetaillee
           ? `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
           : 'on a:'

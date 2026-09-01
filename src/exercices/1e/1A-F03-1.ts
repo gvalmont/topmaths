@@ -8,14 +8,14 @@ export const dateDePublication = '28/07/2025'
 export const uuid = '4c3c0'
 
 export const refs = {
-  'fr-fr': ['1A-F03-1'],
+  'fr-fr': ['1A-F03-1', '2A-F3-1'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Reconnaître une fonction affine'
+export const titre = 'Reconnaître une fonction affine (1)'
 export default class AutoF3 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = `On considère les trois fonctions définies sur $\\mathbb{R}$ par : <br>
@@ -231,6 +231,6 @@ ${texteEnCouleurEtGras("Aucune de ces fonctions n'est affine.")}`
   constructor() {
     super()
     this.versionAleatoire()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
   }
 }

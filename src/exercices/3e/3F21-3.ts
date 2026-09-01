@@ -6,11 +6,15 @@ import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { milieu } from '../../lib/2d/utilitairesPoint'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
+import {
+  KeyboardType,
+  type KeyboardCategory,
+} from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -20,13 +24,11 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { contraindreValeur, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '28/05/2023'
@@ -40,7 +42,7 @@ export const uuid = '156fa'
 
 export const refs = {
   'fr-fr': ['3F21-3'],
-  'fr-ch': ['11FA8-12'],
+  'fr-ch': ['11FA1B-7'],
 }
 export default class PenteEtOrdonneeOrigineDroite extends Exercice {
   constructor() {
@@ -83,7 +85,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       i < this.nbQuestions && cpt < 50;
     ) {
       let dataTemplate: string = ''
-      let dataOptions: Record<string, any> = {}
+      let dataOptions: Record<string, { keyboard: KeyboardCategory }> = {}
       const signeNum =
         this.sup2 === 3 ? choice([-1, 1]) : this.sup2 === 2 ? -1 : 1
       const num =
@@ -105,12 +107,9 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
               ? -zeroOuUn
               : zeroOuUn
       const b =
-        this.sup4 === 1
-          ? 0
-          : signB * randint(this.sup4 === 2 ? 1 : 0, 4)
+        this.sup4 === 1 ? 0 : signB * randint(this.sup4 === 2 ? 1 : 0, 4)
       const vocabulaire = b === 0 ? 'linéaire' : 'affine'
-      let xMin
-      context.isHtml ? (xMin = -10) : (xMin = -8)
+      const xMin = context.isHtml ? -10 : -8
       const xMax = -xMin
       const yMin = xMin
       const yMax = -yMin
@@ -197,7 +196,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       if (vocabulaire === 'affine') {
         question1 = `a) Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
 
-        correction1 = consigneCorrection + '<br>'
+        correction1 = consigneCorrection
         correction1 +=
           numAlpha(indice) +
           `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$. L'ordonnée de $${nomFonction}$ à l'origine est donc $${miseEnEvidence(b)}$.`
@@ -219,13 +218,26 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       dataOptions =
         vocabulaire === 'affine'
           ? {
-              champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-              champ2: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-              champ3: { keyboard: KeyboardType.clavierDeBaseAvecX },
+              champ1: {
+                keyboard:
+                  KeyboardType.clavierDeBaseAvecFraction as KeyboardCategory,
+              },
+              champ2: {
+                keyboard:
+                  KeyboardType.clavierDeBaseAvecFraction as KeyboardCategory,
+              },
+              champ3: {
+                keyboard: KeyboardType.clavierDeBaseAvecX as KeyboardCategory,
+              },
             }
           : {
-              champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-              champ2: { keyboard: KeyboardType.clavierDeBaseAvecX },
+              champ1: {
+                keyboard:
+                  KeyboardType.clavierDeBaseAvecFraction as KeyboardCategory,
+              },
+              champ2: {
+                keyboard: KeyboardType.clavierDeBaseAvecX as KeyboardCategory,
+              },
             }
 
       correction3 =
@@ -265,7 +277,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
                 },
           ),
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       texte =

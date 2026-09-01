@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la somme de décimaux qui se marient'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '11/05/2022'
@@ -17,8 +17,8 @@ export const dateDePublication = '11/05/2022'
 export const uuid = '843e1'
 
 export const refs = {
-  'fr-fr': ['can5C21'],
-  'fr-ch': [],
+  'fr-fr': ['can5C21', 'auto5N2A-flash3'],
+  'fr-ch': ['9NO1G-5'],
 }
 export default class SommeDecimaux extends ExerciceSimple {
   constructor() {
@@ -30,7 +30,7 @@ export default class SommeDecimaux extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b, c, e, f, g, k
-    const choix = randint(1, 3)
+    const choix = this.quotaRandint('choix', 1, 3)
     if (choix === 1) {
       a = randint(1, 9)
       b = randint(1, 9)

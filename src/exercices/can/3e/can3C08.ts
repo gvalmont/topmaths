@@ -1,4 +1,3 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -7,7 +6,6 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -32,12 +30,12 @@ export default class ProgrammeCalcul extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = arrondi(randint(2, 9) * 5)
-    const b = arrondi(randint(2, 9) * 4)
-    const c = arrondi(randint(2, 9) * 3)
-    const d = arrondi(randint(2, 9) * 6)
+    const a = arrondi(this.quotaRandint('a', 2, 9) * 5)
+    const b = arrondi(this.quotaRandint('b', 2, 9) * 4)
+    const c = arrondi(this.quotaRandint('c', 2, 9) * 3)
+    const d = arrondi(this.quotaRandint('d', 2, 9) * 6)
     const e = randint(2, 9, [a / 5, b / 4, c / 3, d / 6])
-    const N = choice(['quart', 'tiers', 'cinquième', 'sixième'])
+    const N = this.quotaChoice('N', ['quart', 'tiers', 'cinquième', 'sixième'])
 
     if (N === 'cinquième') {
       this.question = `Prendre le ${N} de $${a}$, puis soustraire $${e}$ et élever le résultat au carré. <br>

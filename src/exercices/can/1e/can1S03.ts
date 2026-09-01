@@ -12,13 +12,12 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un terme d’une suite récurrente*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '15/02/2022'
 
 /**
  * @author Gilles Mora
-*/
+ */
 export const uuid = 'fccb4'
 
 export const refs = {
@@ -36,7 +35,7 @@ export default class CalculTermeSuiteRec2 extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, k, u, listeFractions1, fraction1, n1, d1
     switch (
-      choice(['a', 'b', 'c', 'd', 'e']) //
+      this.quotaChoice('cas', ['a', 'b', 'c', 'd', 'e']) //
     ) {
       case 'a': // suite arithmétique
         a = randint(1, 10) * choice([-1, 1])

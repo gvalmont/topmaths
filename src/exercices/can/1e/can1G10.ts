@@ -9,13 +9,13 @@ import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Associer une mesure d'angle à un  point du cercle trigonométrique "
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '31/10/2022'
 export const dateDeModifImportante = '06/11/2024'
 /**
@@ -114,7 +114,7 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
         ymax: r + 1,
         pixelsParCm: 15,
         scale: 0.45,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       c,
       s1,
@@ -130,7 +130,7 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
       nom,
     )
     switch (
-      randint(1, 16) //, 2, 3, 4, 5
+      this.quotaRandint('type', 1, 16) //, 2, 3, 4, 5
     ) {
       case 1: // point I
         choix = choice([

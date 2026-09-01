@@ -20,7 +20,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Résoudre une équation du second degré se ramenant au premier degré'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDeModifImportante = '21/05/2026'
 
 /**
@@ -36,7 +36,7 @@ export const uuid = '231d3'
 
 export const refs = {
   'fr-fr': ['3L15'],
-  'fr-ch': ['11FA10-4'],
+  'fr-ch': ['10FA5C-6', '11FA5B-4'],
 }
 export default class ExerciceEquations extends Exercice {
   constructor() {

@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
@@ -14,7 +14,7 @@ import { representationFraction } from '../../modules/representationsFractions'
 
 export const titre = 'Mettre bout à bout des segments'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -29,7 +29,7 @@ export const uuid = '6a17f'
 export const refs = {
   'fr-fr': ['6N3K-2'],
   'fr-2016': ['6N22-2'],
-  'fr-ch': ['9NO10-13'],
+  'fr-ch': ['9NO3F-3'],
 }
 export default class AjouterDesFractionsDunite extends Exercice {
   constructor() {
@@ -72,17 +72,21 @@ export default class AjouterDesFractionsDunite extends Exercice {
 
       texte = `On place bout à bout 4 segments de longueurs respectives $${f[0].texFraction}$, $${f[1].texFraction}$, $${f[2].texFraction}$ et $${f[3].texFraction}$.<br>`
       texte += 'Quelle est la longueur du segment obtenu ?'
-      setReponse(
+      handleAnswers(
         this,
         i,
-        new FractionEtendue(num[0] + num[1] + num[2] + num[3], den),
+        {
+          reponse: {
+            value: new FractionEtendue(num[0] + num[1] + num[2] + num[3], den),
+            options: { fractionEgale: true },
+          },
+        },
         {
           digitsNum:
             nombreDeChiffresDe(num[0] + num[1] + num[2] + num[3]) +
             randint(0, 1),
           digitsDen: nombreDeChiffresDe(den) + randint(0, 1),
           signe: false,
-          formatInteractif: 'fractionEgale',
         },
       )
       if (this.interactif && !context.isAmc) {
@@ -119,7 +123,7 @@ export default class AjouterDesFractionsDunite extends Exercice {
         scale: 0.5,
       }
       texteCorr += mathalea2d(params, ...objets)
-      texteCorr += '<br>Ce qui donne en les mettant bout à bout :<br>'
+      texteCorr += 'Ce qui donne en les mettant bout à bout :<br>'
       params = {
         xmin: -0.4,
         ymin: -1.5,
@@ -143,7 +147,7 @@ export default class AjouterDesFractionsDunite extends Exercice {
           1,
         ),
       )
-      texteCorr += `<br>La longueur du segment ainsi obtenu est : $${fraction(num[0] + num[1] + num[2] + num[3], den).texFraction}$.`
+      texteCorr += `La longueur du segment ainsi obtenu est : $${fraction(num[0] + num[1] + num[2] + num[3], den).texFraction}$.`
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte

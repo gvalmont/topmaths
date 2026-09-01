@@ -1,13 +1,12 @@
-import ProblemeFractions from '../can/2e/can2C20'
+import ProblemeFractions from '../can/2e/can2N33-01'
 export const titre = 'Résoudre un problème avec des fractions'
 export const dateDePublication = '04/08/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
- * Clone de can2C20 pour les auto 1er
+ * Clone de can2N30-03 pour les auto 1er
  * @author Gilles Mora
  */
 

@@ -17,6 +17,7 @@ import {
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { fraction } from '../../../modules/fractions'
 import Hms from '../../../modules/Hms'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -29,7 +30,7 @@ import type FractionEtendue from '../../../modules/FractionEtendue'
 
 export const titre = 'CAN 3e sujet 2021'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '30/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
@@ -549,7 +550,7 @@ export default class SujetCAN20213ieme extends Exercice {
                 mainlevee: false,
                 amplitude: 0.5,
                 scale: 0.8,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -689,7 +690,7 @@ export default class SujetCAN20213ieme extends Exercice {
                 mainlevee: false,
                 amplitude: 0.5,
                 scale: 1,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -806,7 +807,7 @@ export default class SujetCAN20213ieme extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1.2,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -844,7 +845,7 @@ export default class SujetCAN20213ieme extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -882,7 +883,7 @@ export default class SujetCAN20213ieme extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -1068,7 +1069,7 @@ export default class SujetCAN20213ieme extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -1149,7 +1150,7 @@ export default class SujetCAN20213ieme extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -1225,7 +1226,7 @@ export default class SujetCAN20213ieme extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -1301,7 +1302,7 @@ export default class SujetCAN20213ieme extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )

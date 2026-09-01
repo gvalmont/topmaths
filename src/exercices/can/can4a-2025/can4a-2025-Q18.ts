@@ -11,7 +11,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer une longueur dans un triangle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '97291'
 export const refs = {
   'fr-fr': [],
@@ -41,7 +41,7 @@ export default class Can2025N4Q18 extends ExerciceCan {
     const objets = [polygoneAvecNom(A, B, C), l1, l2]
     this.question = mathalea2d(
       Object.assign(
-        { pixelsParCm: 20, scale: 0.5, display: 'inline-block' },
+        { pixelsParCm: 20, scale: 0.5, display: 'inline-block' } as const,
         fixeBordures(objets),
       ),
       objets,

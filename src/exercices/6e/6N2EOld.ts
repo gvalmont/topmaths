@@ -13,7 +13,6 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre = 'Poser des multiplications de nombres décimaux (Version 2)'
 
@@ -103,7 +102,7 @@ export default class MultiplierDecimauxOld extends Exercice {
         operande1: a,
         operande2: b,
         type: 'multiplication',
-        style: 'display: inline',
+        display: 'inline',
         options: { solution: true, colore: orangeMathalea },
       })
       texteCorr +=
@@ -112,7 +111,7 @@ export default class MultiplierDecimauxOld extends Exercice {
           operande1: b,
           operande2: a,
           type: 'multiplication',
-          style: 'display: inline',
+          display: 'inline',
           options: { solution: true, colore: orangeMathalea },
         })
       if (context.isHtml && this.interactif) {

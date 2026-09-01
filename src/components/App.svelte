@@ -17,9 +17,9 @@
   import { context } from '../modules/context'
   import Topmaths from '../topmaths/components/Topmaths.svelte'
 
-  import CheckTest from './devtools/CheckTest.svelte'
   import Can from './display/can/Can.svelte'
   import Eleve from './display/eleve/Eleve.svelte'
+  import A4 from './setup/a4/A4.svelte'
   import Alacarte from './setup/alacarte/Alacarte.svelte'
   import Amc from './setup/amc/Amc.svelte'
   import Anki from './setup/anki/Anki.svelte'
@@ -30,7 +30,21 @@
   import RawLatex from './setup/latex/RawLatex.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Start from './setup/start/Start.svelte'
+  import Tex from './setup/tex/Tex.svelte'
   import Tools from './setup/tools/Tools.svelte'
+  import Typst from './setup/typst/Typst.svelte'
+  import Flashcards from './setup/flashcards/Flashcards.svelte'
+  import Slides from './setup/slides/Slides.svelte'
+  import Tbi from './display/tbi/Tbi.svelte'
+  import Omr from './setup/omr/Omr.svelte'
+  import QuizzConf from './setup/quizz/QuizzConf.svelte'
+  import Quizz from './display/quizz/Quizz.svelte'
+  import QuizzMulti from './display/quizz/multi/QuizzMulti.svelte'
+  import EnConstruction from './shared/misc/EnConstruction.svelte'
+  import { decodeQuizzParams } from '../lib/quizz/quizzParams'
+  import type { InterfaceGlobalOptions } from '../lib/types'
+  import CheckTest from './devtools/CheckTest.svelte'
+  import CapytaleConnectionLostModal from './shared/modal/CapytaleConnectionLostModal.svelte'
   import Popup from './shared/modal/Popup.svelte'
 
   let showPopup = false
@@ -119,6 +133,16 @@
     updateVendor()
   }
 
+  /**
+   * Vue quizz multi-joueurs (V2) ? Vrai si l'URL porte un rôle explicite
+   * (manager/player) ou si les réglages du quizz indiquent le mode multi.
+   */
+  function isMultiQuizz(options: InterfaceGlobalOptions): boolean {
+    if (options.v !== 'quizz') return false
+    if (options.quizzRole != null) return true
+    return decodeQuizzParams(options.quizzParam).mode === 'multi'
+  }
+
   function updateParamsFromUrl() {
     updateReferentielLocaleFromURL()
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
@@ -132,6 +156,7 @@
     if (
       $globalOptions.v === 'latex' ||
       $globalOptions.v === 'pdf' ||
+      $globalOptions.v === 'tex' ||
       $globalOptions.v === 'raw'
     ) {
       context.isHtml = false
@@ -152,7 +177,11 @@
     }
     context.vue = ''
     if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
-    if ($globalOptions.v === 'latex' || $globalOptions.v === 'raw')
+    if (
+      $globalOptions.v === 'latex' ||
+      $globalOptions.v === 'raw' ||
+      $globalOptions.v === 'tex'
+    )
       context.vue = 'latex' // for compatibility
     if ($globalOptions.v === 'can') context.vue = 'can' // for compatibility
     // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
@@ -203,6 +232,8 @@
     <Latex />
   {:else if $globalOptions.v === 'raw'}
     <RawLatex />
+  {:else if $globalOptions.v === 'a4'}
+    <A4 />
   {:else if $globalOptions.v === 'alacarte'}
     <Alacarte />
   {:else if $globalOptions.v === 'confeleve'}
@@ -219,10 +250,46 @@
     <Start />
   {:else if $globalOptions.v === 'tools'}
     <Tools />
+  {:else if $globalOptions.v === 'typst'}
+    <Typst />
+  {:else if $globalOptions.v === 'tex'}
+    <Tex />
+  {:else if $globalOptions.v === 'flashcards'}
+    <Flashcards />
+  {:else if $globalOptions.v === 'slides'}
+    <Slides />
+  {:else if $globalOptions.v === 'tbi'}
+    <Tbi />
+  {:else if $globalOptions.v === 'quizzconf'}
+    <!-- PHASE-BETA-QUIZZ : pour ouvrir la vue à tous, supprimer ce bloc
+         {#if}…{/if} (et l'import de EnConstruction) en ne gardant que QuizzConf -->
+    {#if !$globalOptions.beta}
+      <EnConstruction feature="Quizz" />
+    {:else}
+      <QuizzConf />
+    {/if}
+  {:else if $globalOptions.v === 'quizz'}
+    {#if isMultiQuizz($globalOptions)}
+      <QuizzMulti />
+    {:else}
+      <Quizz />
+    {/if}
+  {:else if $globalOptions.v === 'omr'}
+    <!-- Prototype : la vue reste derrière `?beta=1` tant que la fiabilité de
+         lecture n'a pas été mesurée sur de vraies copies scannées -->
+    {#if !$globalOptions.beta}
+      <EnConstruction feature="Évaluation papier" />
+    {:else}
+      <Omr />
+    {/if}
   {:else if $globalOptions.v === 'check-test'}
     <CheckTest />
   {:else}
     <Topmaths />
+  {/if}
+  {#if $globalOptions.recorder === 'capytale'}
+    <!-- Bloque la copie tant que la sauvegarde vers Capytale n'est pas possible -->
+    <CapytaleConnectionLostModal />
   {/if}
 </div>
 

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import * as exercice2N40_1 from '../../exercices/2e/2N40-1'
+import * as exercice2N40_1 from '../../exercices/2e/2L10-1'
 import { mathaleaHandleExerciceSimple } from '../mathalea'
 import {
   renderAMCCopyContent,
@@ -418,7 +418,7 @@ describe('creerDocumentAmc templates', () => {
     const exerciseInferredQcm = {
       titre: 'QCM a inferer',
       nbQuestions: 1,
-      interactifType: 'qcm',
+      formatInteractif: 'qcm',
       autoCorrection: [
         {
           propositions: [
@@ -438,7 +438,7 @@ describe('creerDocumentAmc templates', () => {
     const exerciseInferredMathLive = {
       titre: 'MathLive a inferer',
       nbQuestions: 1,
-      interactifType: 'mathlive',
+      formatInteractif: 'mathlive',
       autoCorrection: [
         {
           reponse: {
@@ -459,7 +459,7 @@ describe('creerDocumentAmc templates', () => {
     const exerciseExplicitlyBlocked = {
       titre: 'AMC refuse',
       nbQuestions: 1,
-      interactifType: 'mathLive',
+      formatInteractif: 'mathLive',
       amcReady: false,
       amcType: 'AMCOpen',
       autoCorrection: [],

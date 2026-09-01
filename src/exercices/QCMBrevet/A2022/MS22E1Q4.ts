@@ -9,7 +9,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Équation produit nul  (septembre 2022 Métropole)'
@@ -28,7 +28,7 @@ export default class MetropoleSep22Ex1Q4 extends ExerciceQcmA {
       `$${String(-b)}$ et $${String(-c)}$`,
       `$${String(a)}$ et $${String(-c)}$`,
     ]
-    this.enonce = `Les solutions de l'équation  $(${String(a)}x+${String(b)})(-x+${String(c)})$ sont :`
+    this.enonce = `Les solutions de l'équation  $(${String(a)}x+${String(b)})(-x+${String(c)})= 0$ sont :`
     this.correction = `Un produit de facteurs est nul si l'un des facteurs est nul, soit <br>
     $\\left\\{\\begin{array}{l c l}
     ${String(a)}x+${String(b)}&=0\\\\

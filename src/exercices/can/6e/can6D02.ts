@@ -1,10 +1,9 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un reste en minutes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModificationImportante = '21/03/2026'
@@ -17,7 +16,7 @@ export const uuid = '46e66'
 
 export const refs = {
   'fr-fr': ['can6D02', '6M4C-flash2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ResteEnMinutes extends ExerciceSimple {
   constructor() {
@@ -30,8 +29,8 @@ export default class ResteEnMinutes extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 2)
-    const b = randint(10, 59)
+    const a = this.quotaRandint('a', 1, 2)
+    const b = this.quotaRandint('b', 10, 59)
     const d = a * 60 + b
     this.question = ` Si on met $${d}$ minutes au format heures-minutes, quel serait le nombre de minutes ?`
     this.correction = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes $= ${a}\\text{~h~}${miseEnEvidence(b)}\\text{~min}$.`

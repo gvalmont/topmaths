@@ -5,12 +5,13 @@ import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier un entier avec un décimal'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '1ef53'
 export const refs = {
   'fr-fr': [''],
@@ -78,7 +79,7 @@ export default class Coordonnees extends ExerciceSimple {
         ymax: 3,
         scale: 0.7,
         pixelsParCm: 30,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       r,
       o,
@@ -100,7 +101,7 @@ export default class Coordonnees extends ExerciceSimple {
         ymax: 3,
         scale: 0.7,
         pixelsParCm: 30,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       r,
       o,

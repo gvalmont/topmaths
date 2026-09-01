@@ -1,9 +1,9 @@
-import EchellesProblemes from '../5e/5P13'
+import EchellesProblemes from '../5e/5P1A-2'
 
 export const titre = "Utiliser ou trouver l'échelle d'un plan"
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -19,7 +19,7 @@ export const uuid = '9c78f'
 export const refs = {
   'fr-fr': ['6P3E', 'BP2AutoM2'],
   'fr-2016': ['6P12-1', 'BP2AutoM2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class EchellesProblemes6eme extends EchellesProblemes {
   constructor() {

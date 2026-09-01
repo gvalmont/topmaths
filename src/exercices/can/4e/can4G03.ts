@@ -5,7 +5,6 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { similitude } from '../../../lib/2d/transformations'
 import { milieu, pointAdistance } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import {
   miseEnEvidence,
@@ -13,12 +12,13 @@ import {
 } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '01/06/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -41,8 +41,8 @@ export default class CalculHypotenusePythagore extends ExerciceSimple {
   nouvelleVersion() {
     let a, b
     const nom = creerNomDePolygone(3, ['QD'])
-    a = randint(2, 7) //
-    b = randint(3, 7) //
+    a = this.quotaRandint('a', 2, 7) //
+    b = this.quotaRandint('b', 3, 7) //
     const A = pointAbstrait(0, 0, nom[0])
     const B = pointAdistance(A, a, randint(0, 45), nom[1])
     const C = similitude(A, B, 90, b / a, nom[2])
@@ -56,7 +56,7 @@ export default class CalculHypotenusePythagore extends ExerciceSimple {
     let reduction
     let reductible
     let entiere
-    switch (choice(['a', 'b'])) {
+    switch (this.quotaChoice('cas', ['a', 'b'])) {
       case 'a':
         c2 = a ** 2 + b ** 2
         reduction = extraireRacineCarree(c2)
@@ -86,7 +86,7 @@ export default class CalculHypotenusePythagore extends ExerciceSimple {
             mainlevee: false,
             amplitude: 0.3,
             scale: 0.5,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         )

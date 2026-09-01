@@ -1,8 +1,8 @@
 import { orangeMathalea } from '../../lib/colors'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
@@ -14,7 +14,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const titre = 'Effectuer des divisions euclidiennes'
 export const dateDeModifImportante = '01/02/2026'
@@ -40,7 +39,7 @@ export const uuid = '2se82'
 
 export const refs = {
   'fr-fr': ['6N2J'],
-  'fr-ch': ['9NO3-3'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-3'],
 }
 export default class DivisionsEuclidiennes extends Exercice {
   constructor() {
@@ -59,7 +58,7 @@ export default class DivisionsEuclidiennes extends Exercice {
     this.sup2 = false
     this.sup3 = randint(1, 99)
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon opidiv n'est pas joli
     this.nbQuestions = 4
     this.comment =
       'Si le paramètre "Choisir son propre diviseur" est validé, alors seulement vous pourrez choisir votre propre diviseur.'
@@ -177,7 +176,7 @@ export default class DivisionsEuclidiennes extends Exercice {
           },
           bareme: toutAUnPoint,
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
       texteCorr += `${numAlpha(0)} Le quotient de la division euclidienne de $${texNombre(a)}$ par $${b}$ est $${miseEnEvidence(texNombre(q))}$.<br>`
       texteCorr += `${numAlpha(1)} Le reste de la division euclidienne de $${texNombre(a)}$ par $${b}$ est $${miseEnEvidence(String(r))}$.`

@@ -3,6 +3,7 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -20,11 +21,9 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '24/04/2021'
 export const dateDeModifImportante = '26/04/2024'
@@ -42,7 +41,7 @@ export const uuid = '4e89b'
 export const refs = {
   'fr-fr': ['6N4A-1'],
   'fr-2016': ['6C35'],
-  'fr-ch': ['9NO3-9'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-9'],
 }
 
 /**
@@ -346,7 +345,10 @@ export default class ModelisationProblemes extends Exercice {
             D1 = pointAbstrait(0, 4)
             p1 = polygone([A1, B1, C1, D1], colorA)
             p1.epaisseur = context.isHtml ? 3 : 2
-            traitHorizontal1 = segment(pointAbstrait(0, 2), pointAbstrait(12, 2))
+            traitHorizontal1 = segment(
+              pointAbstrait(0, 2),
+              pointAbstrait(12, 2),
+            )
             traitVertical1 = segment(pointAbstrait(6, 2), pointAbstrait(6, 4))
             tb1 = texteParPosition('?', 6, 1)
             th1 = texteParPosition(b1, 3, 3)
@@ -368,7 +370,7 @@ export default class ModelisationProblemes extends Exercice {
               Object.assign({}, fixeBordures(objets), {
                 ymin: -1,
                 ymax: 6,
-                style: 'display: inline',
+                display: 'inline' as const,
                 pixelsParCm: 13,
                 scale: 0.25,
               }),
@@ -398,12 +400,21 @@ export default class ModelisationProblemes extends Exercice {
             D2 = pointAbstrait(0, 4)
             p2 = polygone([A2, B2, C2, D2], colorA)
             p2.epaisseur = context.isHtml ? 3 : 2
-            traitHorizontal2 = segment(pointAbstrait(0, 2), pointAbstrait(12, 2))
-            traitHorizontal22 = segment(pointAbstrait(0, 4.5), pointAbstrait(12, 4.5))
+            traitHorizontal2 = segment(
+              pointAbstrait(0, 2),
+              pointAbstrait(12, 2),
+            )
+            traitHorizontal22 = segment(
+              pointAbstrait(0, 4.5),
+              pointAbstrait(12, 4.5),
+            )
             traitHorizontal22.styleExtremites = '<->'
             traitVertical2 = segment(pointAbstrait(2, 2), pointAbstrait(2, 4))
             traitVertical22 = segment(pointAbstrait(4, 2), pointAbstrait(4, 4))
-            traitVertical23 = segment(pointAbstrait(10, 2), pointAbstrait(10, 4))
+            traitVertical23 = segment(
+              pointAbstrait(10, 2),
+              pointAbstrait(10, 4),
+            )
             tb2 = texteParPosition(b1 * c1, 6, 1)
             th2 = texteParPosition(b1, 1, 3)
             th22 = texteParPosition(b1, 3, 3)
@@ -433,7 +444,7 @@ export default class ModelisationProblemes extends Exercice {
               Object.assign({}, fixeBordures(objets), {
                 ymin: -1,
                 ymax: 6,
-                style: 'display: inline',
+                display: 'inline' as const,
                 pixelsParCm: 13,
                 scale: 0.25,
               }),
@@ -462,7 +473,10 @@ export default class ModelisationProblemes extends Exercice {
             D3 = pointAbstrait(0, 4)
             p3 = polygone([A3, B3, C3, D3], colorA)
             p3.epaisseur = context.isHtml ? 3 : 2
-            traitHorizontal3 = segment(pointAbstrait(0, 2), pointAbstrait(12, 2))
+            traitHorizontal3 = segment(
+              pointAbstrait(0, 2),
+              pointAbstrait(12, 2),
+            )
             traitVertical3 = segment(pointAbstrait(6, 2), pointAbstrait(6, 4))
             tb3 = texteParPosition(b5, 6, 1)
             th3 = texteParPosition('?', 3, 3)
@@ -484,7 +498,7 @@ export default class ModelisationProblemes extends Exercice {
               Object.assign({}, fixeBordures(objets), {
                 ymin: -1,
                 ymax: 6,
-                style: 'display: inline',
+                display: 'inline' as const,
                 pixelsParCm: 13,
                 scale: 0.25,
               }),
@@ -512,12 +526,21 @@ export default class ModelisationProblemes extends Exercice {
             D4 = pointAbstrait(0, 4)
             p4 = polygone([A4, B4, C4, D4], colorA)
             p4.epaisseur = context.isHtml ? 3 : 2
-            traitHorizontal4 = segment(pointAbstrait(0, 2), pointAbstrait(12, 2))
-            traitHorizontal42 = segment(pointAbstrait(0, 4.5), pointAbstrait(12, 4.5))
+            traitHorizontal4 = segment(
+              pointAbstrait(0, 2),
+              pointAbstrait(12, 2),
+            )
+            traitHorizontal42 = segment(
+              pointAbstrait(0, 4.5),
+              pointAbstrait(12, 4.5),
+            )
             traitHorizontal42.styleExtremites = '<->'
             traitVertical4 = segment(pointAbstrait(2, 2), pointAbstrait(2, 4))
             traitVertical42 = segment(pointAbstrait(4, 2), pointAbstrait(4, 4))
-            traitVertical43 = segment(pointAbstrait(10, 2), pointAbstrait(10, 4))
+            traitVertical43 = segment(
+              pointAbstrait(10, 2),
+              pointAbstrait(10, 4),
+            )
             tb4 = texteParPosition('?', 6, 1)
             th4 = texteParPosition(b5, 1, 3)
             th42 = texteParPosition(b5, 3, 3)
@@ -547,7 +570,7 @@ export default class ModelisationProblemes extends Exercice {
               Object.assign({}, fixeBordures(objets), {
                 ymin: -1,
                 ymax: 6,
-                style: 'display: inline',
+                display: 'inline' as const,
                 pixelsParCm: 13,
                 scale: 0.25,
               }),
@@ -575,12 +598,21 @@ export default class ModelisationProblemes extends Exercice {
             D5 = pointAbstrait(0, 4)
             p5 = polygone([A5, B5, C5, D5], colorB)
             p5.epaisseur = context.isHtml ? 3 : 2
-            traitHorizontal5 = segment(pointAbstrait(0, 2), pointAbstrait(12, 2))
-            traitHorizontal52 = segment(pointAbstrait(0, 4.7), pointAbstrait(12, 4.7))
+            traitHorizontal5 = segment(
+              pointAbstrait(0, 2),
+              pointAbstrait(12, 2),
+            )
+            traitHorizontal52 = segment(
+              pointAbstrait(0, 4.7),
+              pointAbstrait(12, 4.7),
+            )
             traitHorizontal52.styleExtremites = '<->'
             traitVertical5 = segment(pointAbstrait(2, 2), pointAbstrait(2, 4))
             traitVertical52 = segment(pointAbstrait(4, 2), pointAbstrait(4, 4))
-            traitVertical53 = segment(pointAbstrait(10, 2), pointAbstrait(10, 4))
+            traitVertical53 = segment(
+              pointAbstrait(10, 2),
+              pointAbstrait(10, 4),
+            )
             tb5 = texteParPosition(d3, 6, 1)
             th5 = texteParPosition('?', 1, 3)
             th52 = texteParPosition('?', 3, 3)
@@ -610,7 +642,7 @@ export default class ModelisationProblemes extends Exercice {
               Object.assign({}, fixeBordures(objets), {
                 ymin: -1,
                 ymax: 6,
-                style: 'display: inline',
+                display: 'inline' as const,
                 pixelsParCm: 13,
                 scale: 0.25,
               }),
@@ -638,7 +670,10 @@ export default class ModelisationProblemes extends Exercice {
             D6 = pointAbstrait(0, 4)
             p6 = polygone([A6, B6, C6, D6], colorB)
             p6.epaisseur = context.isHtml ? 3 : 2
-            traitHorizontal6 = segment(pointAbstrait(0, 2), pointAbstrait(12, 2))
+            traitHorizontal6 = segment(
+              pointAbstrait(0, 2),
+              pointAbstrait(12, 2),
+            )
             traitVertical6 = segment(pointAbstrait(6, 2), pointAbstrait(6, 4))
             tb6 = texteParPosition('?', 6, 1)
             th6 = texteParPosition(b7, 3, 3)
@@ -660,7 +695,7 @@ export default class ModelisationProblemes extends Exercice {
               Object.assign({}, fixeBordures(objets), {
                 ymin: -1,
                 ymax: 6,
-                style: 'display: inline',
+                display: 'inline' as const,
                 pixelsParCm: 13,
                 scale: 0.25,
               }),
@@ -688,12 +723,21 @@ export default class ModelisationProblemes extends Exercice {
             D7 = pointAbstrait(0, 4)
             p7 = polygone([A7, B7, C7, D7], colorB)
             p7.epaisseur = context.isHtml ? 3 : 2
-            traitHorizontal7 = segment(pointAbstrait(0, 2), pointAbstrait(12, 2))
-            traitHorizontal72 = segment(pointAbstrait(0, 4.7), pointAbstrait(12, 4.7))
+            traitHorizontal7 = segment(
+              pointAbstrait(0, 2),
+              pointAbstrait(12, 2),
+            )
+            traitHorizontal72 = segment(
+              pointAbstrait(0, 4.7),
+              pointAbstrait(12, 4.7),
+            )
             traitHorizontal72.styleExtremites = '<->'
             traitVertical7 = segment(pointAbstrait(2, 2), pointAbstrait(2, 4))
             traitVertical72 = segment(pointAbstrait(4, 2), pointAbstrait(4, 4))
-            traitVertical73 = segment(pointAbstrait(10, 2), pointAbstrait(10, 4))
+            traitVertical73 = segment(
+              pointAbstrait(10, 2),
+              pointAbstrait(10, 4),
+            )
             tb7 = texteParPosition(d3, 6, 1)
             th7 = texteParPosition(c3, 1, 3)
             th72 = texteParPosition(c3, 3, 3)
@@ -723,7 +767,7 @@ export default class ModelisationProblemes extends Exercice {
               Object.assign({}, fixeBordures(objets), {
                 ymin: -1,
                 ymax: 6,
-                style: 'display: inline',
+                display: 'inline' as const,
                 pixelsParCm: 13,
                 scale: 0.25,
               }),
@@ -752,7 +796,10 @@ export default class ModelisationProblemes extends Exercice {
             D8 = pointAbstrait(0, 4)
             p8 = polygone([A8, B8, C8, D8], colorB)
             p8.epaisseur = context.isHtml ? 3 : 2
-            traitHorizontal8 = segment(pointAbstrait(0, 2), pointAbstrait(12, 2))
+            traitHorizontal8 = segment(
+              pointAbstrait(0, 2),
+              pointAbstrait(12, 2),
+            )
             traitVertical8 = segment(pointAbstrait(6, 2), pointAbstrait(6, 4))
             tb8 = texteParPosition(b7, 6, 1)
             th8 = texteParPosition(a7, 3, 3)
@@ -774,7 +821,7 @@ export default class ModelisationProblemes extends Exercice {
               Object.assign({}, fixeBordures(objets), {
                 ymin: -1,
                 ymax: 6,
-                style: 'display: inline',
+                display: 'inline' as const,
                 pixelsParCm: 13,
                 scale: 0.25,
               }),

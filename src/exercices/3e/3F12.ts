@@ -1,16 +1,5 @@
-import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
-import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines'
-import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs'
-import {
-  gestionnaireFormulaireTexte,
-  itemize,
-  listeQuestionsToContenu,
-  randint,
-  texEnumerate,
-} from '../../modules/outils'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre =
@@ -25,7 +14,7 @@ export const uuid = '02116'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class FonctionsCalculsDImages extends Exercice {
   constructor() {
@@ -37,8 +26,8 @@ export default class FonctionsCalculsDImages extends Exercice {
     ]
     // pas de différence entre la version html et la version latex pour la consigne
 
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
     this.nbQuestions = 4
     // this.correctionDetailleeDisponible = true;
 
@@ -46,6 +35,9 @@ export default class FonctionsCalculsDImages extends Exercice {
   }
 
   nouvelleVersion(numeroExercice: number) {
+    this.listeQuestions[0] =
+      "Cet exercice n'a pas pu être conservé pour des raisons techniques. Vous trouverez dans la section 3F1 ne nombreux exercices de calcul d'image"
+    /*
     let pourcentage, j
     let idDuDiv = ''
     let idDuDivCorr = ''
@@ -96,8 +88,7 @@ export default class FonctionsCalculsDImages extends Exercice {
             'On donne le programme de calcul suivant qui correspond à une certaine fonction :'
           texteCorr = 'Avec ce programme de calcul :'
           if (context.isHtml) {
-            texte += `
-<br>
+            texte += `<br>
 <div class="ui compact warning message">
 <p>
 - Choisir un nombre.<br>
@@ -203,13 +194,13 @@ export default class FonctionsCalculsDImages extends Exercice {
             )
             texteCorr = texEnumerate(
               [
-                `Calculons l'image par $f$ de $x= ${c}$ :
-<br>$f(${miseEnEvidence('\\textit{\\textbf{x}}')})= ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$
-<br>$f(${miseEnEvidence(c)})= ${a}\\times ${miseEnEvidence(c)}+${b}$
-<br>$f(${miseEnEvidence(c)})= ${a * c}+${b}$
-<br>$f(${miseEnEvidence(c)})= ${a * c + b}$`,
-                `L'image de ${c} par la fonction $f$ vaut ${a * c + b}.
-<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $f$.`,
+                `Calculons l'image par $f$ de $x= ${c}$ :<br>
+                $f(${miseEnEvidence('\\textit{\\textbf{x}}')})= ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$<br>
+                $f(${miseEnEvidence(c)})= ${a}\\times ${miseEnEvidence(c)}+${b}$<br>
+                $f(${miseEnEvidence(c)})= ${a * c}+${b}$<br>
+                $f(${miseEnEvidence(c)})= ${a * c + b}$`,
+                `L'image de ${c} par la fonction $f$ vaut ${a * c + b}.<br>
+                 On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $f$.`,
               ],
               this.spacing,
             )
@@ -252,13 +243,13 @@ export default class FonctionsCalculsDImages extends Exercice {
             )
             texteCorr = texEnumerate(
               [
-                `Calculons l'image par $g$ de $x= ${c}$ :
-<br>$g:${miseEnEvidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$
-<br>$g:${miseEnEvidence(c)}\\longmapsto ${a}\\times ${miseEnEvidence(c)}+${b}$
-<br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c}+${b}$
-<br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c + b}$`,
-                `L'image de ${c} par la fonction $g$ vaut ${a * c + b}.
-<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`,
+                `Calculons l'image par $g$ de $x= ${c}$ :<br>
+                $g:${miseEnEvidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$<br>
+                $g:${miseEnEvidence(c)}\\longmapsto ${a}\\times ${miseEnEvidence(c)}+${b}$<br>
+                $g:${miseEnEvidence(c)}\\longmapsto ${a * c}+${b}$<br>
+                $g:${miseEnEvidence(c)}\\longmapsto ${a * c + b}$`,
+                `L'image de ${c} par la fonction $g$ vaut ${a * c + b}.<br>
+                 On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`,
               ],
               this.spacing,
             )
@@ -334,8 +325,8 @@ export default class FonctionsCalculsDImages extends Exercice {
                     ['\\times ' + a, a * c],
                     ['+' + b, a * c + b],
                   ]),
-                `L'image de ${c} par la fonction $g$ vaut ${a * c + b}.
- <br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`,
+                `L'image de ${c} par la fonction $g$ vaut ${a * c + b}.<br>
+                 On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`,
               ],
               this.spacing,
             )
@@ -352,7 +343,7 @@ export default class FonctionsCalculsDImages extends Exercice {
       }
       cpt++
     }
-
+*/
     listeQuestionsToContenu(this)
   }
 }

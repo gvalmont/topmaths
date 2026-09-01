@@ -10,6 +10,7 @@ import { labelPoint } from '../../../lib/2d/textes'
 import { milieu, pointAdistance } from '../../../lib/2d/utilitairesPoint'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
@@ -17,7 +18,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Déterminer un produit scalaire sur des figures géométriques classiques '
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '27/06/2022'
 /**
  * @author Gilles Mora
@@ -71,7 +72,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
       ymin,
       ymax,
       xmax
-    switch (choice([1, 2, 3, 4])) {
+    switch (this.quotaChoice('type', [1, 2, 3, 4])) {
       case 1: // parallelogramme
         choix = choice(['a', 'b'])
         A = pointAbstrait(0, 0, 'A', 'below')
@@ -110,7 +111,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -166,7 +167,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
                 mainlevee: false,
                 amplitude: 0.3,
                 scale: 0.5,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -189,7 +190,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
                 mainlevee: false,
                 amplitude: 0.3,
                 scale: 0.5,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -248,7 +249,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.4,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -274,7 +275,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.4,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -301,7 +302,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.4,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -330,7 +331,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.4,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -359,7 +360,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.4,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -418,7 +419,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -445,7 +446,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -472,7 +473,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -547,7 +548,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -578,7 +579,7 @@ export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -607,7 +608,7 @@ Ainsi, $\\overrightarrow{ED}\\cdot ${choixb ? '\\overrightarrow{OC}' : '\\overri
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -638,7 +639,7 @@ Ainsi, $\\overrightarrow{ED}\\cdot ${choixb ? '\\overrightarrow{OC}' : '\\overri
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -665,7 +666,7 @@ Ainsi, $\\overrightarrow{ED}\\cdot ${choixb ? '\\overrightarrow{OC}' : '\\overri
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -696,7 +697,7 @@ Ainsi, $\\overrightarrow{ED}\\cdot ${choixb ? '\\overrightarrow{OC}' : '\\overri
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )

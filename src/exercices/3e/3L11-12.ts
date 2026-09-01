@@ -1,10 +1,10 @@
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   all,
   isEqual,
-  onlyIrreducibleFractions,
   isReduced,
+  onlyIrreducibleFractions,
 } from '../../lib/interactif/checks'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
@@ -20,7 +20,6 @@ import Exercice from '../Exercice'
 export const titre = 'Multiplier des monômes'
 export const dateDePublication = '19/08/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Réduire une expression littérale
@@ -30,7 +29,7 @@ export const interactifType = 'mathLive'
 export const uuid = '62111'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['11FA1-8', '1mCL1-11'],
+  'fr-ch': ['10FA4C-9', '1mCL1-11'],
 }
 
 export default class nomExercice extends Exercice {
@@ -76,7 +75,7 @@ export default class nomExercice extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte, texteCorr: string
       const degMin = this.sup2 - 1
       const degMax = Math.max(this.sup3, this.sup2 - 1)
@@ -142,7 +141,11 @@ export default class nomExercice extends Exercice {
             handleAnswers(this, i, {
               reponse: {
                 value: p.toString(),
-                compare: all([isEqual(), isReduced(), onlyIrreducibleFractions()]),
+                compare: all([
+                  isEqual(),
+                  isReduced(),
+                  onlyIrreducibleFractions(),
+                ]),
               },
             })
 

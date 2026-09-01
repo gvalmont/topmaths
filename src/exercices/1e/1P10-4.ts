@@ -1,8 +1,8 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice, shuffle3tableaux } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -12,7 +12,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Calculer  une probabilité avec un tableau'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const dateDePublication = '29/04/2025'
 export const dateDeModifImportante = '06/04/2026'
@@ -23,7 +22,7 @@ export const dateDeModifImportante = '06/04/2026'
 export const uuid = 'a15fb'
 
 export const refs = {
-  'fr-fr': ['1P10-4', '1Tec-P21'],
+  'fr-fr': ['1P10-4', '1Tec-P21', 'BP1SP13'],
   'fr-ch': [],
 }
 export default class CalculerProbaTableau extends Exercice {
@@ -207,7 +206,7 @@ export default class CalculerProbaTableau extends Exercice {
           champ3: { value: reponse[2] },
           bareme: toutAUnPoint,
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
       texteCorr = `$${calculCorr[0]}$<br>
           $${calculCorr[1]}$ <br>

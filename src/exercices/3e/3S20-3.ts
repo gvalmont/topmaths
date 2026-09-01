@@ -13,7 +13,6 @@ export const titre =
   'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
 export const dateDePublication = '27/01/2026'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // On lance un dé à 6 faces numérotées de 1 à 6
 // Et on tire une boule dans une urne contenant 6 boules rouges et bleues
@@ -550,7 +549,7 @@ export default class CalculProbaExperience2Epreuves extends Exercice {
       experience5,
     ]
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const question = experiences[typeExperiences[i] - 1]()
 
       if (this.questionJamaisPosee(i, JSON.stringify(question.alea))) {
@@ -559,6 +558,7 @@ export default class CalculProbaExperience2Epreuves extends Exercice {
           ajouteQuestionMathlive({
             exercice: this,
             question: i,
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: { reponse: { value: question.reponse } },
             typeInteractivite: 'mathlive',
           })

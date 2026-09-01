@@ -626,7 +626,7 @@ export class Repere extends ObjetMathalea2D {
           traitH.opacite = grilleYOpacite
           traitH.epaisseur = grilleEpaisseur
           if (grilleY === 'pointilles') {
-            traitH.pointilles = 5
+            traitH.pointilles = 4
           }
           this.objets.push(traitH)
         }
@@ -688,7 +688,7 @@ export class Repere extends ObjetMathalea2D {
           traitV.opacite = grilleXOpacite
           traitV.epaisseur = grilleEpaisseur
           if (grilleX === 'pointilles') {
-            traitV.pointilles = 5
+            traitV.pointilles = 4
           }
           this.objets.push(traitV)
         }
@@ -716,7 +716,7 @@ export class Repere extends ObjetMathalea2D {
           grilleSecondaireYListe.push(0)
           for (
             let y = grilleSecondaireYDistance / yUnite;
-            y < Math.max(-grilleSecondaireYMin, grilleSecondaireYMax);
+            y <= Math.max(-grilleSecondaireYMin, grilleSecondaireYMax);
             y += grilleSecondaireYDistance / yUnite
           ) {
             if (y <= grilleSecondaireYMax) grilleSecondaireYListe.push(y)
@@ -776,7 +776,7 @@ export class Repere extends ObjetMathalea2D {
           grilleSecondaireXListe.push(0)
           for (
             let x = grilleSecondaireXDistance / xUnite;
-            x < Math.max(-grilleSecondaireXMin, grilleSecondaireXMax);
+            x <= Math.max(-grilleSecondaireXMin, grilleSecondaireXMax);
             x += grilleSecondaireXDistance / xUnite
           ) {
             if (x <= grilleSecondaireXMax) grilleSecondaireXListe.push(x)
@@ -828,7 +828,7 @@ export class Repere extends ObjetMathalea2D {
           xThickListe.push(0)
           for (
             let x = xThickDistance;
-            x < Math.max(-xThickMin, xThickMax);
+            x <= Math.max(-xThickMin, xThickMax);
             x += xThickDistance
           ) {
             if (x <= xThickMax) xThickListe.push(x)
@@ -868,7 +868,7 @@ export class Repere extends ObjetMathalea2D {
           yThickListe.push(0)
           for (
             let y = yThickDistance;
-            y < Math.max(-yThickMin, yThickMax);
+            y <= Math.max(-yThickMin, yThickMax);
             y += yThickDistance
           ) {
             if (y <= yThickMax) yThickListe.push(y)
@@ -1035,7 +1035,7 @@ export class Repere extends ObjetMathalea2D {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      code += '\n\t' + objet.tikz()
+      code += `\t${objet.tikz()}`
     }
     return code
   }
@@ -1055,7 +1055,7 @@ export class Repere extends ObjetMathalea2D {
     if (this.objets == null) return code
     for (const objet of this.objets) {
       if (typeof objet.tikzml === 'undefined') code += '\n\t' + objet.tikz()
-      else code += '\n\t' + objet.tikzml(amp)
+      else code += `\t${objet.tikzml(amp)}`
     }
     return code
   }

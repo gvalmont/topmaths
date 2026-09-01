@@ -1,6 +1,6 @@
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { PieceBuilder } from '../../../lib/2d/pieces'
-import { selectionSvg } from '../../../lib/interactif/questionSvgSelection/questionSvgSelection'
+import { addSvgSelection } from '../../../lib/customElements/SvgSelectionElement'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
@@ -10,7 +10,6 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Compter avec des pièces de monnaie'
 export const interactifReady = true
-export const interactifType = 'svgSelection'
 export const uuid = '1474f'
 export const refs = {
   'fr-fr': [],
@@ -95,7 +94,7 @@ export default class Can2026CE2Q16 extends ExerciceCan {
           {
             svg: mathalea2d(
               Object.assign(
-                { pixelsParCm: 30, scale: 1, style: 'display: inline-block' },
+                { pixelsParCm: 30, scale: 1, display: 'inline-block' } as const,
                 fixeBordures(
                   (
                     piece
@@ -127,7 +126,7 @@ export default class Can2026CE2Q16 extends ExerciceCan {
       ]
         */
 
-      this.question += selectionSvg(this, 0, svgItems)
+      this.question += addSvgSelection(this, 0, { svgs: svgItems })
     } else {
       this.question = this.question + figure
     }
@@ -138,7 +137,46 @@ export default class Can2026CE2Q16 extends ExerciceCan {
       .map((index) => `$${texPrix(pieces[index])}$€`)
       .join(
         ' ; ',
-      )} et $${texPrix(pieces[solutionIndices[solutionIndices.length - 1]])}$€.`
+      )} et $${texPrix(pieces[solutionIndices[solutionIndices.length - 1]])}$€.<br>
+      ${addSvgSelection(this, 0, {
+        id: `svgSelection-correctionEx${this.numeroExercice}Q0`,
+        svgs: solutionIndices.map((index) => {
+          const piece = new PieceBuilder(pieces[index]).make(0, 0, 2)
+          return Object.assign(
+            {},
+            {
+              svg: mathalea2d(
+                Object.assign(
+                  {
+                    pixelsParCm: 30,
+                    scale: 1,
+                    display: 'inline-block',
+                  } as const,
+                  fixeBordures(
+                    (
+                      piece
+                        .map((obj) => {
+                          if (Array.isArray(obj)) {
+                            return obj[0]
+                          } else return null
+                        })
+                        .filter((o) => o !== null) as NestedObjetMathalea2dArray
+                    ).flat(),
+                    {
+                      rxmin: 0,
+                      rxmax: 0,
+                      rymin: 0,
+                      rymax: 0,
+                    },
+                  ),
+                ),
+                piece,
+              ),
+              value: pieces[index],
+            },
+          )
+        }),
+      })}`
   }
 
   nouvelleVersion() {
@@ -146,7 +184,7 @@ export default class Can2026CE2Q16 extends ExerciceCan {
       this.canOfficielle || this.sup
         ? [2, 2, 0.5, 0.5, 0.5]
         : [2, 2, 1, 0.5, 0.5]
-    this.formatInteractif = 'svgSelection'
+    this.formatInteractif = 'svg-selection'
     this.canOfficielle || this.sup
       ? this.enonce(pieces, 3)
       : this.enonce(pieces, choice([2.5, 3, 3.5, 4, 5]))

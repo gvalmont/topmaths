@@ -9,7 +9,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = 'fb6e1'
 export const refs = {
   'fr-fr': ['3Z1DNB-10'],
-  'fr-ch': ['11FA8-21'],
+  'fr-ch': ['11FA1C-4'],
 }
 export const titre =
   'Préparation DNB : Fonctions, équation, statistiques, volume'
@@ -29,8 +29,8 @@ export default class Exercice3F14DNB2 extends ExerciceBrevetA {
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
     this.introduction = texteItalique(
-      "D'après l'exercice 3 du brevet Métropole Septembre 2023.<br>",
-    )
+      "D'après l'exercice 3 du brevet Métropole Septembre 2023.",
+    ) + '<br>'
 
     this.versionAleatoire()
   }

@@ -4,11 +4,10 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { range1 } from '../../../lib/outils/nombres'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import SchemaEnBoite from '../../../lib/outils/SchemaEnBoite'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème avec "fois plus", "fois moins"'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '23/07/2022'
@@ -20,7 +19,7 @@ export const dateDePublication = '23/07/2022'
 export const uuid = 'a8e75'
 
 export const refs = {
-  'fr-fr': ['canc3C09', 'auto6P3B-flash1'],
+  'fr-fr': ['canc3C09', 'auto6P3B-flash1', '6AutoP2-1'],
   'fr-ch': [],
 }
 const listeObjets = ['biscuits', 'billes', 'bonbons', 'ballons', 'vis', 'clous']
@@ -99,18 +98,18 @@ export default class FoisPlusFoisMoins extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const plusOuMoins = choice(['plus', 'moins'])
+    const plusOuMoins = this.quotaChoice('plusOuMoins', ['plus', 'moins'])
     const [sexe1, sexe2] = shuffle(['filles', 'garçons'])
     const objet = choice(listeObjets)
     const club = choice(listeClubs)
     const prenom1 = prenomM() as string
     const prenom2 = prenomF() as string
-    const quantité1 = randint(3, 12)
-    const facteur = choice([3, 4, 5, 6])
+    const quantité1 = this.quotaRandint('quantité1', 3, 12)
+    const facteur = this.quotaChoice('facteur', [3, 4, 5, 6])
     const quantité2 = quantité1 * facteur
     this.optionsChampTexte = { texteAvant: `<br>`, texteApres: ` ${objet}` }
     switch (
-      choice([1, 2, 3]) // 1, 2
+      this.quotaChoice('typeProbleme', [1, 2, 3]) // 1, 2
     ) {
       case 1:
         this.reponse = plusOuMoins === 'plus' ? quantité2 : quantité1

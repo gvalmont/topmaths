@@ -4,14 +4,14 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 
 export const titre =
   "Donner l'écriture décimale à partir d'une somme d'entiers et de fractions décimales"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '24/03/2021'
@@ -26,7 +26,7 @@ export const uuid = 'ec7e4'
 export const refs = {
   'fr-fr': ['CM2N2P-1'],
   'fr-2016': ['c3N20'],
-  'fr-ch': ['9NO13-3'],
+  'fr-ch': ['9NO3C-20'],
 }
 export default class CM2N2P1 extends Exercice {
   constructor() {
@@ -108,7 +108,7 @@ export default class CM2N2P1 extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, a, b, c)) {
-        setReponse(this, i, reponse)
+        handleAnswers(this, i, { reponse: { value: reponse } })
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

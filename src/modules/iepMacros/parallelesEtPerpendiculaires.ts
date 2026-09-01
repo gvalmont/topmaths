@@ -2,7 +2,6 @@ import { cercle } from '../../lib/2d/cercle'
 import {
   Droite,
   droite,
-  droiteParPointEtParallele,
   droiteParPointEtPerpendiculaire,
 } from '../../lib/2d/droites'
 import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
@@ -25,7 +24,7 @@ import {
   pointSurDroite,
   pointSurSegment,
 } from '../../lib/2d/utilitairesPoint'
-import { vecteur } from '../../lib/2d/Vecteur'
+import { cross, dot, vecteur } from '../../lib/2d/Vecteur'
 import type {
   IAlea2iep,
   OptionsCompas,
@@ -46,84 +45,57 @@ export const paralleleRegleEquerre2points3epoint = function (
   C: PointAbstrait,
   options?: OptionsEquerre,
 ) {
-  let G, D, H1
+  let H1
   // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
   // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
-  if (A.x < B.x) {
-    G = A
-    D = B
-  } else {
-    G = B
-    D = A
-  }
+
   const d = droite(A, B)
   const H = projectionOrtho(C, d)
-  if (H.x < D.x) {
-    H1 = pointSurSegment(H, D, -2) // H1 sera plus à gauche que H
-  } else if (H.x > D.x) {
-    H1 = pointSurSegment(H, D, 2)
+  const AB = [B.x - A.x, B.y - A.y, 0]
+  const AC = [C.x - A.x, C.y - A.y, 0]
+  const prodScal = dot(AB, AC)
+  const prodVect = cross(AB, AC)
+  let angleRequerre: number = -90
+  let sensGlisser = -1
+  if (prodScal < 0) {
+    H1 = B
+    angleRequerre = 90
+    sensGlisser = 1
   } else {
-    H1 = pointSurSegment(H, G, 2)
+    H1 = A
   }
-  const C1 = projectionOrtho(H1, droiteParPointEtParallele(C, d))
-  // C1 est le point d'arrivée de l'équerre après avoir glissé
-  const M = pointSurSegment(C1, C, 6)
-  // Le tracé de la parallèle ne fera que 6 cm pour ne pas dépassr de l'équerre. M est la fin de ce tracé
-
-  if (H.x < G.x && longueur(H, G) > 3) {
-    // Si le pied de la hauteur est trop à gauche
-    this.regleProlongerSegment(D, G, options)
-    this.regleMasquer(options)
+  const H2 = translation(H1, vecteur(H, C))
+  const dist = longueur(H, C) / 3
+  const requerreZoom = this.requerre.zoom
+  const requerreVisibility = this.requerre.visibilite
+  this.requerreZoom(dist * 100)
+  this.requerreGlisserEquerre(0, { tempo: 0 })
+  if (!requerreVisibility) this.requerreMontrer()
+  this.requerreRotationTranslation(
+    d.angleAvecHorizontale + angleRequerre,
+    H1,
+    options,
+  )
+  this.requerreGlisserEquerre(
+    sensGlisser *
+      (prodVect[2] < 0 ? -longueur(H, C) / dist : longueur(H, C) / dist),
+    options ?? {},
+  )
+  const crayonVisibility = this.crayon.visibilite
+  if (!crayonVisibility) this.crayonMontrer()
+  this.trait(H2, C)
+  if (options?.positionsRangementInstruments !== undefined) {
+    this.rangerInstruments(
+      options.positionsRangementInstruments,
+      ['requerre', 'crayon'],
+      {
+        tempo: 0,
+        vitesse: 20,
+      },
+    )
   }
-  if (H.x > D.x && longueur(H, D) > 3) {
-    // Si le pied de la hauteur est trop à gauche
-    this.regleProlongerSegment(G, D, options)
-  }
-
-  this.equerreMontrer(H1, options)
-  if (M.x > C1.x) {
-    this.equerreRotation(d.angleAvecHorizontale - 90, options)
-  } else {
-    this.equerreRotation(d.angleAvecHorizontale + 90, options)
-  }
-  if (H1.y > C1.y) {
-    if (this.regle.visibilite) {
-      this.regleDeplacer(H1, Object.assign({}, options, { tempo: 0 }))
-      this.regleRotation(C1, Object.assign({}, options, { tempo: 0 }))
-    } else {
-      this.regleDeplacer(
-        H1,
-        Object.assign({}, options, { vitesse: 1000, tempo: 0 }),
-      )
-      this.regleRotation(
-        C1,
-        Object.assign({}, options, { sens: 1000, tempo: 0 }),
-      )
-    }
-  } else {
-    const C12 = pointSurSegment(C1, H1, -2) // On monte un peu plus la règle pour que ça soit plus crédible
-    if (this.regle.visibilite) {
-      this.regleDeplacer(C12, Object.assign({}, options, { tempo: 0 }))
-      this.regleRotation(H1, Object.assign({}, options, { tempo: 0 }))
-    } else {
-      this.regleDeplacer(
-        C12,
-        Object.assign({}, options, { vitesse: 1000, tempo: 0 }),
-      )
-      this.regleRotation(
-        H1,
-        Object.assign({}, options, { sens: 1000, tempo: 0 }),
-      )
-      this.regleMontrer()
-    }
-  }
-  this.equerreDeplacer(C1, options)
-  this.crayonMontrer()
-  this.crayonDeplacer(C1, options)
-  this.tracer(M, options)
-  this.regleMasquer(options)
-  this.equerreMasquer(options)
-  this.crayonMasquer(options)
+  if (!requerreVisibility) this.requerreMasquer()
+  if (!crayonVisibility) this.crayonMasquer()
 }
 /**
  * Trace la perpendiculaire à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
@@ -154,7 +126,7 @@ export const perpendiculaireRegleEquerre2points3epoint = function (
     dist = 7.5
   } else {
     const H = projectionOrtho(C, d)
-    dist = longueur(H, C) + 2
+    dist = longueur(H, C) * 1.2 + 2
   }
   this.equerreZoom((dist * 100) / 7.5, options)
   this.regleModifierLongueur(Math.max(dist * 2, 15), options)
@@ -179,100 +151,98 @@ export const perpendiculaireRegleEquerreDroitePoint = function (
   P: PointAbstrait,
   options: OptionsCompas = {},
 ) {
-  if (!pointEstSur(P, d)) {
-    const H = projectionOrtho(P, d)
-    const A = rotation(P, H, 90)
-    const B = rotation(A, H, 180)
-    const P3 = homothetie(P, H, 1.2)
-    const alpha = angleOriente(pointAbstrait(10000, H.y), H, B)
-    if (options.description)
-      this.textePosition(
-        `1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} et l'autre côté de l'angle droit passant par le point ${P.nom}.`,
-        0,
-        10,
-        { couleur: 'lightblue' },
-      )
-    this.equerreRotation(alpha, options)
-    this.equerreMontrer(H, options)
-    if (options.description)
-      this.textePosition(
-        `2. Tracer le segment de droite passant par le point ${P.nom}`,
-        0,
-        9.3,
-        { couleur: 'lightblue' },
-      )
-    this.crayonMontrer(P, options)
-    this.tracer(H, options)
-    this.equerreMasquer(options)
-    if (options.description)
-      this.textePosition(
-        `3. Prolonger la perpendiculaire à ${d.nom} à la règle.`,
-        0,
-        8.6,
-        { couleur: 'lightblue' },
-      )
-    this.regleMontrer(P3, options)
-    this.regleRotation(alpha - 90, options)
-    this.crayonDeplacer(P3, options)
-    this.tracer(rotation(P3, H, 180), options)
-    if (options.description)
-      this.textePosition("4. Coder l'angle droit.", 0, 7.9, {
-        couleur: 'lightblue',
-      })
-    this.regleMasquer(options)
-    this.codageAngleDroit(
-      A,
-      H,
-      P,
-      Object.assign({}, options, { couleurCodage: 'red' }),
-    )
-  } else {
-    const H = P
+  const pointSurD = pointEstSur(P, d)
+  const H = pointSurD ? P : projectionOrtho(P, d)
+  let A: PointAbstrait
+  let B: PointAbstrait
+  let P3: PointAbstrait
+  let pointCodage: PointAbstrait
+  let textePositionnement: string
+
+  if (pointSurD) {
     const C = cercle(P, 6)
-    const A = pointSurDroite(d, -10000)
-    const B = pointSurDroite(d, 10000)
+    A = pointSurDroite(d, -10000)
+    B = pointSurDroite(d, 10000)
     const pointIntersectionDC = pointIntersectionLC(d, C)
-    let P3 = rotation(pointIntersectionDC, P, 90)
+    P3 = rotation(pointIntersectionDC, P, 90)
+
     if (P3.y < P.y) P3 = rotation(P3, P, 180)
-    const alpha = angleOriente(pointAbstrait(10000, H.y), H, B)
-    if (options.description)
-      this.textePosition(
-        `1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} avec l'angle droit au point ${P.nom}.`,
-        0,
-        10,
-        { couleur: 'lightblue' },
-      )
-    this.equerreRotation(alpha, options)
-    this.equerreMontrer(H, options)
-    if (options.description)
-      this.textePosition(
-        "2. Tracer le long de l'autre côté de l'angle droit de l'équerre",
-        0,
-        9.3,
-        { couleur: 'lightblue' },
-      )
-    this.crayonMontrer(P3, options)
-    this.tracer(H, options)
-    this.equerreMasquer(options)
-    if (options.description)
-      this.textePosition(
-        `3. Prolonger la perpendiculaire à ${d.nom} à la règle.`,
-        0,
-        8.6,
-        { couleur: 'lightblue' },
-      )
-    this.regleMontrer(P3, options)
-    this.regleRotation(alpha - 90, options)
-    this.crayonDeplacer(P3, options)
-    this.tracer(rotation(P3, H, 180), options)
-    if (options.description)
-      this.textePosition("4. Coder l'angle droit.", 0, 7.9, {
-        couleur: 'lightblue',
-      })
-    this.regleMasquer(options)
-    this.codageAngleDroit(A, H, P3, options)
+    pointCodage = P3
+    textePositionnement = `1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} avec l'angle droit au point ${P.nom}.`
+  } else {
+    A = rotation(P, H, 90)
+    B = rotation(A, H, 180)
+    P3 = homothetie(P, H, 1.2)
+    pointCodage = P
+    textePositionnement = `1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} et l'autre côté de l'angle droit passant par le point ${P.nom}.`
   }
+  const optionsCodage = Object.assign({}, options, { couleurCodage: 'red' })
+
+  const P3B = pointSurSegment(P3, H, 0.4)
+  const HB = pointSurSegment(H, P3, 0.4)
+  const P4 = rotation(P3, H, 180)
+  const P4B = pointSurSegment(
+    P3,
+    P4,
+    Math.min(this.regle.longueur, longueur(P3, H) + 1),
+  )
+  const alpha = angleOriente(pointAbstrait(10000, H.y), H, B)
+
+  if (options.description)
+    this.textePosition(textePositionnement, 0, 10, { couleur: 'lightblue' })
+
+  const equerreVisibility = this.equerre.visibilite
+  if (!equerreVisibility) this.equerreMontrer()
+  this.equerreRotationTranslation(alpha, H, options)
+
+  if (options.description)
+    this.textePosition(`2. Faire deux traits le long de l'équerre.`, 0, 9.3, {
+      couleur: 'lightblue',
+    })
+
+  this.trait(P3, P3B, Object.assign({}, options, { tempo: 5, epaisseur: 1 }))
+  this.trait(H, HB, Object.assign({}, options, { tempo: 5, epaisseur: 1 }))
+
+  if (options.positionsRangementInstruments !== undefined) {
+    this.rangerInstruments(options.positionsRangementInstruments, ['equerre'], {
+      tempo: 0,
+      vitesse: 20,
+    })
+  } else if (!equerreVisibility) {
+    this.equerreMasquer(options)
+  }
+
+  const regleVisibility = this.regle.visibilite
+  if (!regleVisibility) this.regleMontrer()
+  this.regleRotationTranslation(alpha - 90, P3, options)
+
+  if (options.description)
+    this.textePosition(
+      `3. Tracer la perpendiculaire à ${d.nom} à la règle.`,
+      0,
+      8.6,
+      { couleur: 'lightblue' },
+    )
+
+  this.trait(P3, P4B, options)
+
+  if (options.positionsRangementInstruments !== undefined) {
+    this.rangerInstruments(options.positionsRangementInstruments, ['regle'], {
+      tempo: 0,
+      vitesse: 20,
+    })
+  } else if (!regleVisibility) {
+    this.regleMasquer()
+  }
+
+  if (options.description)
+    this.textePosition("4. Coder l'angle droit.", 0, 7.9, {
+      couleur: 'lightblue',
+    })
+
+  this.codageAngleDroit(A, H, pointCodage, optionsCodage)
 }
+
 /**
  * Trace la perpendiculaire à une droite passant par un point de cette droite à l'équerre et à la règle.
  * @param {Droite} d

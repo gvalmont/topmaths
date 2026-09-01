@@ -1,5 +1,4 @@
 import { bleuMathalea } from '../../../lib/colors'
-import { choice } from '../../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleur,
@@ -9,7 +8,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de robinets'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -32,7 +31,7 @@ export default class ProblemesDeRobinets extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
+    const a = this.quotaChoice('a', [2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
     const b = 60 / a // nombres de litres/min
     const c = randint(2, b - 1, [10]) % 10 // volume du seau à remplir
     this.reponse = c * a

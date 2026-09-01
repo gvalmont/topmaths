@@ -9,9 +9,9 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -28,7 +28,6 @@ export const refs = {
   'fr-ch': ['3G90-8'],
 }
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
-export const interactifType = 'multiMathfield'
 
 function bareme(listePoints: number[]): [number, number] {
   let points = 0
@@ -54,7 +53,7 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20;) {
       let texte = ''
       let texteCorr = ''
 
@@ -199,7 +198,10 @@ export default class NomExercice extends Exercice {
         `On considère un cube $ABCDEFGH$.` +
         '<br>' +
         mathalea2d(
-          Object.assign({ scale: 0.6, style: 'inline' }, fixeBordures(objets)),
+          Object.assign(
+            { scale: 0.6, display: 'inline' } as const,
+            fixeBordures(objets),
+          ),
           objets,
           traceA,
           traceB,
@@ -240,7 +242,7 @@ export default class NomExercice extends Exercice {
             champ11: { value: texNombre(y4) },
             champ12: { value: texNombre(z4) },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       }
 

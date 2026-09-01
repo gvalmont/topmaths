@@ -6,19 +6,18 @@ import {
 import { egal, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 import {
   addMultiMathfield,
   MultiMathfieldElement,
-} from '../../../lib/interactif/MultiMathfield/MultiMathfield'
+} from '../../../lib/customElements/MultiMathfield'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre =
   'Déterminer un vecteur normal avec une équation cartésienne'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const dateDePublication = '08/07/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -66,7 +65,7 @@ export default class VecteurNormEqCart extends Exercice {
           champ1: { value: a },
           champ2: { value: b },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
       texteCorr = `Si l'équation est de la forme $ax+by+c=0$, on sait d'après le cours, qu'un vecteur normal $\\vec{u}$ a pour coordonnées $(a\\,;\\,b)$.<br>
     On en déduit qu'un vecteur normal de $d$ est $${miseEnEvidence(`\\vec{u}(${a}\\,;\\,${b})`)}$.<br>
@@ -84,9 +83,13 @@ export default class VecteurNormEqCart extends Exercice {
 
   correctionInteractive = (i: number) => {
     let resultat = 'KO'
-    const multiMF = document.getElementById(
-      `multiMathfieldEx${this.numeroExercice}Q${i}`,
-    ) as MultiMathfieldElement
+    const multiMF =
+      (document.getElementById(
+        `multi-mathfieldEx${this.numeroExercice}Q${i}`,
+      ) as MultiMathfieldElement | null) ??
+      (document.getElementById(
+        `multiMathfieldEx${this.numeroExercice}Q${i}`,
+      ) as MultiMathfieldElement | null)
     if (multiMF) {
       const values = multiMF.getValue()
       const saisie1 = String(values.champ1).replace(',', '.')

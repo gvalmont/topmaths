@@ -8,6 +8,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import {
   factorielle,
@@ -20,7 +21,7 @@ import Exercice from '../Exercice'
 export const titre = 'Dénombrer des chemins sur un quadrillage'
 export const dateDePublication = '05/02/2026'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'b1223'
 export const refs = {
   'fr-fr': [],
@@ -75,7 +76,7 @@ export default class CheminsQuadrillage extends Exercice {
       "Dans un échiquier, une pièce spéciale ne peut se déplacer que d'une case vers la droite ou d'une case vers le haut.",
     ]
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let reponse = 0
@@ -104,7 +105,7 @@ export default class CheminsQuadrillage extends Exercice {
             mainlevee: false,
             amplitude: 0.5,
             scale: 0.5,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         )
@@ -147,7 +148,7 @@ export default class CheminsQuadrillage extends Exercice {
             mainlevee: false,
             amplitude: 0.5,
             scale: 0.5,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         )
@@ -196,7 +197,7 @@ export default class CheminsQuadrillage extends Exercice {
             mainlevee: false,
             amplitude: 0.5,
             scale: 0.5,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets,
         )

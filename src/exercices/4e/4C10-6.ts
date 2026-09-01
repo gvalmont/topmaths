@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -7,10 +8,9 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Relatif } from '../../modules/Relatif'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
 
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre =
@@ -26,7 +26,7 @@ export const uuid = '73187'
 
 export const refs = {
   'fr-fr': ['4C10-6'],
-  'fr-ch': ['10NO4-8'],
+  'fr-ch': ['9NO2C-8', '10NO2A-7'],
 }
 export default class ExerciceTableauMultiplicationsRelatifs extends Exercice {
   constructor() {

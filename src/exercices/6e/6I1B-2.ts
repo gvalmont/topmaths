@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { texteParPositionEchelle } from '../../lib/2d/textes'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ajouterLien } from '../../lib/outils/enrichissements'
@@ -39,7 +39,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
+
 export const dateDeModifImportante = '14/05/2023'
 export const dateDePublication = '11/04/2021'
 export const titre = 'Noter la couleur avec Scratch'
@@ -74,7 +74,7 @@ export default class NoteLaCouleur6e extends Exercice {
     this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
     this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
     this.nbQuestions = 1
-    this.typeExercice = 'Scratch'
+
     this.sup = 1
     this.sup2 = 1
     this.sup3 = 4
@@ -380,7 +380,7 @@ export default class NoteLaCouleur6e extends Exercice {
       pas: 30,
       plateau: damier,
     })
-    for (let q = 0; q < this.nbQuestions; ) {
+    for (let q = 0; q < this.nbQuestions;) {
       const objetsCorrection: NestedObjetMathalea2dArray = []
       const objetsEnonce: NestedObjetMathalea2dArray = []
       const objets = lePlateau.objets ?? []
@@ -718,26 +718,28 @@ export default class NoteLaCouleur6e extends Exercice {
       texte += !this.interactif
         ? ''
         : 'Couleur n°1 : ' +
-          choixDeroulant(this, q * couleurs.length, [
-            { label: 'Choisir une couleur', value: '' },
-            ...choixListeDeroulante[(this.sup - 1) % 2].map((item) =>
-              this.sup === 1
-                ? {
-                    svg:
-                      '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' +
-                      traducColor(item as CouleurNLC) +
-                      '"/>',
-                    value: item,
-                  }
-                : { label: item, value: item },
-            ),
-          ]) +
+          choixDeroulant(this, q * couleurs.length, {
+            choices: [
+              { label: 'Choisir une couleur', value: '' },
+              ...choixListeDeroulante[(this.sup - 1) % 2].map((item) =>
+                this.sup === 1
+                  ? {
+                      svg:
+                        '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' +
+                        traducColor(item as CouleurNLC) +
+                        '"/>',
+                      value: item,
+                    }
+                  : { label: item, value: item },
+              ),
+            ],
+          }) +
           '<br>'
       handleAnswers(
         this,
         q * couleurs.length,
         { reponse: { value: couleurs[0] } },
-        { formatInteractif: 'listeDeroulante' },
+        { formatInteractif: 'liste-deroulante' },
       )
       for (let i = 1; i < couleurs.length; i++) {
         if (this.sup % 2 === 0)
@@ -763,26 +765,28 @@ export default class NoteLaCouleur6e extends Exercice {
           : 'Couleur n°' +
             (i + 1) +
             ' : ' +
-            choixDeroulant(this, q * couleurs.length + i, [
-              { label: 'Choisir une couleur', value: '' },
-              ...choixListeDeroulante[(this.sup - 1) % 2].map((item) =>
-                this.sup === 1
-                  ? {
-                      svg:
-                        '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' +
-                        traducColor(item as CouleurNLC) +
-                        '"/>',
-                      value: item,
-                    }
-                  : { label: item, value: item },
-              ),
-            ]) +
+            choixDeroulant(this, q * couleurs.length + i, {
+              choices: [
+                { label: 'Choisir une couleur', value: '' },
+                ...choixListeDeroulante[(this.sup - 1) % 2].map((item) =>
+                  this.sup === 1
+                    ? {
+                        svg:
+                          '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' +
+                          traducColor(item as CouleurNLC) +
+                          '"/>',
+                        value: item,
+                      }
+                    : { label: item, value: item },
+                ),
+              ],
+            }) +
             '<br>'
         handleAnswers(
           this,
           q * couleurs.length + i,
           { reponse: { value: couleurs[i] } },
-          { formatInteractif: 'listeDeroulante' },
+          { formatInteractif: 'liste-deroulante' },
         )
       }
       lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
@@ -794,7 +798,10 @@ export default class NoteLaCouleur6e extends Exercice {
     <animateMotion path="M ${lutin.listeTraces[0][0] * context.pixelsParCm} ${-lutin.listeTraces[0][1] * context.pixelsParCm} L`
 
       for (let i = 0; i < lutin.listeTraces.length; i++) {
-        const B = pointAbstrait(lutin.listeTraces[i][2], lutin.listeTraces[i][3])
+        const B = pointAbstrait(
+          lutin.listeTraces[i][2],
+          lutin.listeTraces[i][3],
+        )
         lutin.animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
       }
       lutin.animation +=

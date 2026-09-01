@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { afterUpdate } from 'svelte'
   import { canOptions } from '../../../../lib/stores/canStore'
   import type { CanState } from '../../../../lib/types/can'
   import Keyboard from '../../../keyboard/Keyboard.svelte'
@@ -18,18 +17,16 @@
   const numberOfQuestions: number = questions.length
   let timerComponent: Timer
 
-  afterUpdate(() => {
-    const exercicesAffiches = new window.Event('exercicesAffiches', {
-      bubbles: true,
-    })
-    document.dispatchEvent(exercicesAffiches)
-  })
-
   function endTimer(e: CustomEvent) {
     const du = parseInt(e.detail.duration)
     const el = parseInt(e.detail.elapsed)
+    // Sans chronomètre, le temps passé peut dépasser la durée prévue : le
+    // « temps restant » devient négatif pour que le temps mis (durée prévue
+    // moins temps restant) reste exact.
     $canOptions.remainingTimeInSeconds =
-      el >= du ? 0 : Math.floor((du - el) / 1000)
+      el >= du && !$canOptions.isTimerDisabled
+        ? 0
+        : Math.floor((du - el) / 1000)
     handleEndOfRace()
   }
   /**
@@ -49,7 +46,16 @@
       current += 1
     }
   }
+
+  function handleKeyUp(e: KeyboardEvent) {
+    /* keyup plutôt que keydown, sinon plusieurs events tirés pour une même pression prolongée */
+    if (e.key === 'Enter') {
+      nextQuestion()
+    }
+  }
 </script>
+
+<svelte:window on:keyup={handleKeyUp} />
 
 <div
   class="w-full h-full flex flex-col justify-between items-center overflow-y-auto bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
@@ -58,6 +64,7 @@
     <Timer
       bind:this={timerComponent}
       durationInMilliSeconds={numberOfSeconds * 1000}
+      isDisabled={$canOptions.isTimerDisabled}
       on:message={endTimer}
     />
     <Pagination
@@ -87,7 +94,6 @@
         mode={'display'}
         visible={current === i}
         index={i}
-        {nextQuestion}
       />
     {/each}
   </div>

@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -8,7 +7,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Effectuer un calcul complexe avec des fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '06/08/2025'
@@ -38,8 +37,11 @@ export default class CalculComplexeFraction extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const frac1 = choice(obtenirListeFractionsIrreductiblesFaciles())
-    const a = randint(1, 5)
+    const frac1 = this.quotaChoice(
+      'frac1',
+      obtenirListeFractionsIrreductiblesFaciles(),
+    )
+    const a = this.quotaRandint('a', 1, 5)
     const b = randint(1, 6, [frac1.num]) // sinon division par zéro avec les distracteurs
 
     this.question = this.versionQcm

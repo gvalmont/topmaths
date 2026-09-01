@@ -12,17 +12,17 @@ import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = "Calculer le discriminant d'un polynôme du second degré"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '5/11/2023'
 export const uuid = '731f0'
 
 export const refs = {
   'fr-fr': ['1AL20-10'],
-  'fr-ch': ['11FA10-8'],
+  'fr-ch': ['11FA5B-10'],
 }
 export default class CalculerDiscriminant extends Exercice {
   constructor() {
@@ -81,7 +81,7 @@ export default class CalculerDiscriminant extends Exercice {
             texteAvant: '$\\Delta = $',
           })
       }
-      setReponse(this, i, p.discriminant)
+      handleAnswers(this, i, { reponse: { value: p.discriminant } })
 
       texteCorr = `$\\Delta_${lettreDepuisChiffre(i + 1)} = ${p.texCalculDiscriminantSansResultat}$`
       texteCorr += `<br><br>$\\Delta_${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(p.discriminant.texFractionSimplifiee)}$`

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, onDestroy, onMount, tick } from 'svelte'
+  import { createEventDispatcher, onDestroy, onMount } from 'svelte'
   import { stringToCriterion } from '../../../../../../../lib/components/filters'
   import {
     isExerciceItemInReferentiel,
@@ -40,8 +40,6 @@
   let selectedFilters: FilterObject<string | Level>[] = []
   let lastInput: string = ''
   let isInputFocused = false
-  let isCtrlDown: boolean = false
-  let isKDown: boolean = false
   let isEnterDown: boolean = false
   let unsubscribeToFiltersStore: Unsubscriber
 
@@ -71,6 +69,10 @@
     handleInput(inputSearch)
   } else {
     results.length = 0
+    // Sans ça, retaper le même terme après avoir vidé le champ ne relance
+    // aucune recherche (`handleInput` ne fait rien si `input === lastInput`)
+    // et les résultats restent vides indéfiniment.
+    lastInput = ''
   }
 
   // ===================================================================================
@@ -218,23 +220,12 @@
   function onKeyDown(event: KeyboardEvent) {
     if (event.repeat) return
     switch (event.key) {
-      case 'Control':
-        isCtrlDown = true
-        event.preventDefault()
-        break
-      case 'k':
-        isKDown = true
-        break
       case 'Enter':
         if (isInputFocused) {
           isEnterDown = true
         }
         event.preventDefault()
         break
-    }
-    if (isCtrlDown && isKDown) {
-      // https://svelte.dev/repl/48bd3726b74c4329a186838ce645099b?version=3.46.4
-      getFocusOnSearchInput()
     }
     if (isEnterDown) {
       onEnterDown()
@@ -243,22 +234,10 @@
 
   function onKeyUp(event: KeyboardEvent) {
     switch (event.key) {
-      case 'Control':
-        isCtrlDown = false
-        event.preventDefault()
-        break
-      case 'k':
-        isKDown = false
-        event.preventDefault()
-        break
       case 'Enter':
         isEnterDown = false
         break
     }
-  }
-  const getFocusOnSearchInput = async () => {
-    await tick()
-    searchField.focus()
   }
   /**
    * Permet d'afficher séquentiellement une liste de chaînes de caractères
@@ -371,6 +350,7 @@
     <input
       type="search"
       id="searchInputField-{timeStamp}"
+      data-tour="search-input"
       class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm placeholder-coopmaths-corpus-lightest dark:placeholder-coopmathsdark-corpus-lightest placeholder:italic placeholder-opacity-50"
       placeholder="🔍 Thème, identifiant..."
       bind:value={inputSearch}

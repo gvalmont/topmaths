@@ -14,9 +14,9 @@ import {
 import Exercice from '../Exercice'
 
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
@@ -26,7 +26,6 @@ export const titre =
 export const dateDePublication = '15/01/2022'
 export const dateDeModifImportante = '20/06/2024'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 /**
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
@@ -36,7 +35,7 @@ export const uuid = '77231'
 
 export const refs = {
   'fr-fr': ['3S20-1'],
-  'fr-ch': ['11NO2-14'],
+  'fr-ch': ['11NO4A-14'],
 }
 export default class CalculProbaExperience2Epreuves3e extends Exercice {
   niveau = '3eme'
@@ -69,7 +68,7 @@ export default class CalculProbaExperience2Epreuves3e extends Exercice {
       shuffle: false,
     })
 
-    for (let i = 0, cpt = 0, question; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0, question; i < this.nbQuestions && cpt < 50;) {
       switch (QuestionsDisponibles[i]) {
         case 1:
           question = unePieceDeuxUrnes(
@@ -265,11 +264,18 @@ function unePieceDeuxUrnes(
   texteCorr = ''
   if (avecArbreDansCorrection && !avecArbrePondere) {
     texteCorr += "On a représenté l'expérience par l'arbre ci-dessous :<br>"
-    texteCorr +=
-      mathalea2d(
-        { xmin: -0.1, xmax: 16, ymin: 0, ymax: 12, zoom: 1.3, scale: 0.5 },
-        ...objets,
-      ) + '<br>'
+    texteCorr += mathalea2d(
+      {
+        xmin: -0.1,
+        xmax: 16,
+        ymin: 0,
+        ymax: 12,
+        zoom: 1.3,
+        scale: 0.5,
+        display: 'block',
+      },
+      ...objets,
+    )
     texteCorr += `Légende : ${B[0]} = ${boules[0]} ; ${B[1]} = ${boules[1]} ; ${B[2]} = ${boules[2]}<br>`
   }
   let q = 0
@@ -328,7 +334,7 @@ function unePieceDeuxUrnes(
         champ1: { value: proba1.texFraction, options: { fractionEgale: true } },
         champ2: { value: proba2.texFraction, options: { fractionEgale: true } },
       },
-      { formatInteractif: 'multiMathfield' },
+      { formatInteractif: 'multi-mathfield' },
     )
   q++
   texteCorr += `La probabilité de cet événement est donc de $${!proba1.estIrreductible ? proba1.texFraction + '=' + miseEnEvidence(proba1.texFractionSimplifiee) : miseEnEvidence(proba1.texFraction)}$.<br>`
@@ -522,18 +528,18 @@ function urneDeuxTiragesAvecRemise(
   if (avecArbreDansCorrection) {
     texteCorr +=
       "On peut aussi présenter les deux épreuves sous la forme d'un arbre de dénombrement :<br>"
-    texteCorr +=
-      mathalea2d(
-        {
-          xmin: 0,
-          xmax: card * 8.5,
-          ymin: 0,
-          ymax: 13,
-          zoom: 0.8,
-          scale: 9 / card / card,
-        },
-        ...objets,
-      ) + '<br>'
+    texteCorr += mathalea2d(
+      {
+        xmin: 0,
+        xmax: card * 8.5,
+        ymin: 0,
+        ymax: 13,
+        zoom: 0.8,
+        scale: 9 / card / card,
+        display: 'block',
+      },
+      ...objets,
+    )
     texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
   }
   texteCorr += `${numAlpha(0)} L'événement «obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}» est réalisé par l'issue {${choix[2] + choix[2]}}.`
@@ -576,7 +582,7 @@ function urneDeuxTiragesAvecRemise(
         },
         champ3: { value: proba4.texFraction, options: { fractionEgale: true } },
       },
-      { formatInteractif: 'multiMathfield' },
+      { formatInteractif: 'multi-mathfield' },
     )
 
   return {

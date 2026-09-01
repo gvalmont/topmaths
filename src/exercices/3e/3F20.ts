@@ -4,12 +4,10 @@ import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import type { AutoCorrectionAMC } from '../../lib/amc/amcTypes'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -27,11 +25,9 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Étudier des fonctions linéaires'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -40,7 +36,7 @@ export const dateDeModifImportante = '16/05/2024'
 
 export const refs = {
   'fr-fr': ['3F20'],
-  'fr-ch': ['10FA5-12', '11FA8-6'],
+  'fr-ch': ['11FA1B-1'],
 }
 export const uuid = 'aeb5a'
 /**
@@ -96,11 +92,9 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
     const listeTypeDeCoeff =
       this.sup === 1
         ? combinaisonListes([1], this.nbQuestions)
-        : /* : this.sup === 2
-        ? combinaisonListes([1], this.nbQuestions)
-        : combinaisonListes([1, 2], this.nbQuestions)
-        */
-          combinaisonListes([2], this.nbQuestions)
+        : this.sup === 2
+          ? combinaisonListes([2], this.nbQuestions)
+          : combinaisonListes([1, 2], this.nbQuestions)
     const antecedents = []
     for (
       let i = 0, texteAMC, valeurAMC, cpt = 0;
@@ -242,7 +236,16 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-          } else setReponse(this, i, image, { formatInteractif })
+          } else
+            handleAnswers(this, i, {
+              reponse: {
+                value: image,
+                options:
+                  formatInteractif === 'fractionEgale'
+                    ? { fractionEgale: true }
+                    : {},
+              },
+            })
           break
         case 'imageParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
@@ -272,7 +275,16 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-          } else setReponse(this, i, image, { formatInteractif })
+          } else
+            handleAnswers(this, i, {
+              reponse: {
+                value: image,
+                options:
+                  formatInteractif === 'fractionEgale'
+                    ? { fractionEgale: true }
+                    : {},
+              },
+            })
           break
         case 'imageParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
@@ -307,7 +319,16 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-          } else setReponse(this, i, image, { formatInteractif })
+          } else
+            handleAnswers(this, i, {
+              reponse: {
+                value: image,
+                options:
+                  formatInteractif === 'fractionEgale'
+                    ? { fractionEgale: true }
+                    : {},
+              },
+            })
           break
         case 'antecedentParExpression':
           texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient as number)}x$.<br>`
@@ -333,7 +354,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          } else handleAnswers(this, i, { reponse: { value: antecedent } })
           break
         case 'antecedentParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
@@ -366,7 +387,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          } else handleAnswers(this, i, { reponse: { value: antecedent } })
           break
         case 'antecedentParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
@@ -413,7 +434,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          } else handleAnswers(this, i, { reponse: { value: antecedent } })
           break
         case 'expressionParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`

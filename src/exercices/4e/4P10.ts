@@ -31,7 +31,7 @@ export const uuid = '72c5a'
 
 export const refs = {
   'fr-fr': ['4P10', 'BP2AutoU4'],
-  'fr-ch': ['10FA4-2'],
+  'fr-ch': ['11GM3-6'],
 }
 const solutes: [string, string, number][] = [
   ['sel', "d'eau", 300],
@@ -138,12 +138,12 @@ export default class ProblemesGrandeursComposees extends Exercice {
 
     this.nbQuestions = 3
 
-    context.isHtml ? (this.spacing = 3) : (this.spacing = 1.5)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 2)
+    this.spacing = context.isHtml ? 3 : 1.5
+    this.spacingCorr = 2
     this.sup = ''
   }
 
-  nouvelleVersion(numeroExercice: number) {
+  nouvelleVersion() {
     // let listeIndex_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)
@@ -235,7 +235,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(0) +
             " Exprimer en kWh l'" +
             ajouterAide(
-              "C'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joules (J).<br>1 J = 1 W × 1 s<br>Cependant, pour mesurer des énergies plus importantes, on utilise plutôt le kiloWattheure (kWh).<br>1 kWh = 1000 W × 1 h",
+              "C'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joules (J).<br>1 J = 1 W × 1 s<br>Cependant, pour mesurer des énergies plus importantes, on utilise plutôt le kilowatt-heure (kWh).<br>1 kWh = 1000 W × 1 h",
               {
                 texteAvant: 'énergie',
                 titreAide: 'Définition : Énergie (grandeur physique)',
@@ -245,7 +245,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte += numAlpha(1) + ' Calculer la dépense correspondante.'
           texteCorr =
             numAlpha(0) +
-            ` Un ${appareil} d'une puissance de $${texNombre(puissance)}$ Watts qui fonctionne pendant $${Math.floor(
+            ` Un ${appareil} d'une puissance de $${texNombre(puissance)}$ watts qui fonctionne pendant $${Math.floor(
               duree,
             )}$ heures `
           if (nbQuartsDHeures !== 0) {

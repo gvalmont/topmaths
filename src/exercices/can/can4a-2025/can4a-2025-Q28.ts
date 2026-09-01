@@ -1,5 +1,5 @@
 import type { MathfieldElement } from 'mathlive'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import type { IExercice } from '../../../lib/types'
 import { randint } from '../../../modules/outils'
@@ -7,7 +7,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Ratios'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '3422o'
 export const refs = {
   'fr-fr': [],

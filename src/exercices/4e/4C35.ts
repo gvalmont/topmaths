@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -14,7 +14,7 @@ export const titre =
 
 export const dateDePublication = '14/06/2022'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -25,7 +25,7 @@ export const uuid = '125bd'
 
 export const refs = {
   'fr-fr': ['4C35'],
-  'fr-ch': ['10NO2-12'],
+  'fr-ch': ['10NO3D-5'],
 }
 export default class PuissanceDecimaleOuFractionnaire extends Exercice {
   classe: 5 | 4 = 4
@@ -42,7 +42,7 @@ export default class PuissanceDecimaleOuFractionnaire extends Exercice {
   }
 
   nouvelleVersion() {
-    this.consigne = `Calculer de tête l'écriture décimale ${this.classe === 4 ? 'ou fractionnaire' : ''} des nombres suivants.`
+    this.consigne = `Calculer, de tête, l'écriture décimale ${this.classe === 4 ? 'ou fractionnaire' : ''} des nombres suivants.`
     const typeQuestionsDisponibles = [
       'puissancePos',
       'puissanceNeg',
@@ -88,7 +88,7 @@ export default class PuissanceDecimaleOuFractionnaire extends Exercice {
     /** string */
     let a /** number */, n /** number */, reponse /** any */
     const alternance2Et3 = combinaisonListes([2, 3], this.nbQuestions)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) {
         case 'puissancePos':
           a = choice([2, 3, randint(4, 9)])
@@ -173,9 +173,12 @@ export default class PuissanceDecimaleOuFractionnaire extends Exercice {
           reponse = new FractionEtendue(-1, a ** n)
           break
       }
-      if (!context.isAmc)
-        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
-      else setReponse(this, i, Number(reponse), { formatInteractif: 'calcul' })
+      handleAnswers(this, i, {
+        reponse: {
+          value: reponse,
+          options: { fractionEgale: true },
+        },
+      })
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 

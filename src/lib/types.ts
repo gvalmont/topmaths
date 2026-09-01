@@ -1,6 +1,5 @@
 import type Figure from 'apigeom/src/Figure'
 import type { PartialKbType } from '../lib/interactif/claviers/keyboard'
-import type { View } from '../topmaths/types/navigation'
 import type { ObjectiveReference } from '../topmaths/types/objective'
 import type { UnitReference } from '../topmaths/types/unit'
 import type { CanOptions, CanSolutionsMode } from './types/can'
@@ -13,6 +12,7 @@ import type Decimal from 'decimal.js'
 import Hms from '../modules/Hms'
 import type { VueType } from './VueType'
 import type { AutoCorrectionAMC, QuestionAMC } from './amc/amcTypes'
+import type { FormulaireComplexe } from './formulaireComplexe'
 import { Complexe } from './mathFonctions/Complexe'
 
 /**
@@ -20,7 +20,7 @@ import { Complexe } from './mathFonctions/Complexe'
  * iframe est un identifiant de l'iframe utilisé par des recorders comme Moodle
  */
 export interface InterfaceGlobalOptions {
-  v?: VueType | View
+  v?: VueType
   z?: string
   durationGlobal?: number
   ds?: string
@@ -45,6 +45,7 @@ export interface InterfaceGlobalOptions {
   // | 'cartes'
   setInteractive?: string
   isSolutionAccessible?: boolean
+  isCorrectionOnlyOnError?: boolean
   isTitleDisplayed?: boolean
   isReferenceDisplayed?: boolean
   isInteractiveFree?: boolean
@@ -62,7 +63,14 @@ export interface InterfaceGlobalOptions {
   canSA?: boolean
   canSM?: CanSolutionsMode
   canI?: boolean
+  /** no chrono : course aux nombres sans chronomètre */
+  canNC?: boolean
   lang?: Language
+  subject?: string // titre du quizz (vues quizzconf et quizz)
+  quizzParam?: string // paramètres du quizz encodés en base64 (vues quizzconf et quizz)
+  quizzRole?: 'manager' | 'player' // rôle dans une partie multi-joueurs (vue quizz)
+  pin?: string // PIN à 6 chiffres de la room multi-joueurs (vue quizz)
+  gameId?: string // identifiant serveur de la room multi-joueurs (vue quizz)
 }
 
 export interface InterfaceParams extends Partial<
@@ -80,6 +88,7 @@ export interface InterfaceParams extends Partial<
   sup4?: string
   sup5?: string
   versionQcm?: '0' | '1' // pour la version QCM des exercices de type simple
+  coeffBareme?: number // coefficient multiplicateur du barème d'un exercice interactif
   nbQuestions?: number
   duration?: number
   cols?: number
@@ -97,7 +106,7 @@ export interface InterfaceReferentiel {
   id: string
   url: string
   titre: string
-  tags: { interactif: boolean; interactifType: string; amc: boolean }
+  tags: { interactif: boolean; amc: boolean }
   datePublication?: string
   dateModification?: string
   annee?: string
@@ -142,12 +151,7 @@ export interface StudentAssignment {
 // * `type` : type du référentiel pour gérer l'affichage (exploration récursive ou pas par exemple)
 // * `activated`: flag pour afficher ou pas le référentiel
 export type ReferentielTypes =
-  | 'outils'
-  | 'exercices'
-  | 'ressources'
-  | 'bibliotheque'
-  | 'apps'
-  | 'examens'
+  'outils' | 'exercices' | 'ressources' | 'bibliotheque' | 'apps' | 'examens'
 export type ReferentielNames =
   | 'outils'
   | 'aleatoires'
@@ -341,13 +345,47 @@ export type InteractivityType =
   | 'tableauMathlive' // On pourra essayer de faire mieux qu'AmcOpen si la correction n'est pas custom mais numérique simple
   | 'texte' // à priori non compatible AMC
   | 'cliqueFigure' // Non compatible AMC
+  | 'clique-figure' // Non compatible AMC
+  | 'points-cliquables' // Non compatible AMC
+  | 'objets-cliquables' // Non compatible AMC
+  | 'fraction-cliquable' // Non compatible AMC
+  | 'mathalea-labyrinthe' // Non compatible AMC
+  | 'echiquier-probleme' // Non compatible AMC
   | 'dnd' // Non compatible AMC
-  | 'listeDeroulante' // Compatible AMC si on remplace par un qcm
+  | 'drag-and-drop' // Non compatible AMC
   | 'custom' // Non compatible AMC
-  | 'tableur' // Difficile à faire rentrer dans AMC
+  | 'meta-custom' // Non compatible AMC : question custom réhébergée par un méta-exercice
+  | 'apigeom-figure' // Non compatible AMC
+  // MathaleaCustomElement
+  | 'liste-deroulante' // Compatible AMC si on remplace par un qcm
+  | 'my-spreadsheet' // Difficile à faire rentrer dans AMC
+  | 'my-calculator' // Non compatible AMC
   | 'MetaInteractif2d' // Difficile à faire rentrer dans AMC
-  | 'svgSelection' // inadapté clairement pour AMC
-  | 'multiMathfield' // On pourra essayer de faire mieux qu'AmcOpen
+  | 'meta-interactif-2d' // Difficile à faire rentrer dans AMC
+  | 'svg-selection' // inadapté clairement pour AMC
+  | 'multi-mathfield' // On pourra essayer de faire mieux qu'AmcOpen
+  | 'trigo-circle-selection' // Non compatible AMC
+  | 'interactive-clock' // Non compatible AMC
+  | 'guide-ane' // Non compatible AMC
+  | 'demi-droite-interactive'
+  | 'blockly-editor'
+  | 'scratch-editor'
+  | 'tableau-signes-variations' // Non compatible AMC
+  | 'mathalea-mathfield'
+  | 'fill-in-the-blank'
+  | 'mathalea-textfield'
+  | 'tableau-mathlive'
+  | 'tableau-hybride'
+  | 'mathalea-qcm'
+  | 'mathalea-couteau-suisse'
+  | 'mathalea-branching-qcm'
+  | 'alea-iep-editeur'
+  | 'relier-etiquettes' // Non compatible AMC
+  | 'diagram-builder' // Non compatible AMC
+  | 'diagram-pie-assessment' // Non compatible AMC
+  | 'diagram-bar-assessment' // Non compatible AMC
+  | 'diagram-histogram-assessment' // Non compatible AMC
+  | 'diagram-cartesian-assessment' // Non compatible AMC
 export function isInteractivityType(
   value: unknown,
 ): value is InteractivityType {
@@ -358,14 +396,143 @@ export function isInteractivityType(
     value === 'tableauMathlive' ||
     value === 'texte' ||
     value === 'cliqueFigure' ||
+    value === 'clique-figure' ||
+    value === 'points-cliquables' ||
+    value === 'objets-cliquables' ||
+    value === 'fraction-cliquable' ||
+    value === 'mathalea-labyrinthe' ||
+    value === 'echiquier-probleme' ||
     value === 'dnd' ||
-    value === 'listeDeroulante' ||
+    value === 'drag-and-drop' ||
     value === 'custom' ||
-    value === 'tableur' ||
+    value === 'meta-custom' ||
+    value === 'apigeom-figure' ||
+    // MathleaCustomElement
+    value === 'liste-deroulante' ||
+    value === 'my-spreadsheet' ||
+    value === 'my-calculator' ||
     value === 'MetaInteractif2d' ||
-    value === 'svgSelection' ||
-    value === 'multiMathfield'
+    value === 'meta-interactif-2d' ||
+    value === 'svg-selection' ||
+    value === 'multi-mathfield' ||
+    value === 'trigo-circle-selection' ||
+    value === 'interactive-clock' ||
+    value === 'guide-ane' ||
+    value === 'demi-droite-interactive' ||
+    value === 'blockly-editor' ||
+    value === 'scratch-editor' ||
+    value === 'tableau-signes-variations' ||
+    value === 'mathalea-mathfield' ||
+    value === 'fill-in-the-blank' ||
+    value === 'mathalea-textfield' ||
+    value === 'tableau-mathlive' ||
+    value === 'tableau-hybride' ||
+    value === 'mathalea-qcm' ||
+    value === 'mathalea-couteau-suisse' ||
+    value === 'mathalea-branching-qcm' ||
+    value === 'alea-iep-editeur' ||
+    value === 'clique-figure' ||
+    value === 'points-cliquables' ||
+    value === 'objets-cliquables' ||
+    value === 'fraction-cliquable' ||
+    value === 'mathalea-labyrinthe' ||
+    value === 'drag-and-drop' ||
+    value === 'meta-interactif-2d' ||
+    value === 'relier-etiquettes' ||
+    value === 'diagram-builder' ||
+    value === 'diagram-pie-assessment' ||
+    value === 'diagram-bar-assessment' ||
+    value === 'diagram-histogram-assessment' ||
+    value === 'diagram-cartesian-assessment'
   )
+}
+
+/**
+ * Types d'interactivité correspondant à un MathaleaCustomElement qui gère sa propre
+ * autoCorrection (comme un qcm) : un exercice simple utilisant l'un de ces formats
+ * n'a donc pas besoin de renseigner this.reponse.
+ */
+export function isMathaleaCustomElementFormat(value: unknown): boolean {
+  return (
+    value === 'apigeom-figure' ||
+    value === 'meta-custom' ||
+    value === 'liste-deroulante' ||
+    value === 'my-spreadsheet' ||
+    value === 'my-calculator' ||
+    value === 'MetaInteractif2d' ||
+    value === 'meta-interactif-2d' ||
+    value === 'svg-selection' ||
+    value === 'multi-mathfield' ||
+    value === 'trigo-circle-selection' ||
+    value === 'interactive-clock' ||
+    value === 'guide-ane' ||
+    value === 'demi-droite-interactive' ||
+    value === 'blockly-editor' ||
+    value === 'tableau-signes-variations' ||
+    value === 'scratch-editor' ||
+    value === 'mathalea-mathfield' ||
+    value === 'fill-in-the-blank' ||
+    value === 'mathalea-textfield' ||
+    value === 'tableau-mathlive' ||
+    value === 'tableau-hybride' ||
+    value === 'mathalea-qcm' ||
+    value === 'mathalea-couteau-suisse' ||
+    value === 'mathalea-branching-qcm' ||
+    value === 'alea-iep-editeur' ||
+    value === 'clique-figure' ||
+    value === 'points-cliquables' ||
+    value === 'objets-cliquables' ||
+    value === 'fraction-cliquable' ||
+    value === 'drag-and-drop' ||
+    value === 'echiquier-probleme' ||
+    value === 'meta-interactif-2d' ||
+    value === 'relier-etiquettes' ||
+    value === 'diagram-builder' ||
+    value === 'diagram-pie-assessment' ||
+    value === 'diagram-bar-assessment' ||
+    value === 'diagram-histogram-assessment' ||
+    value === 'diagram-cartesian-assessment'
+  )
+}
+
+export function isMathliveCompatible(value: string): boolean {
+  const lowCaseValue = value.toLowerCase()
+  return (
+    lowCaseValue === 'mathlive' ||
+    lowCaseValue === 'fillintheblank' ||
+    lowCaseValue === 'tableaumathlive' ||
+    lowCaseValue === 'texte'
+  )
+}
+
+export function mathliveCompatibleToCustomElementFormat(
+  value: unknown,
+): InteractivityType | null {
+  if (typeof value !== 'string') return null
+  switch (value.toLowerCase()) {
+    case 'mathlive':
+      return 'mathalea-mathfield'
+    case 'fillintheblank':
+      return 'fill-in-the-blank'
+    case 'tableaumathlive':
+      return 'tableau-mathlive'
+    case 'texte':
+      return 'mathalea-textfield'
+    default:
+      return null
+  }
+}
+
+/** Normalise les anciens formats vers le custom element qui les vérifie. */
+export function interactivityTypeToCustomElementFormat(
+  value: unknown,
+): InteractivityType | null {
+  if (typeof value !== 'string') return null
+  if (value.toLowerCase() === 'qcm') return 'mathalea-qcm'
+  if (value.toLowerCase() === 'cliquefigure') return 'clique-figure'
+  if (value.toLowerCase() === 'dnd') return 'drag-and-drop'
+  if (value.toLowerCase() === 'metainteractif2d') return 'meta-interactif-2d'
+  return mathliveCompatibleToCustomElementFormat(value)
 }
 
 export type SharedQcmProposition = {
@@ -373,6 +540,37 @@ export type SharedQcmProposition = {
   statut: boolean
   correction?: string
   feedback?: string
+}
+
+export type QcmValeur = {
+  qcm: {
+    propositions: SharedQcmProposition[]
+    options?: IExerciceQcmOptions
+    enonce?: string
+    correction?: string
+  }
+}
+
+export function isQcmValeur(value: unknown): value is QcmValeur {
+  if (typeof value !== 'object' || value == null || !('qcm' in value)) {
+    return false
+  }
+  const qcm = value.qcm
+  return (
+    typeof qcm === 'object' &&
+    qcm != null &&
+    'propositions' in qcm &&
+    Array.isArray(qcm.propositions) &&
+    qcm.propositions.every(
+      (proposition) =>
+        typeof proposition === 'object' &&
+        proposition != null &&
+        'texte' in proposition &&
+        typeof proposition.texte === 'string' &&
+        'statut' in proposition &&
+        typeof proposition.statut === 'boolean',
+    )
+  )
 }
 
 export type QcmAutoCorrectionProposition = {
@@ -649,11 +847,7 @@ export function isValeur(value: unknown): value is Valeur {
  * On considère qu'un objet avec une méthode sommeFraction est une FractionEtendue.
  */
 export function isFractionEtendue(x: unknown): x is IFractionEtendue {
-  return (
-    typeof x === 'object' &&
-    x !== null &&
-    typeof (x as any).sommeFraction === 'function'
-  )
+  return typeof x === 'object' && x !== null && 'sommeFraction' in x
 }
 
 /**
@@ -661,11 +855,7 @@ export function isFractionEtendue(x: unknown): x is IFractionEtendue {
  * On considère qu'un objet avec une propriété uniteDeReference est une Grandeur.
  */
 export function isGrandeur(x: unknown): x is IGrandeur {
-  return (
-    typeof x === 'object' &&
-    x !== null &&
-    typeof (x as any).uniteDeReference === 'string'
-  )
+  return typeof x === 'object' && x !== null && 'uniteDeReference' in x
 }
 
 /**
@@ -676,9 +866,9 @@ export function isDecimal(x: unknown): x is Decimal {
   return (
     typeof x === 'object' &&
     x !== null &&
-    typeof (x as any).toDP === 'function' &&
-    typeof (x as any).toFixed === 'function' &&
-    typeof (x as any).plus === 'function'
+    'toDP' in x &&
+    'toFixed' in x &&
+    'plus' in x
   )
 }
 
@@ -737,10 +927,10 @@ export function isAnswerValueType(value: unknown): value is AnswerValueType {
   )
 }
 
-export type ReponseComplexe = AnswerValueType | Valeur
+export type ReponseComplexe = AnswerValueType | Valeur | QcmValeur
 
 export function isReponseComplexe(value: unknown): value is ReponseComplexe {
-  return isAnswerValueType(value) || isValeur(value)
+  return isAnswerValueType(value) || isValeur(value) || isQcmValeur(value)
 }
 
 export type ParamForQcmInteractif = {
@@ -748,7 +938,7 @@ export type ParamForQcmInteractif = {
   ordered?: boolean
   vertical?: boolean
   lastChoice?: number
-  format?: 'lettre' | 'case'
+  format?: 'lettre' | 'case' | 'caseLettre'
   nbCols?: number
   correction?: string
 }
@@ -773,16 +963,17 @@ export type AutoCorrection = {
   // Contrat cible interactif
   valeur?: ValeurNormalized
   formatInteractif?: InteractivityType
+  elements?: {
+    formatInteractif: InteractivityType
+    autoCorrection?: unknown
+  }[]
   options?: ParamForQcmInteractif
   propositions?: UneProposition[]
+  branchingQcm?: unknown
 }
 
 export type LegacyReponse =
-  | string
-  | IFractionEtendue
-  | Decimal
-  | number
-  | IGrandeur
+  string | IFractionEtendue | Decimal | number | IGrandeur
 export type LegacyReponses = LegacyReponse[] | LegacyReponse
 
 export interface MathaleaSVG extends SVGSVGElement {
@@ -793,6 +984,7 @@ export interface MathaleaSVG extends SVGSVGElement {
 export type ResultOfExerciceInteractif = {
   numberOfPoints: number
   numberOfQuestions: number
+  perQuestionIsOk: boolean[]
 }
 
 // Pour retro compatibilité avec setReponse
@@ -832,11 +1024,11 @@ export interface IExercice {
   titre: string
   id?: string
   uuid: string
-  sup: any
-  sup2: any
-  sup3: any
-  sup4: any
-  sup5: any
+  sup: boolean | string | number
+  sup2: boolean | string | number
+  sup3: boolean | string | number
+  sup4: boolean | string | number
+  sup5: boolean | string | number
   exoCustomResultat?: boolean
   duree?: number
   seed?: string
@@ -880,13 +1072,18 @@ export interface IExercice {
   autoCorrection: AutoCorrection[]
   autoCorrectionAMC?: AutoCorrectionAMC[]
   questionsAMC?: QuestionAMC[]
-  figures?: Figure[] | ClickFigures[]
+  cliqueFiguresArray?: ClickFigures[]
+  /** Figures apigeom de l'exercice. Renseigné automatiquement par figureApigeom()
+   * et détruit par reinit() pour éviter les fuites mémoire. */
+  figuresApiGeom?: Figure[]
+  figuresApiGeomCorr?: Figure[]
   amcReady?: boolean
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number
   spacingCorr: number
   pasDeVersionLatex: boolean
+  pasDeVersionAleatoire?: boolean
   listePackages?: string[]
   consigneModifiable: boolean
   nbQuestionsModifiable: boolean
@@ -900,6 +1097,11 @@ export interface IExercice {
   beamer: boolean
   nbQuestions: number
   pointsParQuestions: number
+  /**
+   * Coefficient multiplicateur du barème choisi par l'enseignant dans les
+   * paramètres de l'exercice interactif (voir `src/lib/interactif/baremeExercice.ts`).
+   */
+  coeffBareme: number
   correctionDetailleeDisponible: boolean
   correctionDetaillee: boolean
   correctionIsCachee: boolean
@@ -907,7 +1109,14 @@ export interface IExercice {
   interactif: boolean
   interactifObligatoire: boolean
   interactifReady: boolean
-  interactifType?: string
+  /**
+   * Index de la question dans l'exercice affiché quand cet exercice est
+   * réhébergé comme une question d'un méta-exercice (`MetaExerciceCan`) :
+   * la question locale 0 devient la question `indexQuestionHote` de l'hôte.
+   * Sert à générer directement des identifiants DOM uniques plutôt qu'à les
+   * réécrire après coup. Vaut 0 hors méta-exercice.
+   */
+  indexQuestionHote?: number
   besoinFormulaireNumerique:
     | boolean
     | [titre: string, max: number, tooltip: string]
@@ -945,6 +1154,13 @@ export interface IExercice {
         categories: { label: string; max: number }[]
         defaut: number[]
       }
+
+  /**
+   * Formulaire regroupant plusieurs champs (cases à cocher, sélections, listes
+   * ordonnables et pondérées) dans le seul emplacement `sup`.
+   * Voir `src/lib/formulaireComplexe.ts`.
+   */
+  besoinFormulaireComplexe: false | FormulaireComplexe
   questionRefs?: string[]
   listeArguments: string[]
   lastCallback: string
@@ -959,6 +1175,7 @@ export interface IExercice {
   answers?: { [key: string]: string }
   dragAndDrops?: IDragAndDrop[]
   isDone?: boolean
+  nbTentativesVerification?: number
   html: HTMLElement
   key: string
   score?: number
@@ -978,6 +1195,8 @@ export interface IExerciceSimple extends IExercice {
   distracteurs: (string | number)[]
   versionQcmDisponible?: boolean
   versionQcm?: boolean
+  /** Plans de tirages partagés entre les questions d'une même version (voir ExerciceSimple.fromQuestionPlan()) */
+  tiragesParQuestion?: Map<string, unknown[]>
 }
 
 export interface IExerciceStatique {
@@ -1034,6 +1253,8 @@ export interface IExerciceQcmOptions {
   vertical?: boolean
   lastChoice?: number
   dontKnow?: boolean
+  format?: 'case' | 'lettre' | 'caseLettre'
+  compact?: boolean
 }
 
 export interface IExerciceQcm extends IExercice {

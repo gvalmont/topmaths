@@ -1,10 +1,9 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème concret'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '5a91c'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -38,7 +37,7 @@ export default class NomExercice extends ExerciceSimple {
           [25, 5],
           [25, 3],
         ]
-    const valeurs = choice(listeValeurs)
+    const valeurs = this.quotaChoice('valeurs', listeValeurs)
 
     this.reponse = valeurs[1]
     this.question = `Un fleuriste a $${valeurs[0] * valeurs[1]}$ roses.<br>

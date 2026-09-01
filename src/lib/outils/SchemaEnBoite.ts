@@ -1,19 +1,44 @@
 import { context } from '../../modules/context'
+import type { ColourNames } from '../2d/colorToLatexOrHtml'
+import { colours, mathaleaColorAliases } from '../2d/colorToLatexOrHtml'
 import { range } from './nombres'
 import './ShemasEnBoite.css'
 import { texNombre } from './texNombre'
-import { colours } from '../2d/colorToLatexOrHtml'
-import type { ColourNames } from '../2d/colorToLatexOrHtml'
+
+// Ramène 'blue'/'green'/'orange' vers les couleurs officielles CoopMaths.
+function normalizeMathaleaColor(color: string): string {
+  return mathaleaColorAliases[color] ?? color
+}
 
 const standardLatexColors = new Set([
-  'black', 'white', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow',
-  'gray', 'darkgray', 'lightgray', 'orange', 'violet', 'purple', 'brown',
-  'lime', 'olive', 'pink', 'teal',
+  'black',
+  'white',
+  'red',
+  'green',
+  'blue',
+  'cyan',
+  'magenta',
+  'yellow',
+  'gray',
+  'darkgray',
+  'lightgray',
+  'orange',
+  'violet',
+  'purple',
+  'brown',
+  'lime',
+  'olive',
+  'pink',
+  'teal',
 ])
 
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace('#', '')
-  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]
+  return [
+    parseInt(h.slice(0, 2), 16),
+    parseInt(h.slice(2, 4), 16),
+    parseInt(h.slice(4, 6), 16),
+  ]
 }
 
 function colorForTikz(color: string): string {
@@ -82,7 +107,7 @@ type LigneSchemaType = {
     fontWeight?: string // pour le poids de la police de l'entête
   }
   spacing?: number // pour l'espacement après la ligne
-  height?: number // pour la hauteur de la ligne (en em), si non défini, on utilise la hauteur par défaut
+  height?: string // pour la hauteur de la ligne (en em), si non défini, on utilise la hauteur par défaut
 }
 
 type LigneAccoladeType = AccoladeType[]
@@ -144,7 +169,7 @@ export default class SchemaEnBoite {
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
           const justify = options.justify ?? 'center'
-          const color = options.color ?? 'black'
+          const color = normalizeMathaleaColor(options.color ?? 'black')
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
           const lineHeight = options.lineHeight ?? '1.2em'
@@ -184,7 +209,9 @@ export default class SchemaEnBoite {
       for (let i = 0; i < this.lignes.length; i++) {
         const ligne = this.lignes[i]
         const entete = ligne.entete?.content ?? ''
-        const couleurEntete = ligne.entete?.couleur ?? 'black'
+        const couleurEntete = normalizeMathaleaColor(
+          ligne.entete?.couleur ?? 'black',
+        )
         const fontSizeEntete = ligne.entete?.fontSize ?? '1em'
         const fontWeightEntete = ligne.entete?.fontWeight ?? 'normal'
         const spacing = ligne.spacing ?? 0
@@ -197,11 +224,11 @@ export default class SchemaEnBoite {
           const barre = barres[k]
           if (barre.length <= 0) continue
           if (barre.content == null) barre.content = ''
-          if (barre.color == null) barre.color = 'lightgray'
+          barre.color = normalizeMathaleaColor(barre.color ?? 'lightgray')
           if (barre.options == null) barre.options = {}
           const options = barre.options ?? {}
           const justify = options.justify ?? 'center'
-          const color = options.color ?? 'black'
+          const color = normalizeMathaleaColor(options.color ?? 'black')
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
           const style = options.style ?? ''
@@ -285,7 +312,7 @@ export default class SchemaEnBoite {
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
           const justify = options.justify ?? 'center'
-          const color = options.color ?? 'black'
+          const color = normalizeMathaleaColor(options.color ?? 'black')
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
           const lineHeight = options.lineHeight ?? '1.2em'
@@ -341,7 +368,7 @@ export default class SchemaEnBoite {
           // const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
           const justify = options.justify ?? 'center'
-          const color = options.color ?? 'black'
+          const color = normalizeMathaleaColor(options.color ?? 'black')
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
@@ -392,7 +419,7 @@ export default class SchemaEnBoite {
           const texte = brace.text
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
-          const color = options.color ?? 'black'
+          const color = normalizeMathaleaColor(options.color ?? 'black')
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
@@ -422,7 +449,9 @@ export default class SchemaEnBoite {
       for (let i = 0; i < this.lignes.length; i++) {
         const ligne = this.lignes[i]
         const entete = ligne.entete?.content ?? ''
-        const couleurEntete = ligne.entete?.couleur ?? 'black'
+        const couleurEntete = normalizeMathaleaColor(
+          ligne.entete?.couleur ?? 'black',
+        )
         const fontSizeEntete = ligne.entete?.fontSize ?? '1em'
         const fontWeightEntete = ligne.entete?.fontWeight ?? 'normal'
 
@@ -467,11 +496,11 @@ export default class SchemaEnBoite {
           const barre = barres[k]
           if (barre.length <= 0) continue
           if (barre.content == null) barre.content = ''
-          if (barre.color == null) barre.color = 'lightgray'
+          barre.color = normalizeMathaleaColor(barre.color ?? 'lightgray')
           if (barre.options == null) barre.options = {}
           const options = barre.options ?? {}
           const justify = options.justify ?? 'center'
-          const color = options.color ?? 'black'
+          const color = normalizeMathaleaColor(options.color ?? 'black')
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
 
@@ -533,7 +562,7 @@ export default class SchemaEnBoite {
           const texte = brace.text
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
-          const color = options.color ?? 'black'
+          const color = normalizeMathaleaColor(options.color ?? 'black')
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
@@ -581,7 +610,7 @@ export default class SchemaEnBoite {
           const texte = brace.text
           // const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
-          const color = options.color ?? 'black'
+          const color = normalizeMathaleaColor(options.color ?? 'black')
           const fontSize = options.fontSize ?? '1em'
           const fontWeight = options.fontWeight ?? 'normal'
           if (start != null && end != null && texte != null) {
@@ -743,7 +772,7 @@ export default class SchemaEnBoite {
     nbFois: number | string | undefined,
     nb1: number | string | undefined,
     nb2: number | string | undefined,
-    nbParts: number | String | undefined,
+    nbParts: number | string | undefined,
     reste: number | string | undefined,
     precison: number,
   ): SchemaEnBoite {

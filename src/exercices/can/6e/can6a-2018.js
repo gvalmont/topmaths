@@ -20,10 +20,7 @@ import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
-import {
-  handleAnswers,
-  setReponse,
-} from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
@@ -33,7 +30,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 6e sujet 2018'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '30/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -143,6 +140,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
+      this.canReponseACompleter = ''
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 8)
@@ -150,7 +148,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `$${a} \\times ${b}=$ `
           texteCorr = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`
           reponse = a * b
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -172,7 +170,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `$${a} + ${b}=$ `
           texteCorr = `$${a}+${b}=${miseEnEvidence(a + b)}$`
           reponse = a + b
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -213,7 +211,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               reponse = b * 10 + c
             }
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }
@@ -231,7 +229,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `$${a}-${b}=${miseEnEvidence(a - b)}$ `
           reponse = a - b
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -260,7 +258,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             this.canReponseACompleter = ` $ .... \\times ${a}=${c}$`
           }
           reponse = b
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -304,7 +302,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `La moitié de $${a}$ est égale à $${a}\\div 2=${miseEnEvidence(texNombre(a / 2))}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -330,7 +328,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 xmax: 10,
                 ymax: 1.5,
                 scale: 0.8,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               texteParPosition('?', (8 * b) / a, 0.7, 0, bleuMathalea, 2),
               droiteGraduee({
@@ -380,7 +378,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `Si $${a}$ ${truc} pèsent $${b}$ g, alors $${k}\\times ${a}\\text{ ${truc} }=${k * a}$ ${truc} pèsent $${miseEnEvidence(k * b)}$ g. `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte +=
               `$${a * k}$ ${truc} pèsent ` +
@@ -405,7 +403,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `$${a}\\div ${k}=${miseEnEvidence(a / k)}$ car $${k}\\times ${a / k}=${a}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -424,7 +422,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `Donne l'écriture décimale de $(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)$.`
           texteCorr = `$(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)=${10 * a}+${b}\\times 0,01=${10 * a}+${texNombre(b / 100)}=${miseEnEvidence(texNombre(10 * a + b / 100))}$`
           reponse = arrondi(10 * a + b / 100, 2)
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -443,7 +441,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `$${a}$ dizaines $${b}$ unités $=${texNombre(a * 10)}+${b}=${miseEnEvidence(texNombre(a * 10 + b))}$`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -469,7 +467,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 xmax: 14,
                 ymax: 1.5,
                 scale: 0.7,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               texteParPosition(
                 'A',
@@ -499,7 +497,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               }),
             )
           texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point $A$ est $\\dfrac{${a}}{5}=${miseEnEvidence(texNombre(reponse))}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -524,7 +522,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `Multiplier par $0,25$ revient à multiplier par $\\dfrac{1}{4}$, c'est-à-dire diviser par $4$. <br>
                                 Ainsi : $${a}\\times ${texNombre(b)}=${a}\\div 4=${miseEnEvidence(texNombre(reponse))}$.`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           } else {
@@ -549,7 +547,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           Combien y a-t-il de ${fleurs} dans chaque bouquet ?`
           texteCorr = `Le nombre de bouquets est donné par la division de  $${a}$ par $${b}$.<br>
           On a $${a}\\div ${b}=${k}$. Ainsi, le fleuriste pourra composer $${miseEnEvidence(k)}$ bouquets identiques.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -584,7 +582,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             reponse = '0.5'
             texteCorr = `La moitié de $1$ est égale à $${1}\\div 2=${miseEnEvidence(texNombre(0.5, 1))}$.`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           } else {
@@ -610,8 +608,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `Quel est le nombre $${texNombre(a, 0)}$ fois plus grand que $${b}$ ${truc[c][0]} ?`
           texteCorr = `Le nombre $${texNombre(a, 0)}$ fois plus grand que $${b}$ ${truc[c][0]} est $${texNombre(a, 0)}\\times ${b}\\times ${texNombre(truc[c][1])}=${miseEnEvidence(texNombre(a * b * truc[c][1]))}$.`
 
-          setReponse(this, index, reponse, {
-            formatInteractif: 'fractionEgale',
+          handleAnswers(this, index, {
+            reponse: { value: reponse, options: { fractionEgale: true } },
           })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
@@ -671,7 +669,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               mainlevee: false,
               amplitude: 0.5,
               scale: 0.7,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -680,7 +678,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             Son aire totale est donc :  $ ${j} \\times 1 \\text{ cm}^2+ ${j} \\times 0,5\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 2))}\\text{ cm}^2$.
             `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + ' cm$^2$'
           }
@@ -698,7 +696,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `Le double de $${texNombre(a)}$ est égal à : `
           texteCorr = `Le double de $${texNombre(a)}$ est égal à : $${texNombre(a)}\\times 2=${miseEnEvidence(reponse)}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -748,7 +746,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `Le quart de $${a}$ œufs est $${a}\\div 4=${miseEnEvidence(a / 4)}$ œufs. `
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + ' œufs.'
           } else {
@@ -773,7 +771,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `Le quart de $${a}$ g est $${a} \\text{ g } \\div 4=${miseEnEvidence(a / 4)}$ g. `
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + ' g.'
           } else {
@@ -812,7 +810,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000 + chiffre[a][1] * 1000)}  + ${texNombre(chiffre[a][1])}
                         =${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]))}$. `
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
@@ -824,7 +822,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]))}$. `
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
@@ -836,7 +834,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             reponse = 2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]))}$. `
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
@@ -848,7 +846,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre2[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]))}$. `
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
@@ -871,7 +869,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `$${k}$ sucettes coûtent $${texPrix(k * a)}$ €, donc $1$ sucette coûte $${k}$ fois moins, c'est-à-dire :
             $${texPrix(k * a)} \\text{ € }\\div ${k}=${miseEnEvidence(texPrix(a))}$ €.  `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + ' €'
           }
@@ -938,7 +936,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               pixelsParCm: 50,
               mainlevee: false,
               scale: 1,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
@@ -947,7 +945,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}\\text{ cm}$.
                   `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -970,7 +968,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `$${texNombre(a + b, 1)}$ milliers $=$ `
           texteCorr = `$${texNombre(a + b, 1)}$ milliers $=${texNombre(a + b, 1)}\\times ${texNombre(1000)}=${miseEnEvidence(texNombre(reponse))}$`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -993,7 +991,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             Combien de billes sa sœur  a-t-elle ? `
           texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa sœur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${miseEnEvidence(a / b)}$. `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -1010,7 +1008,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `$1\\text{ m}^3$ est égal à $${texNombre(1000)}$ litres. Ainsi, $${a}\\text{ m}^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
           reponse = a * 1000
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + 'L'
           } else {
@@ -1042,7 +1040,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `Les trois nombres ont les mêmes unités, le plus grand est celui qui a le plus grand chiffre des dixièmes. S'ils ont le même chiffre des dixièmes, le plus grand est celui qui a le plus grand chiffre des centièmes, etc...<br>
           Le plus grand nombre est donc : $${miseEnEvidence(texNombre(Math.max(a, b, c), 3))}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -1061,7 +1059,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
           texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${miseEnEvidence(a * b * c)}$ menus différents.`
           reponse = a * b * c
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }

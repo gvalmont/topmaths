@@ -3,17 +3,17 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { context } from '../../../modules/context'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 
 export const titre = "Calculer le périmètre d'un quadrilatère"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '09/12/2025'
 /**
  * @author Gilles Mora
@@ -35,10 +35,12 @@ export default class QuestionsAiresEtPerimetres4 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 3) //
-    const b = randint(4, 7) //
-    const n = randint(7, 12)
-    const c = randint(1, 6) + randint(3, 9) / 10
+    const a = this.quotaRandint('a', 1, 3) //
+    const b = this.quotaRandint('b', 4, 7) //
+    const n = this.quotaRandint('n', 7, 12)
+    const c =
+      this.quotaRandint('cEntier', 1, 6) +
+      this.quotaRandint('cDixieme', 3, 9) / 10
     const d = n - c
     const A = pointAbstrait(0, 0, 'P')
     const B = pointAbstrait(7, 1, 'Q', 'below')
@@ -85,7 +87,7 @@ export default class QuestionsAiresEtPerimetres4 extends ExerciceSimple {
         mainlevee: true,
         amplitude: 0.5,
         scale: 0.7,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       objets,
     )

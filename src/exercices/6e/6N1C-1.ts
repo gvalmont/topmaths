@@ -14,16 +14,15 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
-import { orangeMathalea } from '../../lib/colors'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { amcConvert } from '../../lib/amc/amcBuilders'
-
+import { orangeMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 
 export const titre = "Lire l'abscisse entière d'un point (grands nombres)"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '26/08/2024'
@@ -38,7 +37,7 @@ export const uuid = 'ad8c9'
 export const refs = {
   'fr-fr': ['6N1C-1'],
   'fr-2016': ['6N11'],
-  'fr-ch': ['9NO2-1'],
+  'fr-ch': [''], // Primaire anciennement :['9NO2-1'],
 }
 export default class LireAbscisseEntiere2d extends Exercice {
   constructor() {
@@ -222,7 +221,7 @@ export default class LireAbscisseEntiere2d extends Exercice {
               options: { nombreAvecEspace: true },
             },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       } else if (context.isAmc) {
         this.autoCorrectionAMC[i] = {

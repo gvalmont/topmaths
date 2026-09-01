@@ -14,7 +14,7 @@ import Exercice from '../Exercice'
 export const dateDeModifImportante = '05/09/2025'
 export const titre = "Donner l'écriture décimale d'une puissance de 10"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -26,7 +26,7 @@ export const uuid = '93df9'
 
 export const refs = {
   'fr-fr': ['4C30-2', 'BP2AutoE7'],
-  'fr-ch': ['10NO2-4'],
+  'fr-ch': ['10NO3D-3'],
 }
 export default class EcritureDecimalePuissanceDe10 extends Exercice {
   constructor() {

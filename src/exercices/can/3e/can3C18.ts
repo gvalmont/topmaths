@@ -3,14 +3,14 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
+import { orangeMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { pgcd } from '../../../lib/outils/primalite'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { orangeMathalea } from '../../../lib/colors'
 export const titre = 'Calculer une valeur dans une égalité de quotients'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '17/10/2024'
 export const uuid = '49a2b'
 export const refs = {
@@ -31,7 +31,7 @@ export default class calculDansQuotient extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const inconnue = choice([
+    const inconnue = this.quotaChoice('inconnue', [
       'AB',
       'AC',
       'BC',
@@ -42,10 +42,10 @@ export default class calculDansQuotient extends ExerciceSimple {
       'GR',
       'JK',
     ])
-    const f = choice(obtenirListeFractionsIrreductibles())
+    const f = this.quotaChoice('f', obtenirListeFractionsIrreductibles())
     const fraction = new FractionEtendue(f.n, f.d)
     const a = randint(2, 10, f.d)
-    const choix1 = choice([true, false])
+    const choix1 = this.quotaChoice('choix1', [true, false])
     const choix2 = choice([true, false])
     let reponse
 

@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer a % de c quand a vaut 100, 50, 25, 10, 1'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '12/10/2025'
@@ -17,7 +16,7 @@ export const dateDePublication = '12/10/2025'
 export const uuid = '3b4d6'
 
 export const refs = {
-  'fr-fr': ['can3C21', '3AutoN05-1'],
+  'fr-fr': ['can3C21', '3AutoN05'],
   'fr-ch': [],
 }
 export default class PrendreUnPourcentage extends ExerciceSimple {
@@ -34,8 +33,8 @@ export default class PrendreUnPourcentage extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = choice([100, 50, 25, 10, 1])
-    const c = randint(20, 200)
+    const a = this.quotaChoice('a', [100, 50, 25, 10, 1])
+    const c = this.quotaRandint('c', 20, 200)
     const resultat = (a * c) / 100
 
     this.question = `Déterminer la valeur de $${a}~\\%$ de $${c}$.`

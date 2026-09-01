@@ -18,7 +18,7 @@ import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 
 export const titre = 'Différencier les algorithmes des quatre opérations'
@@ -48,7 +48,7 @@ export default class QuatreOperationsDecimaux extends Exercice {
     super()
     this.consigne = ''
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon les opérations posées ne sont pas jolies
     this.nbQuestions = 1
     this.sup = '0'
     this.besoinFormulaireTexte = [
@@ -104,7 +104,7 @@ export default class QuatreOperationsDecimaux extends Exercice {
             additionMultiplePosee([a, b, c], {
               retenuesOn: true,
               calculer: true,
-              style: 'display: inline-block',
+              display: 'inline-block',
             }) +
             `$${sp(10)}${texNombre(a)}+${texNombre(b)}+${texNombre(c)}=${miseEnEvidence(texNombre(arrondi(a + b + c)))}$<br>\n`,
         },
@@ -118,7 +118,7 @@ export default class QuatreOperationsDecimaux extends Exercice {
               operande1: op1,
               operande2: op2,
               type: 'soustraction',
-              style: 'display: inline-block',
+              display: 'inline-block',
               options: {
                 colore: orangeMathalea,
                 solution: true,
@@ -131,7 +131,7 @@ export default class QuatreOperationsDecimaux extends Exercice {
               operande1: op1,
               operande2: op2,
               type: 'soustraction',
-              style: 'display: inline-block',
+              display: 'inline-block',
               methodeParCompensation: false,
               options: {
                 colore: orangeMathalea,
@@ -149,7 +149,7 @@ export default class QuatreOperationsDecimaux extends Exercice {
               operande1: a,
               operande2: b,
               type: 'multiplication',
-              style: 'display: inline-block',
+              display: 'inline-block',
               options: { solution: true, colore: orangeMathalea },
             }) +
             sp(10) +
@@ -159,7 +159,7 @@ export default class QuatreOperationsDecimaux extends Exercice {
               operande1: b,
               operande2: a,
               type: 'multiplication',
-              style: 'display: inline-block',
+              display: 'inline-block',
               options: { solution: true, colore: orangeMathalea },
             }) +
             `$${sp(10)}${sp(10)} ${texNombre(a)} \\times ${texNombre(b)}=${miseEnEvidence(texNombre(arrondi(a * b)))}$<br>\n`,
@@ -174,7 +174,7 @@ export default class QuatreOperationsDecimaux extends Exercice {
               operande1: arrondi(a, 6),
               operande2: c,
               type: 'division',
-              style: 'display: inline-block',
+              display: 'inline-block',
               precision: 8,
               options: { solution: true, colore: orangeMathalea },
             }) +

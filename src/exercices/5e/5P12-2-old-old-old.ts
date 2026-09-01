@@ -20,7 +20,6 @@ import { gestionnaireFormulaireTexte } from '../../modules/outils'
 
 export const titre = "Trouver le ratio d'évolution d'un motif numérique"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '26/06/2025'
@@ -35,7 +34,7 @@ export const uuid = '328b8'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class PaternRatioOldOldOld extends Exercice {
@@ -84,10 +83,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
     const listePreDef = typesPattern.map((i) => listePatternRatio[i - 1])
 
-    for (
-      let i = 0;
-      i < Math.min(this.nbQuestions, listePatternRatio.length);
-    ) {
+    for (let i = 0; i < Math.min(this.nbQuestions, listePatternRatio.length);) {
       const objetsCorr: NestedObjetMathalea2dArray = []
       const popped = listePreDef.pop()
       if (!popped) {
@@ -167,7 +163,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                 yMax,
                 yMin,
                 scale: 0.4,
-                style: 'display: inline-block',
+                display: 'inline-block' as const,
                 optionsTikz: 'transform shape',
               },
             ),
@@ -180,6 +176,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
         {
           exercice: this,
           question: i,
+          reponseParams: { formatInteractif: 'mathalea-mathfield' },
           objetReponse: { reponse: { value: pat.formule } },
           typeInteractivite: 'mathlive',
         },

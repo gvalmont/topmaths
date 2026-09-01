@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -13,10 +13,8 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre =
-  'Réduire et simplifier, si possible, une expression littérale simple'
+export const titre = 'Réduire, si possible, une expression littérale simple'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Réduire et simplifier, si possible, une expression littérale simple
@@ -42,7 +40,7 @@ export const uuid = 'cc129'
 
 export const refs = {
   'fr-fr': ['4L10-1', 'BP2AutoI12'],
-  'fr-ch': ['10FA1-15'],
+  'fr-ch': ['10FA4C-6'],
 }
 export default class ReductionsPiegesClassiques extends Exercice {
   constructor() {
@@ -54,7 +52,7 @@ export default class ReductionsPiegesClassiques extends Exercice {
   }
 
   nouvelleVersion() {
-    this.consigne = 'Réduire et simplifier, si possible, '
+    this.consigne = 'Réduire, si possible, '
     this.consigne +=
       this.nbQuestions > 1
         ? 'les expressions suivantes.'
@@ -169,7 +167,7 @@ export default class ReductionsPiegesClassiques extends Exercice {
           reponse,
           `${lettreDepuisChiffre(i + 1, saufD)}=${reponse}`.replace('D=', 'd='),
         ]
-        setReponse(this, i, reponse)
+        handleAnswers(this, i, { reponse: { value: reponse } })
         texte += ajouteChampTexteMathLive(
           this,
           i,

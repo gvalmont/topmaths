@@ -1,12 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Compléter une égalité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'e56b3'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -25,9 +24,9 @@ export default class NomExercice extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = this.canOfficielle ? 7 : randint(5, 9)
-    const b = this.canOfficielle ? 3 : randint(2, 6)
-    const c = this.canOfficielle ? 2 : randint(2, 6)
+    const a = this.canOfficielle ? 7 : this.quotaRandint('a', 5, 9)
+    const b = this.canOfficielle ? 3 : this.quotaRandint('b', 2, 6)
+    const c = this.canOfficielle ? 2 : this.quotaRandint('c', 2, 6)
 
     this.reponse = texNombre(a + b + c, 0)
     this.consigne = 'Complète. '

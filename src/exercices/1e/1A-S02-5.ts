@@ -8,11 +8,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = 'dbebb'
 export const refs = {
-  'fr-fr': ['1A-S02-5'],
+  'fr-fr': ['1A-S02-5', '2A-S2-5'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Déterminer la moyenne d'une série rangée en classes"
@@ -90,14 +90,14 @@ export default class MoyenneClasseQCM extends ExerciceQcmA {
 
     this.enonce = `On donne ci-dessous le tableau de répartition des tailles de plants d'une serre, rangées en classes.
  <br><br> ${tableau}
- <br><br> Les tailles sont exprimées en centimètres.
- <br> Quelle est la taille moyenne en cm des plants de cette serre ?`
+ <br><br> Les tailles sont exprimées en centimètres.<br>
+  Quelle est la taille moyenne en $\\text{cm}$ des plants de cette serre ?`
     this.correction = `Pour calculer la taille d'une série rangée en classes, on calcule d'abord la valeur centrale de chaque classe :<br>
     La première classe a pour centre $\\dfrac{${valeurInferieure} + ${valeurInferieure + pas}}{2} = ${valeurInferieure + pas / 2}\\text{ cm}$.<br>
     La seconde classe a pour centre $\\dfrac{${valeurInferieure + pas} + ${valeurInferieure + 2 * pas}}{2} = ${valeurInferieure + (3 * pas) / 2}\\text{ cm}$.<br>
     On calcule ensuite la moyenne pondérée des tailles, en multipliant chaque centre de classe par l'effectif de la classe correspondante, puis en divisant par la somme des effectifs :<br>
-    $\\dfrac{${effectifs[0]} \\times ${centres[0]} + ${effectifs[1]} \\times ${centres[1]}}{${effectifs[0]} + ${effectifs[1]}} = \\dfrac{${sommePartielle}}{${sommeEffPartielle}} = ${moyenne}$ .<br>
-    <br> La taille moyenne des plants de cette serre est donc de $${miseEnEvidence(moyenne)}\\text{ cm}$.`
+    $\\dfrac{${effectifs[0]} \\times ${centres[0]} + ${effectifs[1]} \\times ${centres[1]}}{${effectifs[0]} + ${effectifs[1]}} = \\dfrac{${sommePartielle}}{${sommeEffPartielle}} = ${moyenne}$ .<br><br>
+     La taille moyenne des plants de cette serre est donc de $${miseEnEvidence(moyenne)}\\text{ cm}$.`
     this.reponse = `${moyenne}`
   }
 
@@ -112,7 +112,7 @@ export default class MoyenneClasseQCM extends ExerciceQcmA {
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = false
-    this.options = { vertical: false, ordered: false }
+
     this.versionAleatoire()
   }
 }

@@ -1,6 +1,6 @@
 import AppliquerUnPourcentage from './can6P04'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const titre = 'Appliquer un pourcentage (bis)'
@@ -13,7 +13,7 @@ export const uuid = 'a2bbc'
 
 export const refs = {
   'fr-fr': ['can6P05', '6N3Q-flash2'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class AppliquerUnPourcentageBis extends AppliquerUnPourcentage {
   constructor() {

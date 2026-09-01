@@ -4,50 +4,34 @@
     mathaleaGetExercicesFromParams,
     mathaleaUpdateExercicesParamsFromUrl,
   } from '../../../lib/mathalea'
+  import { canOptions } from '../../../lib/stores/canStore'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import {
     isIExercice,
     type IExercice,
     type IExerciceStatique,
+    type InterfaceParams,
   } from '../../../lib/types'
   import Footer from '../../Footer.svelte'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
+  import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
   import Tabs from '../../shared/ui/Tabs.svelte'
 
-  const copyCode = async () => {
-    const preElt = document.querySelector('pre')
-    if (preElt) {
-      try {
-        const text = preElt.innerText
-        await navigator.clipboard.writeText(text)
-      } catch (err) {
-        console.error('Accès au presse-papier impossible: ', err)
-      }
-    } else {
-      throw new Error("Can't find `pre` selector in document")
-    }
-  }
-
-  function downloadGift() {
-    const preElt = document.querySelector('pre')
-    if (preElt) {
-      const text = preElt.innerText
-      const element = document.createElement('a')
-      element.setAttribute(
-        'href',
-        'data:text/plain;charset=utf-8,' + encodeURIComponent(text),
-      )
-      element.setAttribute('download', 'mathalea-gift.txt')
-      element.style.display = 'none'
-      document.body.appendChild(element)
-      element.click()
-      document.body.removeChild(element)
-    } else {
-      throw new Error("Can't find `pre` selector in document")
-    }
+  function downloadGift(content: string, filename: string) {
+    const element = document.createElement('a')
+    element.setAttribute(
+      'href',
+      'data:text/plain;charset=utf-8,' + encodeURIComponent(content),
+    )
+    element.setAttribute('download', filename)
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
   }
 
   function downloadScorm() {
@@ -80,7 +64,72 @@
   }
 
   let contentGift = ''
+  let contentGiftCan = ''
   let contentScorm = ''
+
+  /**
+   * Les caractères `~ = # { } : \` sont réservés dans le format GIFT et doivent
+   * y être échappés. `encodeURIComponent` neutralise tous ceux-là sauf `~`, que
+   * l'on remplace donc par son encodage.
+   */
+  function giftUrlValue(value: string): string {
+    return encodeURIComponent(value).replaceAll('~', '%7E')
+  }
+
+  /**
+   * Traduit les paramètres d'un exercice en portion d'URL MathALÉA échappée pour
+   * GIFT (`s\=3&n\=4…`). La graine est laissée de côté : elle est portée par
+   * l'attribut `graine` de l'élément `<mathalea-moodle>`.
+   */
+  function buildParamUrl(param: InterfaceParams): string {
+    let paramUrl = ''
+    for (const key of Object.keys(param) as (keyof InterfaceParams)[]) {
+      if (key === 'sup') {
+        // 28-10-2025 Ajout de encodeURIComponent pour gérer DéfiTable correctement
+        // A vérifier que ça ne casse pas d'autres choses
+        paramUrl += `s\\=${encodeURIComponent(param[key] || '')}&`
+      } else if (key === 'sup2') {
+        paramUrl += `s2\\=${param[key]}&`
+      } else if (key === 'sup3') {
+        paramUrl += `s3\\=${param[key]}&`
+      } else if (key === 'sup4') {
+        paramUrl += `s4\\=${param[key]}&`
+      } else if (key === 'sup5') {
+        paramUrl += `s5\\=${param[key]}&`
+      } else if (key === 'nbQuestions') {
+        paramUrl += `n\\=${param[key]}&`
+      } else if (key === 'versionQcm') {
+        paramUrl += `qcm\\=${param[key]}&`
+      } else if (key !== 'alea' && key !== 'id') {
+        paramUrl += `${key}\\=${param[key]}&`
+      }
+    }
+    return paramUrl.slice(0, -1)
+  }
+
+  /**
+   * Graine de l'énoncé affiché : elle n'est dans l'URL que si celle-ci a été
+   * partagée, sinon c'est celle que l'exercice s'est donnée à sa construction.
+   */
+  function currentSeed(
+    param: InterfaceParams,
+    exercice: IExercice | IExerciceStatique | undefined,
+  ): string | undefined {
+    if (param.alea != null) return param.alea
+    return exercice != null && isIExercice(exercice) ? exercice.seed : undefined
+  }
+
+  const giftScriptTag =
+    '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
+
+  /*
+    Barème de la question GIFT : Moodle n'accepte qu'un jeu figé de fractions
+    (1/1, 9/10, 5/6, 4/5…), le score transmis par MathALÉA est donc arrondi à la
+    valeur la plus proche par `moodle.js`.
+  */
+  const giftScoreAnswers =
+    '=%100%100|*=%90%90|*=%83.33333%83.333|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*\n'
+
   /*
     <organizations default="coopmaths.fr">
         <organization identifier="coopmaths.fr" structure="hierarchical">
@@ -150,29 +199,7 @@
     }
     let i = 0
     for (const param of $exercicesParams) {
-      let paramUrl = ''
-      for (const key of Object.keys(param)) {
-        if (key === 'sup') {
-          // 28-10-2025 Ajout de encodeURIComponent pour gérer DéfiTable correctement
-          // A vérifier que ça ne casse pas d'autres choses
-          paramUrl += `s\\=${encodeURIComponent(param[key] || '')}&`
-        } else if (key === 'sup2') {
-          paramUrl += `s2\\=${param[key]}&`
-        } else if (key === 'sup3') {
-          paramUrl += `s3\\=${param[key]}&`
-        } else if (key === 'sup4') {
-          paramUrl += `s4\\=${param[key]}&`
-        } else if (key === 'sup5') {
-          paramUrl += `s5\\=${param[key]}&`
-        } else if (key === 'nbQuestions') {
-          paramUrl += `n\\=${param[key]}&`
-        } else if (key === 'versionQcm') {
-          paramUrl += `qcm\\=${param[key]}&`
-        } else if (key !== 'alea' && key !== 'id') {
-          paramUrl += `${key}\\=${param[key]}&`
-        }
-      }
-      paramUrl = paramUrl.slice(0, -1)
+      const paramUrl = buildParamUrl(param)
       const exercice = exercices[i]
       const titre = isIExercice(exercice)
         ? exercice.titre
@@ -184,17 +211,14 @@
       } else if (aleaType === 'moodle') {
         graine = ''
       } else {
-        graine = ` graine\\="${param.alea}" `
+        graine = ` graine\\="${currentSeed(param, exercice)}" `
       }
       contentGift += `:: ${param.id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'} ::\n`
-      contentGift +=
-        '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
+      contentGift += giftScriptTag
       contentGift += `<mathalea-moodle v="4" url\\="${paramUrl}"${showTitle ? '' : ' titre="false"'}${graine}/>\n`
       contentGift += '{\n'
-      contentGift +=
-        '=%100%100|*=%90%90|*=%83.33333%83.333|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*\n'
-      contentGift +=
-        '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
+      contentGift += giftScoreAnswers
+      contentGift += '####' + giftScriptTag
       contentGift += `<mathalea-moodle v="4" url\\="${paramUrl}"${showTitle ? '' : ' titre="false"'}${graine} correction />\n`
       contentGift += '}\n\n'
       let xmlItem = xmlScorm.createElement('item')
@@ -221,6 +245,7 @@
       xmlResources.appendChild(xmlResource)
       i++
     }
+    buildGiftCan()
     let xmlResource = xmlScorm.createElement('resource')
     xmlResource.setAttribute('identifier', 'COMMON_FILES')
     xmlResource.setAttribute('type', 'webcontent')
@@ -264,17 +289,86 @@
     contentScorm = '<?xml version="1.0" encoding="UTF-8"?>\n' + contentScorm
   }
 
+  /**
+   * Construit l'unique question GIFT qui contient toute la Course aux nombres :
+   * l'élève y court sur l'ensemble des exercices, la note transmise à Moodle
+   * étant le total des points sur le total des questions.
+   */
+  function buildGiftCan() {
+    contentGiftCan = ''
+    if ($exercicesParams.length === 0) return
+    /*
+      Les exercices sont réunis dans une seule URL. La graine est traitée comme
+      pour l'export d'exercices : soit tirée au sort à chaque affichage
+      (`graine="-1"`), soit déduite de la question Moodle, soit celle des
+      énoncés actuels — auquel cas elle voyage dans l'URL, exercice par
+      exercice, et `moodle.js` n'en injecte pas.
+    */
+    const paramsUrl = $exercicesParams
+      .map((param, index) => {
+        const seed =
+          aleaType === 'graine'
+            ? currentSeed(param, exercices[index])
+            : undefined
+        return seed == null
+          ? buildParamUrl(param)
+          : `${buildParamUrl(param)}&alea\\=${seed}`
+      })
+      .join('&')
+    const canUrl =
+      paramsUrl +
+      `&canD\\=${canDuration}` +
+      `&canTi\\=${giftUrlValue(canTitle)}` +
+      `&canT\\=${giftUrlValue(canSubTitle)}` +
+      `&canSA\\=${canSolutionsAccess ? '1' : '0'}` +
+      `&canSM\\=${$canOptions.solutionsMode}` +
+      // La course doit être interactive : sans champ de saisie, il n'y aurait
+      // ni réponse à enregistrer ni score à transmettre à Moodle.
+      '&canI\\=1' +
+      (canIsTimerDisabled ? '&canNC\\=1' : '')
+    const graine = aleaType === 'alea' ? ' graine\\="-1"' : ''
+    const nbQuestions = exercices.reduce(
+      (total, exercice) =>
+        total + (isIExercice(exercice) ? exercice.nbQuestions : 1),
+      0,
+    )
+    const titre = [canTitle, canSubTitle]
+      .filter((part) => part !== '')
+      .join(' ')
+    contentGiftCan += `:: ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'} ::\n`
+    contentGiftCan += giftScriptTag
+    contentGiftCan += `<mathalea-moodle v="4" can url\\="${canUrl}"${graine}/>\n`
+    contentGiftCan += '{\n'
+    contentGiftCan += giftScoreAnswers
+    contentGiftCan += '####' + giftScriptTag
+    contentGiftCan += `<mathalea-moodle v="4" can url\\="${canUrl}"${graine} correction />\n`
+    contentGiftCan += '}\n\n'
+  }
+
   let aleaType = 'alea' // 'alea' | 'moodle' | 'graine'
   let useAlea = true
   let showTitle = true
+  // Réglages de la Course aux nombres, initialisés avec ceux de la page d'accueil
+  let canDuration = $canOptions.durationInMinutes
+  let canTitle = $canOptions.title
+  let canSubTitle = $canOptions.subTitle
+  let canSolutionsAccess = $canOptions.solutionsAccess
+  let canIsTimerDisabled = $canOptions.isTimerDisabled
   $: {
     aleaType
     useAlea
     showTitle
+    canDuration
+    canTitle
+    canSubTitle
+    canSolutionsAccess
+    canIsTimerDisabled
     initExercices()
   }
 
   let tab = 'gift'
+  // Vue choisie dans l'onglet Gift : question classique ou Course aux nombres
+  let giftView: 'classique' | 'can' = 'classique'
 
   $: moodleTabs = justBookmarklet
     ? [
@@ -285,7 +379,7 @@
         },
       ]
     : [
-        { id: 'gift', label: 'Export Gift (Quiz)', ariaControls: 'tabs-gift' },
+        { id: 'gift', label: 'Export Gift', ariaControls: 'tabs-gift' },
         { id: 'scorm', label: 'Export SCORM', ariaControls: 'tabs-scorm' },
         {
           id: 'bookmarklet',
@@ -352,20 +446,33 @@
                 Comment l'utiliser ?
               </h1>
 
-              <p
-                class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl"
-              >
-                MathALÉA vous permet de créer un fichier au format gift que vous
-                pourrez ensuite importer dans la banque de questions de votre
-                plateforme Moodle. Vous trouverez de plus amples informations
-                dans notre <a
-                  href="https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Utilisation-de-Mathalea-avec-Moodle"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-coopmaths-action dark:text-coopmathsdark-action"
-                  >documentation</a
-                >.
-              </p>
+              {#if giftView === 'classique'}
+                <p
+                  class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl"
+                >
+                  MathALÉA vous permet de créer un fichier au format gift que vous
+                  pourrez ensuite importer dans la banque de questions de votre
+                  plateforme Moodle. Vous trouverez de plus amples informations
+                  dans notre <a
+                    href="https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Utilisation-de-Mathalea-avec-Moodle"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-coopmaths-action dark:text-coopmathsdark-action"
+                    >documentation</a
+                  >.
+                </p>
+              {:else}
+                <p
+                  class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl"
+                >
+                  Cet export réunit tous les exercices sélectionnés dans une
+                  <strong>unique question</strong>
+                  de test Moodle, présentée sous la forme d'une Course aux nombres chronométrée.
+                  La note transmise à Moodle est le total des points obtenus rapporté
+                  au nombre de questions de la course, et la copie de l'élève est réaffichée
+                  avec les corrections une fois le test terminé.
+                </p>
+              {/if}
               <h1
                 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
               >
@@ -377,64 +484,147 @@
                   <div
                     class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
                   >
-                    Aléatoire
+                    Vue
                   </div>
                   <FormRadio
-                    title="Type d'aléatoire"
-                    bind:valueSelected={aleaType}
+                    title="Vue"
+                    bind:valueSelected={giftView}
                     labelsValues={[
-                      {
-                        label:
-                          "L'énoncé change à chaque actualisation de la page",
-                        value: 'alea',
-                      },
-                      {
-                        label:
-                          "L'énoncé change à chaque nouvelle tentative du test Moodle et est différente pour chaque élève",
-                        value: 'moodle',
-                      },
-                      {
-                        label: "Pas d'aléatoire (utiliser l'énoncé actuel')",
-                        value: 'graine',
-                      },
+                      { label: 'Vue classique', value: 'classique' },
+                      { label: 'Vue Course aux nombres', value: 'can' },
                     ]}
                   />
                   <div
                     class="pl-2 pb-2 mt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
                   >
-                    Autres options
+                    Aléatoire
                   </div>
-                  <ButtonToggleAlt
-                    title={'Afficher le titre'}
-                    bind:value={showTitle}
-                    explanations={[
-                      "Le titre et la référence de l'exercice sera affiché",
-                      "Le titre et la référence de l'exercice ne sera pas affiché",
-                    ]}
-                  />
+                  {#if giftView === 'classique'}
+                    <FormRadio
+                      title="Type d'aléatoire"
+                      bind:valueSelected={aleaType}
+                      labelsValues={[
+                        {
+                          label:
+                            "L'énoncé change à chaque actualisation de la page",
+                          value: 'alea',
+                        },
+                        {
+                          label:
+                            "L'énoncé change à chaque nouvelle tentative du test Moodle et est différente pour chaque élève",
+                          value: 'moodle',
+                        },
+                        {
+                          label: "Pas d'aléatoire (utiliser l'énoncé actuel')",
+                          value: 'graine',
+                        },
+                      ]}
+                    />
+                    <div
+                      class="pl-2 pb-2 mt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+                    >
+                      Autres options
+                    </div>
+                    <ButtonToggleAlt
+                      title={'Afficher le titre'}
+                      bind:value={showTitle}
+                      explanations={[
+                        "Le titre et la référence de l'exercice sera affiché",
+                        "Le titre et la référence de l'exercice ne sera pas affiché",
+                      ]}
+                    />
+                  {:else}
+                    <!--
+                      `title` sert à nommer le groupe de boutons radio : il doit
+                      différer de celui de la vue classique, dont les boutons
+                      restent dans le DOM (masqués) et liés au même réglage.
+                    -->
+                    <FormRadio
+                      title="Type d'aléatoire de la course"
+                      bind:valueSelected={aleaType}
+                      labelsValues={[
+                        {
+                          label:
+                            'Les énoncés changent à chaque actualisation de la page',
+                          value: 'alea',
+                        },
+                        {
+                          label:
+                            'Les énoncés changent à chaque nouvelle tentative du test Moodle et sont différents pour chaque élève',
+                          value: 'moodle',
+                        },
+                        {
+                          label: "Pas d'aléatoire (utiliser les énoncés actuels)",
+                          value: 'graine',
+                        },
+                      ]}
+                    />
+                    <div
+                      class="pl-2 pb-2 mt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+                    >
+                      Course aux nombres
+                    </div>
+                    <div class="pl-2 flex flex-col space-y-3 max-w-md">
+                      <InputText title="Titre" bind:value={canTitle} />
+                      <InputText title="Sous-titre" bind:value={canSubTitle} />
+                      <div>
+                        <div
+                          class="font-light text-sm text-coopmaths-struct dark:text-coopmathsdark-struct"
+                        >
+                          Durée (en minutes)
+                        </div>
+                        <InputNumber
+                          id="gift-can-duration"
+                          min={1}
+                          max={120}
+                          ariaLabel="Durée de la course en minutes"
+                          bind:value={canDuration}
+                        />
+                      </div>
+                      <!--
+                        `id` explicite : celui par défaut est fondé sur l'horodatage
+                        et deux interrupteurs créés dans la même milliseconde le
+                        partageraient, rendant leur libellé incliquable.
+                      -->
+                      <ButtonToggleAlt
+                        id="gift-can-no-timer"
+                        title={'Course sans chronomètre'}
+                        bind:value={canIsTimerDisabled}
+                        explanations={[
+                          "La course n'est pas chronométrée : l'élève la termine quand il le souhaite",
+                          'La course est chronométrée',
+                        ]}
+                      />
+                      <ButtonToggleAlt
+                        id="gift-can-solutions"
+                        title={'Accès aux corrections'}
+                        bind:value={canSolutionsAccess}
+                        explanations={[
+                          "L'élève voit les corrections à la fin de la course",
+                          "L'élève ne voit que son score à la fin de la course",
+                        ]}
+                      />
+                    </div>
+                  {/if}
                 </div>
                 <button
                   type="submit"
-                  on:click={downloadGift}
+                  on:click={() =>
+                    giftView === 'classique'
+                      ? downloadGift(contentGift, 'mathalea-gift.txt')
+                      : downloadGift(contentGiftCan, 'mathalea-gift-can.txt')}
                   class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
                 >
                   <i class="bx bx-download mr-2"></i>Télécharger le fichier gift
                 </button>
               </div>
-              <!-- <button
-                  on:click={copyCode}
-                  class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-                >
-                Copier le code
-                </button> -->
-
               <h1
                 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
               >
                 Code
               </h1>
               <pre
-                class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{contentGift}
+                class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{giftView === 'classique' ? contentGift : contentGiftCan}
             </pre>
             </section>
             <!-- FIN GIFT -->

@@ -14,6 +14,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
@@ -22,7 +23,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre = 'Calculer un produit scalaire avec une projection'
 export const dateDePublication = '29/04/2025'
 
@@ -129,7 +130,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -161,7 +162,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -193,7 +194,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -224,7 +225,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -255,7 +256,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -290,7 +291,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -361,7 +362,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -398,7 +399,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -477,7 +478,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -513,7 +514,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -549,7 +550,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )
@@ -586,7 +587,7 @@ export default class CalculProduitScalaireProjection extends Exercice {
                   mainlevee: false,
                   amplitude: 0.3,
                   scale: 0.4,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 objets,
               )

@@ -1,20 +1,19 @@
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 export const titre =
   "Trouver un ordre de grandeur d'opérations sur les décimaux"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * * Ordre de grandeur d'une opération entre décimaux
@@ -26,7 +25,7 @@ export const uuid = '843e5'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['9NO8-12b'],
+  'fr-ch': ['PR-32'],
 }
 // une fonction pour ordre de grandeur en fonction de ... opération 1
 function myOrdreOpe1(c, d) {
@@ -107,8 +106,8 @@ export default class OrdreDeGrandeurOperationsDecimaux extends Exercice {
     this.sup2 = 3
 
     // this.nbQuestionsModifiable = false;
-    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
-    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
   }
 
   nouvelleVersion() {
@@ -238,8 +237,7 @@ export default class OrdreDeGrandeurOperationsDecimaux extends Exercice {
         enonce: tableau.output,
         question: '',
         correction: `
-          Commençons par calculer un ordre de grandeur du résultat de chaque opération dans la première colonne du tableau.
-          <br>
+          Commençons par calculer un ordre de grandeur du résultat de chaque opération dans la première colonne du tableau.<br>
           ${tableauColonneLigne(ligneEntete, tabEntetesLignesCorr, coches)}`,
       }
       const reponses = Object.assign(

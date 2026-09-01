@@ -1,10 +1,11 @@
 import Decimal from 'decimal.js'
 import { texTexte } from '../../lib/format/texTexte'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { range } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -14,7 +15,7 @@ import { getDigitFromNumber } from './_ExerciceConversionsLongueurs'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+
 export const titre = "Effectuer des conversions d'aires"
 
 /**
@@ -37,9 +38,11 @@ export default class ExerciceConversionsAires extends Exercice {
     super()
     this.sup = 1 // Niveau de difficulté de l'exercice
     this.sup2 = false // Avec des nombres décimaux ou pas
-    this.sup3 = 1 // interactifType Qcm
+    this.sup3 = 1 // version QCM
     this.sup4 = false // tableau
     this.spacing = 2
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
 
     this.amcReady = amcReady
     this.amcType = amcType
@@ -57,26 +60,34 @@ export default class ExerciceConversionsAires extends Exercice {
         2,
         '1 : QCM\n2 : Numérique',
       ] // Texte, tooltip
-    this.besoinFormulaire4CaseACocher = ['Avec tableau']
+    this.besoinFormulaire4CaseACocher = ["Avec tableau dans l'énoncé"]
+    this.besoinFormulaire5Texte = [
+      'Type de correction',
+      'Nombres séparés par des tirets\n1:  avec tableau\n2: Par décomposition des unités\n3: Par multiplication ou divisions successives',
+    ]
+    this.sup5 = '1-2-3' // Type de correction
   }
 
   nouvelleVersion() {
+    const withTableauCorr = String(this.sup5).includes('1')
+    const withDecompositionCorr = String(this.sup5).includes('2')
+    const withMultiplicationCorr = String(this.sup5).includes('3')
+
     this.consigne =
       this.interactif && this.sup3 === 1
         ? 'Cocher la bonne réponse.'
         : 'Compléter.'
-    this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     Decimal.set({ toExpNeg: -15 })
 
     let prefixeMulti = [
-      [' da', '\\times100', 100],
-      [' h', '\\times100\\times100', 10000],
-      [' k', '\\times100\\times100\\times100', 1000000],
-    ]
+      [' da', '\\times100', 100, '\\times10'],
+      [' h', '\\times100\\times100', 10000, '\\times100'],
+      [' k', '\\times100\\times100\\times100', 1000000, '\\times1000'],
+    ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
     let prefixeDiv = [
-      [' d', '\\div100', 100],
-      [' c', '\\div100\\div100', 10000],
-      [' m', '\\div100\\div100\\div100', 1000000],
+      [' d', '\\div100', 100, '\\times0,1'],
+      [' c', '\\div100\\div100', 10000, '\\times0,01'],
+      [' m', '\\div100\\div100\\div100', 1000000, '\\times0,001'],
     ]
     const unite = 'm'
     const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
@@ -85,7 +96,7 @@ export default class ExerciceConversionsAires extends Exercice {
     for (
       let i = 0,
         a,
-        k,
+        k: number,
         div,
         prefixe,
         resultat,
@@ -144,102 +155,91 @@ export default class ExerciceConversionsAires extends Exercice {
       }
 
       if (!div && typesDeQuestions < 4) {
-        // Si il faut multiplier pour convertir
-        /*      prefixeMulti = [
-                  [' da', '\\times10\\times10', 100],
-                  [' h', '\\times100\\times100', 10000],
-                  [' k', '\\times1~000\\times1~000', 1000000]
-                ]      // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
-                */
         const prefixeMulti = [
-          [' da', '\\times100', 100],
-          [' h', '\\times100\\times100', 10000],
-          [' k', '\\times100\\times100\\times100', 1000000],
+          [' da', '\\times100', 100, '\\times10'],
+          [' h', '\\times100\\times100', 10000, '\\times100'],
+          [' k', '\\times100\\times100\\times100', 1000000, '\\times1000'],
         ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
         resultat = a.mul(prefixeMulti[k][2]) // Utilise Decimal pour avoir le résultat exact même avec des décimaux
-        texte =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          '^2' +
-          ' = \\dotfills ' +
-          texTexte(unite) +
-          '^2' +
-          '$'
-        texteCorr =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeMulti[k][0] + unite) +
-          '^2' +
-          ' =  ' +
-          texNombre(a, 2) +
-          prefixeMulti[k][1] +
-          texTexte(unite) +
-          '^2' +
-          ' = ' +
-          texNombre(resultat, 0) +
-          texTexte(unite) +
-          '^2' +
-          '$'
+        texte = `$${texNombre(a, 2)} ${texTexte(prefixeMulti[k][0] + unite)}^2 = \\dotfills ${texTexte(unite)}^2$`
+        texteCorr = withTableauCorr
+          ? buildTab(
+              String(a),
+              prefixeMulti[k][0] + 'm',
+              String(resultat),
+              unite,
+              2,
+              true,
+            ) + '<br>'
+          : ''
+
+        texteCorr += withDecompositionCorr
+          ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(prefixeMulti[k][0] + unite)}^2 
+          &=${texNombre(a, 2)}\\times1 ${texTexte(prefixeMulti[k][0] + unite)}\\times1 ${texTexte(prefixeMulti[k][0] + unite)}\\\\
+          &=${texNombre(a, 2)} ${prefixeMulti[k][3]} ${texTexte(unite)} ${prefixeMulti[k][3]} ${texTexte(unite)}\\\\
+          &=${texNombre(a, 2)} \\times${texNombre(Number(prefixeMulti[k][2]), 0)} ${texTexte(unite)}^2\\\\
+          &=${texNombre(resultat, 0)} ${texTexte(unite)}^2
+          \\end{aligned}$<br>`
+          : ''
+        texteCorr += withMultiplicationCorr
+          ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(prefixeMulti[k][0] + unite)}^2 &=
+          ${range(k)
+            .reverse()
+            .map((i) =>
+              i === 0
+                ? `${texNombre(a, 2)} ${'\\times100'.repeat(k - i + 1)} ${texTexte(unite)}^2`
+                : `${texNombre(a, 2)} ${'\\times100'.repeat(k - i + 1)} ${texTexte(prefixeMulti[i - 1][0] + unite)}^2`,
+            )
+            .join('\\\\\n&= ')}\\\\
+            &=${texNombre(a, 2)} \\times ${texNombre(Number(prefixeMulti[k][2]), 0)} ${texTexte(unite)}^2\\\\
+            &=${texNombre(resultat, 10)} ${texTexte(unite)}^2\\end{aligned}$`
+          : ''
         prefixe = prefixeMulti[k][2]
-        texteCorr +=
-          '<br>' +
-          buildTab(
-            String(a),
-            prefixeMulti[k][0] + 'm',
-            String(resultat),
-            unite,
-            2,
-            true,
-          )
       } else if (div && typesDeQuestions < 4) {
-        /* prefixeDiv = [
-                  [' d', '\\div10\\div10', 100],
-                  [' c', '\\div100\\div100', 10000],
-                  [' m', '\\div1~000\\div1~000', 1000000]
-                ] */
         prefixeDiv = [
-          [' d', '\\div100', 100],
-          [' c', '\\div100\\div100', 10000],
-          [' m', '\\div100\\div100\\div100', 1000000],
+          [' d', '\\div100', 100, '\\times0,1'],
+          [' c', '\\div100\\div100', 10000, '\\times0,01'],
+          [' m', '\\div100\\div100\\div100', 1000000, '\\times0,001'],
         ]
         k = randint(0, 1) // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
         resultat = a.div(prefixeDiv[k][2]) // Attention aux notations scientifiques pour 10e-8
-        texte =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeDiv[k][0] + unite) +
-          '^2' +
-          ' = \\dotfills ' +
-          texTexte(unite) +
-          '^2' +
-          '$'
-        texteCorr =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(prefixeDiv[k][0] + unite) +
-          '^2' +
-          ' =  ' +
-          texNombre(a, 2) +
-          prefixeDiv[k][1] +
-          texTexte(unite) +
-          '^2' +
-          ' = ' +
-          texNombre(resultat, 10) +
-          texTexte(unite) +
-          '^2' +
-          '$'
+        texte = `$${texNombre(a, 2)} ${texTexte(prefixeDiv[k][0] + unite)}^2 = \\dotfills ${texTexte(unite)}^2$`
+        texteCorr = withTableauCorr
+          ? buildTab(
+              String(a),
+              prefixeDiv[k][0] + 'm',
+              String(resultat),
+              unite,
+              2,
+              true,
+            ) + '<br>'
+          : ''
+        texteCorr += withDecompositionCorr
+          ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(prefixeDiv[k][0] + unite)}^2
+          &=${texNombre(a, 2)}\\times1 ${texTexte(prefixeDiv[k][0] + unite)}\\times1 ${texTexte(prefixeDiv[k][0] + unite)}\\\\
+          &=${texNombre(a, 2)} ${prefixeDiv[k][3]} ${texTexte(unite)} ${prefixeDiv[k][3]} ${texTexte(unite)}\\\\
+          &=${texNombre(a, 2)} \\times${texNombre(1 / Number(prefixeDiv[k][2]), 6)} ${texTexte(unite)}^2\\\\
+          &=${texNombre(resultat, 10)} ${texTexte(unite)}^2
+          \\end{aligned}$<br>`
+          : ''
+        texteCorr += withMultiplicationCorr
+          ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(prefixeDiv[k][0] + unite)}^2 &=
+          ${range(k)
+            .reverse()
+            .map((i) =>
+              i === 0
+                ? `${texNombre(a, 2)} ${'\\div100'.repeat(k - i + 1)} ${texTexte(unite)}^2`
+                : `${texNombre(a, 2)} ${'\\div100'.repeat(k - i + 1)} ${texTexte(prefixeDiv[i - 1][0] + unite)}^2`,
+            )
+            .join('\\\\\n&= ')}\\\\
+            &=${texNombre(a, 2)} \\div ${texNombre(Number(prefixeDiv[k][2]), 0)} ${texTexte(unite)}^2\\\\
+            &=${texNombre(resultat, 10)} ${texTexte(unite)}^2\\end{aligned}$`
+          : ''
         prefixe = prefixeDiv[k][2]
-        texteCorr +=
-          '<br>' +
-          buildTab(
-            String(a),
-            prefixeDiv[k][0] + 'm',
-            String(resultat),
-            unite,
-            2,
-            true,
-          )
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
         let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l'un à l'autre
@@ -248,126 +248,127 @@ export default class ExerciceConversionsAires extends Exercice {
         }
         const unite2 = unite1 + ecart
         if (randint(0, 1) > 0) {
+          // On multiplie pour passer de l'unité 2 à l'unité 1
           resultat = a.mul(Math.pow(10, 2 * ecart))
-          texte =
-            '$ ' +
-            texNombre(a, 2) +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            ' = \\dotfills ' +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            '$'
-          texteCorr =
-            '$ ' +
-            texNombre(a, 2) +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            ' =  ' +
-            texNombre(a, 2) +
-            '\\times' +
-            texNombre(Math.pow(10, 2 * ecart)) +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            ' = ' +
-            texNombre(resultat, 0) +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            '$'
-          prefixe = Math.pow(10, 2 * ecart)
-          texteCorr +=
-            '<br>' +
-            buildTab(
-              String(a),
-              listeUnite[unite2],
-              String(resultat),
-              listeUnite[unite1],
-              2,
-              true,
+          texte = `$${texNombre(a, 2)} ${texTexte(listeUnite[unite2])}^2 = \\dotfills ${texTexte(listeUnite[unite1])}^2$`
+
+          texteCorr = withTableauCorr
+            ? buildTab(
+                String(a),
+                listeUnite[unite2],
+                String(resultat),
+                listeUnite[unite1],
+                2,
+                true,
+              ) + '<br>'
+            : ''
+          texteCorr += withDecompositionCorr
+            ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(listeUnite[unite2])}^2
+          &=${texNombre(a, 2)}\\times1 ${texTexte(listeUnite[unite2])}\\times1 ${texTexte(listeUnite[unite2])}\\\\
+          &=${texNombre(a, 2)} ${prefixeMulti[ecart - 1][3]}${texTexte(listeUnite[unite1])}   ${prefixeMulti[ecart - 1][3]}${texTexte(listeUnite[unite1])} \\\\
+          &=${texNombre(a, 2)} \\times${texNombre(Math.pow(10, 2 * ecart))} ${texTexte(listeUnite[unite1])}^2\\\\
+          &=${texNombre(resultat, 0)} ${texTexte(listeUnite[unite1])}^2
+          \\end{aligned}$<br>`
+            : ''
+
+          texteCorr += withMultiplicationCorr
+            ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(listeUnite[unite2])}^2 &=
+          ${range(Math.abs(ecart - 1))
+            .reverse()
+            .map(
+              (i) =>
+                `${texNombre(a, 2)} ${'\\times100'.repeat(Math.abs(ecart - i))} ${texTexte(listeUnite[unite1 + i])}^2`,
             )
+            .join('\\\\\n&= ')}\\\\
+            &=${texNombre(a, 2)} \\times ${texNombre(Math.pow(10, 2 * ecart))} ${texTexte(listeUnite[unite1])}^2\\\\
+            &=${texNombre(resultat, 10)} ${texTexte(listeUnite[unite1])}^2\\end{aligned}$`
+            : ''
+
+          prefixe = Math.pow(10, 2 * ecart)
         } else {
+          // On divise pour passer de l'unité 1 à l'unité 2
           resultat = a.div(Math.pow(10, 2 * ecart))
-          texte =
-            '$ ' +
-            texNombre(a, 2) +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            ' = \\dotfills ' +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            '$'
-          texteCorr =
-            '$ ' +
-            texNombre(a, 2) +
-            texTexte(listeUnite[unite1]) +
-            '^2' +
-            ' =  ' +
-            texNombre(a, 2) +
-            '\\div' +
-            texNombre(Math.pow(10, 2 * ecart)) +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            ' = ' +
-            texNombre(resultat, 10) +
-            texTexte(listeUnite[unite2]) +
-            '^2' +
-            '$'
+          texte = `$${texNombre(a, 2)} ${texTexte(listeUnite[unite1])}^2 = \\dotfills ${texTexte(listeUnite[unite2])}^2$`
           prefixe = Math.pow(10, 2 * ecart)
-          texteCorr +=
-            '<br>' +
-            buildTab(
-              String(a),
-              listeUnite[unite1],
-              String(resultat),
-              listeUnite[unite2],
-              2,
-              true,
-            )
+          texteCorr = withTableauCorr
+            ? buildTab(
+                String(a),
+                listeUnite[unite1],
+                String(resultat),
+                listeUnite[unite2],
+                2,
+                true,
+              ) + '<br>'
+            : ''
+          texteCorr += withDecompositionCorr
+            ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(listeUnite[unite1])}^2
+          &=${texNombre(a, 2)}\\times1 ${texTexte(listeUnite[unite1])}\\times1 ${texTexte(listeUnite[unite1])}\\\\
+          &=${texNombre(a, 2)}  ${prefixeDiv[ecart - 1][3]} ${texTexte(listeUnite[unite2])}  ${prefixeDiv[ecart - 1][3]} ${texTexte(listeUnite[unite2])}\\\\
+          &=${texNombre(a, 2)} \\times${texNombre(Math.pow(10, -2 * ecart))} ${texTexte(listeUnite[unite2])}^2\\\\
+          &=${texNombre(resultat, 10)} ${texTexte(listeUnite[unite2])}^2
+          \\end{aligned}$<br>`
+            : ''
+          texteCorr += withMultiplicationCorr
+            ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(listeUnite[unite1])}^2 &= 
+${range(Math.abs(ecart - 1))
+  .reverse()
+  .map(
+    (i) =>
+      `${texNombre(a, 2)} ${'\\times0,01'.repeat(Math.abs(ecart - i))} ${texTexte(listeUnite[unite1 + i])}^2`,
+  )
+  .join('\\\\\n&= ')}\\\\
+            &=${texNombre(a, 2)} \\times ${texNombre(Math.pow(10, -2 * ecart))} ${texTexte(listeUnite[unite2])}^2\\\\
+            &=${texNombre(resultat, 10)} ${texTexte(listeUnite[unite2])}^2\\end{aligned}$`
+            : ''
         }
       } else {
         prefixeMulti = [
-          ['ha', '\\times100\\times100', 10000],
-          ['a', '\\times100', 100],
+          ['ha', '\\times100\\times100', 10000, '\\times100'],
+          ['a', '\\times100', 100, '\\times10'],
         ]
         k = randint(0, 1)
         resultat = a.mul(prefixeMulti[k][2]) // Utilise Decimal pour avoir le résultat exact même avec des décimaux
-        texte =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(String(prefixeMulti[k][0])) +
-          ' = \\dotfills ' +
-          texTexte(unite) +
-          '^2' +
-          '$'
-        texteCorr =
-          '$ ' +
-          texNombre(a, 2) +
-          texTexte(String(prefixeMulti[k][0])) +
-          ' =  ' +
-          texNombre(a, 2) +
-          prefixeMulti[k][1] +
-          texTexte(unite) +
-          '^2' +
-          ' = ' +
-          texNombre(resultat, 10) +
-          texTexte(unite) +
-          '^2' +
-          '$'
+        texte = `$${texNombre(a, 2)} ${texTexte(String(prefixeMulti[k][0]))} = \\dotfills ${texTexte(unite)}^2$`
+
+        texteCorr = withTableauCorr
+          ? buildTab(
+              String(a),
+              String(prefixeMulti[k][0]),
+              String(resultat),
+              unite,
+              2,
+              true,
+            ) + '<br>'
+          : ''
+        texteCorr += withDecompositionCorr
+          ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(String(prefixeMulti[k][0]))} 
+          &=${texNombre(a, 2)} ${prefixeMulti[k][3]} ${texTexte(unite)} ${prefixeMulti[k][3]} ${texTexte(unite)}\\\\
+          &=${texNombre(a, 2)} \\times${texNombre(Number(prefixeMulti[k][2]), 0)} ${texTexte(unite)}^2\\\\
+          &=${texNombre(resultat, 0)} ${texTexte(unite)}^2
+          \\end{aligned}$<br>`
+          : ''
+        texteCorr += withMultiplicationCorr
+          ? `$\\begin{aligned}
+          ${texNombre(a, 2)} ${texTexte(String(prefixeMulti[k][0]))} &=
+          ${range(1 - k)
+            .reverse()
+            .map((i) =>
+              i === 0
+                ? `${texNombre(a, 2)} ${'\\times100'.repeat(2 - k - i)} ${texTexte(unite)}^2`
+                : `${texNombre(a, 2)} ${'\\times100'.repeat(2 - k - i)} ${texTexte(String(prefixeMulti[i][0]))}`,
+            )
+            .join('\\\\\n&= ')}\\\\
+            &=${texNombre(resultat, 10)} ${texTexte(unite)}^2\\end{aligned}$`
+          : ''
+
         prefixe = prefixeMulti[k][2]
-        //    texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite, true, false, true)
-        texteCorr +=
-          '<br>' +
-          buildTab(
-            String(a),
-            String(prefixeMulti[k][0]),
-            String(resultat),
-            unite,
-            2,
-            true,
-            false,
-            true,
-          )
       }
+
       this.autoCorrection[i].enonce = `${texte}\n`
       resultat2 = resultat.div(10)
       resultat3 = resultat.mul(10)
@@ -397,7 +398,7 @@ export default class ExerciceConversionsAires extends Exercice {
       ]
       const props = propositionsQcm(this, i)
 
-      if (this.interactif && this.interactifType === 'qcm') {
+      if (this.interactif && this.sup3 !== 2) {
         texte += props.texte
       }
 
@@ -406,14 +407,21 @@ export default class ExerciceConversionsAires extends Exercice {
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfills', '\\text{ en }')
         }
-        if (this.interactif && this.interactifType !== 'qcm') {
+        if (this.interactif && this.sup3 === 2) {
           texte = texte.replace(
             '\\dotfills',
             '$' +
               ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
               '$',
           )
-          setReponse(this, i, parseFloat(resultat.toString()))
+          handleAnswers(
+            this,
+            i,
+            {
+              reponse: { value: parseFloat(resultat.toString()) },
+            },
+            { formatInteractif: 'mathlive' },
+          )
         }
         if (context.isHtml) {
           texte = texte.replace(

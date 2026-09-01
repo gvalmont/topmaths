@@ -7,13 +7,12 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer un périmètre par comptage'
 export const dateDePublication = '25/04/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 
 /**
@@ -25,7 +24,7 @@ export const uuid = 'b9878'
 
 export const refs = {
   'fr-fr': ['can6M15', 'CM1M1H-flash3'],
-  'fr-ch': ['9GM1-13'],
+  'fr-ch': ['9GM1B-20'],
 }
 export default class PerimetreParComptageCan extends ExerciceSimple {
   constructor() {
@@ -46,10 +45,10 @@ export default class PerimetreParComptageCan extends ExerciceSimple {
   nouvelleVersion() {
     const aire =
       this.sup === 1
-        ? randint(5, 9)
+        ? this.quotaRandint('aire1', 5, 9)
         : this.sup === 2
-          ? randint(10, 19)
-          : randint(20, 29)
+          ? this.quotaRandint('aire2', 10, 19)
+          : this.quotaRandint('aire3', 20, 29)
     const tetris = new Polyquad(aire, 0, 0)
     if (tetris.rectangle.xMax < tetris.rectangle.yMax)
       tetris.rotate(choice([true, false]))
@@ -74,7 +73,7 @@ export default class PerimetreParComptageCan extends ExerciceSimple {
     if (this.sup2) objets.push(grid)
     const fig1 = mathalea2d(
       Object.assign(
-        { pixelsParCm: 20, scale: 0.5, style: 'display: inline-block' },
+        { pixelsParCm: 20, scale: 0.5, display: 'inline-block' } as const,
         fixeBordures(objets, {
           rxmin: -0.1,
           rymin: -0.1,

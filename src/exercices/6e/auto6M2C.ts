@@ -15,7 +15,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Trouver une aire ou un périmètre par comptage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '20/04/2025'
 export const dateDeModifImportante = '26/04/2025'
@@ -29,7 +28,7 @@ export const uuid = '83be3'
 export const refs = {
   'fr-fr': ['auto6M2C'],
   'fr-2016': ['6M10-0'],
-  'fr-ch': ['9GM1-16'],
+  'fr-ch': ['9GM1B-5'],
 }
 export default class AireParComptage extends Exercice {
   constructor() {
@@ -174,19 +173,83 @@ export default class AireParComptage extends Exercice {
         this.sup2 === 1
           ? `${figure}
 Quelles sont les aires des figures ci-dessus ?<br>
- ${ajouteQuestionMathlive({ exercice: this, question: 2 * i, typeInteractivite: 'mathlive', texteAvant: 'figure 1 : ', texteApres: ` ${uniteAire} ${sp(17)} `, objetReponse: { reponse: { value: aire } } })}
- ${ajouteQuestionMathlive({ exercice: this, question: 2 * i + 1, typeInteractivite: 'mathlive', texteAvant: 'figure 2 : ', texteApres: ` ${uniteAire}.`, objetReponse: { reponse: { value: aire2 } } })}`
+ ${ajouteQuestionMathlive({
+   exercice: this,
+   question: 2 * i,
+   typeInteractivite: 'mathlive',
+   texteAvant: 'figure 1 : ',
+   texteApres: ` ${uniteAire} ${sp(17)} `,
+   reponseParams: { formatInteractif: 'mathalea-mathfield' },
+   objetReponse: { reponse: { value: aire } },
+ })}
+ ${ajouteQuestionMathlive({
+   exercice: this,
+   question: 2 * i + 1,
+   typeInteractivite: 'mathlive',
+   texteAvant: 'figure 2 : ',
+   texteApres: ` ${uniteAire}.`,
+   reponseParams: { formatInteractif: 'mathalea-mathfield' },
+   objetReponse: { reponse: { value: aire2 } },
+ })}`
           : this.sup2 === 2
             ? `${figure}
  Quels sont les périmètres des figures ci-dessus ?<br>
-  ${ajouteQuestionMathlive({ exercice: this, question: 2 * i, typeInteractivite: 'mathlive', texteAvant: 'figure 1 : ', texteApres: ` ${uniteLongueur} ${sp(6)}`, objetReponse: { reponse: { value: tetris.poly.perimetre } } })}
-  ${ajouteQuestionMathlive({ exercice: this, question: 2 * i + 1, typeInteractivite: 'mathlive', texteAvant: 'figure 2 : ', texteApres: ` ${uniteLongueur}.`, objetReponse: { reponse: { value: tetris2.poly.perimetre } } })}`
+  ${ajouteQuestionMathlive({
+    exercice: this,
+    question: 2 * i,
+    typeInteractivite: 'mathlive',
+    texteAvant: 'figure 1 : ',
+    texteApres: ` ${uniteLongueur} ${sp(6)}`,
+    reponseParams: { formatInteractif: 'mathalea-mathfield' },
+    objetReponse: { reponse: { value: tetris.poly.perimetre } },
+  })}
+  ${ajouteQuestionMathlive({
+    exercice: this,
+    question: 2 * i + 1,
+    typeInteractivite: 'mathlive',
+    texteAvant: 'figure 2 : ',
+    texteApres: ` ${uniteLongueur}.`,
+    reponseParams: { formatInteractif: 'mathalea-mathfield' },
+    objetReponse: { reponse: { value: tetris2.poly.perimetre } },
+  })}`
             : `${figure}
   Quels sont les aires et les périmètres des figures ci-dessus ?<br>
-  ${ajouteQuestionMathlive({ exercice: this, question: 4 * i, typeInteractivite: 'mathlive', texteAvant: ' Aire figure 1 : ', texteApres: `${uniteAire} ${sp(17)}`, objetReponse: { reponse: { value: aire } } })}
-  ${ajouteQuestionMathlive({ exercice: this, question: 4 * i + 1, typeInteractivite: 'mathlive', texteAvant: 'Aire figure 2 : ', texteApres: `${uniteAire}.`, objetReponse: { reponse: { value: aire2 } } })}${this.interactif ? '<br>' : ''}
-  ${ajouteQuestionMathlive({ exercice: this, question: 4 * i + 2, typeInteractivite: 'mathlive', texteAvant: 'Périmètre figure 1 : ', texteApres: `${uniteLongueur} ${sp(6)}`, objetReponse: { reponse: { value: tetris.poly.perimetre } } })}
-  ${ajouteQuestionMathlive({ exercice: this, question: 4 * i + 3, typeInteractivite: 'mathlive', texteAvant: 'Périmètre figure 2 : ', texteApres: `${uniteLongueur}.`, objetReponse: { reponse: { value: tetris2.poly.perimetre } } })}`
+  ${ajouteQuestionMathlive({
+    exercice: this,
+    question: 4 * i,
+    typeInteractivite: 'mathlive',
+    texteAvant: ' Aire figure 1 : ',
+    texteApres: `${uniteAire} ${sp(17)}`,
+    reponseParams: { formatInteractif: 'mathalea-mathfield' },
+    objetReponse: { reponse: { value: aire } },
+  })}
+  ${ajouteQuestionMathlive({
+    exercice: this,
+    question: 4 * i + 1,
+    typeInteractivite: 'mathlive',
+    texteAvant: 'Aire figure 2 : ',
+    texteApres: `${uniteAire}.`,
+    reponseParams: { formatInteractif: 'mathalea-mathfield' },
+    objetReponse: { reponse: { value: aire2 } },
+  })}${this.interactif ? '<br>' : ''}
+  ${ajouteQuestionMathlive({
+    exercice: this,
+    question: 4 * i + 2,
+    typeInteractivite: 'mathlive',
+    texteAvant: 'Périmètre figure 1 : ',
+    texteApres: `${uniteLongueur} ${sp(6)}`,
+    reponseParams: { formatInteractif: 'mathalea-mathfield' },
+    objetReponse: { reponse: { value: tetris.poly.perimetre } },
+  })}
+  ${ajouteQuestionMathlive({
+    exercice: this,
+    question: 4 * i + 3,
+    typeInteractivite: 'mathlive',
+    texteAvant: 'Périmètre figure 2 : ',
+    texteApres: `${uniteLongueur}.`,
+    reponseParams: { formatInteractif: 'mathalea-mathfield' },
+    objetReponse: { reponse: { value: tetris2.poly.perimetre } },
+  })}`
       const texteCorr =
         this.sup2 === 1
           ? `L'aire de la figure 1 est $${miseEnEvidence(aire)}$ ${uniteAire} et celle de la figure 2 est  $${miseEnEvidence(aire2)}$ ${uniteAire}.`

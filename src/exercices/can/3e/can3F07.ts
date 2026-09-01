@@ -8,13 +8,12 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
@@ -25,7 +24,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const uuid = '82f73'
 
 export const refs = {
-  'fr-fr': ['can3F07'],
+  'fr-fr': ['can3F07', 'can2F21-07', '2F21-flash1'],
   'fr-ch': [],
 }
 export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
@@ -39,8 +38,8 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
   nouvelleVersion() {
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1, 'milieu', true)
     let s1, s2
-    const a = randint(-4, 4, 0)
-    const b = randint(-4, 4, 0)
+    const a = this.quotaRandint('a', -4, 4, [0])
+    const b = this.quotaRandint('b', -4, 4, [0])
 
     const rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
 
@@ -54,7 +53,7 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
         ymax: 5,
         pixelsParCm: 20,
         scale: 0.7,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       rep,
       courbe((x) => a * x + b, { repere: rep, color: bleuMathalea }),
@@ -94,7 +93,7 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
           ymax: 5,
           pixelsParCm: 20,
           scale: 0.7,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         rep,
         courbe((x) => a * x + b, { repere: rep, color: bleuMathalea }),
@@ -114,7 +113,7 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
           ymax: 5,
           pixelsParCm: 20,
           scale: 0.7,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         rep,
         courbe((x) => a * x + b, { repere: rep, color: bleuMathalea }),
@@ -136,7 +135,7 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
         ymax: 5,
         pixelsParCm: 20,
         scale: 0.7,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       rep,
       courbe((x) => a * x + b, { repere: rep, color: bleuMathalea }),

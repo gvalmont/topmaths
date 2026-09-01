@@ -35,13 +35,12 @@ import { mediatrice } from '../../lib/2d/Mediatrice'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 export const titre =
   "Trouver l'image d'une figure par une symétrie axiale dans un pavage"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '14/12/2020'
@@ -56,7 +55,7 @@ export const uuid = '328b1'
 export const refs = {
   'fr-fr': ['6G7B-7'],
   'fr-2016': ['6G25-3'],
-  'fr-ch': ['9ES6-20'],
+  'fr-ch': ['9ES3B-8'],
 }
 
 const longueur = (A: PointAbstrait, B: PointAbstrait) =>
@@ -99,7 +98,7 @@ export default class PavageEtReflexion2d extends Exercice {
 
   nouvelleVersion() {
     const nbSymetriques = Math.max(1, Math.min(7, parseInt(this.sup4)))
-    const videcouples = function (tableau: any[]) {
+    const videcouples = function (tableau: number[][]) {
       for (let k = 0; k < tableau.length; k++) {
         for (let j = k + 1; j < tableau.length; j++) {
           if (tableau[k][1] === tableau[j][0]) {
@@ -199,10 +198,10 @@ export default class PavageEtReflexion2d extends Exercice {
     let B
     let d
     let image
-    let couples = []
+    let couples: number[][] = []
     let tailles = []
     let monpavage: Pavage = pavage()
-    let fenetre: FenetreType = {
+    let fenetreMathalea2d: FenetreType = {
       xmin: 0,
       ymin: 0,
       xmax: 10,
@@ -213,13 +212,7 @@ export default class PavageEtReflexion2d extends Exercice {
     let texte = ''
     let texteCorr = ''
     let typeDePavage = Math.max(1, parseInt(this.sup3)) as
-      | 1
-      | 2
-      | 3
-      | 4
-      | 5
-      | 6
-      | 7
+      1 | 2 | 3 | 4 | 5 | 6 | 7
     let nombreTentatives
     let nombrePavageTestes = 1
     if (this.sup3 === 8) {
@@ -253,12 +246,12 @@ export default class PavageEtReflexion2d extends Exercice {
       Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
       Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
       monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
-      fenetre = monpavage.fenetre
+      fenetreMathalea2d = monpavage.fenetre
       context.fenetreMathalea2d = [
-        fenetre.xmin,
-        fenetre.ymin,
-        fenetre.xmax,
-        fenetre.ymax,
+        fenetreMathalea2d.xmin,
+        fenetreMathalea2d.ymin,
+        fenetreMathalea2d.xmax,
+        fenetreMathalea2d.ymax,
       ]
       while (couples.length < nbSymetriques && nombreTentatives < 5) {
         // On cherche d pour avoir suffisamment de couples
@@ -374,7 +367,7 @@ export default class PavageEtReflexion2d extends Exercice {
       nbSymetriques,
     )
     for (let i = 0; i < nbSymetriques; i++) {
-      setReponse(this, i, couples[i][1])
+      handleAnswers(this, i, { reponse: { value: couples[i][1] } })
       texte +=
         numAlpha(i) +
         `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?` +

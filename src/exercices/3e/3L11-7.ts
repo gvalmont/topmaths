@@ -1,5 +1,6 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
@@ -11,12 +12,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Développer des carrés avec la double distributivité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCHybride'
 export const amcReady = true
 export const dateDePublication = '12/12/2021'
@@ -31,7 +30,7 @@ export const uuid = '7cf81'
 
 export const refs = {
   'fr-fr': ['3L11-7', 'BP2AutoI7'],
-  'fr-ch': ['11FA2-8'],
+  'fr-ch': ['10FA4F-4'],
 }
 export default class CarreDoubleDistributivite extends Exercice {
   constructor() {
@@ -149,8 +148,8 @@ export default class CarreDoubleDistributivite extends Exercice {
       )
       texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reponse}$`
 
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (!context.isAmc) {
-        setReponse(this, i, reponse)
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
             ajouteChampTexteMathLive(

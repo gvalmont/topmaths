@@ -7,9 +7,9 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -24,7 +24,7 @@ export const titre = 'Résoudre une équation simple avec le logarithme'
 export const dateDePublication = '22/7/2024'
 export const uuid = 'f1f9e'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const refs = {
   'fr-fr': ['TTE-7'],
   'fr-ch': [],
@@ -79,7 +79,7 @@ export default class EquationsLog extends Exercice {
       nbQuestions: this.nbQuestions,
     }).map((el) => Number(el))
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte: string
       let texteCorr: string
       const fracPlusInf = new FractionEtendue(10 ** 15, 1)
@@ -306,7 +306,7 @@ export default class EquationsLog extends Exercice {
               champ1: { value: domaine, options: { intervalle: true } },
               champ2: { value: solution, options: { intervalle: true } },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
         }
         this.listeQuestions[i] = texte

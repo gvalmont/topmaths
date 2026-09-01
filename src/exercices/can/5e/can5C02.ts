@@ -1,9 +1,8 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme d’entiers'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -15,7 +14,7 @@ export const amcType = 'AMCNum'
 export const uuid = '5ecdc'
 
 export const refs = {
-  'fr-fr': ['can5C02'],
+  'fr-fr': ['can5C02', '6N0A-flash1'],
   'fr-ch': [],
 }
 export default class SommeEntiers5e extends ExerciceSimple {
@@ -27,8 +26,8 @@ export default class SommeEntiers5e extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const b = randint(51, 89, [60, 70, 80])
-    const a = randint(2, 39, [10, 20, 30]) + 100
+    const b = this.quotaRandint('b', 51, 89, [60, 70, 80])
+    const a = this.quotaRandint('a', 2, 39, [10, 20, 30]) + 100
     this.reponse = a + b
     this.question = `Calculer $${a} + ${b}$.`
     this.correction = `$${a} + ${b}=${a + b}$`

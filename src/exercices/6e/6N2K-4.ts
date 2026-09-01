@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -8,13 +8,10 @@ import { context } from '../../modules/context'
 import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre = "Indiquer une égalité à partir d'une division euclidienne"
 
@@ -43,7 +40,7 @@ export const uuid = 'd0cd7'
 export const refs = {
   'fr-fr': ['6N2K-4'],
   'fr-2016': ['6C11-3'],
-  'fr-ch': ['9NO3-7'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-7'],
 }
 export default class APartirDeDivisionsEuclidiennes extends Exercice {
   classe: number
@@ -132,56 +129,53 @@ export default class APartirDeDivisionsEuclidiennes extends Exercice {
       texte = `${operation({ operande1: a, operande2: b, type: 'divisionE' })}<br>`
       if (r === 0) {
         texteCorr = `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}`)}$`
-        setReponse(this, i, [
-          `${a}=${b}\\times${q}`,
-          `${a}=${q}\\times${b}`,
-          `${b}\\times${q}=${a}`,
-          `${q}\\times${b}=${a}`,
-          `${a}=${b}\\times ${q}+${0}`,
-          `${a}=${q}\\times ${b}+${0}`,
-          `${b}\\times ${q}+${0}=${a}`,
-          `${q}\\times ${b}+${0}=${a}`,
-          `${a}=(${b}\\times ${q})+${0}`,
-          `${a}=(${q}\\times ${b})+${0}`,
-          `(${b}\\times ${q})+${0}=${a}`,
-          `(${q}\\times ${b})+${0}=${a}`,
-          `${a}\\div${b}=${q}`,
-          `${a}\\div${q}=${b}`,
-          `${q}=${a}\\div${b}`,
-          `${b}=${a}\\div${q}`,
-        ])
+        handleAnswers(this, i, {
+          reponse: {
+            value: [
+              `${a}=${b}\\times${q}`,
+              `${a}=${q}\\times${b}`,
+              `${b}\\times${q}=${a}`,
+              `${q}\\times${b}=${a}`,
+              `${a}=${b}\\times ${q}+${0}`,
+              `${a}=${q}\\times ${b}+${0}`,
+              `${b}\\times ${q}+${0}=${a}`,
+              `${q}\\times ${b}+${0}=${a}`,
+              `${a}=(${b}\\times ${q})+${0}`,
+              `${a}=(${q}\\times ${b})+${0}`,
+              `(${b}\\times ${q})+${0}=${a}`,
+              `(${q}\\times ${b})+${0}=${a}`,
+              `${a}\\div${b}=${q}`,
+              `${a}\\div${q}=${b}`,
+              `${q}=${a}\\div${b}`,
+              `${b}=${a}\\div${q}`,
+            ],
+          },
+        })
       } else {
         texteCorr =
           this.classe === 3
             ? `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}+${r}`)}$`
             : `$${miseEnEvidence(`${texNombre(a)}=(${b}\\times${texNombre(q)})+${r}`)}$`
-        setReponse(this, i, [
-          `${a}=${b}\\times ${q}+${r}`,
-          `${a}=${q}\\times ${b}+${r}`,
-          `${b}\\times ${q}+${r}=${a}`,
-          `${q}\\times ${b}+${r}=${a}`,
-          `${a}=(${b}\\times ${q})+${r}`,
-          `${a}=(${q}\\times ${b})+${r}`,
-          `(${b}\\times ${q})+${r}=${a}`,
-          `(${q}\\times ${b})+${r}=${a}`,
-        ])
+        handleAnswers(this, i, {
+          reponse: {
+            value: [
+              `${a}=${b}\\times ${q}+${r}`,
+              `${a}=${q}\\times ${b}+${r}`,
+              `${b}\\times ${q}+${r}=${a}`,
+              `${q}\\times ${b}+${r}=${a}`,
+              `${a}=(${b}\\times ${q})+${r}`,
+              `${a}=(${q}\\times ${b})+${r}`,
+              `(${b}\\times ${q})+${r}=${a}`,
+              `(${q}\\times ${b})+${r}=${a}`,
+            ],
+          },
+        })
       }
       texte += ajouteChampTexteMathLive(
         this,
         i,
         KeyboardType.clavierDeBaseAvecEgal,
       )
-      // Pour AMC question AmcOpen
-      if (context.isAmc) {
-        this.autoCorrectionAMC[i].enonce =
-          'Indiquer une égalité à partir de la  division euclidienne suivante : <br><br>' +
-          texte
-        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-        this.autoCorrectionAMC[i].propositions = []
-        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-        this.autoCorrectionAMC[i].propositions![0].texte = texteCorr
-        this.autoCorrectionAMC[i].propositions![0].statut = 1
-      }
       if (this.questionJamaisPosee(i, a, b, q, r)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte

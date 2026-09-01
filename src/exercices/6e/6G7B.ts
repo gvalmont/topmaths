@@ -1,7 +1,7 @@
 import Transformations from './_Transformations'
 export const titre = "Trouver l'image d'un point par une symétrie axiale"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -17,7 +17,7 @@ export const uuid = 'e9d29'
 export const refs = {
   'fr-fr': ['6G7B'],
   'fr-2016': ['6G24'],
-  'fr-ch': ['9ES6-1'],
+  'fr-ch': ['NR'],
 }
 export default class Transformations6e extends Transformations {
   constructor() {

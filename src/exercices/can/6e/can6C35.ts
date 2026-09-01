@@ -10,7 +10,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '27/07/2022'
@@ -21,8 +21,8 @@ export const dateDePublication = '27/07/2022'
 export const uuid = '95dd2'
 
 export const refs = {
-  'fr-fr': ['can6C35', '6N2A-flash6'],
-  'fr-ch': [],
+  'fr-fr': ['can6C35', '6N2A-flash6', 'auto5N2A-flash8'],
+  'fr-ch': ['NR'],
 }
 export default class PlusOuMoins6ieme extends ExerciceSimple {
   constructor() {
@@ -49,7 +49,7 @@ export default class PlusOuMoins6ieme extends ExerciceSimple {
       m1,
       m2
     switch (
-      choice([1, 1, 1, 2, 3, 3, 3]) //
+      this.quotaChoice('typeDeQuestions', [1, 1, 1, 2, 3, 3, 3]) //
     ) {
       case 1:
         choix = choice(['a', 'b', 'c', 'd']) //

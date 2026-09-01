@@ -1,10 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Écrire des heurs/minutes en minutes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '9f648'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -24,8 +23,8 @@ export default class NomExercice extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = this.canOfficielle ? 1 : randint(1, 2)
-    const b = this.canOfficielle ? 20 : randint(1, 11) * 5
+    const a = this.canOfficielle ? 1 : this.quotaRandint('a', 1, 2)
+    const b = this.canOfficielle ? 20 : this.quotaRandint('b', 1, 11) * 5
 
     this.reponse = a * 60 + b
     this.question = `Complète. <br>

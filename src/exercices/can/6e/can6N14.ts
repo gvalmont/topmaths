@@ -7,7 +7,6 @@ import Exercice from '../../Exercice'
 export const titre =
   'Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '05/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -20,7 +19,7 @@ export const dateDePublication = '05/03/2022' // La date de publication initiale
 export const uuid = 'dcf22'
 
 export const refs = {
-  'fr-fr': ['can6N14', '6N1B-flash1'],
+  'fr-fr': ['can6N14', '6N1B-flash1', '6AutoN3-3'],
   'fr-ch': [],
 }
 export default class DeterminerLeNombre extends Exercice {
@@ -34,7 +33,7 @@ export default class DeterminerLeNombre extends Exercice {
   nouvelleVersion() {
     let texte, texteCorr, a, monQcm
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (
         choice([1, 2, 3]) // 1
       ) {

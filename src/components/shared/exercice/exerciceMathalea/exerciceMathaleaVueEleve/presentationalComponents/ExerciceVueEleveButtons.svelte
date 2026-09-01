@@ -2,11 +2,12 @@
   import type { InterfaceGlobalOptions } from '../../../../../../lib/types'
   import type TypeExercice from '../../../../../../exercices/Exercice'
   import ButtonTextAction from '../../../../forms/ButtonTextAction.svelte'
-  import InteractivityIcon from '../../../../icons/TwoStatesIcon.svelte'
   import BasicClassicModal from '../../../../modal/BasicClassicModal.svelte'
+  import BugReportModal from '../../../shared/BugReportModal.svelte'
   export let exercise: TypeExercice
 
   let isIndiceModalDisplayed = false
+  let isBugReportDisplayed = false
   export let indiceLastExercice: number
   export let globalOptions: InterfaceGlobalOptions
   export let newData: () => void
@@ -18,6 +19,7 @@
   export let columnsCountUpdate: (plusMinus: '+' | '-') => void
   export let showCorrectionButton: boolean = true
   export let showInteractivityButton: boolean = true
+  export let showNewDataButton: boolean = true
 </script>
 
 <div
@@ -48,7 +50,7 @@
     </BasicClassicModal>
   {/if}
   <div
-    class={!globalOptions.oneShot && globalOptions.done !== '1'
+    class={showNewDataButton && !globalOptions.oneShot && globalOptions.done !== '1'
       ? 'flex'
       : 'hidden'}
   >
@@ -81,19 +83,44 @@
       />
     </div>
   {/if}
-  {#if showInteractivityButton}
-    <button
+  {#if showInteractivityButton && !exercise.interactifObligatoire}
+    <div
       class={globalOptions.isInteractiveFree && exercise?.interactifReady
-        ? 'w-5 ml-2 tooltip tooltip-right tooltip-neutral '
+        ? 'flex ml-2'
         : 'hidden'}
-      data-tip={isInteractif
-        ? "Désactiver l'interactivité"
-        : 'Rendre interactif'}
-      type="button"
-      on:click={switchInteractif}
     >
-      <InteractivityIcon isOnStateActive={isInteractif} size={4} />
-    </button>
+      <ButtonTextAction
+        text={isInteractif
+          ? "Désactiver l'interactivité"
+          : 'Rendre interactif'}
+        icon={isInteractif ? 'bx-toggle-right' : 'bx-toggle-left'}
+        class="py-[2px] px-2 text-[0.7rem]"
+        inverted={true}
+        on:click={switchInteractif}
+      />
+    </div>
+  {/if}
+  <!-- juste avant le réglage du nombre de colonnes -->
+  <button
+    class="flex items-center ml-2"
+    type="button"
+    title="Signaler un problème dans cet exercice"
+    aria-label="Signaler un problème dans cet exercice"
+    on:click={() => {
+      isBugReportDisplayed = true
+    }}
+  >
+    <i
+      class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx bx-bug text-base"
+    ></i>
+  </button>
+  {#if isBugReportDisplayed}
+    <BugReportModal
+      bind:isDisplayed={isBugReportDisplayed}
+      exerciceId={exercise.id}
+      exerciceTitle={exercise.titre}
+      exerciceIndex={exercise.numeroExercice}
+    />
   {/if}
   {#if globalOptions.recorder === undefined}
     <div

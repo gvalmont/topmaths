@@ -3,6 +3,7 @@
   import Keyboard from '../../../../components/keyboard/Keyboard.svelte'
   import type TypeExercice from '../../../../exercices/Exercice'
   import {
+    exerciceContientCliqueFigure,
     exerciceInteractif,
     prepareExerciceCliqueFigure,
   } from '../../../../lib/interactif/gestionInteractif'
@@ -57,7 +58,7 @@
     await tick()
     if (isEffectivelyInteractive) {
       loadMathLive(divExercice)
-      if (exercise.interactifType === 'cliqueFigure')
+      if (exerciceContientCliqueFigure(exercise))
         prepareExerciceCliqueFigure(exercise)
       if (isCorrectionSeen()) newData(exerciseIndex)
     }

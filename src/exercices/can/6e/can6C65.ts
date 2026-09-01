@@ -7,7 +7,6 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer le quotient ou le reste dans une division euclidienne sur des petits nombres'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '12/11/2025'
 
@@ -30,7 +29,7 @@ export default class NomExercice extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const d = randint(2, 10)
+    const d = this.quotaRandint('d', 2, 10)
     const q = randint(4, 10, [d])
     const r = randint(0, d - 1, [q])
     const a = d * q + r

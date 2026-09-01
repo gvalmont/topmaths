@@ -1,5 +1,8 @@
 import { shuffle } from '../../lib/outils/arrayOutils'
-import { texteGras } from '../../lib/outils/embellissements'
+import {
+  texteEnCouleurEtGras,
+  texteGras,
+} from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
@@ -8,11 +11,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = 'd2879'
 export const refs = {
-  'fr-fr': ['1A-S02-6'],
+  'fr-fr': ['1A-S02-6', '2A-S2-6', 'BP1AUTO038'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -106,7 +109,7 @@ export default class MedianeMoyenneQCM extends ExerciceQcmA {
     this.enonce = `Voici deux séries de valeurs :<br>
 ${texteGras('série A :')} $~~${A[0]}~~; ~~${A[1]}~~; ~~${A[2]}$<br>
 ${texteGras('série B :')} $~~${texNombre(B[0])}~~; ~~${texNombre(B[1])}~~; ~~${texNombre(B[2])}$<br>
-Laquelle des ces 4 propositions est vraie ?`
+Laquelle de ces $4$ propositions est vraie ?`
     const moyA = new FractionEtendue(a1 + a2 + a3, 3)
     const moyB = new FractionEtendue(b1 + b2 + b3, 3)
     this.correction = `On calcule la moyenne de la série A :
@@ -123,18 +126,14 @@ Laquelle des ces 4 propositions est vraie ?`
     }
     this.correction += `<br>et sa médiane, qui est aussi la valeur centrale de la série classée : $\\mathrm{m_B}=${medianeB}$ .`
     if (alea === 1) {
-      this.correction +=
-        '<br>On constate que les deux séries ont la même moyenne et la même médiane. '
+      this.correction += `<br>On constate que ${texteEnCouleurEtGras('les deux séries ont la même moyenne et la même médiane.')}`
     } else if (alea === 2) {
-      this.correction +=
-        '<br>On constate que les deux séries ont la même médiane mais pas la même moyenne. '
+      this.correction += `<br>On constate que ${texteEnCouleurEtGras('les deux séries ont la même médiane mais pas la même moyenne.')}`
     } else if (alea === 4) {
-      this.correction +=
-        '<br>On constate que les deux séries ont la même moyenne mais pas la même médiane. '
+      this.correction += `<br>On constate que ${texteEnCouleurEtGras('les deux séries ont la même moyenne mais pas la même médiane.')}`
     } else {
       // if (alea === 3) {
-      this.correction +=
-        "<br>On constate que les deux séries n'ont ni la même moyenne, ni la même médiane. "
+      this.correction += `<br>On constate que ${texteEnCouleurEtGras("les deux séries n'ont ni la même moyenne, ni la même médiane.")}`
     }
   }
 
@@ -150,7 +149,7 @@ Laquelle des ces 4 propositions est vraie ?`
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = false
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionAleatoire()
   }
 }

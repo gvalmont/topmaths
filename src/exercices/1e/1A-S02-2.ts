@@ -1,5 +1,6 @@
 import { aLeBonNombreDePropsDifferentes } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 
@@ -8,11 +9,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '12ba0'
 export const refs = {
-  'fr-fr': ['1A-S02-2'],
+  'fr-fr': ['1A-S02-2', '2A-S2-2', 'BP1AUTO037'],
   'fr-ch': ['4mProbStat-21'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Déterminer un quartile d'une série à faible effectif"
@@ -101,7 +102,7 @@ export default class QuartileQCM extends ExerciceQcmA {
       if (effectif % 4 !== 0) {
         this.correction += `<br>On arrondit à l'entier supérieur qui vaut $${rangQ1}$.`
       }
-      this.correction += `<br> Le premier quartile est donc la valeur de rang $${rangQ1}$ de la série classée : $Q_1=${Q1}$.`
+      this.correction += `<br> Le premier quartile est donc la valeur de rang $${rangQ1}$ de la série classée : $Q_1=${miseEnEvidence(Q1)}$.`
       this.reponse = `$${Q1}$`
     } else {
       this.reponses = [
@@ -122,7 +123,7 @@ export default class QuartileQCM extends ExerciceQcmA {
       if ((3 * effectif) % 4 !== 0) {
         this.correction += `<br>On arrondit à l'entier supérieur qui vaut $${rangQ3}$ .`
       }
-      this.correction += `<br> Le troisième quartile est donc la valeur de rang $${rangQ3}$ de la série classée : $Q_3=${Q3}$.`
+      this.correction += `<br> Le troisième quartile est donc la valeur de rang $${rangQ3}$ de la série classée : $Q_3=${miseEnEvidence(Q3)}$.`
       this.reponse = `$${Q3}$`
     }
   }
@@ -155,14 +156,14 @@ export default class QuartileQCM extends ExerciceQcmA {
       compteur++
     } while (
       compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, this.reponses.length, true, {})
+      !aLeBonNombreDePropsDifferentes(this, this.reponses.length, true)
     ) // On s'assure d'avoir 5 réponses différentes, sinon on régénère
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.versionAleatoire()
   }
 }

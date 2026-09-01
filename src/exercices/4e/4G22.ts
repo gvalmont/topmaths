@@ -1,4 +1,6 @@
 import Figure from 'apigeom'
+import { apigeomFigureToSvg } from '../../lib/apigeom/apigeom-figure'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -18,11 +20,9 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { RedactionPythagore } from './_pythagore'
-import { bleuMathalea } from '../../lib/colors'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 export const dateDeModifImportante = '26/01/2025'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
 
 /**
  * Problèmes utilisant le théorème de Pythagore ou sa réciproque et des propriétés des quadrilatères particuliers.
@@ -38,7 +38,7 @@ export const uuid = 'b18e8'
 
 export const refs = {
   'fr-fr': ['4G22', 'BP2AutoR4'],
-  'fr-ch': ['10GM4-3', '11GM1-4'],
+  'fr-ch': ['10GM1D-5'],
 }
 export default class ProblemesPythagore extends Exercice {
   constructor() {
@@ -46,11 +46,16 @@ export default class ProblemesPythagore extends Exercice {
     this.nbQuestions = 2
 
     this.sup = 3
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    this.spacingCorr = context.isHtml ? 2 : 1.5
     this.besoinFormulaireNumerique = [
       'Sens direct ou réciproque/contraposée',
       3,
       '1 : Sens direct\n2 : Réciproque/contraposée\n3 : Mélange',
+    ]
+    this.sup2 = false
+    this.besoinFormulaire2CaseACocher = [
+      'Écrire les unités dans les calculs de la correction',
+      false,
     ]
   }
 
@@ -236,6 +241,7 @@ export default class ProblemesPythagore extends Exercice {
             c,
             'cm',
             bleuMathalea,
+            this.sup2,
           )[0]
           texteCorr += `<br>Finalement comme $O$ est aussi le milieu de $[${
             D + B
@@ -258,7 +264,18 @@ export default class ProblemesPythagore extends Exercice {
             : ''
           handleAnswers(this, i, { reponse: { value: b } })
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits. `
-          texteCorr += RedactionPythagore(B, C, A, 2, b, a, c)[0]
+          texteCorr += RedactionPythagore(
+            B,
+            C,
+            A,
+            2,
+            b,
+            a,
+            c,
+            'cm',
+            undefined,
+            this.sup2,
+          )[0]
           break
 
         case 'rectangle_diagonale_a_trouver':
@@ -275,7 +292,18 @@ export default class ProblemesPythagore extends Exercice {
             : ''
           handleAnswers(this, i, { reponse: { value: c } })
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits. `
-          texteCorr += RedactionPythagore(B, A, C, 1, b, a, c)[0]
+          texteCorr += RedactionPythagore(
+            B,
+            A,
+            C,
+            1,
+            b,
+            a,
+            c,
+            'cm',
+            undefined,
+            this.sup2,
+          )[0]
           break
 
         case 'parallelogramme_est_losange':
@@ -502,6 +530,7 @@ function drawParallelogramm(
   figureCorr.create('Segment', { point1: A, point2: C, isDashed: true })
   figureCorr.create('Segment', { point1: B, point2: D, isDashed: true })
 
+  if (context.isTypst) return apigeomFigureToSvg(figureCorr)
   if (context.isHtml) {
     return `<div>${figureCorr.getStaticHtml()}</div>`
   }

@@ -47,9 +47,11 @@
       .then((response) => response.text())
       .then((xml) => {
         const container = document.getElementById('divIEP')
-        iepLoadPromise(container, xml).catch((error: Error) => {
-          console.error(error)
-        })
+        if (container !== null) {
+          iepLoadPromise(container, xml).catch((error: Error) => {
+            console.error(error)
+          })
+        }
       })
       .catch((error) => {
         console.error(error)

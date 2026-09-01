@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ThemeColor } from 'src/topmaths/types/color'
+  import type { ThemeColor } from '../../types/color'
   import type { Reference, View } from '../../types/navigation'
   import { goToView } from '../../services/navigation'
   import ButtonImage from './ButtonImage.svelte'

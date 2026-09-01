@@ -6,7 +6,7 @@ import { get } from 'svelte/store'
 import Exercice from '../exercices/Exercice'
 import ExerciceSimple from '../exercices/ExerciceSimple'
 import referentielStaticCH from '../json/referentielStaticCH.json'
-import referentielStaticFR from '../json/referentielStaticFR.json'
+import referentielStaticFR from '../json/referentielStaticFRHydrated'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
 import {
   ajouteChampTexteMathLive,
@@ -20,6 +20,7 @@ import {
   type InterfaceParams,
   type Valeur,
   isAnswerValueType,
+  isMathaleaCustomElementFormat,
   isValeur,
 } from '../lib/types'
 import { context } from '../modules/context'
@@ -36,19 +37,25 @@ import {
   showDialogForLimitedTime,
   showPopupAndWait,
 } from './components/dialogs'
+import { referentielMathadata } from './components/mathadataReferentiel'
+import { retrieveResourceFromUuid } from './components/refUtils'
 import { resizeContent } from './components/sizeTools'
 import { delay } from './components/time'
 import { decrypt, isCrypted } from './components/urls'
 import { checkForServerUpdate } from './components/version'
 import { createURL } from './createURL'
+import { listOfCustomElements } from './customElements/MathaleaCustomElement'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
 import { isHtmlDocumentText } from './httpResponses'
+import { normaliseCoeffBareme } from './interactif/baremeExercice'
 import { fonctionComparaison } from './interactif/comparisonFunctions'
-import { handleAnswers, setReponse } from './interactif/gestionInteractif'
+import { handleAnswers } from './interactif/gestionInteractif'
 import { buildSimpleVersionQcm } from './interactif/qcmBuilder'
+import { optionsKatex } from './latex/Katex'
 import { Complexe } from './mathFonctions/Complexe'
 import { shuffle } from './outils/arrayOutils'
 import { renderScratchDiv } from './renderScratch'
+import { referentielBanquesExternes } from './stores/banquesExternesStore'
 import { canOptions } from './stores/canStore'
 import {
   exercicesParams,
@@ -63,6 +70,7 @@ import {
   referentielLocale,
   updateURLFromReferentielLocale,
 } from './stores/languagesStore'
+import { estUuidBanqueExterne } from './types/banquesExternes'
 import {
   isIntegerInRange0to2,
   isIntegerInRange0to4,
@@ -209,7 +217,6 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
         titre?: string
         amcReady?: boolean
         amcType?: string
-        interactifType?: string
         interactifReady?: boolean
       }
 
@@ -272,17 +279,12 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
 
       // Définir explicitement les propriétés à copier
       type OptionalExerciceProps =
-        | 'titre'
-        | 'amcReady'
-        | 'amcType'
-        | 'interactifType'
-        | 'interactifReady'
+        'titre' | 'amcReady' | 'amcType' | 'interactifReady'
 
       const propsToClone: OptionalExerciceProps[] = [
         'titre',
         'amcReady',
         'amcType',
-        'interactifType',
         'interactifReady',
       ]
 
@@ -295,6 +297,11 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       })
 
       exercice.id = filename
+      exercice.titre =
+        url.toLowerCase().includes('old.ts') ||
+        url.toLowerCase().includes('old.js')
+          ? exercice.titre + ' (ancienne version)'
+          : exercice.titre
       return exercice as IExercice
     } catch (error) {
       attempts++
@@ -347,6 +354,28 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
 }
 
 /**
+ * Télécharge la source LaTeX d'un exercice de banque externe, si la banque en
+ * fournit une. L'URL est déjà résolue par le store (`blob:` pour une banque
+ * zip, API de la forge pour un dépôt).
+ * @param {string} url URL du fichier `.tex`, vide si la banque n'en déclare pas
+ * @returns {Promise<string|null>} le code LaTeX, ou `null` s'il est indisponible
+ */
+async function recupererSourceLatexDeBanque(
+  url: string,
+): Promise<string | null> {
+  if (typeof url !== 'string' || url.length === 0) return null
+  try {
+    const response = await window.fetch(url)
+    if (!response.ok) return null
+    const text = await response.text()
+    if (isHtmlDocumentText(text) || text.trim().length === 0) return null
+    return text
+  } catch {
+    return null
+  }
+}
+
+/**
  * Charge tous les exercices et les paramètres
  * en fonction du store exercicesParams.
  */
@@ -355,6 +384,36 @@ export async function mathaleaGetExercicesFromParams(
 ): Promise<(IExercice | IExerciceStatique)[]> {
   const exercices = []
   for (const param of params) {
+    if (estUuidBanqueExterne(param.uuid)) {
+      // Banque externe : la source LaTeX est facultative (une banque peut n'être
+      // qu'en png et/ou Typst). Quand elle manque, on produit tout de même une
+      // entrée commentée pour que l'exercice ne disparaisse pas silencieusement
+      // de l'export LaTeX/PDF.
+      const ressource = retrieveResourceFromUuid(
+        referentielBanquesExternes(),
+        param.uuid,
+      )
+      const titre =
+        ressource !== null && 'titre' in ressource && ressource.titre
+          ? ressource.titre
+          : param.uuid
+      const texUrl =
+        ressource !== null && 'tex' in ressource ? ressource.tex : ''
+      const texCorUrl =
+        ressource !== null && 'texCor' in ressource ? ressource.texCor : ''
+      exercices.push({
+        typeExercice: 'statique',
+        uuid: param.uuid,
+        content:
+          (await recupererSourceLatexDeBanque(texUrl)) ??
+          `\n\n\t%« ${titre} » : pas de source LaTeX dans cette banque.\n\n`,
+        contentCorr:
+          (await recupererSourceLatexDeBanque(texCorUrl)) ??
+          '\n\n\t%Pas de correction LaTeX disponible\n\n',
+        examen: '',
+      } as IExerciceStatique)
+      continue
+    }
     if (
       param.uuid.substring(0, 4) === 'crpe' ||
       param.uuid.substring(0, 4) === 'dnb_' ||
@@ -364,12 +423,15 @@ export async function mathaleaGetExercicesFromParams(
       param.uuid.substring(0, 4) === 'bac_' ||
       param.uuid.startsWith('sti2d_') ||
       param.uuid.substring(0, 7) === 'evacom_' ||
-      param.uuid.startsWith('2nd_')
+      param.uuid.startsWith('2nd_') ||
+      param.uuid.startsWith('md-')
     ) {
       const infosExerciceStatique =
         param.uuid.substring(0, 7) === 'evacom_'
           ? getExerciceByUuid(referentielStaticCH, param.uuid)
-          : getExerciceByUuid(referentielStaticFR, param.uuid)
+          : param.uuid.startsWith('md-')
+            ? getExerciceByUuid(referentielMathadata, param.uuid)
+            : getExerciceByUuid(referentielStaticFR, param.uuid)
 
       // Vérifier que infosExerciceStatique n'est pas null
       if (!infosExerciceStatique) {
@@ -501,7 +563,21 @@ export function mathaleaHandleParamOfOneExercice(
   if (param.sup5) exercice.sup5 = mathaleaHandleStringFromUrl(param.sup5)
   if (param.versionQcm !== undefined && exercice instanceof ExerciceSimple)
     exercice.versionQcm = param.versionQcm === '1'
+  exercice.coeffBareme = normaliseCoeffBareme(param.coeffBareme)
   if (param.interactif) exercice.interactif = param.interactif === '1'
+  // Un exercice interactif obligatoire ne possède pas de version HTML non
+  // interactive. Ce réglage est donc prioritaire sur celui de l'URL.
+  if (exercice.interactifObligatoire) {
+    exercice.interactif = true
+    if (param.interactif !== '1') {
+      param.interactif = '1'
+      // Le paramètre appartient généralement au store : notifier ses abonnés
+      // permet notamment de réécrire immédiatement l'URL partagée.
+      if (get(exercicesParams).includes(param)) {
+        exercicesParams.update((params) => params)
+      }
+    }
+  }
   if (param.alea) exercice.seed = param.alea
   if (param.cols !== undefined && param.cols > 1) exercice.nbCols = param.cols
   if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
@@ -571,24 +647,13 @@ export function renderDiv(HtmlElement: HTMLElement, _content: string) {
 }
 
 export function renderKatex(element: HTMLElement) {
-  const options = {
-    delimiters: [
-      { left: '\\[', right: '\\]', display: true },
-      { left: '$', right: '$', display: false },
-    ],
-    throwOnError: true,
-    errorColor: '#CC0000',
-    strict: 'warn',
-    trust: false,
-  }
-
   // Ajouter preProcess sans typage strict
-  Object.assign(options, {
+  Object.assign(optionsKatex, {
     preProcess: (chaine: string) =>
       '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
   })
 
-  renderMathInElement(element, options as any)
+  renderMathInElement(element, optionsKatex as any)
   document.dispatchEvent(new window.Event('katexRendered'))
 }
 
@@ -639,13 +704,13 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let title = ''
   let iframe = ''
   let answers = ''
+  let subject = ''
+  let quizzParam = ''
+  let quizzRole: 'manager' | 'player' | undefined
+  let pin = ''
+  let gameId = ''
   let recorder:
-    | 'capytale'
-    | 'moodle'
-    | 'labomep'
-    | 'anki'
-    | 'flowmath'
-    | undefined
+    'capytale' | 'moodle' | 'labomep' | 'anki' | 'flowmath' | undefined
   let done: '1' | undefined
   let es
   let presMode:
@@ -661,6 +726,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let twoColumns = false
   let isTitleDisplayed = true
   let isReferenceDisplayed = true
+  let isCorrectionOnlyOnError = false
   let beta = false
   let url: URL
   let canDuration = 540
@@ -669,6 +735,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let canSolAccess = true
   let canSolMode = 'gathered'
   let canIsInteractive = true
+  let canIsTimerDisabled = false
   try {
     url = new URL(urlString)
   } catch (error) {
@@ -698,18 +765,20 @@ export function mathaleaUpdateExercicesParamsFromUrl(
       if (entry[0] === 'uuid') {
         indiceExercice++
         const uuid = entry[1]
-        const id = (
-          Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]
-        ).find((key) => {
-          return currentRefToUuid[key] === uuid
-        })
         if (!newExercisesParams[indiceExercice])
-          newExercisesParams[indiceExercice] = { uuid, id }
+          newExercisesParams[indiceExercice] = { uuid, id: undefined }
         newExercisesParams[indiceExercice].uuid = uuid // string
-        newExercisesParams[indiceExercice].id = id // string
         newExercisesParams[indiceExercice].interactif = '0' // par défaut
+      } else if (entry[0] === 'id' && previousEntryWasUuid) {
+        // La référence précise choisie par l'utilisateur pour ce uuid :
+        // on ne la remplace par une référence par défaut que si elle ne
+        // correspond pas au uuid annoncé juste avant (URL corrompue ou obsolète)
+        const id = entry[1]
+        const uuid = newExercisesParams[indiceExercice].uuid
+        if (currentRefToUuid[id as keyof typeof currentRefToUuid] === uuid) {
+          newExercisesParams[indiceExercice].id = id
+        }
       } else if (entry[0] === 'id' && !previousEntryWasUuid) {
-        // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
         indiceExercice++
         const id = entry[1]
         const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
@@ -731,6 +800,10 @@ export function mathaleaUpdateExercicesParamsFromUrl(
         newExercisesParams[indiceExercice].sup5 = entry[1]
       } else if (entry[0] === 'qcm' && (entry[1] === '0' || entry[1] === '1')) {
         newExercisesParams[indiceExercice].versionQcm = entry[1]
+      } else if (entry[0] === 'coef') {
+        newExercisesParams[indiceExercice].coeffBareme = normaliseCoeffBareme(
+          entry[1],
+        )
       } else if (entry[0] === 'alea') {
         newExercisesParams[indiceExercice].alea = entry[1]
       } else if (entry[0] === 'cols') {
@@ -771,6 +844,21 @@ export function mathaleaUpdateExercicesParamsFromUrl(
         es = entry[1]
       } else if (entry[0] === 'title') {
         title = decodeURIComponent(entry[1])
+      } else if (entry[0] === 'subject') {
+        // entries() fournit déjà une valeur décodée : affectation directe
+        // (un titre de quizz peut contenir un '%' littéral)
+        subject = entry[1]
+      } else if (entry[0] === 'quizzParam') {
+        quizzParam = entry[1]
+      } else if (entry[0] === 'quizzRole') {
+        // Rôle dans une partie multi-joueurs (vue quizz)
+        if (entry[1] === 'manager' || entry[1] === 'player') {
+          quizzRole = entry[1]
+        }
+      } else if (entry[0] === 'pin') {
+        pin = entry[1]
+      } else if (entry[0] === 'gameId') {
+        gameId = entry[1]
       } else if (entry[0] === 'iframe') {
         iframe = entry[1]
       } else if (entry[0] === 'answers') {
@@ -789,10 +877,21 @@ export function mathaleaUpdateExercicesParamsFromUrl(
         canSolMode = entry[1]
       } else if (entry[0] === 'canI') {
         canIsInteractive = entry[1] === '1'
+      } else if (entry[0] === 'canNC') {
+        canIsTimerDisabled = entry[1] === '1'
       }
 
       if (entry[0] === 'uuid') previousEntryWasUuid = true
       else previousEntryWasUuid = false
+    }
+    // Pour les uuid sans id valide dans l'URL (anciennes URLs ou URL corrompue),
+    // on se rabat sur une référence par défaut pour ce uuid
+    for (const params of newExercisesParams) {
+      if (params.uuid != null && params.id == null) {
+        params.id = (
+          Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]
+        ).find((key) => currentRefToUuid[key] === params.uuid)
+      }
     }
   } catch (error) {
     // MOUCHARD SUR LES URLS FANTAISISTES
@@ -831,6 +930,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
       e.durationInMinutes = canDuration
       e.title = canMainTitle
       e.isInteractive = canIsInteractive
+      e.isTimerDisabled = canIsTimerDisabled
       e.solutionsAccess = canSolAccess
       if (canSolMode === 'gathered') e.solutionsMode = 'gathered'
       else e.solutionsMode = 'split'
@@ -856,7 +956,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   /**
    * es permet de résumer les réglages de la vue élève
    * Il est de la forme 21011010
-   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed|isReferenceDisplayed
+   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed|isReferenceDisplayed|isCorrectionOnlyOnError
    */
   if (es && es.length === 6) {
     presMode = presModeId[parseInt(es.charAt(0))]
@@ -882,6 +982,16 @@ export function mathaleaUpdateExercicesParamsFromUrl(
     twoColumns = es.charAt(5) === '1'
     isTitleDisplayed = es.charAt(6) === '1'
     isReferenceDisplayed = es.charAt(7) === '1'
+  } else if (es && es.length === 9) {
+    presMode = presModeId[parseInt(es.charAt(0))]
+    setInteractive = es.charAt(1)
+    isSolutionAccessible = es.charAt(2) === '1'
+    isInteractiveFree = es.charAt(3) === '1'
+    oneShot = es.charAt(4) === '1'
+    twoColumns = es.charAt(5) === '1'
+    isTitleDisplayed = es.charAt(6) === '1'
+    isReferenceDisplayed = es.charAt(7) === '1'
+    isCorrectionOnlyOnError = es.charAt(8) === '1'
   }
   v = v ?? ''
   return {
@@ -908,11 +1018,17 @@ export function mathaleaUpdateExercicesParamsFromUrl(
     twoColumns,
     isTitleDisplayed,
     isReferenceDisplayed,
+    isCorrectionOnlyOnError,
     recorder,
     done,
     beta,
     iframe,
     answers,
+    subject,
+    quizzParam,
+    quizzRole,
+    pin,
+    gameId,
   }
 }
 
@@ -947,7 +1063,10 @@ export function mathaleaHandleExerciceSimple(
     let reponse = {}
 
     if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
-      if (exercice.reponse != null) {
+      if (
+        exercice.reponse != null &&
+        !(exercice.exoCustomResultat && exercice.formatChampTexte === 'none')
+      ) {
         if (compare != null) {
           /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
           if (
@@ -1026,10 +1145,6 @@ export function mathaleaHandleExerciceSimple(
           typeof exercice.reponse.reponse.value === 'string'
         ) {
           handleAnswers(exercice, i, exercice.reponse)
-        } else {
-          setReponse(exercice, i, String(exercice.reponse), {
-            formatInteractif: exercice.formatInteractif ?? 'calcul',
-          })
         }
         // Handle AMC array
         if (context.isAmc) {
@@ -1057,13 +1172,20 @@ export function mathaleaHandleExerciceSimple(
           }
         }
       } else {
-        if (exercice.formatInteractif !== 'qcm')
+        if (
+          exercice.formatInteractif !== 'qcm' &&
+          !isMathaleaCustomElementFormat(exercice.formatInteractif)
+        )
           window.notify(
-            "Un exercice simple doit avoir un this.reponse sauf si c'est un qcm",
+            "Un exercice simple doit avoir un this.reponse sauf si c'est un qcm ou un MathaleaCustomElement avec sa propre autoCorrection",
             { exercice: JSON.stringify(exercice) },
           )
       }
-      if (exercice.formatInteractif !== 'fillInTheBlank') {
+      const isFillInTheBlank =
+        exercice.formatInteractif === 'fillInTheBlank' ||
+        (exercice.formatInteractif === 'meta-custom' &&
+          String(exercice.question).includes('%{'))
+      if (!isFillInTheBlank) {
         if (
           exercice.formatInteractif === 'qcm' ||
           (exercice instanceof ExerciceSimple &&
@@ -1103,7 +1225,7 @@ export function mathaleaHandleExerciceSimple(
             }
           }
           exercice.listeQuestions.push(exercice.question || '')
-        } else if (exercice.formatInteractif === 'listeDeroulante') {
+        } else if (exercice.formatInteractif === 'liste-deroulante') {
           const n = exercice.numeroExercice
           exercice.question = exercice.question?.replace(
             `id="ex${n}Q0"`,
@@ -1136,17 +1258,29 @@ export function mathaleaHandleExerciceSimple(
             )
             exercice.listeQuestions.push(exercice.question ?? '')
           }
-        } else if (exercice.formatInteractif === 'svgSelection') {
+        } else if (exercice.formatInteractif === 'svg-selection') {
           const n = exercice.numeroExercice
           exercice.question = exercice.question?.replace(
-            `id="svgSelectionEx${n}Q0"`,
-            `id="svgSelectionEx${n}Q${i}"`,
+            `id="svg-selectionEx${n}Q0"`,
+            `id="svg-selectionEx${n}Q${i}"`,
           )
           exercice.question = exercice.question?.replace(
             `checkSvgSelectionEx${n}Q0"`,
             `checkSvgSelectionEx${n}Q${i}"`,
           )
           exercice.listeQuestions.push(exercice.question ?? '')
+        } else if (
+          listOfCustomElements.includes(String(exercice.formatInteractif))
+        ) {
+          // Un custom element porte sa propre correction : aucun champ MathLive
+          // à ajouter. Dans un exercice simple, nouvelleVersion() ne connait pas
+          // l'indice de la question et produit des identifiants en Q0 : ils sont
+          // renumérotés ici (même principe que les branches spécifiques
+          // ci-dessus, mais valable pour tout customElement enregistré).
+          const n = exercice.numeroExercice
+          exercice.listeQuestions.push(
+            (exercice.question ?? '').replaceAll(`Ex${n}Q0`, `Ex${n}Q${i}`),
+          )
         } else {
           exercice.listeQuestions.push(
             exercice.question +
@@ -1171,12 +1305,14 @@ export function mathaleaHandleExerciceSimple(
           ),
         )
         if (
+          exercice.formatInteractif !== 'meta-custom' &&
           typeof exercice.reponse === 'object' &&
           'callback' in exercice.reponse
         ) {
           // Cas d'un callback dans un exercice simple
           handleAnswers(exercice, i, exercice.reponse)
         } else if (
+          exercice.formatInteractif !== 'meta-custom' &&
           typeof exercice.reponse === 'object' &&
           'champ1' in exercice.reponse
         ) {
@@ -1295,7 +1431,7 @@ export function mathaleaGenerateSeed({
  * @returns string
  */
 // Define the function with the condition check
-export function mathaleaFormatExercice(texte = ' ') {
+function applyFormatExerciceReplacements(texte: string): string {
   const lang = getLang()
   // Replace symbols based on general rules
   let formattedText = texte
@@ -1346,6 +1482,19 @@ export function mathaleaFormatExercice(texte = ' ') {
   }
 
   return formattedText
+}
+
+export function mathaleaFormatExercice(texte = ' ') {
+  // Les remplacements ne doivent porter que sur le texte affiché, pas sur le
+  // contenu des balises (ex: le JSON sérialisé dans l'attribut `propositions`
+  // de <mathalea-qcm>, que ces remplacements pourraient corrompre en cassant
+  // l'échappement des `\`, rendant le JSON illisible par JSON.parse).
+  return texte
+    .split(/(<[^>]*>)/g)
+    .map((part) =>
+      part.startsWith('<') ? part : applyFormatExerciceReplacements(part),
+    )
+    .join('')
 }
 
 export async function getExercisesFromExercicesParams() {

@@ -1,8 +1,7 @@
 import FabriqueAYohaku from './_Yohaku'
-export const titre = 'Résoudre un Yohaku additif niveau 1'
+export const titre = 'Résoudre un Yohaku additif'
 export const dateDePublication = '10/08/2022'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '16/12/2023'
@@ -12,7 +11,7 @@ export const uuid = '26bb9'
 export const refs = {
   'fr-fr': ['6N0A-3'],
   'fr-2016': ['6C10-7a'],
-  'fr-ch': ['9NO3-12'],
+  'fr-ch': [''], // Primaire anciennement : ['9NO3-12'],
 }
 /**
  * @author Jean-claude Lhote

@@ -10,7 +10,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '21/09/2022'
@@ -36,7 +36,7 @@ export default class EcondDegreAbscisseOrdonneeSommet extends ExerciceSimple {
   nouvelleVersion() {
     const nomF = [['f'], ['g'], ['h'], ['u'], ['v']]
     let a, b, c, r, alpha, nom
-    if (choice([true, false])) {
+    if (this.quotaChoice('cas', [true, false])) {
       a = randint(-3, 3, 0)
       b = randint(-9, 9)
       c = randint(-9, 9)

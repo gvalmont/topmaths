@@ -7,7 +7,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Passer d’un calcul de fractions décimales à une écriture décimale'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '15/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -18,7 +18,7 @@ export const dateDeModifImportante = '16/01/2025'
 export const uuid = '93bb5'
 
 export const refs = {
-  'fr-fr': ['can6N10', 'auto6N2B-flash1'],
+  'fr-fr': ['can6N10', 'auto6N2B-flash1', '6AutoN2-5'],
   'fr-ch': [],
 }
 export default class FractionDecimaleEcritureDecimale1 extends ExerciceSimple {
@@ -32,7 +32,7 @@ export default class FractionDecimaleEcritureDecimale1 extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, c, u
     switch (
-      choice(['a', 'b', 'c', 'd', 'e']) //,
+      this.quotaChoice('cas', ['a', 'b', 'c', 'd', 'e']) //,
     ) {
       case 'a':
         a = randint(1, 9)

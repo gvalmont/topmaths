@@ -8,7 +8,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de partage*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '03/07/2025'
 /**
  * @author Gilles Mora
@@ -44,7 +44,7 @@ export default class PetitsProblemePartage2 extends ExerciceSimple {
       ['cinq fois le ', 5],
     ]
     let a, nbre1, nbre2, nbre, prenom1, choix, proportion
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2])) {
       case 1:
         choix = choice([true, false])
         prenom1 = prenomF()

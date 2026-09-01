@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer une lettre dans une suite répétitive'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '14/04/2024'
 export const uuid = '00f4a'
 export const refs = {
@@ -29,7 +29,7 @@ export default class SuitesRep extends ExerciceSimple {
 
   nouvelleVersion() {
     switch (
-      choice([1, 2]) //, 2, 3
+      this.quotaChoice('typeDeQuestions', [1, 2]) //, 2, 3
     ) {
       case 1:
         {

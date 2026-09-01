@@ -16,7 +16,6 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '23/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -46,7 +45,7 @@ export default class ReduireExp extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, c, choix, d, e
     let reponse
-    switch (randint(1, 3)) {
+    switch (this.quotaRandint('cas', 1, 3)) {
       case 1: // ax+bx+c
         choix = choice([1, 2, 3]) // 1,2
         if (choix === 1) {

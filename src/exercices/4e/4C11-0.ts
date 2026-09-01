@@ -1,3 +1,4 @@
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -13,13 +14,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   'Effectuer des calculs complexes utilisant les priorités opératoires'
 export const dateDePublication = '23/04/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Plusieurs types de calculs avec des nombres relatifs, incluant des expressions complexes avec parenthèses imbriquées.
@@ -55,7 +54,7 @@ export const interactifType = 'mathLive'
 export const uuid = '1bf3b'
 export const refs = {
   'fr-fr': ['4C11-0'],
-  'fr-ch': ['1mCN-14', '9NO6-5', '10N06-4'],
+  'fr-ch': ['1mCN-14', '9NO2C-14', '10N02A-6', '11NO2-4'],
 }
 
 export default class PrioritesEtRelatifsComplex extends Exercice {
@@ -104,7 +103,7 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
       nbQuestions: this.nbQuestions,
     })
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let a = 0

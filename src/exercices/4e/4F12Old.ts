@@ -20,18 +20,17 @@ import Exercice from '../Exercice'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { grille } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutPourUnPoint } from '../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import Grandeur from '../../modules/Grandeur'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Résoudre un problème s'appuyant sur la lecture d'une représentation graphique"
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -45,7 +44,7 @@ export const uuid = 'b428f'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['10FA1B-1'],
 }
 export default class ExploiterRepresentationGraphique extends Exercice {
   constructor() {
@@ -481,6 +480,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: indiceQuestion++,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: new Grandeur(30, 'min'),
@@ -500,6 +500,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: indiceQuestion++,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: new Grandeur(2 * v3, 'km'),
@@ -649,6 +650,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 ajouteQuestionMathlive({
                   exercice: this,
                   question: indiceQuestion++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: {
                     champ1: {
                       value: new Grandeur(tmin, '°C'),
@@ -687,6 +689,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 ajouteQuestionMathlive({
                   exercice: this,
                   question: indiceQuestion++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: {
                     champ1: {
                       value: new Grandeur(hmax, 'h'),

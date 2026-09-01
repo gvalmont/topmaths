@@ -17,7 +17,7 @@ export const titre =
 export const amcReady = true
 export const amcType = 'qcmMult'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const dateDeModifImportante = '07/10/2023' // Interactivité type Qcm par Jean-claude Lhote puis style par Rémi Angot
 
 /**
@@ -27,9 +27,9 @@ export const dateDeModifImportante = '07/10/2023' // Interactivité type Qcm par
 export const uuid = 'd81c6'
 
 export const refs = {
-  'fr-fr': ['6G0-2'],
+  'fr-fr': ['6G0-2', '6AutoG1'],
   'fr-2016': ['6G10-1'],
-  'fr-ch': ['9ES1-2'],
+  'fr-ch': ['9ES1A-2'],
 }
 export default class DescriptionSegmentDroiteDemiDroite extends Exercice {
   constructor() {
@@ -51,7 +51,6 @@ export default class DescriptionSegmentDroiteDemiDroite extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (i % 5 === 0) listeDeNomsDePolygones = ['QD']
       const p = creerNomDePolygone(2, listeDeNomsDePolygones)

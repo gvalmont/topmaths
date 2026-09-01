@@ -10,7 +10,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de rendu de monnaie'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '22/08/2022'
 export const dateDePublication = '21/10/2021'
 /**
@@ -20,7 +20,7 @@ export const dateDePublication = '21/10/2021'
 export const uuid = '02170'
 
 export const refs = {
-  'fr-fr': ['can6C27', '6N2A-flash4'],
+  'fr-fr': ['can6C27', '6N2A-flash4', 'auto5N2A-flash9'],
   'fr-ch': ['NR'],
 }
 export default class RenduMonnaie extends ExerciceSimple {
@@ -42,7 +42,7 @@ export default class RenduMonnaie extends ExerciceSimple {
     ]
     let a, b, e, prenom1, v, p, pu, t, nbre
 
-    switch (choice([1, 2, 3, 4])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2, 3, 4])) {
       case 1:
         a = randint(1, 3) * 10
         e = randint(1, 4)

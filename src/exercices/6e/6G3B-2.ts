@@ -1,9 +1,8 @@
-import DefinitionProprietesTriangles from '../5e/5G25'
+import DefinitionProprietesTriangles from '../5e/DefinitionProprietesTriangles'
 export const titre =
   "Connaitre notamment définition et propriété caractéristique d'une médiatrice d'un segment"
 export const dateDePublication = '10/06/2026'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
 
 /**
  * Pour les nouveaux programmes de 6ème
@@ -14,7 +13,7 @@ export const uuid = '29407'
 
 export const refs = {
   'fr-fr': ['6G3B-2'],
-  'fr-ch': [],
+  'fr-ch': ['9ES1D-5'],
 }
 export default class DefinitionProprietesTrianglesMediatrices extends DefinitionProprietesTriangles {
   constructor() {

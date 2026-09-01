@@ -6,13 +6,21 @@ import type {
 } from '../../lib/types'
 import { context } from '../../modules/context'
 import type { ReponseParams } from '../amc/amcTypes'
+import { FillInTheBlankElement } from '../customElements/FillInTheBlank'
+import {
+  MathaleaMathfieldElement,
+  type MathaleaMathfieldVerificationCallback,
+} from '../customElements/MathaleaMathfield'
+import {
+  MathaleaTextfieldElement,
+  type MathaleaTextfieldVerificationCallback,
+} from '../customElements/MathaleaTextfield'
 import { sp } from '../outils/outilString'
 import './champTexte.scss'
 import { buildDataKeyboardFromStyle } from './claviers/keyboard'
 import { handleAnswers } from './gestionInteractif'
 import {
-  AddTabDbleEntryMathlive,
-  AddTabPropMathlive,
+  creeTableauMathliveElement,
   type ItabDbleEntry,
   type Itableau,
 } from './tableaux/AjouteTableauMathlive'
@@ -66,7 +74,7 @@ export function ajouteQuestionMathlive({
   exercice: IExercice
   question: number
   objetReponse: Valeur
-  reponseParams?: ReponseParams
+  reponseParams: ReponseParams
   typeInteractivite: InteractivityType
   content?: string
   classe?: string
@@ -77,14 +85,12 @@ export function ajouteQuestionMathlive({
   blocCenter?: boolean
   espace?: boolean
 }) {
-  if (
-    !(
-      typeInteractivite === 'mathlive' ||
-      typeInteractivite === 'fillInTheBlank' ||
-      typeInteractivite === 'tableauMathlive' ||
-      typeInteractivite === 'texte'
-    )
-  ) {
+  if (!(
+    typeInteractivite === 'mathlive' ||
+    typeInteractivite === 'fillInTheBlank' ||
+    typeInteractivite === 'tableauMathlive' ||
+    typeInteractivite === 'texte'
+  )) {
     window.notify(
       `Type d'interactivité ${typeInteractivite} non reconnu. Exercice ${exercice.id} ${exercice.uuid}`,
       { typeInteractivite },
@@ -92,12 +98,19 @@ export function ajouteQuestionMathlive({
     return ''
   }
   if (reponseParams === undefined) {
-    reponseParams = { formatInteractif: 'mathlive' }
+    reponseParams = { formatInteractif: 'mathalea-mathfield' }
+  } else {
+    if (typeInteractivite === 'fillInTheBlank')
+      reponseParams = { formatInteractif: 'fill-in-the-blank' }
+    if (typeInteractivite === 'tableauMathlive')
+      reponseParams = { formatInteractif: 'tableau-mathlive' }
+    if (typeInteractivite === 'mathlive')
+      reponseParams = { formatInteractif: 'mathalea-mathfield' }
   }
   handleAnswers(exercice, question, objetReponse, reponseParams)
   switch (typeInteractivite) {
     case 'fillInTheBlank':
-      return remplisLesBlancs(exercice, question, content, classe, '\\ldots')
+      return `${texteAvant}${remplisLesBlancs(exercice, question, content, classe, '\\ldots')}${texteApres}`
     case 'tableauMathlive': {
       if (!tableau) {
         window.notify(
@@ -106,35 +119,17 @@ export function ajouteQuestionMathlive({
         )
         return ''
       }
-      const leTableau =
-        typeTableau === 'doubleEntree'
-          ? AddTabDbleEntryMathlive.create(
-              exercice.numeroExercice ?? 0,
-              question,
-              tableau as ItabDbleEntry,
-              classe,
-              true,
-              {
-                texteAvant,
-                texteApres,
-                blocCenter: blocCenter ? ' bloccenter' : '',
-                espace: espace ? ' ' : '',
-              },
-            )
-          : AddTabPropMathlive.create(
-              exercice.numeroExercice ?? 0,
-              question,
-              tableau as Itableau,
-              classe,
-              true,
-              {
-                texteAvant,
-                texteApres,
-                blocCenter: blocCenter ? ' bloccenter' : '',
-                espace: espace ? ' ' : '',
-              },
-            )
-      return leTableau.output
+      return creeTableauMathliveElement({
+        numeroExercice: exercice.numeroExercice ?? 0,
+        question,
+        tableau,
+        typeTableau,
+        classes: classe,
+        texteAvant,
+        texteApres,
+        blocCenter,
+        espace,
+      })
     }
     case 'texte':
       return ajouteChampTexte(exercice, question, classe, {
@@ -182,6 +177,15 @@ type OptionsChamp = {
   blocCenter?: boolean
   espace?: boolean
   placeholder?: string
+  /**
+   * Touches propres à cette question, ajoutées au clavier en plus des blocs
+   * du `style` (voir `components/keyboard/lib/touchesPersonnalisees.ts`).
+   */
+  dataKeys?: string[]
+  verifyCallbackName?: string
+  verifyCallback?:
+    | MathaleaMathfieldVerificationCallback
+    | MathaleaTextfieldVerificationCallback
 }
 
 export function ajouteChampTexte(
@@ -217,6 +221,7 @@ function ajouteChamp(params: ParamsChamp, options: OptionsChamp = {}) {
     blocCenter = false,
     espace = false,
     placeholder = '',
+    dataKeys,
   } = options
   if (texteApres !== '') texteApres = sp() + texteApres
   if (!context.isHtml || !exercice.interactif || style === 'none') return ''
@@ -230,8 +235,35 @@ function ajouteChamp(params: ParamsChamp, options: OptionsChamp = {}) {
   const dataKeyboard = buildDataKeyboardString(
     typeof style === 'string' ? style : '',
   )
-  const balise = type === 'mathlive' ? 'math-field' : 'input'
-  let html = `<label>${texteAvant}</label><${balise} data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} ${placeholder ? `placeholder="${placeholder}"` : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></${balise}>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+  const id = `champTexteEx${exercice.numeroExercice}Q${i}`
+  const champ =
+    type === 'mathlive'
+      ? MathaleaMathfieldElement.create({
+          id,
+          numeroExercice: exercice.numeroExercice ?? 0,
+          questionIndex: i,
+          dataKeyboard,
+          dataKeys,
+          espace,
+          placeholder,
+          className: style,
+          verifyCallbackName: options.verifyCallbackName,
+          verifyCallback:
+            options.verifyCallback as MathaleaMathfieldVerificationCallback,
+        })
+      : MathaleaTextfieldElement.create({
+          id,
+          numeroExercice: exercice.numeroExercice ?? 0,
+          questionIndex: i,
+          dataKeyboard,
+          espace,
+          placeholder,
+          className: style,
+          verifyCallbackName: options.verifyCallbackName,
+          verifyCallback:
+            options.verifyCallback as MathaleaTextfieldVerificationCallback,
+        })
+  let html = `<label>${texteAvant}</label>${champ}${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
   if (blocCenter) {
     html = `<div style='display: flex;justify-content: center; margin:5px;'>${html}<div>`
   }
@@ -284,7 +316,13 @@ export function remplisLesBlancs(
     } else {
       classe = 'fillInTheBlanks'
     }
-    return `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>${ajouteFeedback(exercice, question)}`
+    return `${FillInTheBlankElement.create({
+      numeroExercice: exercice.numeroExercice ?? 0,
+      questionIndex: question,
+      className: classe,
+      dataKeyboard,
+      content: mfeValue,
+    })}<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>${ajouteFeedback(exercice, question)}`
   }
   if (mfeValue === '') return ''
   return `$${mfeValue}$`

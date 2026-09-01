@@ -12,21 +12,27 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 
+import {
+  lectureAntecedent,
+  lectureAntecedentAnimee,
+} from '../../lib/2d/LectureAntecedent'
+import { lectureImage, lectureImageAnimee } from '../../lib/2d/LectureImage'
+import { bleuMathalea, orangeMathalea, vertMathalea } from '../../lib/colors'
+import { context } from '../../modules/context'
 import ExerciceQcmA from '../ExerciceQcmA'
-import { bleuMathalea } from '../../lib/colors'
 export const dateDePublication = '11/11/2025'
 export const uuid = '3833f'
 
 export const refs = {
-  'fr-fr': ['1A-F01-3'],
+  'fr-fr': ['1A-F01-3', '2A-F1-3'],
   'fr-ch': [''],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  'Retrouver la phrase correcte avec des images et antécédents grahiquement'
+  'Retrouver, graphiquement, la phrase correcte avec des images et antécédents'
 
 /**
  *
@@ -104,51 +110,48 @@ export default class AutoF01c extends ExerciceQcmA {
     const objetsEnonce = [repere1, courbe1]
 
     this.enonce = `On considère une fonction $f$ dont la représentation graphique $\\mathscr{C}$ est tracée dans un repère ci-dessous.<br><br>`
-    this.enonce +=
-      mathalea2d(
-        Object.assign(
-          { pixelsParCm: 30, scale: 1, style: 'margin: auto' },
-          {
-            xmin: bornes.xMin - 1,
-            ymin: bornes.yMin - 1,
-            xmax: bornes.xMax + 1,
-            ymax: bornes.yMax + 1,
-          },
-        ),
-        objetsEnonce,
-        o,
-      ) + '<br><br>'
-    this.enonce += 'Une seule affirmation est correcte :'
+    const optionsFigure = Object.assign(
+      { pixelsParCm: 30, scale: 1, center: !context.isHtml },
+      {
+        xmin: bornes.xMin - 1,
+        ymin: bornes.yMin - 1,
+        xmax: bornes.xMax + 1,
+        ymax: bornes.yMax + 1,
+      },
+    )
+    const figureEnonce = mathalea2d(optionsFigure, objetsEnonce, o)
+    this.enonce += figureEnonce + '<br><br>'
+    this.enonce += 'Une seule affirmation est correcte. Laquelle ?'
 
     // Définir toutes les bonnes réponses possibles avec leur numéro d'ordre
     const bonnesReponses = [
       {
-        texte: `$${texNombre(theSpline.y[abs1])}$ est l'image de $${texNombre(theSpline.x[abs1])}$`,
+        texte: `$${texNombre(theSpline.y[abs1])}$ est l'image de $${texNombre(theSpline.x[abs1])}$.`,
         numero: 1,
         estCorrecte: true,
       },
       {
-        texte: `Un antécédent de $${texNombre(theSpline.y[abs1])}$ est $${texNombre(theSpline.x[abs1])}$`,
+        texte: `Un antécédent de $${texNombre(theSpline.y[abs1])}$ est $${texNombre(theSpline.x[abs1])}$.`,
         numero: 2,
         estCorrecte: true,
       },
       {
-        texte: `$${texNombre(theSpline.x[abs1])}$ est un antécédent de $${texNombre(theSpline.y[abs1])}$`,
+        texte: `$${texNombre(theSpline.x[abs1])}$ est un antécédent de $${texNombre(theSpline.y[abs1])}$.`,
         numero: 3,
         estCorrecte: true,
       },
       {
-        texte: `L'image de $${texNombre(theSpline.x[abs1])}$ est $${texNombre(theSpline.y[abs1])}$`,
+        texte: `L'image de $${texNombre(theSpline.x[abs1])}$ est $${texNombre(theSpline.y[abs1])}$.`,
         numero: 4,
         estCorrecte: true,
       },
       {
-        texte: `$${texNombre(theSpline.x[abs1])}$ a pour image $${texNombre(theSpline.y[abs1])}$`,
+        texte: `$${texNombre(theSpline.x[abs1])}$ a pour image $${texNombre(theSpline.y[abs1])}$.`,
         numero: 5,
         estCorrecte: true,
       },
       {
-        texte: `$${texNombre(theSpline.y[abs1])}$ a pour antécédent $${texNombre(theSpline.x[abs1])}$`,
+        texte: `$${texNombre(theSpline.y[abs1])}$ a pour antécédent $${texNombre(theSpline.x[abs1])}$.`,
         numero: 6,
         estCorrecte: true,
       },
@@ -156,23 +159,23 @@ export default class AutoF01c extends ExerciceQcmA {
 
     const mauvaisesReponses = [
       {
-        texte: `$${texNombre(theSpline.x[abs1])}$ est l'image de $${texNombre(theSpline.y[abs1])}$`,
+        texte: `$${texNombre(theSpline.x[abs1])}$ est l'image de $${texNombre(theSpline.y[abs1])}$.`,
         estCorrecte: false,
       },
       {
-        texte: `Un antécédent de $${texNombre(theSpline.x[abs1])}$ est $${texNombre(theSpline.y[abs1])}$`,
+        texte: `Un antécédent de $${texNombre(theSpline.x[abs1])}$ est $${texNombre(theSpline.y[abs1])}$.`,
         estCorrecte: false,
       },
       {
-        texte: `$${texNombre(theSpline.y[abs1])}$ est un antécédent de $${texNombre(theSpline.x[abs1])}$`,
+        texte: `$${texNombre(theSpline.y[abs1])}$ est un antécédent de $${texNombre(theSpline.x[abs1])}$.`,
         estCorrecte: false,
       },
       {
-        texte: `$${texNombre(theSpline.y[abs1])}$ a pour image $${texNombre(theSpline.x[abs1])}$`,
+        texte: `$${texNombre(theSpline.y[abs1])}$ a pour image $${texNombre(theSpline.x[abs1])}$.`,
         estCorrecte: false,
       },
       {
-        texte: `L'image de $${texNombre(theSpline.y[abs1])}$ est $${texNombre(theSpline.x[abs1])}$`,
+        texte: `L'image de $${texNombre(theSpline.y[abs1])}$ est $${texNombre(theSpline.x[abs1])}$.`,
         estCorrecte: false,
       },
     ]
@@ -209,6 +212,11 @@ export default class AutoF01c extends ExerciceQcmA {
       return phrase
     })
 
+    const questionId = this.compteur++
+    const correctionFigureId = `figureCorrection-1A-F01-3Ex${this.numeroExercice ?? 0}Q${questionId}`
+    const optionsFigureCorrection = Object.assign(optionsFigure, {
+      id: correctionFigureId,
+    })
     this.correction = `Les images se lisent sur l'axe des ordonnées et les antécédents sur l'axe des abscisses.<br>
           Ainsi, on peut dire que :<br>
           $\\bullet$ ${phrasesAvecCouleur[0]},<br>
@@ -217,6 +225,77 @@ export default class AutoF01c extends ExerciceQcmA {
           $\\bullet$ ${phrasesAvecCouleur[3]},<br>
           $\\bullet$ ${phrasesAvecCouleur[4]}, <br>
           $\\bullet$ ${phrasesAvecCouleur[5]}.`
+    let correctionFigure = ''
+    if (bonneReponseChoisie.texte.includes('image')) {
+      const objetsCorrection = [
+        repere1,
+        courbe1,
+        lectureImage(
+          theSpline.x[abs1],
+          theSpline.y[abs1],
+          1,
+          1,
+          orangeMathalea,
+          '',
+          `${theSpline.x[abs1]}`,
+        ),
+      ]
+      correctionFigure =
+        !context.isHtml || context.isTypst
+          ? mathalea2d(optionsFigureCorrection, objetsCorrection)
+          : `<div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">${mathalea2d(
+              Object.assign(
+                { id: correctionFigureId },
+                optionsFigureCorrection,
+                {
+                  center: false,
+                },
+              ),
+              objetsEnonce,
+              o,
+            )}${lectureImageAnimee({
+              figureId: correctionFigureId,
+              x: theSpline.x[abs1],
+              y: theSpline.y[abs1],
+              pixelsParCm: optionsFigureCorrection.pixelsParCm,
+              couleurHorizontale: orangeMathalea,
+            })}</div>`
+    } else {
+      const objetsCorrection = [
+        repere1,
+        courbe1,
+        lectureAntecedent(
+          theSpline.x[abs1],
+          theSpline.y[abs1],
+          1,
+          1,
+          orangeMathalea,
+          '',
+          `${theSpline.y[abs1]}`,
+        ),
+      ]
+      correctionFigure =
+        !context.isHtml || context.isTypst
+          ? mathalea2d(optionsFigureCorrection, objetsCorrection)
+          : `<div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">${mathalea2d(
+              Object.assign(
+                { id: correctionFigureId },
+                optionsFigureCorrection,
+                {
+                  center: false,
+                },
+              ),
+              objetsEnonce,
+              o,
+            )}${lectureAntecedentAnimee({
+              figureId: correctionFigureId,
+              x: theSpline.x[abs1],
+              y: theSpline.y[abs1],
+              pixelsParCm: optionsFigureCorrection.pixelsParCm,
+              couleurHorizontale: vertMathalea,
+            })}</div>`
+    }
+    this.correction += correctionFigure
   }
 
   versionOriginale: () => void = () => {
@@ -291,13 +370,13 @@ export default class AutoF01c extends ExerciceQcmA {
       compteur++
     } while (
       compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, { texteSansCasse: true }) // on ne peut pas faire mieux vu les props
+      !aLeBonNombreDePropsDifferentes(this, 4, true) // on ne peut pas faire mieux vu les props
     ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {
     super()
     this.versionAleatoire()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
   }
 }

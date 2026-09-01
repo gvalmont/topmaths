@@ -16,7 +16,7 @@ export const refs = {
   'fr-ch': ['autres-3'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Sujet zéro 2024 : vecteur normal'
@@ -87,7 +87,7 @@ $\\overrightarrow{n}\\cdot\\overrightarrow{BG}= 0\\times 0+(-1)\\times 1+1\\time
 
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionOriginale()
   }
 }

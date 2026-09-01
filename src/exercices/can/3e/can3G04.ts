@@ -9,12 +9,13 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '02/01/2026'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -41,7 +42,7 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
   nouvelleVersion() {
     let a, A, B, C, objets, nom, pol
 
-    switch (choice(['a', 'b'])) {
+    switch (this.quotaChoice('cas', ['a', 'b'])) {
       case 'a':
         nom = creerNomDePolygone(3, ['QD'])
         a = randint(1, 5) * 2 //
@@ -63,7 +64,7 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
             letterSize: 'scriptsize',
           }),
         )
-        this.question = `${mathalea2d(Object.assign({ scale: 0.7, style: 'margin: auto; display: block' }, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
+        this.question = `${mathalea2d(Object.assign({ scale: 0.7, display: 'block', center: !context.isHtml } as const, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
         if (this.interactif) {
           this.question += `Déterminer $x$ pour que le triangle soit rectangle.<br>
       (donner le résultat sous la forme $\\sqrt{a}$)<br>
@@ -101,7 +102,7 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
           }),
         )
 
-        this.question = `${mathalea2d(Object.assign({ scale: 0.7, style: 'margin: auto; display: block' }, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
+        this.question = `${mathalea2d(Object.assign({ scale: 0.7, display: 'block', center: !context.isHtml } as const, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
         if (this.interactif) {
           this.question += `Déterminer $x$ pour que le triangle soit rectangle.<br>
       $x=$`

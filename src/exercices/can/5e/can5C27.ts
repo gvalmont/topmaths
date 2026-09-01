@@ -1,11 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
 } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-export const interactifType = 'mathLive'
+import ExerciceSimple from '../../ExerciceSimple'
+
 export const interactifReady = true
 export const titre = 'Trouver un  entier relatif (addition à trou)'
 export const dateDePublication = '19/10/2023'
@@ -17,7 +16,7 @@ export const dateDePublication = '19/10/2023'
 export const uuid = '2745a'
 
 export const refs = {
-  'fr-fr': ['can5C27'],
+  'fr-fr': ['can5C27', '5N2G-flash2'],
   'fr-ch': ['NR'],
 }
 export default class AdditionRelatifATrou extends ExerciceSimple {
@@ -29,9 +28,9 @@ export default class AdditionRelatifATrou extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    let a = randint(1, this.sup)
-    let b = randint(1, this.sup)
-    const k = choice([
+    let a = this.quotaRandint('a', 1, this.sup)
+    let b = this.quotaRandint('b', 1, this.sup)
+    const k = this.quotaChoice('k', [
       [-1, -1],
       [-1, 1],
       [1, -1],

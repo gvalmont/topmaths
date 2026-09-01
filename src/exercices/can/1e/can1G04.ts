@@ -9,16 +9,17 @@ import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre =
   'Calculer un produit scalaire à l’aide de normes et d’un angle '
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '26/06/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -58,7 +59,7 @@ export default class ProduitScalaireNormesAngles extends ExerciceSimple {
       [135, '\\dfrac{3\\pi}{4}', '\\dfrac{3\\pi}{4}', 2],
       [150, '\\dfrac{5\\pi}{6}', '\\dfrac{5\\pi}{6}', 1.5],
     ]
-    const angle = choice(Angle)
+    const angle = this.quotaChoice('angle', Angle)
     const C = pointAdistance(A, b, angle[0], nom[2], 'above')
     const vAB = segment(A, B, bleuMathalea, '->')
     vAB.epaisseur = 2
@@ -98,7 +99,7 @@ export default class ProduitScalaireNormesAngles extends ExerciceSimple {
         mainlevee: false,
         amplitude: 0.3,
         scale: 0.5,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       objets,
     )

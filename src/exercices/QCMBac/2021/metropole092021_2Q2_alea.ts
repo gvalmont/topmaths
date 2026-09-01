@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context'
 // import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
@@ -18,7 +19,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Métropole 09/21 : exponentielle'
@@ -87,7 +88,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
         ymax: 9,
         pixelsParCm: 30,
         scale: 1,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       [
         courbe(f, {
@@ -156,7 +157,7 @@ $\\iff a = 10$<br>`
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionAleatoire()
     this.besoinFormulaire3CaseACocher = ["Avec le préambule de l'énoncé", true]
     this.sup3 = true

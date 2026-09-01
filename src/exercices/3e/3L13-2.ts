@@ -14,22 +14,19 @@ import FractionEtendue from '../../modules/FractionEtendue'
 
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableau } from '../../lib/2d/tableau'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   'Résoudre une équation résolvante pour le théorème de Thalès'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '15/12/2020'
@@ -42,12 +39,13 @@ export const uuid = '6516e'
 
 export const refs = {
   'fr-fr': ['3L13-2', '3G20-3', 'BP2RES13'],
-  'fr-ch': ['11GM3-7', '11FA5-5'],
+  'fr-ch': ['11GM1B-5'],
 }
 export default class EqResolvantesThales extends Exercice {
   consignePluriel: string
   consigneSingulier: string
   exo: string
+  clavierAvecFraction: boolean
   constructor() {
     super()
     this.besoinFormulaireNumerique = [
@@ -61,11 +59,12 @@ export default class EqResolvantesThales extends Exercice {
     this.consignePluriel = 'Résoudre les équations suivantes.'
     this.consigneSingulier = "Résoudre l'équation suivante."
     this.exo = '3L13-2'
+    this.clavierAvecFraction = false
   }
 
   nouvelleVersion() {
-    context.isHtml ? (this.spacing = 1) : (this.spacing = 2)
-    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+    this.spacing = context.isHtml ? 1 : 2
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
     const typesDeQuestionsDisponibles = shuffle([
       choice([0, 1]),
       choice([2, 3]),
@@ -231,7 +230,7 @@ export default class EqResolvantesThales extends Exercice {
           enoncePlus = mathalea2d(
             Object.assign(bordures, {
               scale: 0.6,
-              style: 'display:block',
+              display: 'block' as const,
             }),
             monTableau,
           )
@@ -267,21 +266,27 @@ $${inc}=${miseEnEvidence(texNombre((b * a) / c, 4))}$`,
         .replace('{', '')
         .replace('}', '')
 
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-        texteAvant: `<br> $${inc} =$ `,
-      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        this.clavierAvecFraction
+          ? KeyboardType.clavierDeBaseAvecFraction
+          : KeyboardType.clavierDeBase,
+        { texteAvant: `<br> $${inc} =$ ` },
+      )
       reponse = new FractionEtendue(
         Number(correctionInteractif) * 10000,
         10000,
       ).simplifie()
-      if (context.isAmc) setReponse(this, i, reponse)
-      else
-        handleAnswers(this, i, {
-          reponse: {
-            value: reponse,
-            options: { fractionEgale: true, nombreDecimalSeulement: true },
+      handleAnswers(this, i, {
+        reponse: {
+          value: reponse,
+          options: {
+            fractionEgale: true,
+            nombreDecimalSeulement: !this.clavierAvecFraction,
           },
-        })
+        },
+      })
 
       if (this.questionJamaisPosee(i, nbAlea.join(';'))) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

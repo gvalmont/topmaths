@@ -1,8 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
+import { context } from '../../../modules/context'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
@@ -13,7 +12,7 @@ import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Calculer une longueur dans un triangle rectangle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '75151'
 export const refs = {
   'fr-fr': [],
@@ -32,10 +31,10 @@ export default class calculerPythagore extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([true, false])
+    const choix = this.quotaChoice('choix', [true, false])
 
     const nom = creerNomDePolygone(3, ['QD'])
-    const a = randint(1, 6)
+    const a = this.quotaRandint('a', 1, 6)
     const A = pointAbstrait(0, 0, nom[0], 'below')
     const B = pointAbstrait(6, 0, nom[1], 'below')
     const C = pointAbstrait(6, 2, nom[2], 'above')
@@ -98,7 +97,7 @@ export default class calculerPythagore extends ExerciceSimple {
           scale: 0.6,
           pixelsParCm: 18,
           mainlevee: false,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )

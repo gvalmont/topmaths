@@ -6,12 +6,12 @@ import { bleuMathalea } from '../../../lib/colors'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer l’abscisse d’un milieu'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -34,9 +34,9 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 5)
-    const c = randint(1, 9)
-    const b = arrondi(a + c + randint(1, 9, 5) / 5)
+    const a = this.quotaRandint('a', 1, 5)
+    const c = this.quotaRandint('c', 1, 9)
+    const b = arrondi(a + c + this.quotaRandint('b', 1, 9, [5]) / 5)
     const A = pointAbstrait(0, 0, '1', 'below')
     const B = pointAbstrait(4, 0, 'M', 'below')
     const C = pointAbstrait(8, 0)
@@ -59,18 +59,17 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
     this.question += mathalea2d(
       {
         xmin: -1,
-        ymin: -2,
+        ymin: -3,
         xmax: 10,
         ymax: 1,
         pixelsParCm: 30,
         mainlevee: false,
         amplitude: 0.5,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       objets,
     )
-    this.question += '<br>'
     this.correction = `On calcule la moyenne de $${texNombre(a)}$ et $${texNombre(b)}$ :<br>
     $x_M=\\dfrac{${texNombre(a)}+${texNombre(b)}}{2}=
     \\dfrac{${texNombre(a + b)}}{2}=${miseEnEvidence(texNombre((a + b) / 2))}$`

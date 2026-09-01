@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Passer de la fraction décimale à l’écriture décimale*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '15/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -17,7 +17,7 @@ export const dateDeModifImportante = '04/08/2025'
 export const uuid = 'b850a'
 
 export const refs = {
-  'fr-fr': ['can5N02'],
+  'fr-fr': ['can5N02', 'auto6N3C-flash2', '6AutoN2-3'],
   'fr-ch': [],
 }
 export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
@@ -32,7 +32,7 @@ export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, c, choix
     switch (
-      choice(['a', 'b']) //,
+      this.quotaChoice('typeDeQuestions', ['a', 'b']) //,
     ) {
       case 'a':
         a = randint(1, 19, [10])

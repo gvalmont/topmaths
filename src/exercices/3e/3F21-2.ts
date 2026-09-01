@@ -30,7 +30,6 @@ export const dateDeModifImportante = '31/03/2026'
 export const titre =
   'Déterminer une fonction affine par la donnée des images de deux nombres'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Déterminer la forme algébrique à partir de la donnée de 2 nombres et de leurs images
@@ -47,7 +46,7 @@ export const uuid = 'b8b3e'
 
 export const refs = {
   'fr-fr': ['3F21-2'],
-  'fr-ch': ['11FA9-3'],
+  'fr-ch': ['11FA1B-6'],
 }
 export default class DeterminerFonctionAffine3e extends Exercice {
   constructor() {

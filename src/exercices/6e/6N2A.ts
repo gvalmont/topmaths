@@ -1,9 +1,10 @@
 import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -18,12 +19,10 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 
 export const titre = 'Poser additions et soustractions de nombres décimaux'
@@ -47,7 +46,7 @@ export const uuid = '01873'
 export const refs = {
   'fr-fr': ['6N2A,CM1C2C'],
   'fr-2016': ['6C20'],
-  'fr-ch': ['9NO8-1'],
+  'fr-ch': ['9NO1G-11'],
 }
 export default class AdditionnerSoustrairesDecimaux extends Exercice {
   constructor() {
@@ -70,7 +69,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
 
     this.consigne = 'Poser et effectuer les calculs suivants.'
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon les opérations posées ne sont pas jolies
     this.nbQuestions = 4
     this.sup = 3
     this.sup2 = 3
@@ -258,7 +257,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             operande1: a,
             operande2: b,
             type: 'soustraction',
-            style: 'display: inline-block',
+            display: 'inline-block',
             options: {
               colore: orangeMathalea,
               solution: true,
@@ -271,7 +270,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             operande1: a,
             operande2: b,
             type: 'soustraction',
-            style: 'display: inline-block',
+            display: 'inline-block',
             methodeParCompensation: false,
             options: {
               colore: orangeMathalea,
@@ -285,7 +284,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           operande1: a,
           operande2: b,
           type: 'addition',
-          style: 'display: inline-block',
+          display: 'inline-block',
           options: {
             colore: orangeMathalea,
             solution: true,
@@ -293,7 +292,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
         })
       }
       texte += grilletxt
-      setReponse(this, i, reponse)
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (this.interactif && context.isHtml)
         texte +=
           '$~=$' +

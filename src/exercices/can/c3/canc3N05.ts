@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme (partie entière/décimale)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '16/11/2021'
@@ -33,10 +32,10 @@ export default class CompositionDeNombreDecimalC3 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 9)
+    const a = this.quotaRandint('a', 1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
-    switch (choice([1, 2, 3])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2, 3])) {
       case 1:
         this.reponse = arrondi(a + b / 10 + c / 100, 2)
         this.question = `Calculer $${a} + ${texNombre(b / 10 + c / 100, 2)}$.`

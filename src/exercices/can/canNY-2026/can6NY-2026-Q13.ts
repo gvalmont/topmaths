@@ -1,8 +1,7 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import ExerciceSimple from '../../ExerciceSimple'
-
-import { randint } from '../../../modules/outils'
 
 import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
@@ -14,7 +13,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = "Déterminer le périmètre d'un triangle"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'kfoyy'
 export const refs = {
   'fr-fr': [],
@@ -37,7 +36,7 @@ export default class SommeDeProduitsCompleter extends ExerciceSimple {
   nouvelleVersion() {
     const annee = 2026
     const objets = []
-    const a = this.canOfficielle ? 1200 : randint(11, 15) * 100
+    const a = this.canOfficielle ? 1200 : this.quotaRandint('a', 11, 15) * 100
     const b = annee
     const A = pointAbstrait(0, 0, 'A', 'below')
     const B = pointAbstrait(5, 0, 'B', 'below')
@@ -78,7 +77,7 @@ export default class SommeDeProduitsCompleter extends ExerciceSimple {
           xmax: 6,
           ymax: 2.5,
           scale: 0.7,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )

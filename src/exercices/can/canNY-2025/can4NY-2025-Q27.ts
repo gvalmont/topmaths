@@ -7,7 +7,7 @@ import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Convertir m$^3$ et Litres'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'a8e1d'
 export const refs = {
   'fr-fr': [],
@@ -27,7 +27,7 @@ export default class Convertir extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b
-    switch (choice(['b', 'b'])) {
+    switch (this.quotaChoice('cas', ['b', 'b'])) {
       case 'a':
         b = 2025
         a = choice([

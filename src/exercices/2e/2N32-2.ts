@@ -1,314 +1,205 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import {
-  ecritureAlgebrique,
-  ecritureParentheseSiNegatif,
-  rienSi1,
-} from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { abs } from '../../lib/outils/nombres'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { ppcm } from '../../lib/outils/primalite'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-export const titre =
-  'Connaitre les propriétés calculatoires des racines carrées'
+import Exercice from '../Exercice'
+
+export const titre = 'Effectuer des calculs complexes avec des fractions'
+export const dateDePublication = '15/08/2026'
 export const interactifReady = true
-export const interactifType = 'qcm'
-export const dateDeModifImportante = '13/12/2023'
-/**
- * 2N32-2, ex 2N10-1
- * @author Stéphane Guyon modif Gilles Mora
- */
-export const uuid = '99b29'
+
+export const uuid = '1fc02'
 
 export const refs = {
   'fr-fr': ['2N32-2'],
-  'fr-ch': ['11NO1-5', '1mCN-7'],
+  'fr-ch': [],
 }
-export default class Proprietesracinecarree extends Exercice {
+
+type Operation = '+' | '-'
+
+function etapesSommeOuDifference(
+  fraction1: FractionEtendue,
+  fraction2: FractionEtendue,
+  operation: Operation,
+): string[] {
+  const f1 = fraction1.simplifie()
+  const f2 = fraction2.simplifie()
+  const denominateurCommun = ppcm(f1.den, f2.den)
+  const f1Reduite = f1.reduire(denominateurCommun / f1.den)
+  const f2Reduite = f2.reduire(denominateurCommun / f2.den)
+  const numerateurResultat =
+    operation === '+'
+      ? f1Reduite.num + f2Reduite.num
+      : f1Reduite.num - f2Reduite.num
+  const resultat = new FractionEtendue(numerateurResultat, denominateurCommun)
+
+  return [
+    `${f1Reduite.texFSD}${operation}${f2Reduite.texFSD}&\\text{On met au même dénominateur.}`,
+    `\\dfrac{${f1Reduite.num}${operation}${f2Reduite.num}}{${denominateurCommun}}&\\text{On calcule la somme ou la différence des numérateurs.}`,
+    ...(resultat.estIrreductible ? [] : [resultat.texFSD]),
+  ]
+}
+
+export default class CalculsComplexesFractions extends Exercice {
   constructor() {
     super()
 
-    this.nbQuestions = 2
+    this.consigne =
+      'Calculer et donner le résultat sous la forme d’une fraction irréductible.'
+    this.nbQuestions = 5
     this.nbCols = 2
-
-    this.sup = 1 //
+    this.nbColsCorr = 1
+    this.spacingCorr = 2
+    this.sup = 4
+    this.besoinFormulaireNumerique = [
+      'Type de calculs',
+      4,
+      `1 : Somme avec priorité opératoire
+2 : Quotient de sommes
+3 : Somme de produits
+4 : Mélange`,
+    ]
   }
 
   nouvelleVersion() {
-    this.consigne = this.interactif
-      ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
-      : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
-    let typesDeQuestions //,
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
+    const types = combinaisonListes(
+      this.sup === 4 ? [1, 2, 3] : [this.sup],
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      let a = 0
-      let b = 0
-      let c = 0
-      let d = 0
-      let e = 0
-      let texte = ''
-      let texteCorr = ''
-      let monQcm: { texte: string; texteCorr: string }
-      switch (typesDeQuestions) {
-        // Cas par cas, on définit le type de nombres que l'on souhaite
-        // Combien de chiffres ? Quelles valeurs ?
-        case 1: // calcul de (a sqrt b)²
-          a = randint(2, 9) * choice([-1, 1])
-          b = randint(2, 11, [4, 8, 9])
-          c = a * a * b
-          d = a * a
-          texte = `$\\left(${a} \\sqrt{${b}}\\right)^{2}$`
-          texteCorr = `$\\left(${a} \\sqrt{${b}}\\right)^{2}=${ecritureParentheseSiNegatif(a)}^{2}\\times \\left(\\sqrt{${b}}\\right)^{2}$
-                        $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}$<br>
-                        $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}=${d}\\times ${b}$<br>
-                        $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}=${c}$`
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: `$${c}$`,
-                statut: true,
-              },
-              {
-                texte: 'On ne peut pas simplifier',
-                statut: false,
-              },
-              {
-                texte: `$${a ** 2} \\sqrt{${b}}$`,
-                statut: false,
-              },
-              {
-                texte: `$${abs(a) * b} $`,
-                statut: false,
-              },
-            ],
-          }
-          monQcm = propositionsQcm(this, i)
-          if (this.interactif) texte += monQcm.texte
-          break
-        case 2: // calcul de (a sqrt b)*c sqrt b
-          a = randint(2, 9) * choice([-1, 1])
-          c = randint(2, 9) * choice([-1, 1])
-          d = randint(2, 9) * choice([-1, 1])
-          b = randint(2, 11, [4, 8, 9])
-          e = c * d
 
-          texte = `$${c} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)}\\sqrt{${b}}$`
-          texteCorr = `$ ${c} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}}=${c}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}} \\times \\sqrt{${b}}$<br>
-                        $\\phantom{${c} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}}}=${e}\\times ${b}$<br>
-                        $\\phantom{${c} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}}}=${e * b}$`
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: `$${e * b}$`,
-                statut: true,
-              },
-              {
-                texte: 'On ne peut pas simplifier',
-                statut: false,
-              },
-              {
-                texte: `$${e} \\sqrt{${b}}$`,
-                statut: false,
-              },
-              {
-                texte: `$${-e} \\sqrt{${b}}$`,
-                statut: false,
-              },
-            ],
-          }
-          monQcm = propositionsQcm(this, i)
-          if (this.interactif) texte += monQcm.texte
-          break
-        case 3: //  calcul de (a sqrt b)*(c + d sqrt b)
-          a = randint(2, 9) * choice([-1, 1])
-          c = randint(3, 9) * choice([-1, 1])
-          d = randint(2, 9) * choice([-1, 1])
-          b = randint(2, 11, [4, 8, 9])
-          e = c * d
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const type = types[i]
+      const operation: Operation = randint(0, 1) === 0 ? '-' : '+'
+      const operation2: Operation = randint(0, 1) === 0 ? '-' : '+'
+      const b = randint(2, 9)
+      const a = randint(1, b - 1)
+      const c = randint(type === 3 ? 2 : 1, 6)
+      const e = randint(2, 9)
+      const d = randint(1, e - 1)
+      const f = randint(type === 3 ? 2 : 1, 6)
+      const fractionA = new FractionEtendue(a, b)
+      let reponse: FractionEtendue
+      let expression = ''
+      let expressionCorrection = ''
+      let commentairePremiereEtape = ''
+      let etapes: string[] = []
 
-          texte = `$ ${a} \\sqrt{${b}}\\left( ${c}  ${ecritureAlgebrique(d)}\\sqrt{${b}}\\right)$`
-          texteCorr = `$${a} \\sqrt{${b}}\\left( ${c}  ${ecritureAlgebrique(d)}\\sqrt{${b}}\\right)=
-                        ${a} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(a)} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)}\\sqrt{${b}}$<br>
-                        $\\phantom{${a} \\sqrt{${b}}\\left( ${c}  ${ecritureAlgebrique(d)}\\sqrt{${b}}\\right)}=${a * c}\\sqrt{${b}}${ecritureAlgebrique(a)}\\times ${ecritureParentheseSiNegatif(d)}\\times ${b}$<br>
-                        $\\phantom{${a} \\sqrt{${b}}\\left( ${c}  ${ecritureAlgebrique(d)}\\sqrt{${b}}\\right)}=${a * c}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: `$${a * c}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`,
-                statut: true,
-              },
-              {
-                texte: 'On ne peut pas simplifier',
-                statut: false,
-              },
-              {
-                texte: `$${a * c}\\sqrt{${b}}${ecritureAlgebrique(-a * d * b)}$`,
-                statut: false,
-              },
-              {
-                texte: `$${rienSi1(a + c)}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`,
-                statut: false,
-              },
-            ],
-          }
-          monQcm = propositionsQcm(this, i)
-          if (this.interactif) texte += monQcm.texte
+      switch (type) {
+        case 1: {
+          const fractionC = new FractionEtendue(c, b)
+          const fractionE = new FractionEtendue(e, f)
+          const produit = fractionC.produitFraction(fractionE)
+          reponse =
+            operation === '+'
+              ? fractionA.sommeFraction(produit)
+              : fractionA.differenceFraction(produit)
+          expression = `${fractionA.texFraction}${operation}${fractionC.texFraction}\\times${fractionE.texFraction}`
+          expressionCorrection = `${fractionA.texFraction}${operation}${miseEnEvidence(`${fractionC.texFraction}\\times${fractionE.texFraction}`, 'red')}`
+          commentairePremiereEtape = `&\\text{On repère la priorité de la multiplication sur ${operation === '+' ? 'l’addition' : 'la soustraction'}.}`
+          etapes = [
+            `${fractionA.texFraction}${operation}\\dfrac{${fractionC.num}\\times${fractionE.num}}{${fractionC.den}\\times${fractionE.den}}&\\text{On multiplie les numérateurs entre eux et les dénominateurs entre eux.}`,
+            `${fractionA.texFraction}${operation}${produit.texFSD}&\\text{On calcule le produit.}`,
+            ...(produit.estIrreductible
+              ? []
+              : [
+                  `${fractionA.texFraction}${operation}${produit.simplifie().texFSD}&\\text{On simplifie le produit.}`,
+                ]),
+            ...etapesSommeOuDifference(
+              fractionA,
+              produit.simplifie(),
+              operation,
+            ),
+          ]
           break
-        case 4: //  calcul de sqrt b + sqrt c
-          a = randint(2, 9)
-
-          d = randint(2, 9)
-          b = randint(2, 11, [4, 8, 9])
-          c = randint(2, 19, [4, 8, 9, 12, 16, 18, b])
-          e = c * d
-
-          texte = `$\\sqrt{${b}}+\\sqrt{${c}}$`
-          texteCorr = `$  \\sqrt{${b}}+\\sqrt{${c}}$ n'est pas simplifiable`
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: `$\\sqrt{${b + c}}$`,
-                statut: false,
-              },
-              {
-                texte: 'On ne peut pas simplifier',
-                statut: true,
-              },
-              {
-                texte: `$\\sqrt{${b * c}}$`,
-                statut: false,
-              },
-              {
-                texte: `$${b + c}$`,
-                statut: false,
-              },
-            ],
-          }
-          monQcm = propositionsQcm(this, i)
-          if (this.interactif) texte += monQcm.texte
+        }
+        case 2: {
+          const fractionD = new FractionEtendue(d, e)
+          const numerateur =
+            operation === '+'
+              ? fractionA.ajouteEntier(c)
+              : fractionA.ajouteEntier(-c)
+          const denominateur =
+            operation2 === '+'
+              ? fractionD.ajouteEntier(f)
+              : fractionD.ajouteEntier(-f)
+          reponse = numerateur.diviseFraction(denominateur)
+          expression = `\\dfrac{${fractionA.texFraction}${operation}${c}}{${fractionD.texFraction}${operation2}${f}}`
+          const entierC = new FractionEtendue(c * b, b)
+          const entierF = new FractionEtendue(f * e, e)
+          etapes = [
+            `\\dfrac{${fractionA.texFraction}${operation}${entierC.texFSD}}{${fractionD.texFraction}${operation2}${entierF.texFSD}}&\\text{On met au même dénominateur dans le numérateur et le dénominateur.}`,
+            `\\dfrac{\\dfrac{${a}${operation}${c * b}}{${b}}}{\\dfrac{${d}${operation2}${f * e}}{${e}}}&\\text{On calcule les sommes ou les différences.}`,
+            `\\dfrac{${numerateur.texFSD}}{${denominateur.texFSD}}`,
+            `${numerateur.simplifie().texFSD}\\times${denominateur.inverse().simplifie().texFSD}&\\text{Diviser par un réel non nul, c’est multiplier par son inverse.}`,
+            ...(reponse.estIrreductible ? [] : [reponse.texFSD]),
+          ]
           break
-        case 5: //  calcul de  sqrt b² + sqrt c²
-          b = randint(2, 11)
-          c = randint(2, 11, [b])
-          e = c * d
-
-          texte = `$  \\sqrt{${b * b}}+\\sqrt{${c * c}}$`
-          texteCorr = `$  \\sqrt{${b * b}}+\\sqrt{${c * c}}=${b}+${c}=${b + c}$ `
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: `$\\sqrt{${b + c}}$`,
-                statut: false,
-              },
-              {
-                texte: `$${b + c}$`,
-                statut: true,
-              },
-              {
-                texte: 'On ne peut pas simplifier',
-                statut: false,
-              },
-              {
-                texte: `$\\sqrt{${b * b + c * c}}$`,
-                statut: false,
-              },
-            ],
-          }
-          monQcm = propositionsQcm(this, i)
-          if (this.interactif) texte += monQcm.texte
+        }
+        case 3:
+        default: {
+          const fractionD = new FractionEtendue(d, e)
+          const produit1 = fractionA.multiplieEntier(c)
+          const produit2 = fractionD.multiplieEntier(f)
+          reponse =
+            operation === '+'
+              ? produit1.sommeFraction(produit2)
+              : produit1.differenceFraction(produit2)
+          expression = `${fractionA.texFraction}\\times${c}${operation}${fractionD.texFraction}\\times${f}`
+          expressionCorrection = `${miseEnEvidence(`${fractionA.texFraction}\\times${c}`, 'red')}${operation}${miseEnEvidence(`${fractionD.texFraction}\\times${f}`, 'red')}`
+          commentairePremiereEtape = `&\\text{On repère la priorité des multiplications sur ${operation === '+' ? 'l’addition' : 'la soustraction'}.}`
+          etapes = [
+            `${produit1.simplifie().texFSD}${operation}${produit2.simplifie().texFSD}&\\text{On effectue les multiplications en priorité.}`,
+            ...etapesSommeOuDifference(
+              produit1.simplifie(),
+              produit2.simplifie(),
+              operation,
+            ),
+          ]
           break
-        case 6: //  calcul de  sqrt (b²c/c)
-          b = randint(2, 11)
-          c = randint(2, 7, [b])
-          d = b * b * c
-
-          texte = `$ \\sqrt{\\dfrac{${d}}{${c}}}$`
-          texteCorr = `$ \\sqrt{\\dfrac{${d}}{${c}}}= \\sqrt{\\dfrac{${b}^{2}\\times${c}}{${c}}}$<br>
-                        $\\phantom{\\sqrt{\\dfrac{${d}}{${c}}}}=\\sqrt{${b}^{2}}$<br>
-                        $\\phantom{\\sqrt{\\dfrac{${d}}{${c}}}}=${b}$ `
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: `$\\sqrt{${b}}$`,
-                statut: false,
-              },
-              {
-                texte: `$${b}$`,
-                statut: true,
-              },
-              {
-                texte: 'On ne peut pas simplifier',
-                statut: false,
-              },
-              {
-                texte: `$${b ** 2}$`,
-                statut: false,
-              },
-            ],
-          }
-          monQcm = propositionsQcm(this, i)
-          if (this.interactif) texte += monQcm.texte
-          break
-        case 7: //  calcul de sqrt b * sqrt c
-          b = randint(2, 11, [4, 9])
-          c = randint(2, 10, [4, 9])
-          d = b * c
-          while (
-            d === 4 ||
-            d === 9 ||
-            d === 16 ||
-            d === 25 ||
-            d === 36 ||
-            d === 49 ||
-            d === 64 ||
-            d === 81 ||
-            d === 100
-          ) {
-            b = randint(2, 11, [4, 9])
-            c = randint(2, 10, [b])
-            d = b * c
-          }
-          texte = `$ \\sqrt{${d}}\\times \\sqrt{${c}}$`
-          texteCorr = `$ \\sqrt{${d}}\\times \\sqrt{${c}}=\\sqrt{${d}\\times${c}}$<br>
-                        $\\phantom{\\sqrt{${d}}\\times \\sqrt{${c}}}=\\sqrt{${b}\\times${c}\\times${c}}$<br>
-                        $\\phantom{\\sqrt{${d}}\\times \\sqrt{${c}}}=${c}\\sqrt{${b}}$ `
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
-              {
-                texte: `$${c * b}$`,
-                statut: false,
-              },
-              {
-                texte: `$${c}\\sqrt{${b}}$`,
-                statut: true,
-              },
-              {
-                texte: 'On ne peut pas simplifier',
-                statut: false,
-              },
-              {
-                texte: `$${b}\\sqrt{${c}}$`,
-                statut: false,
-              },
-            ],
-          }
-          monQcm = propositionsQcm(this, i)
-          if (this.interactif) texte += monQcm.texte
-          break
+        }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+
+      if (
+        this.questionJamaisPosee(
+          i,
+          type,
+          operation,
+          operation2,
+          a,
+          b,
+          c,
+          d,
+          e,
+          f,
+        )
+      ) {
+        const nom = lettreDepuisChiffre(i + 1)
+        let texte = `$${nom}=${expression}$`
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+          { texteAvant: '$=$' },
+        )
+
+        const resultat = reponse.simplifie()
+        const texteCorr =
+          `$\\begin{aligned}${nom}&=${expressionCorrection || expression}${commentairePremiereEtape}\\\\` +
+          etapes.map((etape) => `&=${etape}\\\\`).join('') +
+          `&=${miseEnEvidence(resultat.texFSD)}\\end{aligned}$`
+
+        handleAnswers(this, i, {
+          reponse: {
+            value: resultat.texFSD,
+            options: { fractionIrreductible: true },
+          },
+        })
+
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

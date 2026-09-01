@@ -2,11 +2,10 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Enrichir son vocabulaire sur les probabilités'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -17,7 +16,7 @@ export const amcType = 'AMCNum'
 export const uuid = '2a91a'
 
 export const refs = {
-  'fr-fr': ['can6S02', '6P2A-flash1'],
+  'fr-fr': ['can6S02', '6P2A-flash1', '6AutoH1'],
   'fr-ch': ['NR'],
 }
 export default class ChancesSurEtProbabilites extends ExerciceSimple {
@@ -30,8 +29,8 @@ export default class ChancesSurEtProbabilites extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const nbChances = randint(1, 3)
-    const nbTotal = nbChances + randint(1, 3)
+    const nbChances = this.quotaRandint('nbChances', 1, 3)
+    const nbTotal = nbChances + this.quotaRandint('nbTotalDelta', 1, 3)
     this.reponse = new FractionEtendue(nbChances, nbTotal).texFraction
     this.question = `S'il y a $${nbChances}$ chance${nbChances === 1 ? '' : 's'} sur $${nbTotal}$ qu'un événement se produise, alors la probabilité
     que cet événement se réalise est de : `

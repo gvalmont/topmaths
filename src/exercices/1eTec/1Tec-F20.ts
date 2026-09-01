@@ -2,7 +2,6 @@ import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/Courbe'
 import { repere } from '../../lib/2d/reperes'
 import { bleuMathalea } from '../../lib/colors'
-import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
@@ -33,7 +32,6 @@ export const refs = {
 }
 
 export const interactifReady = true
-export const interactifType = 'cliqueFigure'
 
 export default class ExpressionAParabole extends Exercice {
   // Type d'expressions fournie par le menu
@@ -60,7 +58,7 @@ export default class ExpressionAParabole extends Exercice {
   }
 
   nouvelleVersion() {
-    this.figures = []
+    this.cliqueFiguresArray = []
 
     // Gestion du choix du type d'expression
     const expressionsPossibles = gestionnaireFormulaireTexte({
@@ -263,7 +261,7 @@ export default class ExpressionAParabole extends Exercice {
         graphes[ordre[2]] +
         graphes[ordre[3]]
 
-      this.figures[i] = [
+      this.cliqueFiguresArray[i] = [
         { id: id0, solution: true },
         { id: id1, solution: false },
         { id: id2, solution: false },
@@ -272,7 +270,7 @@ export default class ExpressionAParabole extends Exercice {
 
       if (this.interactif) {
         this.autoCorrection[i] = {}
-        setCliqueFigure(this.autoCorrection[i])
+        this.autoCorrection[i].formatInteractif = 'clique-figure'
 
         texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
@@ -329,16 +327,16 @@ export default class ExpressionAParabole extends Exercice {
     pixelsParCm?: number
   }): string {
     const rapportY = 2
-    const optionsFenetre = {
+    const fenetreMathalea2d = {
       xmin: xmin * 1.1,
       xmax: xmax * 1.1,
       ymin: new Decimal(ymin).div(rapportY).toNumber(),
       ymax: new Decimal(ymax).div(rapportY).toNumber(),
-      style: 'display: inline-block',
+      display: 'inline-block' as const,
     }
-    if (id !== undefined) Object.assign(optionsFenetre, { id })
+    if (id !== undefined) Object.assign(fenetreMathalea2d, { id })
     if (pixelsParCm !== undefined)
-      Object.assign(optionsFenetre, { pixelsParCm })
+      Object.assign(fenetreMathalea2d, { pixelsParCm })
     const r1 = repere({
       xMin: xmin,
       yMin: ymin,
@@ -353,7 +351,7 @@ export default class ExpressionAParabole extends Exercice {
       grilleY: false,
     })
     const graphe1 = mathalea2d(
-      optionsFenetre,
+      fenetreMathalea2d,
       r1,
       courbe(fonction, { repere: r1, color: bleuMathalea, epaisseur: 2 }),
     )

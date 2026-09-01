@@ -9,7 +9,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Résoudre une équation $x^2 = a$'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Résoudre une équation de type x²=a
@@ -19,7 +18,7 @@ export const uuid = '57f44'
 
 export const refs = {
   'fr-fr': ['3L15-1'],
-  'fr-ch': ['11FA10-5'],
+  'fr-ch': ['11FA5B-5'],
 }
 export default class ResoudreEquatioeX2EgalA extends Exercice {
   constructor() {
@@ -34,7 +33,7 @@ export default class ResoudreEquatioeX2EgalA extends Exercice {
 
     this.sup = 1
 
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    this.spacingCorr = context.isHtml ? 2 : 1.5
   }
 
   nouvelleVersion() {

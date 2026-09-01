@@ -7,6 +7,7 @@ import { buildQcmForExercise } from '../../lib/interactif/qcmBuilder'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
 import { shuffle } from '../../lib/outils/arrayOutils'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import Exercice from '../Exercice'
 /**
@@ -14,12 +15,12 @@ import Exercice from '../Exercice'
  */
 export const uuid = 'b7e92'
 export const refs = {
-  'fr-fr': ['TSA3-24'],
+  'fr-fr': ['TSA3-40'],
   'fr-ch': [],
 }
 
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Répondre à des QCM Bac : Convexité'
@@ -97,7 +98,7 @@ function graphique(
       ymax: yMax * yUnite + 0.25,
       pixelsParCm,
       scale,
-      style: 'margin: auto',
+      center: !context.isHtml,
       centerLatex: true,
     },
     r,
@@ -345,7 +346,7 @@ const graphiqueJanvier2021 = () => {
       ymax: 4,
       pixelsParCm: 24,
       scale: 0.95,
-      style: 'margin: auto',
+      center: !context.isHtml,
       centerLatex: true,
     },
     r,

@@ -1,0 +1,198 @@
+{
+  "sections": [
+    {
+      "id": "college",
+      "title": "Collège",
+      "subtitle": "6e · 5e · 4e · 3e · Brevet",
+      "icon": "bx-backpack",
+      "entries": [
+        {
+          "id": "6e",
+          "title": "6e",
+          "referentiel": "aleatoires",
+          "path": ["6e"]
+        },
+        {
+          "id": "5e",
+          "title": "5e",
+          "referentiel": "aleatoires",
+          "path": ["5e"]
+        },
+        {
+          "id": "4e",
+          "title": "4e",
+          "referentiel": "aleatoires",
+          "path": ["4e"]
+        },
+        {
+          "id": "3e",
+          "title": "3e",
+          "referentiel": "aleatoires",
+          "path": ["3e"]
+        },
+        {
+          "id": "dnb-themes",
+          "title": "Annales de DNB par thèmes",
+          "referentiel": "examens",
+          "path": ["BrevetTags"]
+        }
+      ]
+    },
+    {
+      "id": "lycee",
+      "title": "Lycée Général",
+      "subtitle": "2de · 1re · Tle · Bac",
+      "icon": "bx-graduation",
+      "entries": [
+        {
+          "id": "2e",
+          "title": "Seconde",
+          "referentiel": "aleatoires",
+          "path": ["2e"],
+          "externalLinks": [
+            {
+              "title": "Cahiers d'automatismes",
+              "url": "https://coopmaths.fr/www/automatismes/2nde/",
+              "icon": "bx-book"
+            }
+          ]
+        },
+        {
+          "id": "1e",
+          "title": "Première",
+          "referentiel": "aleatoires",
+          "path": ["1e"],
+          "externalLinks": [
+            {
+              "title": "Cahiers d'automatismes",
+              "url": "https://coopmaths.fr/www/automatismes/1re/",
+              "icon": "bx-book"
+            }
+          ]
+        },
+        {
+          "id": "terminale",
+          "title": "Terminale",
+          "referentiel": "aleatoires",
+          "path": ["Terminale"]
+        },
+        {
+          "id": "premiere-annales-themes",
+          "title": "Annales épreuves de première par thème",
+          "referentiel": "examens",
+          "path": ["40_Épreuves de Première - Par thème"]
+        },
+        {
+          "id": "bac-themes",
+          "title": "Baccalauréat par thème",
+          "referentiel": "examens",
+          "path": ["60_Baccalauréat - Par thème"]
+        }
+      ]
+    },
+    {
+      "id": "lyceePro",
+      "title": "Lycée Professionnel",
+      "subtitle": "2de · 1re",
+      "icon": "bx-graduation",
+      "entries": [
+        {
+          "id": "bp2",
+          "title": "Bac Pro seconde",
+          "referentiel": "aleatoires",
+          "path": ["BP2"]
+        },
+        {
+          "id": "bp1",
+          "title": "Bac Pro première",
+          "referentiel": "aleatoires",
+          "path": ["BP1"]
+        }
+      ]
+    },
+    {
+      "id": "can",
+      "title": "Course aux nombres",
+      "subtitle": "CE · CM · 6e … Terminale",
+      "icon": "bx-timer",
+      "views": ["typst", "mobile"],
+      "entries": [
+        {
+          "id": "can-ce",
+          "title": "CE1 · CE2",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "canCE"]
+        },
+        {
+          "id": "can-cm",
+          "title": "CM1 · CM2",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "CM1/CM2"]
+        },
+        {
+          "id": "can-6e",
+          "title": "6e",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "6e"]
+        },
+        {
+          "id": "can-5e",
+          "title": "5e",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "5e"]
+        },
+        {
+          "id": "can-4e",
+          "title": "4e",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "4e"]
+        },
+        {
+          "id": "can-3e",
+          "title": "3e",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "3e"]
+        },
+        {
+          "id": "can-2e",
+          "title": "Seconde",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "2e"]
+        },
+        {
+          "id": "can-1e",
+          "title": "Première",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "1e"]
+        },
+        {
+          "id": "can-terminale",
+          "title": "Terminale",
+          "referentiel": "aleatoires",
+          "path": ["CAN", "Terminale"]
+        }
+      ]
+    },
+    {
+      "id": "complements",
+      "title": "Ressources complémentaires",
+      "subtitle": "Annales d'examens · Ressources partenaires",
+      "icon": "bx-library",
+      "views": ["typst"],
+      "entries": [
+        {
+          "id": "annales",
+          "title": "Annales d'examens",
+          "referentiel": "examens",
+          "path": []
+        },
+        {
+          "id": "partenaires",
+          "title": "Ressources partenaires",
+          "referentiel": "partenaires",
+          "path": []
+        }
+      ]
+    }
+  ]
+}

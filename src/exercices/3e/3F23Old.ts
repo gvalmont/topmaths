@@ -25,7 +25,6 @@ export const dateDeModifImportante = '27/03/2026'
 export const titre =
   "Trouver l'intersection des droites représentant des fonctions affines"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Trouver les coordonnées du point d'intersection des droites représentant des fonctions affines
@@ -35,7 +34,7 @@ export const uuid = 'ac71d'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class IntersectionDroites extends Exercice {
   constructor() {
@@ -60,7 +59,7 @@ export default class IntersectionDroites extends Exercice {
       defaut: 3,
       nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       const a = randint(-9, 9, 0)

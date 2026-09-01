@@ -3,7 +3,6 @@ export const titre = 'Résoudre une Rose multiplicative avec calcul littéral'
 export const dateDePublication = '12/08/2022'
 export const dateDeModifImportante = '01/10/2023'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -16,7 +15,7 @@ export const uuid = '4963b'
 
 export const refs = {
   'fr-fr': ['3L11-9'],
-  'fr-ch': ['11FA2-15'],
+  'fr-ch': ['10FA4F-8'],
 }
 export default class RoseAdditive4L extends ExoRose {
   // c'est l'ExoRose zéro contenu dans _Roses.js

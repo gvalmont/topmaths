@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texPrix } from '../../../lib/outils/texNombre'
 import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer un prix avec une proportionnalité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'mdzny'
 export const refs = {
   'fr-fr': [],
@@ -40,7 +39,7 @@ export default class Can32026Q8 extends ExerciceCan {
         [16, 24, 4], // 16 gommes → 24€, combien pour 4 ? (6€)
         [20, 30, 5], // 20 gommes → 30€, combien pour 5 ? (7,5€)
       ]
-      const cas = choice(listeCas)
+      const cas = this.quotaChoice('cas', listeCas)
       nbDepart = cas[0]
       prixDepart = cas[1]
       nbArrivee = cas[2]

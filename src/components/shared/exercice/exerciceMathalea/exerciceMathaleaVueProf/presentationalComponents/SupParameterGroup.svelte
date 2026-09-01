@@ -1,10 +1,23 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
+  import {
+    POIDS_MAX_DEFAUT,
+    type FormulaireComplexe as FormulaireComplexeType,
+    type ItemPondere,
+  } from '../../../../../../lib/formulaireComplexe'
+  import {
+    itemsFormulaireTexte,
+    parseCasFormulaireTexte,
+    serialiseItemsFormulaireTexte,
+    type CasFormulaireTexte,
+  } from '../../../../../../lib/formulaireTexteListe'
   import type { IExercice } from '../../../../../../lib/types'
   import CheckboxWithLabel from '../../../../forms/CheckboxWithLabel.svelte'
   import InputNumber from '../../../../forms/InputNumber.svelte'
   import InputText from '../../../../forms/InputText.svelte'
   import SelectUnique from '../../../../forms/SelectUnique.svelte'
+  import FormulaireComplexe from './FormulaireComplexe.svelte'
+  import ListePondereeItems from './ListePondereeItems.svelte'
 
   export let supIndex: 1 | 2 | 3 | 4 | 5
   export let exercice: IExercice
@@ -13,8 +26,13 @@
   export let formNum: { titre: string; champs: string[] | number } | undefined =
     undefined
   export let categoriesForm:
-    | { titre: string; categories: { label: string; max: number }[]; defaut: number[] }
+    | {
+        titre: string
+        categories: { label: string; max: number }[]
+        defaut: number[]
+      }
     | undefined = undefined
+  export let formulaireComplexe: FormulaireComplexeType | undefined = undefined
 
   const dispatch = createEventDispatcher()
 
@@ -23,6 +41,68 @@
   $: caseACocher =
     exercice[`besoinFormulaire${suffix}CaseACocher` as keyof IExercice]
   $: texte = exercice[`besoinFormulaire${suffix}Texte` as keyof IExercice]
+
+  /**
+   * Cas énumérés par l'aide du formulaire texte, quand elle s'y prête : ils sont
+   * alors présentés comme une liste pondérée plutôt que comme un champ à remplir
+   * avec des numéros séparés par des tirets. `null` sinon (champ texte libre).
+   */
+  $: casTexte = Array.isArray(texte)
+    ? parseCasFormulaireTexte((texte as [string, string])[1])
+    : null
+
+  let itemsTexte: ItemPondere[] = []
+  /**
+   * Dernière valeur de `supValue` reflétée par `itemsTexte`. `null` tant que rien
+   * n'a été lu, pour distinguer l'initialisation d'un `sup` vide.
+   */
+  let derniereSaisie: string | null = null
+  /** Cas dont `itemsTexte` est issu, pour les relire si l'exercice change. */
+  let derniersCas: CasFormulaireTexte | null = null
+
+  // Recharge les cases si `sup` change ailleurs (URL partagée, exercice réinitialisé).
+  $: if (
+    casTexte !== null &&
+    (casTexte !== derniersCas || String(supValue ?? '') !== derniereSaisie)
+  ) {
+    derniersCas = casTexte
+    derniereSaisie = String(supValue ?? '')
+    itemsTexte = itemsFormulaireTexte(casTexte, supValue)
+  }
+
+  /**
+   * Range les cases cochées dans `supValue`, sous la forme historique attendue par
+   * `gestionnaireFormulaireTexte()` : un numéro répété autant de fois que son poids,
+   * ou le numéro de « Mélange » quand tous les cas sont cochés au même poids.
+   */
+  function propageTexte() {
+    if (derniersCas === null) return
+    derniereSaisie = serialiseItemsFormulaireTexte(derniersCas, itemsTexte)
+    supValue = derniereSaisie
+    dispatch('change')
+  }
+
+  function basculeCasTexte(index: number, actif: boolean) {
+    const item = itemsTexte[index]
+    itemsTexte[index] = { ...item, poids: actif ? Math.max(1, item.poids) : 0 }
+    itemsTexte = [...itemsTexte]
+    propageTexte()
+  }
+
+  function changePoidsCasTexte(index: number, poids: number) {
+    itemsTexte[index] = { ...itemsTexte[index], poids: Math.max(0, poids) }
+    itemsTexte = [...itemsTexte]
+    propageTexte()
+  }
+
+  /**
+   * Raccourci « tout cocher » : tous les cas au même poids, c'est-à-dire le
+   * « Mélange » que proposait l'aide.
+   */
+  function cocheTousLesCasTexte() {
+    itemsTexte = itemsTexte.map((item) => ({ ...item, poids: 1 }))
+    propageTexte()
+  }
 
   // Pour categoriesForm : tableau de counts synchronisé avec supValue
   let counts: number[] = []
@@ -58,7 +138,9 @@
   <CheckboxWithLabel
     id="settings-check{supIndex}-{exerciceIndex}"
     bind:isChecked={supValue}
-    label={typeof caseACocher !== 'boolean' ? caseACocher[0] : ''}
+    label={typeof caseACocher !== 'boolean'
+      ? (caseACocher as [string, boolean])[0]
+      : ''}
     on:change={handleChange}
     darkBackground={true}
   />
@@ -109,15 +191,17 @@
 
 {#if categoriesForm}
   <div class="flex flex-col gap-1">
-    <div class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light">
+    <div
+      class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+    >
       {categoriesForm.titre} :
     </div>
     {#each categoriesForm.categories as cat, i}
       <div class="flex items-center gap-2">
         <label
           class="w-36 text-sm text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-          for="settings-cat{supIndex}-{i}-{exerciceIndex}"
-        >{cat.label}</label>
+          for="settings-cat{supIndex}-{i}-{exerciceIndex}">{cat.label}</label
+        >
         <InputNumber
           id="settings-cat{supIndex}-{i}-{exerciceIndex}"
           min={0}
@@ -131,7 +215,48 @@
   </div>
 {/if}
 
-{#if texte}
+{#if formulaireComplexe}
+  <FormulaireComplexe
+    formulaire={formulaireComplexe}
+    {exerciceIndex}
+    bind:supValue
+    on:change={handleChange}
+  />
+{/if}
+
+{#if texte && casTexte !== null}
+  <div
+    id="settings-formTextListe{supIndex}-{exerciceIndex}"
+    class="flex flex-col gap-y-1"
+  >
+    <div
+      id="settings-formTextTitre{supIndex}-{exerciceIndex}"
+      class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+    >
+      {(texte as [string, string])[0]} :
+    </div>
+    <div
+      class="w-full pl-4 pb-1 text-[80%] text-coopmaths-struct-light leading-tight"
+    >
+      Cochez les cas voulus et réglez leur poids d'apparition.
+      <button
+        id="settings-formTextTout{supIndex}-{exerciceIndex}"
+        type="button"
+        class="underline text-coopmaths-action dark:text-coopmathsdark-action
+          hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
+        on:click={cocheTousLesCasTexte}>Tout cocher</button
+      >
+    </div>
+    <ListePondereeItems
+      items={itemsTexte}
+      idItem={(item) =>
+        `settings-formTextListe${supIndex}-${exerciceIndex}-${item.nom}`}
+      poidsMax={POIDS_MAX_DEFAUT}
+      on:bascule={(e) => basculeCasTexte(e.detail.index, e.detail.actif)}
+      on:poids={(e) => changePoidsCasTexte(e.detail.index, e.detail.poids)}
+    />
+  </div>
+{:else if texte}
   <form
     id="settings-form-formText{supIndex}-{exerciceIndex}"
     name="settings-form-formText{supIndex}"
@@ -142,11 +267,11 @@
       <div
         class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
       >
-        <div>{texte[0]} :</div>
+        <div>{(texte as [string, string])[0]} :</div>
         <div
           class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
         >
-          {texte[1]}
+          {(texte as [string, string])[1]}
         </div>
       </div>
       <InputText

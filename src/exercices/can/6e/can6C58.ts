@@ -10,7 +10,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer une somme ou une différence de fractions à dénominateurs différents'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '05/07/2025'
@@ -41,7 +41,7 @@ export default class SommeDiffFractionsCompatibles extends ExerciceSimple {
     let resultat: FractionEtendue
     let p: number
 
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2])) {
       case 1: // addition
         do {
           frac1 = choice(obtenirListeFractionsIrreductibles())

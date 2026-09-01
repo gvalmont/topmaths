@@ -1,9 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer l’aire ou un périmètre d’un carré'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -28,7 +27,7 @@ export default class CarreAire extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, c
-    switch (choice(['a', 'b'])) {
+    switch (this.quotaChoice('cas', ['a', 'b'])) {
       case 'a':
         a = randint(1, 10)
 

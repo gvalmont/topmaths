@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -15,12 +16,10 @@ import { context } from '../../modules/context'
 import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 export const titre = 'Effectuer divisions décimales'
 
@@ -44,7 +43,7 @@ export const uuid = '294bb'
 export const refs = {
   'fr-fr': ['6N2H'],
   'fr-2016': ['6C31'],
-  'fr-ch': ['9NO8-14'],
+  'fr-ch': ['PR-29'],
 }
 export default class DivisionDecimale extends Exercice {
   constructor() {
@@ -55,7 +54,7 @@ export default class DivisionDecimale extends Exercice {
       '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au millième près',
     ]
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon opdiv n'est pas joli
     this.nbQuestions = 4
     this.sup = 1
   }

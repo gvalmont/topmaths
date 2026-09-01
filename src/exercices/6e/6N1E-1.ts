@@ -22,7 +22,7 @@ import Exercice from '../Exercice'
 export const titre = 'Lier nombre décimal, fraction spécifique et pourcentage'
 export const dateDePublication = '04/06/2025'
 export const dateDeModifImportante = '17/12/2026'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 
 /**
@@ -35,7 +35,7 @@ export const uuid = '13f50'
 export const refs = {
   'fr-fr': ['6N1E-1'],
   'fr-2016': ['6N23-11'],
-  'fr-ch': [''],
+  'fr-ch': ['9NO3C-10'],
 }
 export default class DecimalFractionPourcentage extends Exercice {
   constructor() {

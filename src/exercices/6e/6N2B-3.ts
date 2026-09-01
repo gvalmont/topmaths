@@ -1,4 +1,5 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
+import { bleuMathalea } from '../../lib/colors'
 import { lampeMessage } from '../../lib/format/message'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -15,9 +16,8 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre =
   'Multiplier un décimal par 10, 100, 1000, 0,1, 0,01, 0,001...'
 
@@ -32,9 +32,9 @@ export const dateDePublication = '08/05/2025'
 export const uuid = 'db71b'
 
 export const refs = {
-  'fr-fr': ['6N2B-3'],
+  'fr-fr': ['6N2B-3', '6AutoN4'],
   'fr-2016': ['6C30-6b'],
-  'fr-ch': ['9NO8-21'],
+  'fr-ch': ['9NO1G-7'],
 }
 export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
   constructor() {

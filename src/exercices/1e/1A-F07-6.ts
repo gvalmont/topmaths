@@ -11,11 +11,12 @@ import {
   rienSi1,
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
+import { bleuMathalea } from '../../lib/colors'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
-import { bleuMathalea } from '../../lib/colors'
 /**
  * @author Gilles Mora
  *
@@ -26,7 +27,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -78,7 +79,7 @@ export default class Auto1AF076 extends ExerciceQcmA {
         ymax: 3.5,
         pixelsParCm: 25,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
       r1,
@@ -216,7 +217,7 @@ export default class Auto1AF076 extends ExerciceQcmA {
       }
     }
 
-    this.correction += `<br>La seule équation ayant un coefficient directeur ${signeM > 0 ? 'positif' : 'négatif'} et une ordonnée à l'origine ${typeP === 'pos' ? 'positive' : typeP === 'neg' ? 'négative' : 'nulle'} est : $${miseEnEvidence(bonne.eq)}$.`
+    this.correction += `Parmi ces 4 équations réduites, la seule équation ayant un coefficient directeur ${signeM > 0 ? 'positif' : 'négatif'} et une ordonnée à l'origine ${typeP === 'pos' ? 'positive' : typeP === 'neg' ? 'négative' : 'nulle'} est : $${miseEnEvidence(bonne.eq)}$.`
 
     // ===== Réponses =====
     this.reponses = [
@@ -269,7 +270,7 @@ export default class Auto1AF076 extends ExerciceQcmA {
         ymax: 3.5,
         pixelsParCm: 25,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
       r1,
@@ -293,7 +294,7 @@ export default class Auto1AF076 extends ExerciceQcmA {
     this.correction += `$\\bullet\\:$ $2x+y+1=0$ s'écrit $y=-2x-1$.<br>`
     this.correction += `$\\bullet\\:$ $y=x^2-(x+1)^2+1$ s'écrit $y=-2x$.<br>`
     this.correction += `$\\bullet\\:$ $y=2x-1$ est sous forme réduite.<br>`
-    this.correction += `<br>La seule équation ayant un coefficient directeur négatif et une ordonnée à l'origine nulle est : $${miseEnEvidence('y=x^2-(x+1)^2+1')}$.`
+    this.correction += `<br>Parmi ces $4$ équations réduites, la seule équation ayant un coefficient directeur négatif et une ordonnée à l'origine nulle est : $${miseEnEvidence('y=x^2-(x+1)^2+1')}$.`
 
     this.reponses = ['$y=x^2-(x+1)^2+1$', '$2x-y=0$', '$2x+y+1=0$', '$y=2x-1$']
   }
@@ -305,12 +306,7 @@ export default class Auto1AF076 extends ExerciceQcmA {
       const typeP = choice(['pos', 'neg', 'nul']) as 'pos' | 'neg' | 'nul'
       this.appliquerLesValeurs(signeM, typeP)
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {
-        egaliteExpression: true,
-      })
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {

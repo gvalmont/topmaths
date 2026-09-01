@@ -1,3 +1,4 @@
+import { orangeMathalea } from '../../../lib/colors'
 import { texPrix } from '../../../lib/format/style'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -5,10 +6,9 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { orangeMathalea } from '../../../lib/colors'
 export const titre = 'Résoudre un problème de proportionnalité**'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '19/07/2022'
@@ -22,8 +22,8 @@ export const dateDePublication = '19/07/2022'
 export const uuid = 'c3a01'
 
 export const refs = {
-  'fr-fr': ['can5P08'],
-  'fr-ch': [],
+  'fr-fr': ['can5P08', '5P1C-flash2'],
+  'fr-ch': ['9FA2B-11'],
 }
 export default class Proportionnalite3 extends ExerciceSimple {
   constructor() {
@@ -52,7 +52,7 @@ export default class Proportionnalite3 extends ExerciceSimple {
       ['citrouilles', 'citrouille'],
     ]
     switch (
-      choice([1, 2]) //
+      this.quotaChoice('typeDeQuestions', [1, 2]) //
     ) {
       case 1: // proportionnalité avec fruits
         choix = choice(['a', 'b'])

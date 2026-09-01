@@ -5,14 +5,13 @@ import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un angle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '02/01/2026'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -37,7 +36,7 @@ export default class CalculerAngle extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('cas', [1, 2])) {
       case 1:
         {
           // Angle extérieur pair entre 114° et 132°

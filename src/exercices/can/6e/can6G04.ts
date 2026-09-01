@@ -8,13 +8,14 @@ import {
 import { labelPoint } from '../../../lib/2d/textes'
 import { tracePointSurDroite } from '../../../lib/2d/TracePointSurDroite'
 import { bleuMathalea } from '../../../lib/colors'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de longueurs'
 export const dateDePublication = '2/11/2021'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
@@ -41,9 +42,9 @@ export default class ProblemesDeLongueurs extends ExerciceSimple {
     const objets = []
     const pointsSurDE = []
     const pointsSurAB = []
-    const b = randint(2, 5)
+    const b = this.quotaRandint('b', 2, 5)
     const a = randint(2, 8 - b)
-    const c = randint(2, 9)
+    const c = this.quotaRandint('c', 2, 9)
     const A = pointAbstrait(0, 0, 'A', 'below')
     const B = pointAbstrait(16, 0, 'B', 'below')
     const AB = segmentAvecExtremites(A, B)
@@ -97,7 +98,7 @@ export default class ProblemesDeLongueurs extends ExerciceSimple {
           xmax: 16.5,
           ymax: 3.5,
           scale: 0.45,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )

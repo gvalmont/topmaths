@@ -4,7 +4,6 @@ export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can5P11 pour les auto 1er
@@ -14,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = '458eb'
 
 export const refs = {
-  'fr-fr': ['1A-R02-1'],
+  'fr-fr': ['1A-R02-1', '2A-R2-1', 'BP1SP07'],
   'fr-ch': [],
 }
 export default class Auto1AR4 extends CalculPartieAvecTout {

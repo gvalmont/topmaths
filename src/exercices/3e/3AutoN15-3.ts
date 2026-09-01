@@ -14,7 +14,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const titre = 'Lire une abscisse fractionnaire sur un axe gradué'
 
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 
@@ -23,7 +23,7 @@ export const dateDePublication = '05/12/2025'
 export const uuid = '4aa87'
 
 export const refs = {
-  'fr-fr': ['3AutoN15-3'],
+  'fr-fr': ['3AutoN15'],
   'fr-ch': [],
 }
 /**
@@ -104,7 +104,10 @@ export default class LireAbscisseFractionnaire extends ExerciceQcmA {
       labelE,
     ]
     const figure = mathalea2d(
-      Object.assign({ pixelsParCm: 40 }, fixeBordures(objets)),
+      Object.assign(
+        { pixelsParCm: 40, scale: 0.5, display: 'block' } as const,
+        fixeBordures(objets),
+      ),
       objets,
     )
 

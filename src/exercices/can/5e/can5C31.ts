@@ -6,7 +6,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème avec une fraction'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const dateDePublication = '30/12/2025'
 
@@ -17,8 +17,8 @@ export const dateDePublication = '30/12/2025'
 export const uuid = 'c70e1'
 
 export const refs = {
-  'fr-fr': ['can5C31, 3autoP07-2'],
-  'fr-ch': [],
+  'fr-fr': ['can5C31, 3autoP07-2', '6N3M-flash1'],
+  'fr-ch': ['9NO3E-5'],
 }
 export default class ProblemeFraction extends ExerciceSimple {
   constructor() {
@@ -37,7 +37,7 @@ export default class ProblemeFraction extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2])) {
       case 1:
         {
           const listeFractions: [string, number, number][] = [
@@ -68,14 +68,14 @@ export default class ProblemeFraction extends ExerciceSimple {
           this.reponse = new FractionEtendue(
             fractionChoisie2[2] * 30,
             fractionChoisie2[1],
-          )
+          ).valeurDecimale
           this.question = `Dans ${fractionChoisie2[0]} de gâteau, il y a trente grammes de sucre.<br>
     Combien y a-t-il de grammes de sucre dans un gâteau entier ?`
 
           this.correction = `Dans ${fractionChoisie2[0]} de gâteau, il y a $30$ g de sucre, donc dans un ${fractionChoisie2[3]} de gâteau, 
    il y a $30 \\div ${fractionChoisie2[1]} = ${texNombre(new FractionEtendue(30, fractionChoisie2[1]).valeurDecimale)}$ g de sucre.<br>
    Donc, dans un gâteau entier, 
-   il y a $${texNombre(new FractionEtendue(30, fractionChoisie2[1]).valeurDecimale)} \\times ${fractionChoisie2[2]} = ${miseEnEvidence(texNombre(this.reponse.valeurDecimale))}$ g.`
+   il y a $${texNombre(new FractionEtendue(30, fractionChoisie2[1]).valeurDecimale)} \\times ${fractionChoisie2[2]} = ${miseEnEvidence(texNombre(this.reponse))}$ g.`
         }
         break
     }

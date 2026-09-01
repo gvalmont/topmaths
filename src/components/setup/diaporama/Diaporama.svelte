@@ -26,6 +26,7 @@
   import CountDown from '../../display/can/presentationalComponents/CountDown.svelte'
   import KickOff from '../../display/can/presentationalComponents/KickOff.svelte'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import { extraitLettresQcm, extraitReponsesCourtes } from './answersTable'
   import SlideshowOverview from './slideshowOverview/SlideshowOverview.svelte'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
@@ -61,6 +62,12 @@
     context.vue = 'diap'
     document.addEventListener('updateAsyncEx', forceUpdate)
     exercises = await getExercisesFromExercicesParams()
+    // Certains exercices (les « Sélection d'automatismes ») ne connaissent leur
+    // nombre de questions qu'après une première génération : sans cela l'écran
+    // de réglages afficherait 0 question.
+    for (const exercise of exercises) {
+      if (!exercise.nbQuestions) reroll(exercise)
+    }
     updateExercises(false, true)
   })
 
@@ -135,6 +142,8 @@
                 correctionSvgs,
                 correctionText,
                 key: exercise.key,
+                lettresQcm: extraitLettresQcm(exercise, i),
+                reponsesCourtes: extraitReponsesCourtes(correction),
               }
             } while (
               attempt < 10 &&
@@ -148,10 +157,15 @@
         slides.push(slide)
       }
     }
+    const questionsNumber = selectedQuestionsNumber || slides.length
     slideshow = {
       slides,
-      currentQuestion: -1,
-      selectedQuestionsNumber: selectedQuestionsNumber || slides.length,
+      // On conserve la question courante : `setSlidesContent()` est aussi
+      // appelé par `forceUpdate()` quand un exercice vient de finir son
+      // chargement asynchrone (« Sélection d'automatismes »). Remettre -1
+      // renvoyait alors l'utilisateur aux réglages en plein diaporama.
+      currentQuestion: Math.min(slideshow.currentQuestion, questionsNumber),
+      selectedQuestionsNumber: questionsNumber,
     }
   }
 
@@ -258,10 +272,10 @@
       // Update si nécessaire
       exercicesParams.update((params: InterfaceParams[]) => {
         params.forEach((param, i) => {
-          if (
-            param.alea &&
-            param.alea !== newExercises[i].seed?.substring(0, 4)
-          )
+          // Toujours synchroniser (même si param.alea n'était pas encore
+          // défini) : sinon la vue A4 régénère une graine aléatoire au lieu
+          // de reprendre celle utilisée par le diaporama.
+          if (param.alea !== newExercises[i].seed?.substring(0, 4))
             param.alea = newExercises[i].seed?.substring(0, 4)
         })
         return params

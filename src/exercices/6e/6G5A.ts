@@ -19,14 +19,14 @@ import Exercice from '../Exercice'
 export const uuid = '01875'
 export const titre = "Donner une mesure d'angle à l'aide de la bissectrice"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '27/08/2025'
 export const dateDeModifImportante = '05/12/2025'
 
 export const refs = {
   'fr-fr': ['6G5A'],
   'fr-2016': [],
-  'fr-ch': ['9ES3-12'],
+  'fr-ch': ['9ES1D-7'],
 }
 
 /**
@@ -70,7 +70,7 @@ export default class QuestionBissectrice extends Exercice {
       defaut: 4,
     }).map(Number)
     const avecFigure = this.sup4
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       let texte = ''
       let texteCorr = ''
       let alpha = 0

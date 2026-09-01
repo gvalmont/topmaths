@@ -1,13 +1,14 @@
 import { repere } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
 import { courbe } from '../../lib/2d/Courbe'
+import { bleuMathalea } from '../../lib/colors'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
-import { bleuMathalea } from '../../lib/colors'
 export const dateDePublication = '04/10/2025'
 export const uuid = '6d6ea'
 /**
@@ -15,11 +16,11 @@ export const uuid = '6d6ea'
  * @author Gilles Mora factorisation du code par Claude
  */
 export const refs = {
-  'fr-fr': ['1A-F04-5'],
+  'fr-fr': ['1A-F04-5', 'BP1RGEI01'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -281,7 +282,7 @@ export default class auto1AF4d extends ExerciceQcmA {
           ...config.mathalea,
           pixelsParCm: 40,
           scale: 1,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         r,
         o,
@@ -363,7 +364,7 @@ export default class auto1AF4d extends ExerciceQcmA {
           ...config.mathalea,
           pixelsParCm: 40,
           scale: 1,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         r,
         o,

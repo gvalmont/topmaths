@@ -1,8 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -18,7 +15,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes de prix'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -31,7 +28,7 @@ export const dateDePublication = '26/05/2025'
 export const uuid = 'a1378'
 
 export const refs = {
-  'fr-fr': ['6N5-7'],
+  'fr-fr': ['6N5-7', '5N1D-3'],
   'fr-2016': ['6C12-7'],
   'fr-ch': [],
 }
@@ -75,7 +72,6 @@ export default class ProblemesAvec4Opérations extends Exercice {
     for (
       let i = 0, texte, texteCorr, prixTartelettes, prixPains, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const n = precisions[i] as number
       switch (
@@ -107,8 +103,7 @@ export default class ProblemesAvec4Opérations extends Exercice {
           texteCorr +=
             "Donc le prix d'une tartelette est " +
             `$${miseEnEvidence(texPrix(prixTartelettes))}$ €.`
-          if (context.isAmc) setReponse(this, i, prixTartelettes)
-          else handleAnswers(this, i, { reponse: { value: prixTartelettes } })
+          handleAnswers(this, i, { reponse: { value: prixTartelettes } })
           break
         }
         case 2: {
@@ -137,8 +132,7 @@ export default class ProblemesAvec4Opérations extends Exercice {
           texteCorr +=
             "Donc le prix d'un stylo est " +
             `$${miseEnEvidence(texPrix(prixTartelettes))}$ €.`
-          if (context.isAmc) setReponse(this, i, prixTartelettes)
-          else handleAnswers(this, i, { reponse: { value: prixTartelettes } })
+          handleAnswers(this, i, { reponse: { value: prixTartelettes } })
           break
         }
       }

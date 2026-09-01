@@ -11,10 +11,10 @@ import Exercice from '../Exercice'
 
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
 
@@ -24,7 +24,7 @@ export const dateDePublication = '28/12/2021'
 export const dateDeModifImportante = '30/08/2022' // Passage en intégralité interactif
 
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -481,7 +481,7 @@ function urneDeuxTiragesAvecRemise(
       },
       champ3: { value: proba4.texFraction, options: { fractionEgale: true } },
     },
-    { formatInteractif: 'multiMathfield' },
+    { formatInteractif: 'multi-mathfield' },
   )
 
   let texteCorr = ''

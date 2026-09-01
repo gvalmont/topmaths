@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -15,13 +16,11 @@ import { context } from '../../modules/context'
 import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const dateDePublication = '01/02/2026'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 export const titre =
   'Poser et effectuer des divisions décimales avec un dividende décimal et un diviseur à un chiffre'
@@ -67,7 +66,7 @@ export default class DivisionDecimaleCM2 extends Exercice {
     ]
     this.sup5 = 10
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon opdiv n'est pas joli
     this.nbQuestions = 4
     this.comment =
       "Si deux paramètres sont contradictoires, alors c'est le paramètre le plus haut qui prend la priorité sur le plus bas."

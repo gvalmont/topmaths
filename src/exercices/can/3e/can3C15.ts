@@ -1,11 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer des sommes contenant des puissances de 10'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '20/11/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -30,7 +29,7 @@ export default class CalculPuissance10B extends ExerciceSimple {
 
   nouvelleVersion() {
     let reponse, n1, n2, n3
-    switch (choice([1, 2, 3])) {
+    switch (this.quotaChoice('cas', [1, 2, 3])) {
       case 1:
         n1 = randint(2, 4)
         n2 = randint(-3, 0)

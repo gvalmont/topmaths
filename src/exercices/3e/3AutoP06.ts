@@ -11,7 +11,7 @@ export const titre =
   'Calculer le temps de trajet en fonction de la vitesse et de la distance'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 
@@ -20,8 +20,8 @@ export const dateDePublication = '24/12/2025'
 export const uuid = '5ba87'
 
 export const refs = {
-  'fr-fr': ['3AutoP06'],
-  'fr-ch': [],
+  'fr-fr': ['3AutoP02-3'],
+  'fr-ch': ['11FA2A-5'],
 }
 
 /**
@@ -112,10 +112,7 @@ export default class VitesseEtDistance extends ExerciceQcmA {
         : choice([[20, [1, 9, 11]]])
       this.appliquerLesValeurs(vitesse, diviseurMultiple)
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, { HMS: true })
-    )
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true))
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)

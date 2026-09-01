@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -7,7 +6,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer des sommes et des différences avec annee2 et annee1'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'ff4cc'
 export const refs = {
   'fr-fr': [],
@@ -28,7 +27,9 @@ export default class calcAvecSommesEtDiffannee2026 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = this.canOfficielle ? 1 : choice([1, 2, 3, 4, 5]) //, 2, 3, 4, 5
+    const choix = this.canOfficielle
+      ? 1
+      : this.quotaChoice('choix', [1, 2, 3, 4, 5]) //, 2, 3, 4, 5
     const annee1 = 2026
     const annee2 = annee1 - 1
     if (choix === 1) {

@@ -13,12 +13,12 @@ export const uuid = '64d46'
 export const refs = {
   'fr-fr': ['CM2D3B-2', 'BP2AutoL11'],
   'fr-2016': ['c3C32-03', 'BP2AutoL11'],
-  'fr-ch': ['9FA3-21'],
+  'fr-ch': ['9FA2B-22'],
 }
 export const titre =
   'Savoir résoudre un problème de proportionnalité : Le sportif'
 export const dateDePublication = '20/11/2024'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 
 /**
@@ -47,7 +47,7 @@ export default class ExerciceProbleme003 extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const dureeBase = choice([20, 30, 40])
       const sportifs = [
         {
@@ -134,6 +134,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${
             ajouteQuestionMathlive({
               exercice: this,
               question: 3 * i,
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: { reponse: { value: String(dureeKilometre) } },
               typeInteractivite: 'mathlive',
               texteApres: ' min',
@@ -142,6 +143,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${
             ajouteQuestionMathlive({
               exercice: this,
               question: 3 * i + 1,
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: { value: String(dureeBase * nbFoisPlus) },
               },
@@ -152,6 +154,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${
             ajouteQuestionMathlive({
               exercice: this,
               question: 3 * i + 2,
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: {
                   value: String(dureeBase * nbFoisPlus + dureeKilometre),
@@ -168,6 +171,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${
             ajouteQuestionMathlive({
               exercice: this,
               question: 2 * i,
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: { reponse: { value: String(dureeKilometre) } },
               typeInteractivite: 'mathlive',
               texteApres: ' min',
@@ -176,6 +180,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${
             ajouteQuestionMathlive({
               exercice: this,
               question: 2 * i + 1,
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: {
                   value: String(dureeBase * nbFoisPlus + dureeKilometre),
@@ -192,6 +197,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${
             ajouteQuestionMathlive({
               exercice: this,
               question: i,
+              reponseParams: { formatInteractif: 'mathalea-mathfield' },
               objetReponse: {
                 reponse: { value: dureeAvances, options: { HMS: true } },
               },

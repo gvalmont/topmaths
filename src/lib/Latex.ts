@@ -4,6 +4,7 @@ import { ExamTemplateEngine } from '../components/setup/latex/LatexConfig'
 import Exercice from '../exercices/Exercice'
 import {
   loadFonts,
+  loadLayoutOverrides,
   loadPackagesFromContent,
   loadPreambule,
   loadProfCollegeIfNeed,
@@ -16,9 +17,16 @@ import {
 } from '../lib/types'
 import { buildThemeFromReference } from '../topmaths/services/reference'
 import { reference } from '../topmaths/services/store'
+import { retrieveResourceFromUuid } from './components/refUtils'
+import { isMathadataUuid } from './components/mathadataReferentiel'
 import genericPreamble from './latex/preambule.tex?raw'
+import mathadataCompatTex from './latex/mathadata-compat.tex?raw'
 import { decodeExosGrouping, findExoPosition } from './LatexGroup'
+import { preambuleBanque, referentielBanquesExternes } from './stores/banquesExternesStore'
+import { estUuidBanqueExterne } from './types/banquesExternes'
+import { isBanqueExterneType } from './types/referentiels'
 import type {
+  ExerciceLayoutConfig,
   ExoContent,
   LatexFileInfos,
   contentsType,
@@ -95,6 +103,32 @@ class Latex {
 
   isExerciceStaticInTheList() {
     return this.exercices.some((e) => e.typeExercice === 'statique')
+  }
+
+  isMathadataExerciceInTheList() {
+    return this.exercices.some((e) => isMathadataUuid(String(e.uuid)))
+  }
+
+  /**
+   * Code LaTeX du préambule déclaré par les banques externes dont un exercice
+   * figure dans la liste (voir `manifest.preambule.tex`), une seule fois par
+   * banque même si elle fournit plusieurs exercices de la fiche.
+   */
+  preambulesBanquesExternes(): string {
+    const referentiel = referentielBanquesExternes()
+    const idsBanques = new Set<string>()
+    for (const e of this.exercices) {
+      const uuid = String(e.uuid)
+      if (!estUuidBanqueExterne(uuid)) continue
+      const ressource = retrieveResourceFromUuid(referentiel, uuid)
+      if (ressource !== null && isBanqueExterneType(ressource)) {
+        idsBanques.add(ressource.banque)
+      }
+    }
+    return [...idsBanques]
+      .map((id) => preambuleBanque(id)?.tex)
+      .filter((tex): tex is string => tex !== undefined)
+      .join('\n')
   }
 
   getExercices() {
@@ -231,39 +265,100 @@ class Latex {
               } // Cette étoile permet de gérer les sauts de page malencontreux
               content += '\n'
             }
-            for (const correction of exercice.listeCorrections) {
-              contentCorr += `\n\\item ${format(correction)}`
+            // On itère sur le nombre de questions (et non listeCorrections) pour garder
+            // une correspondance 1-1 avec les lignes ajoutées à content ci-dessus : un
+            // exercice qui ne remplit pas listeCorrections (ex. outil interactif pur)
+            // ne doit pas laisser l'environnement enumerate sans aucun \item, ce qui
+            // provoque une erreur LaTeX "Something's wrong--perhaps a missing \item."
+            for (let i = 0; i < exercice.listeQuestions.length; i++) {
+              contentCorr += `\n\\item ${format(exercice.listeCorrections[i] ?? '')}`
             }
           }
         }
       }
       contentCorr += '\n\\end{enumerate}\n'
+      // Supprime le \\ (ou \\*) final pour éviter "There's no line here to end"
+      content = content.replace(/\\\\\*?\n$/, '\n')
+      content = convertNestedTabularsForTableauCan(content)
       content += '\\end{TableauCan}\n\\addtocounter{nbEx}{-1}'
       /** On supprime les lignes vides car elles posent problème dans l'environnement TableauCan */
       //  content = content.replace(/\n\s*\n/gm, '\n') // En quoi elle posent problème ? On perd les sauts de ligne entre les questions, c'est pas top pour la lisibilité
     } else {
-      for (const exercice of this.exercices) {
+      const withReferences = latexFileInfos.withReferences ?? false
+      // Un exercice fusionné prolonge le cadre du précédent : la fermeture de
+      // `EXO` est donc différée jusqu'au premier exercice non fusionné.
+      let isExoOpen = false
+      let isCorrOpen = false
+      /**
+       * Ouvre le cadre d'un exercice — ou, s'il est fusionné avec le
+       * précédent, se contente de l'en séparer.
+       */
+      const openExo = (hook: string, reference: string, merged: boolean) => {
+        if (merged && isExoOpen) return '\n\\medskip\n\n'
+        const closing = isExoOpen ? '\n\\end{EXO}\n' : ''
+        isExoOpen = true
+        return `${closing}\n\\begin{EXO}{${hook}}{${reference}}\n`
+      }
+      const openCorr = (merged: boolean) => {
+        if (merged && isCorrOpen) return '\n\\medskip\n\n'
+        const closing = isCorrOpen ? '\n\\end{EXO}\n' : ''
+        isCorrOpen = true
+        return `${closing}\n\\begin{EXO}{}{}\n`
+      }
+      // Numérotation des questions d'un exercice fusionné : elle continue
+      // celle de l'exercice précédent plutôt que de repartir à 1 (les deux
+      // listes restent des `enumerate` distincts, `buildContent` reçoit donc
+      // le numéro de départ). Un exercice non fusionné remet le compteur à
+      // zéro ; un exercice statique (annale) ne l'avance pas — son contenu
+      // n'est pas une liste numérotée que ce mécanisme connaît, une fusion
+      // à travers lui repart donc du numéro déjà atteint avant lui.
+      // Énoncés et corrections sont deux sections séparées du document
+      // (`content` / `contentCorr`), donc deux compteurs indépendants.
+      let mergeQuestionCount = 0
+      let mergeQuestionCountCorr = 0
+      for (const [index, exercice] of this.exercices.entries()) {
+        // les réglages par exercice, jusqu'ici réservés aux habillages
+        // ProfMaquette, valent pour tous
+        const confExo = latexFileInfos.exos?.[String(index)] ?? {}
+        const merged = index > 0 && confExo.mergeWithPrevious === true
+        if (!merged) {
+          mergeQuestionCount = 0
+          mergeQuestionCountCorr = 0
+        }
+        // la découpe des cadres d'exercice passe par un style redéfinissable
+        // (`mathaleaexo`, voir `preambule.tex`)
+        if (!merged) {
+          content +=
+            confExo.unbreakable === true
+              ? '\n\\tcbset{mathaleaexo/.style={unbreakable}}'
+              : '\n\\tcbset{mathaleaexo/.style={breakable}}'
+        }
+        content += breaksBefore(confExo)
         if (exercice.typeExercice === 'statique') {
           if (exercice.content === '') {
             content += "% Cet exercice n'est pas disponible au format LaTeX"
           } else {
             content += `\n% @see : ${getUrlFromExercice(exercice)}`
-            content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
-            content += testIfLoaded(
-              [exercice.content ?? ''],
-              '\\anote{',
-              '\n\\resetcustomnotes',
+            const staticReference = withReferences
+              ? `${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}`.trim()
+              : ''
+            content += openExo(staticReference, '', merged)
+            content += wrapInSpacing(
+              testIfLoaded(
+                [exercice.content ?? ''],
+                '\\anote{',
+                '\n\\resetcustomnotes',
+              ) +
+                exercice.content +
+                testIfLoaded(
+                  [exercice.content ?? ''],
+                  '\\anote{',
+                  '\n\\printcustomnotes',
+                ) +
+                writingLinesAtEnd(confExo),
+              confExo,
             )
-
-            content += exercice.content
-
-            content += testIfLoaded(
-              [exercice.content ?? ''],
-              '\\anote{',
-              '\n\\printcustomnotes',
-            )
-            content += '\n\\end{EXO}\n'
-            contentCorr += '\n\\begin{EXO}{}{}\n'
+            contentCorr += openCorr(merged)
             contentCorr += testIfLoaded(
               [exercice.contentCorr ?? ''],
               '\\anote{',
@@ -275,10 +370,9 @@ class Latex {
               '\\anote{',
               '\n\\printcustomnotes',
             )
-            contentCorr += '\n\\end{EXO}\n'
           }
         } else if (isIExercice(exercice)) {
-          contentCorr += '\n\\begin{EXO}{}{}\n'
+          contentCorr += openCorr(merged)
           contentCorr += testIfLoaded(
             exercice.listeCorrections,
             '\\anote{',
@@ -288,35 +382,64 @@ class Latex {
             exercice.listeCorrections,
             exercice.spacingCorr,
             Boolean(exercice.listeAvecNumerotation),
-            Number(exercice.nbColsCorr),
+            confExo.cols_corr ?? Number(exercice.nbColsCorr),
+            correctionConf(confExo),
+            merged ? mergeQuestionCountCorr + 1 : undefined,
+          )
+          mergeQuestionCountCorr += Math.max(
+            exercice.listeCorrections.length,
+            1,
           )
           contentCorr += testIfLoaded(
             exercice.listeCorrections,
             '\\anote{',
             '\n\\printcustomnotes',
           )
-          contentCorr += '\n\\end{EXO}\n'
           content += `\n% @see : ${getUrlFromExercice(exercice)}`
-          content += `\n\\begin{EXO}{${testIfLoaded([exercice.introduction, exercice.consigne, ...exercice.listeQuestions], '\\anote{', '\n\\resetcustomnotes ')}${format(exercice.consigne, false)}}{${String(exercice.id).replace('.js', '')}}\n`
-          content += writeIntroduction(exercice.introduction)
-          content += buildContent(
-            exercice.listeQuestions,
-            exercice.spacing,
-            Boolean(exercice.listeAvecNumerotation),
-            Number(exercice.nbCols),
+          content += openExo(
+            testIfLoaded(
+              [
+                exercice.introduction,
+                exercice.consigne,
+                ...exercice.listeQuestions,
+              ],
+              '\\anote{',
+              '\n\\resetcustomnotes ',
+            ),
+            withReferences ? String(exercice.id).replace('.js', '') : '',
+            merged,
           )
-          content += testIfLoaded(
-            [
-              exercice.introduction,
-              exercice.consigne,
-              ...exercice.listeQuestions,
-            ],
-            '\\anote{',
-            '\n\\printcustomnotes',
+          content += wrapInSpacing(
+            // La consigne est sortie de l'argument de l'environnement : des
+            // retours à la ligne dedans le cassaient.
+            format(exercice.consigne, false) +
+              '\n\n' +
+              writeIntroduction(exercice.introduction) +
+              buildContent(
+                exercice.listeQuestions,
+                exercice.spacing,
+                Boolean(exercice.listeAvecNumerotation),
+                confExo.cols ?? Number(exercice.nbCols),
+                confExo,
+                merged ? mergeQuestionCount + 1 : undefined,
+              ) +
+              testIfLoaded(
+                [
+                  exercice.introduction,
+                  exercice.consigne,
+                  ...exercice.listeQuestions,
+                ],
+                '\\anote{',
+                '\n\\printcustomnotes',
+              ) +
+              writingLinesAtEnd(confExo),
+            confExo,
           )
-          content += '\n\\end{EXO}\n'
+          mergeQuestionCount += Math.max(exercice.listeQuestions.length, 1)
         }
       }
+      if (isExoOpen) content += '\n\\end{EXO}\n'
+      if (isCorrOpen) contentCorr += '\n\\end{EXO}\n'
     }
     content = content.replace(/\{images\//gi, '{') // exercice n°4P10
     contentCorr = contentCorr.replace(/\{images\//gi, '{') // exercice n°4P10
@@ -409,13 +532,7 @@ class Latex {
 
       if (exoGroups.listeQuestions.length === 0) continue
 
-      const confExo: {
-        labels?: string
-        itemsep?: number
-        blocrep?: { nbligs: number; nbcols: number }
-        cols?: number
-        cols_corr?: number
-      } =
+      const confExo: ExerciceLayoutConfig =
         latexFileInfos.exos && latexFileInfos.exos[groupNbrs[0]]
           ? latexFileInfos.exos[groupNbrs[0]]
           : {}
@@ -435,13 +552,7 @@ class Latex {
 
       content += `\n% @see : ${getUrlFromExercice(exercice, indiceVersion)}`
 
-      const confExo: {
-        labels?: string
-        itemsep?: number
-        blocrep?: { nbligs: number; nbcols: number }
-        cols?: number
-        cols_corr?: number
-      } =
+      const confExo: ExerciceLayoutConfig =
         latexFileInfos.exos && latexFileInfos.exos[k]
           ? latexFileInfos.exos[k]
           : {}
@@ -451,6 +562,7 @@ class Latex {
           exercice as IExerciceStatique,
           latexFileInfos,
           indiceVersion,
+          confExo,
         )
       } else {
         content += this.generateExerciseContent(
@@ -465,34 +577,65 @@ class Latex {
     return content
   }
 
+  /**
+   * Clé `Ajout` de ProfMaquette affichant l'identifiant de l'exercice en haut
+   * à droite de son cadre, comme le fait l'habillage Coopmaths.
+   *
+   * Renvoie une liste vide quand l'identifiant est masqué, ou quand le
+   * QR-code occupe déjà ce coin (il mène de toute façon à l'exercice).
+   */
+  private referenceKeyFor(
+    latexFileInfos: LatexFileInfos,
+    reference: string,
+  ): string[] {
+    if (latexFileInfos.withReferences !== true) return []
+    if (latexFileInfos.qrcodeOption === 'AvecQrcode') return []
+    if (reference === '') return []
+    return [
+      `Ajout={\\node[anchor=north east, inner sep=2pt] at (frame.north east) {\\scriptsize ${sanitizeLatexInput(reference)}};}`,
+    ]
+  }
+
   private generateStaticExerciseContent(
     exercice: IExerciceStatique,
     latexFileInfos: LatexFileInfos,
     indiceVersion: number,
+    confExo: ExerciceLayoutConfig = {},
   ) {
     let content = ''
     if (exercice.content === '') {
       content += "% Cet exercice n'est pas disponible au format LaTeX"
     } else {
+      content += breaksBefore(confExo)
       content += '\n\\needspace{10\\baselineskip}'
       if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
         content += `\n\\begin{exercice}[${
           latexFileInfos.titleOption === 'AvecTitre'
             ? `Titre=${latexFileInfos.titleOption}, `
             : ''
-        }Ajout={\\node[anchor=north east, inner sep=2pt]
+        }Ajout={\\node[anchor=north east, inner sep=2pt, fill=white]
         at (frame.north east) {\\hypersetup{urlcolor=black, pdfnewwindow=true}\\qrcode[height=2cm]{${getUrlFromExercice(exercice, indiceVersion)}&v=eleve&es=0211}};
 }]%[Lignes=5,Interieur]`
       } else {
+        const keys = [
+          ...(latexFileInfos.titleOption === 'AvecTitre'
+            ? [`Titre=${latexFileInfos.titleOption}`]
+            : []),
+          ...this.referenceKeyFor(
+            latexFileInfos,
+            `${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}`.trim(),
+          ),
+        ]
         content += `\n\\begin{exercice}${
-          latexFileInfos.titleOption === 'AvecTitre'
-            ? `[Titre=${latexFileInfos.titleOption}]`
-            : ''
+          keys.length > 0 ? `[${keys.join(', ')}]` : ''
         }%[Lignes=5,Interieur]\n`
       }
       if (latexFileInfos.qrcodeOption === 'AvecQrcode')
         content += '\n\\vspace{2cm}'
-      content += exercice.content
+      content += wrapInSpacing(
+        (exercice.content ?? '') + writingLinesAtEnd(confExo),
+        confExo,
+      )
       content += '\n\\end{exercice}\n'
       content += '\n\\begin{Solution}\n'
       content += exercice.contentCorr
@@ -505,28 +648,29 @@ class Latex {
     latexFileInfos: LatexFileInfos,
     exercice: IExercice,
     indiceVersion: number,
-    confExo: {
-      labels?: string
-      itemsep?: number
-      blocrep?: { nbligs: number; nbcols: number }
-      cols?: number
-      cols_corr?: number
-    },
+    confExo: ExerciceLayoutConfig,
   ) {
-    let content = '\n\\needspace{10\\baselineskip}'
+    let content = breaksBefore(confExo) + '\n\\needspace{10\\baselineskip}'
     if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
       content += `\n\\begin{exercice}[${
         latexFileInfos.titleOption === 'AvecTitre'
           ? `Titre=${exercice.titre}, `
           : ''
-      }Ajout={\\node[anchor=north east, inner sep=2pt]
+      }Ajout={\\node[anchor=north east, inner sep=2pt, fill=white]
         at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice, indiceVersion)}&v=eleve&es=0211}};
 }]%[Lignes=5,Interieur]`
     } else {
+      const keys = [
+        ...(latexFileInfos.titleOption === 'AvecTitre'
+          ? [`Titre=${exercice.titre}`]
+          : []),
+        ...this.referenceKeyFor(
+          latexFileInfos,
+          String(exercice.id ?? '').replace('.js', ''),
+        ),
+      ]
       content += `\n\\begin{exercice}${
-        latexFileInfos.titleOption === 'AvecTitre'
-          ? `[Titre=${exercice.titre}]`
-          : ''
+        keys.length > 0 ? `[${keys.join(', ')}]` : ''
       }%[Lignes=5,Interieur]\n`
     }
     content += testIfLoaded(
@@ -555,19 +699,29 @@ class Latex {
       }
     }
 
-    content += writeIntroduction(exercice.introduction) + '\n'
-    content += format(exercice.consigne) + '\n'
-    content += buildContent(
-      exercice.listeQuestions,
-      exercice.spacing,
-      Boolean(exercice.listeAvecNumerotation),
-      confExo.cols ? confExo.cols : Number(exercice.nbCols),
+    content += wrapInSpacing(
+      writeIntroduction(exercice.introduction) +
+        '\n' +
+        format(exercice.consigne) +
+        '\n' +
+        buildContent(
+          exercice.listeQuestions,
+          exercice.spacing,
+          Boolean(exercice.listeAvecNumerotation),
+          confExo.cols ?? Number(exercice.nbCols),
+          confExo,
+        ) +
+        testIfLoaded(
+          [
+            ...exercice.listeQuestions,
+            exercice.consigne,
+            exercice.introduction,
+          ],
+          '\\anote{',
+          '\n\\printcustomnotes',
+        ) +
+        writingLinesAtEnd(confExo),
       confExo,
-    )
-    content += testIfLoaded(
-      [...exercice.listeQuestions, exercice.consigne, exercice.introduction],
-      '\\anote{',
-      '\n\\printcustomnotes',
     )
     content += '\n\\end{exercice}\n'
     content += '\n\\begin{Solution}'
@@ -580,8 +734,8 @@ class Latex {
       exercice.listeCorrections,
       exercice.spacingCorr,
       Boolean(exercice.listeAvecNumerotation),
-      confExo.cols_corr ? confExo.cols_corr : Number(exercice.nbColsCorr),
-      confExo.labels ? { labels: confExo.labels } : {},
+      confExo.cols_corr ?? Number(exercice.nbColsCorr),
+      correctionConf(confExo),
     )
     content += testIfLoaded(
       [...exercice.listeCorrections],
@@ -615,8 +769,11 @@ class Latex {
             i,
             latexFileInfos,
           )
-          contents.content += `\n\\begin{Maquette}[Fiche=${latexFileInfos.typeFiche === 'Fiche' ? 'true' : 'false'},IE=${latexFileInfos.typeFiche === 'Fiche' ? 'false' : 'true'}]{Numero= ,Niveau=${sanitizeLatexInput(latexFileInfos.subtitle || ' ')},Classe=${sanitizeLatexInput(latexFileInfos.reference || ' ')},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme={${sanitizeLatexInput(latexFileInfos.title || 'Exercices')}},Code= ,Calculatrice=false}\n`
-          contents.content += contentVersion
+          contents.content += `\n\\begin{Maquette}[Fiche=${latexFileInfos.typeFiche === 'Fiche' ? 'true' : 'false'},IE=${latexFileInfos.typeFiche === 'Fiche' ? 'false' : 'true'}]{Numero= ,Niveau=${sanitizeLatexInput(latexFileInfos.subtitle || ' ')},Classe=${sanitizeLatexInput(latexFileInfos.reference || ' ')},Date= ${showsVersionInHeader(latexFileInfos) ? 'v' + i : ' '} ,Theme={${sanitizeLatexInput(latexFileInfos.title || 'Exercices')}},Code= ,Calculatrice=false}\n`
+          contents.content += wrapInColumns(
+            contentVersion,
+            latexFileInfos.globalColumns,
+          )
 
           contents.content += '\n\\end{Maquette}'
           contents.content += '\n\\clearpage'
@@ -635,8 +792,11 @@ class Latex {
             i,
             latexFileInfos,
           )
-          contents.content += `\n\\begin{Maquette}[Fiche=true, IE=false, CorrigeApres=false, CorrigeFin=true]{Niveau=${sanitizeLatexInput(latexFileInfos.subtitle || ' ')},Classe=${sanitizeLatexInput(latexFileInfos.reference || ' ')},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${sanitizeLatexInput(latexFileInfos.title || 'Exercices')}}\n`
-          contents.content += contentVersion
+          contents.content += `\n\\begin{Maquette}[Fiche=true, IE=false, CorrigeApres=false, CorrigeFin=true]{Niveau=${sanitizeLatexInput(latexFileInfos.subtitle || ' ')},Classe=${sanitizeLatexInput(latexFileInfos.reference || ' ')},Date= ${showsVersionInHeader(latexFileInfos) ? 'v' + i : ' '} ,Theme=${sanitizeLatexInput(latexFileInfos.title || 'Exercices')}}\n`
+          contents.content += wrapInColumns(
+            contentVersion,
+            latexFileInfos.globalColumns,
+          )
           contents.content += '\n\\end{Maquette}'
           contents.content += '\n\\clearpage'
           contents.contentCorr = ''
@@ -684,18 +844,31 @@ class Latex {
           contents.contentCorr += '\n\\clearpage'
           contents.contentCorr += '\n\\setcounter{ExoMA}{0}'
         }
-        if (latexFileInfos.nbVersions > 1) {
+        if (showsVersionInHeader(latexFileInfos)) {
           contents.content += `\n\\version{${i}}`
           contents.contentCorr += `\n\\version{${i}}`
+        }
+        if (latexFileInfos.nbVersions > 1) {
           if (i > 1 && latexFileInfos.style === 'Can') {
             contents.content += '\n\\setcounter{nbEx}{1}'
             contents.content += '\n\\setcounter{CompteurTableauCan}{0}'
             contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
           }
         }
-        contents.content += contentVersion.content
-        contents.contentCorr += contentVersion.contentCorr
+        // Le mode « Course aux nombres » compose déjà ses questions dans un
+        // tableau qui occupe toute la largeur : le découper en colonnes n'a
+        // pas de sens.
+        const columns =
+          latexFileInfos.style === 'Can'
+            ? undefined
+            : latexFileInfos.globalColumns
+        contents.content += wrapInColumns(contentVersion.content, columns)
+        contents.contentCorr += wrapInColumns(
+          contentVersion.contentCorr,
+          columns,
+        )
       }
+
       if (latexFileInfos.signal?.aborted) {
         throw new DOMException(
           'Aborted in getContents of Latex.ts',
@@ -722,6 +895,22 @@ class Latex {
         contents.intro += '\n\\begin{document}\n'
       }
     }
+    // après les deux branches : ces réglages surchargent ceux de l'habillage
+    contents.preamble += loadLayoutOverrides(latexFileInfos)
+    if (this.isMathadataExerciceInTheList()) {
+      contents.preamble += '\n' + mathadataCompatTex
+    }
+    const preambulesBanquesExternes = this.preambulesBanquesExternes()
+    if (preambulesBanquesExternes.length > 0) {
+      contents.preamble += '\n' + preambulesBanquesExternes
+    }
+    contents.content = contents.content
+      .replaceAll('\\\\\\\\', '\n\\medskip\n\n')
+      .replace(/\n\s*\\\\/g, '\\\\\n')
+    contents.contentCorr = contents.contentCorr
+      .replaceAll('\\\\\\\\', '\n\\medskip\n\n')
+      .replace(/\n\s*\\\\/g, '\\\\\n')
+
     return contents
   }
 
@@ -733,6 +922,12 @@ class Latex {
       currentUrl.protocol = 'https:'
     }
     currentUrl.searchParams.set('v', 'exercise')
+    // Les réglages de mise en page des vues d'export n'ont aucun sens dans un
+    // lien vers la vue élève, et sont assez volumineux pour rendre le lien
+    // (repris dans l'en-tête de la fiche) illisible.
+    for (const param of ['pdfParam', 'texParam', 'typstParam', 'a4Param']) {
+      currentUrl.searchParams.delete(param)
+    }
     return currentUrl
   }
 
@@ -869,10 +1064,15 @@ ${
       latexWithoutPreamble +=
         '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     } else {
+      // Les habillages Coopmaths et Classique émettaient la correction quoi
+      // qu'il arrive : `correctionOption` n'était lu que par ProfMaquette
+      // (clé `CorrigeFin`) et par la Course aux nombres (`correctionDisplay`).
       latexWithoutPreamble +=
-        '\n\n\\clearpage\n\n\\begin{Correction}' +
-        contentCorr +
-        '\n\\clearpage\n\\end{Correction}\n\\end{document}'
+        latexFileInfos.correctionOption === 'SansCorrection'
+          ? '\n\n\\end{document}'
+          : '\n\n\\clearpage\n\n\\begin{Correction}' +
+            contentCorr +
+            '\n\\clearpage\n\\end{Correction}\n\\end{document}'
       latexWithoutPreamble +=
         '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     }
@@ -906,6 +1106,61 @@ ${
   }
 }
 
+/** Sauts de page et de colonne demandés avant un exercice */
+function breaksBefore(confExo: ExerciceLayoutConfig): string {
+  let breaks = ''
+  if (confExo.pageBreakBefore === true) breaks += '\n\\newpage'
+  if (confExo.columnBreakBefore === true) breaks += '\n\\columnbreak'
+  return breaks
+}
+
+/**
+ * Lignes à écrire posées une seule fois, à la fin de l'exercice. Le cas
+ * « après chaque question » est traité par `buildContent`, qui seul connaît
+ * le découpage en questions.
+ */
+function writingLinesAtEnd(confExo: ExerciceLayoutConfig): string {
+  const lines = confExo.writingLines
+  if (lines == null || lines.position !== 'fin' || lines.count < 1) return ''
+  return `\n\\blocrep[1.5]{${lines.count}}{1}`
+}
+
+/** Enveloppe un contenu dans l'interligne demandé pour l'exercice */
+function wrapInSpacing(
+  content: string,
+  confExo: ExerciceLayoutConfig,
+): string {
+  const stretch = confExo.baselinestretch
+  if (stretch == null || stretch === 1) return content
+  return `\n\\begin{spacing}{${stretch}}${content}\n\\end{spacing}`
+}
+
+/**
+ * Réglages d'un exercice qui valent aussi pour sa correction : la
+ * numérotation et l'espacement des questions, mais pas les lignes à écrire
+ * (`blocrep`), qui n'ont pas de sens dans un corrigé.
+ */
+function correctionConf(confExo: ExerciceLayoutConfig): ExerciceLayoutConfig {
+  return { labels: confExo.labels, itemsep: confExo.itemsep }
+}
+
+/**
+ * Répartit une suite d'exercices sur plusieurs colonnes.
+ *
+ * L'enveloppe est posée autour du contenu d'**une** version : `\clearpage` et
+ * les remises à zéro de compteurs qui séparent deux versions ne doivent pas
+ * se retrouver à l'intérieur d'un `multicols`.
+ */
+function wrapInColumns(content: string, columns?: number): string {
+  if (columns == null || columns < 2 || content.trim() === '') return content
+  return `\n\\begin{multicols}{${columns}}${content}\n\\end{multicols}`
+}
+
+/** Faut-il inscrire le numéro de version dans l'en-tête ? */
+function showsVersionInHeader(latexFileInfos: LatexFileInfos): boolean {
+  return latexFileInfos.showVersionInHeader ?? latexFileInfos.nbVersions > 1
+}
+
 function writeIntroduction(introduction = ''): string {
   let content = ''
   if (introduction.length > 0) {
@@ -916,18 +1171,23 @@ function writeIntroduction(introduction = ''): string {
 
 function buildContent(
   questions: string[],
-  spacing = 1,
+  spacing = 0,
   numbersNeeded: boolean,
   nbCols: number = 1,
-  confExo: {
-    labels?: string
-    itemsep?: number
-    blocrep?: { nbligs: number; nbcols: number }
-  } = {},
+  confExo: ExerciceLayoutConfig = {},
+  /** Numéro de la première question : suite d'un exercice fusionné avec le précédent */
+  startAt?: number,
 ): string {
   let content = ''
-  const blocrep = confExo.blocrep
-    ? `\\blocrep[1.5]{${confExo.blocrep.nbligs}}{${confExo.blocrep.nbcols}} `
+  // « Lignes après chaque question » de la vue LaTeX, ou le réglage
+  // `blocrep` de la vue PDF, qui fait la même chose
+  const linesPerQuestion =
+    confExo.writingLines?.position === 'question' &&
+    confExo.writingLines.count > 0
+      ? { nbligs: confExo.writingLines.count, nbcols: 1 }
+      : confExo.blocrep
+  const blocrep = linesPerQuestion
+    ? `\\blocrep[1.5]{${linesPerQuestion.nbligs}}{${linesPerQuestion.nbcols}} `
     : ''
   if (questions !== undefined && questions.length > 1) {
     content += '\n\\begin{enumerate}'
@@ -935,12 +1195,15 @@ function buildContent(
     if (confExo.itemsep !== undefined && confExo.itemsep !== null) {
       specs.push(`itemsep=${confExo.itemsep}em`)
     } else if (spacing !== 0) {
-      specs.push(`itemsep=${spacing}em`)
+      specs.push(`itemsep=${Math.min(spacing, 1)}em`)
     }
     if (confExo.labels) {
       specs.push(`label=${confExo.labels}`)
     } else if (!numbersNeeded) {
       specs.push('label={}')
+    }
+    if (startAt !== undefined && startAt > 1) {
+      specs.push(`start=${startAt}`)
     }
     if (specs.length !== 0) {
       content += '[' + specs.join(',') + ']'
@@ -1149,7 +1412,8 @@ export function format(
 
   formattedText = formattedText
     .replace(/(\d+)\s*°/g, '\\ang{$1}')
-    .replace(/<br>/g, '\\\\')
+    .replace(/\n(<br *\/?>)/g, '$1')
+    .replace(/<br>/g, '\n\n')
     .replace(/( )?€( )/g, '\\,\\euro{}~')
     .replace(/( )?€/g, '\\,\\euro{}')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
@@ -1157,6 +1421,7 @@ export function format(
     .replaceAll('»', '\\fg{}')
     .replaceAll('œ', '\\oe ')
     .replaceAll('°', '$^\\circ$ ')
+    .replaceAll('\n\n\n', '\n\n') // une ligne vide... pas 2
 
   // Check if the language is 'fr-CH' and replace \times with \cdot if true
   if (lang === 'fr-CH') {
@@ -1164,6 +1429,33 @@ export function format(
   }
 
   return formattedText
+}
+
+/**
+ * Dans le corps d'un `TableauCan`, remplace les `array` / `tabular` imbriqués
+ * dans les cellules par des `tblr` (tabularray).
+ *
+ * Contexte : sur TeX Live 2026, `colortbl` (chargé par `\usepackage[table]{xcolor}`
+ * du préambule générique) désynchronise la passe de mesure de `tabularray` dès
+ * qu'une cellule contient un `array`/`tabular` imbriqué. La compilation s'arrête
+ * alors sur « ! Missing number, treated as zero » à `\end{TableauCan}` et aucun
+ * PDF n'est produit. Les autres habillages, qui n'utilisent pas `tabularray`,
+ * ne sont pas concernés — d'où un bug propre à la Course aux nombres.
+ * `tabularray` sait en revanche imbriquer ses propres `tblr` sans heurter
+ * `colortbl`.
+ *
+ * On ne convertit que les préambules « simples » (traits verticaux et colonnes
+ * `c` / `l` / `r`) : ce sont les seuls que produisent les exercices CAN
+ * (tableaux de proportionnalité, tableaux de valeurs, petites matrices). Un
+ * préambule plus exotique est laissé tel quel : il produisait déjà un PDF
+ * cassé, la situation n'empire pas.
+ */
+export function convertNestedTabularsForTableauCan(tableBody: string): string {
+  return tableBody.replace(
+    /\\begin\{(array|tabular)\}(\[[a-z]\])?\{([\s|clr]*)\}([\s\S]*?)\\end\{\1\}/g,
+    (_whole, _env, _pos, spec: string, inner: string) =>
+      `\\begin{tblr}{${spec.replace(/\s+/g, '')}}${inner}\\end{tblr}`,
+  )
 }
 
 function getUrlFromExercice(
@@ -1180,11 +1472,11 @@ function getUrlFromExercice(
     if (ex.duration !== undefined) {
       url.searchParams.append('d', ex.duration.toString())
     }
-    if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
-    if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
-    if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
-    if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
-    if (ex.sup5 !== undefined) url.searchParams.append('s5', ex.sup5)
+    if (ex.sup !== undefined) url.searchParams.append('s', String(ex.sup))
+    if (ex.sup2 !== undefined) url.searchParams.append('s2', String(ex.sup2))
+    if (ex.sup3 !== undefined) url.searchParams.append('s3', String(ex.sup3))
+    if (ex.sup4 !== undefined) url.searchParams.append('s4', String(ex.sup4))
+    if (ex.sup5 !== undefined) url.searchParams.append('s5', String(ex.sup5))
     if (ex.seed !== undefined)
       url.searchParams.append(
         'alea',

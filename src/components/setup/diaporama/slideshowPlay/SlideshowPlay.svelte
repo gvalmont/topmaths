@@ -16,9 +16,7 @@
   export let goToOverview: () => void
 
   const divQuestion: HTMLDivElement[] = []
-  const exercicesAffiches = new window.Event('exercicesAffiches', {
-    bubbles: true,
-  })
+
   let isCorrectionVisible = false
   let isPause = false
   let isManualPause = false
@@ -102,8 +100,15 @@
     }
     isQuestionVisible = flow === 'Q->(Q+R)->Q'
     isCorrectionVisible = true
-    pause()
     renderAllViews()
+    if ($globalOptions.manualMode || $globalOptions.pauseAfterEachQuestion) {
+      pause()
+      return
+    }
+    // La correction dispose de son propre décompte, sinon le diaporama restait
+    // bloqué dessus et il fallait le relancer à la main à chaque question.
+    ratioTime = 0
+    startTimer()
   }
 
   async function playCurrentQuestion() {
@@ -155,7 +160,6 @@
         optimalZoom * userZoom[slideshow.currentQuestion],
       )
     }
-    document.dispatchEvent(exercicesAffiches)
   }
 
   async function findOptimalZoom() {
@@ -323,6 +327,13 @@
       nextQuestion()
       return
     }
+    startTimer()
+  }
+
+  /**
+   * Lance le décompte de la diapositive affichée (question ou correction).
+   */
+  function startTimer() {
     clearInterval(advanceRatioTimeInterval)
     advanceRatioTimeInterval = window.setInterval(() => {
       ratioTime++

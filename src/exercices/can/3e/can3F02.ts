@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une image par une fonction linéaire'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '13/10/2022'
@@ -17,7 +17,7 @@ export const dateDeModifImportante = '13/10/2022'
 export const uuid = 'c3468'
 
 export const refs = {
-  'fr-fr': ['can3F02'],
+  'fr-fr': ['can3F02', 'can2F13-03'],
   'fr-ch': [],
 }
 export default class CalculImageParFonctionLineaire extends ExerciceSimple {
@@ -31,7 +31,7 @@ export default class CalculImageParFonctionLineaire extends ExerciceSimple {
 
   nouvelleVersion() {
     let nomF, x, n, m
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('cas', [1, 2])) {
       case 1:
         x = randint(-10, 10, [-1, 0, 1])
         m = randint(-9, 9, [-1, 0, 1])

@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleur,
@@ -12,7 +11,7 @@ import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la somme de deux décimaux'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -23,8 +22,8 @@ export const amcType = 'AMCNum'
 export const uuid = 'c3e17'
 
 export const refs = {
-  'fr-fr': ['can6C13', '6N2A-flash1'],
-  'fr-ch': [],
+  'fr-fr': ['can6C13', '6N2A-flash1', 'auto5N1F-flash2', 'auto5N2A-flash1'],
+  'fr-ch': ['NR'],
 }
 export default class FSomme2Decimaux extends ExerciceSimple {
   constructor() {
@@ -37,7 +36,7 @@ export default class FSomme2Decimaux extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b, c, d, e
-    if (choice([true, false])) {
+    if (this.quotaChoice('typeDeQuestions', [true, false])) {
       a = randint(3, 9)
       b = randint(1, 9, a)
       c = randint(1, 9, [a, b])
@@ -50,8 +49,7 @@ export default class FSomme2Decimaux extends ExerciceSimple {
       this.question = `Calculer $${texNombre(n2, 1)}+${texNombre(e - a, 0)}$.`
       this.correction = `$${texNombre(n2, 1)}+${texNombre(e - a, 0)}=${miseEnEvidence(texNombre(Number(this.reponse), 1))}$<br>`
       this.correction += texteEnCouleur(
-        `
-      <br> Mentalement : <br>
+        `Mentalement : <br>
       On fait la somme des parties entières des deux nombres : $${a}+${e - a}=${e}$, puis on ajoute les dixièmes. On obtient :<br>
       $${e}+${texNombre(n1, 1)}=${texNombre(Number(this.reponse), 1)}$`,
         bleuMathalea,
@@ -69,8 +67,7 @@ export default class FSomme2Decimaux extends ExerciceSimple {
       this.question = `Calculer $${texNombre(n1.plus(a), 1)}+${texNombre(n2.plus(c), 1)}$.`
       this.correction = `$${texNombre(n1.plus(a), 1)}+${texNombre(n2.plus(c), 1)}=${miseEnEvidence(texNombre(Number(this.reponse), 1))}$<br>`
       this.correction += texteEnCouleur(
-        `
-        <br> Mentalement : <br>
+        `Mentalement : <br>
     On fait la somme des parties entières des deux nombres : $${a}+${c}=${a + c}$.<br>
     On fait la somme des parties décimales : $${texNombre(n1, 1)}+${texNombre(n2, 1)}=${texNombre(n3, 1)}$.<br>
     Le résultat est donc donné par :

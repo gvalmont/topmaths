@@ -4,13 +4,14 @@ import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Déterminer l'abscisse d'un point dans un repère"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'pl5rm'
 export const refs = {
   'fr-fr': [],
@@ -76,7 +77,7 @@ export default class Can52026Q25 extends ExerciceCan {
         ymax: 3,
         scale: 1, // CORRECTION : scale à 1 pour avoir 2 carreaux = 1 unité visuellement
         pixelsParCm: 40,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       r,
       o,

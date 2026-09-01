@@ -7,12 +7,13 @@ import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
 import { angleModulo } from '../../lib/2d/utilitairesGeometriques'
 import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
@@ -25,11 +26,9 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Mesurer un angle avec rapporteur intégré'
-export const interactifType = 'multiMathfield'
+
 export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -45,7 +44,7 @@ export const uuid = 'ff2ce'
 export const refs = {
   'fr-fr': ['6G4B-1'],
   'fr-2016': ['6G23-4'],
-  'fr-ch': ['9ES5-7'],
+  'fr-ch': ['9ES1B-5'],
 }
 export default class MesurerUnAngleAvecRapporteur extends Exercice {
   constructor() {
@@ -509,7 +508,7 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
             bareme: toutAUnPoint,
             ...answers,
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       }
 

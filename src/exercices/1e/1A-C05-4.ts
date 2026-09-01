@@ -7,11 +7,11 @@ export const dateDePublication = '19/12/2025'
 export const uuid = '4fa90'
 // @Author Gilles Mora
 export const refs = {
-  'fr-fr': ['1A-C05-4'],
+  'fr-fr': ['1A-C05-4', '2A-N5-4'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Déterminer un ordre de grandeur avec un pourcentage'

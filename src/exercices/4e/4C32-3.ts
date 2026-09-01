@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -12,15 +13,13 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   'Résoudre des problèmes avec des puissances de 10 et des conversions'
 export const dateDePublication = '05/02/2021'
 export const dateDeModifImportante = '20/09/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -32,7 +31,7 @@ export const uuid = '5c9c2'
 
 export const refs = {
   'fr-fr': ['4C32-3', 'BP2AutoE9'],
-  'fr-ch': ['10NO2-6'],
+  'fr-ch': ['10NO3F-5'],
 }
 
 function decompositionScientifique(n: number) {
@@ -60,7 +59,7 @@ export default class ProblemesPuissancesDe10EtConversions extends Exercice {
     this.sup = '9'
     this.nbQuestions = 4
 
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacingCorr = context.isHtml ? 2 : 1
   }
 
   nouvelleVersion() {
@@ -281,7 +280,7 @@ export default class ProblemesPuissancesDe10EtConversions extends Exercice {
           const energieKwh = energieAnnuelle / (3.6 * Math.pow(10, 6)) // en kWh
           const energieGwh = arrondi(energieKwh / Math.pow(10, 6)) // en GWh
           b = energieGwh
-          texte = `Un réacteur nucléaire produit $${texNombre(a)}\\times10^{16}$ joules d'énergie par jour. Si 1 kilowatt-heure ($\\text{kWh}$) équivaut à $3{,}6\\times10^6$ joules, combien de gigawatt-heures ($\\text{GWh}$) d'énergie ce réacteur produit-il par an (prendre 365 jours par an) ?`
+          texte = `Un réacteur nucléaire produit $${texNombre(a)}\\times10^{16}$ joules d'énergie par jour. Si 1 kilowatt-heure ($\\text{kWh}$) équivaut à $3,6\\times10^6$ joules, combien de gigawatt-heures ($\\text{GWh}$) d'énergie ce réacteur produit-il par an (prendre 365 jours par an) ?`
           texte += this.interactif
             ? ajouteChampTexteMathLive(
                 this,
@@ -294,7 +293,7 @@ export default class ProblemesPuissancesDe10EtConversions extends Exercice {
           mantisse = decompositionScientifique(reponseNumerique).mantisse
           exposant = decompositionScientifique(reponseNumerique).exposant
           texteCorr = `Énergie par an en joules: $${texNombre(a)}\\times10^{16} \\times 365~\\text{J} = ${texNombre(a * 365)}\\times10^{16}~\\text{J}$<br>`
-          texteCorr += `Conversion de l'énergie en $\\text{kWh}$ : $\\dfrac{${texNombre(a * 365)}\\times10^{16}}{3{,}6\\times10^6} = ${texNombre((a * 365) / 3.6)}\\times10^{10}~\\text{kWh}$<br>`
+          texteCorr += `Conversion de l'énergie en $\\text{kWh}$ : $\\dfrac{${texNombre(a * 365)}\\times10^{16}}{3,6\\times10^6} = ${texNombre((a * 365) / 3.6)}\\times10^{10}~\\text{kWh}$<br>`
           texteCorr += `Conversion de l'énergie en $\\text{GWh}$ : $${texNombre((a * 365) / 3.6)}\\times10^{10}~\\text{kWh} = ${texNombre((a * 365) / 3.6)}\\times10^{10} \\times 10^{-6}~\\text{GWh} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${texNombre(exposant)}`)}}~\\text{GWh}$`
           break
         }

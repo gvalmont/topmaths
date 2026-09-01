@@ -15,7 +15,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '3ed5d'
 export const refs = {
   'fr-fr': [],
@@ -86,7 +86,7 @@ export default class Can32026Q17 extends ExerciceCan {
         mainlevee: false,
         amplitude: 0.3,
         scale: 0.7,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       [triangle, labels, codages, angleC, angleA],
     )

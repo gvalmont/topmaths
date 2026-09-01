@@ -1,26 +1,42 @@
 <script lang="ts">
+  import { getContext } from 'svelte'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
-  import { retrieveResourceFromUuid } from '../../../../../lib/components/refUtils'
+  import HeaderExerciceVueEleve from '../shared/HeaderExerciceVueEleve.svelte'
+  import ButtonTextAction from '../../../forms/ButtonTextAction.svelte'
+  import {
+    computeStaticExercicePngUrls,
+    retrieveResourceFromUuid,
+  } from '../../../../../lib/components/refUtils'
   import {
     resourceHasPlace,
     isStaticType,
+    isBanqueExterneType,
     type JSONReferentielObject,
     isCrpeType,
-    isStaticWithoutPngUrl,
   } from '../../../../../lib/types/referentiels'
   /**
    * Gestion du référentiel pour la recherche de l'uuid
    */
-  import referentielStaticFR from '../../../../../json/referentielStaticFR.json'
+  import referentielStaticFR from '../../../../../json/referentielStaticFRHydrated'
   import referentielStaticCH from '../../../../../json/referentielStaticCH.json'
 
   import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
+  import { referentielMathadata } from '../../../../../lib/components/mathadataReferentiel'
+  import { referentielBanquesExternes } from '../../../../../lib/stores/banquesExternesStore'
+  import { isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import type { HeaderProps } from '../../../../../lib/types/ui'
+  import type { VueType } from '../../../../../lib/VueType'
+  import { SM_BREAKPOINT } from '../../../../keyboard/lib/sizes'
   // on rassemble les deux référentiel statique
+  // les banques externes sont ajoutées ici et non figées à l'import : elles
+  // peuvent être installées ou retirées en cours de session
   const allStaticReferentiels: JSONReferentielObject = {
     ...referentielBibliotheque,
     ...referentielStaticFR,
     ...referentielStaticCH,
+    ...referentielMathadata,
+    ...referentielBanquesExternes(),
   }
   // on supprime les entrées par thème qui entraîne des doublons
   delete allStaticReferentiels['Brevet des collèges par thème - APMEP']
@@ -35,44 +51,45 @@
   export let indiceLastExercice: number
   export let zoomFactor: string
   export let isSolutionAccessible: boolean
+  export let vue: VueType | undefined = undefined
+  const isVueEleve =
+    vue === 'eleve' ||
+    vue === 'myriade' ||
+    vue === 'indices' ||
+    vue === 'indice'
   const foundResource = retrieveResourceFromUuid(allStaticReferentiels, uuid)
-  if (isStaticWithoutPngUrl(foundResource)) {
-    const [examen, filiere] = foundResource.uuid.split('_')
-    if (examen === 'eam') {
-      foundResource.png = `https://coopmaths.fr/alea/static/eam/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
-      foundResource.pngCor = `https://coopmaths.fr/alea/static/eam/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
-    } else if (examen === 'STL') {
-      foundResource.png = `https://coopmaths.fr/alea/static/stl/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
-      foundResource.pngCor = `https://coopmaths.fr/alea/static/stl/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
-    } else {
-      foundResource.png = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
-      foundResource.pngCor = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
-    }
-    console.log(foundResource)
-  }
+  const exercice = computeStaticExercicePngUrls(foundResource)
   const resourceToDisplay =
     isStaticType(foundResource) || isCrpeType(foundResource)
       ? { ...foundResource }
       : null
-  const exercice =
-    resourceToDisplay === null
-      ? null
-      : {
-          png:
-            typeof resourceToDisplay.png === 'string'
-              ? [resourceToDisplay.png]
-              : resourceToDisplay.png,
-          pngCor:
-            typeof resourceToDisplay.pngCor === 'string'
-              ? [resourceToDisplay.pngCor]
-              : resourceToDisplay.pngCor,
-        }
   let isCorrectionVisible = false
   let isContentVisible = true
+  let title = ''
+  if (resourceToDisplay !== null) {
+    if (resourceHasPlace(resourceToDisplay)) {
+      title = `${resourceToDisplay.typeExercice.toUpperCase()} ${
+        resourceToDisplay.mois || ''
+      } ${resourceToDisplay.annee} ${resourceToDisplay.lieu} ${resourceToDisplay.jour || ''} Ex ${resourceToDisplay.numeroInitial}`
+    } else if ('titre' in resourceToDisplay && resourceToDisplay.titre) {
+      title = resourceToDisplay.titre
+    } else {
+      title = resourceToDisplay.uuid
+    }
+  }
+  // Attribution discrète de la banque externe d'origine (titre de la banque,
+  // et son auteur si le manifest le déclare) : les autres provenances
+  // statiques (annales, MathAdata) n'affichent pas cette ligne.
+  const sourceBanqueExterne =
+    resourceToDisplay !== null && isBanqueExterneType(resourceToDisplay)
+      ? resourceToDisplay.banqueAuteur
+        ? `${resourceToDisplay.banqueTitre} — ${resourceToDisplay.banqueAuteur}`
+        : resourceToDisplay.banqueTitre
+      : null
   let headerExerciceProps: HeaderProps
   if (resourceToDisplay !== null) {
     headerExerciceProps = {
-      title: '',
+      title,
       id: '',
       isInteractif: false,
       settingsReady: false,
@@ -83,13 +100,6 @@
       randomReady: false,
       correctionReady: isSolutionAccessible,
     }
-    if (resourceHasPlace(resourceToDisplay)) {
-      headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} ${
-        resourceToDisplay.mois || ''
-      } ${resourceToDisplay.annee} ${resourceToDisplay.lieu} ${resourceToDisplay.jour || ''} Ex ${resourceToDisplay.numeroInitial}`
-    } else {
-      headerExerciceProps.title = resourceToDisplay.uuid
-    }
   }
 
   let noCorrectionAvailable = false
@@ -97,32 +107,92 @@
   function handleNoCorrectionAvailable() {
     noCorrectionAvailable = true
   }
+
+  let innerWidth = window.innerWidth
+  $: isMobileView =
+    getContext('mobileView') === true || innerWidth < SM_BREAKPOINT
+
+  /**
+   * Ouvre une image d'énoncé ou de correction dans un nouvel onglet : sur un
+   * écran de téléphone, c'est le seul moyen de la zoomer et de s'y déplacer.
+   */
+  function openImageInNewTab(url: string) {
+    window.open(url, '_blank', 'noopener')
+  }
 </script>
 
-<HeaderExerciceVueProf
-  {...headerExerciceProps}
-  {indiceExercice}
-  {indiceLastExercice}
-  on:clickCorrection={(event) => {
-    isCorrectionVisible = event.detail.isCorrectionVisible
-  }}
-  on:clickVisible={(event) => {
-    isContentVisible = event.detail.isVisible
-    isCorrectionVisible = event.detail.isVisible
-  }}
-  on:exerciseRemoved
-/>
+<svelte:window bind:innerWidth />
+
+{#if isVueEleve}
+  <HeaderExerciceVueEleve
+    {title}
+    {indiceExercice}
+    showNumber={indiceLastExercice > 0 &&
+      $globalOptions.presMode !== 'un_exo_par_page'}
+    isMenuNeededForExercises={$isMenuNeededForExercises}
+    presMode={$globalOptions.presMode}
+    seed={undefined}
+  />
+  {#if isSolutionAccessible}
+    <div class="flex flex-row items-center ml-2 mb-2">
+      <ButtonTextAction
+        text={isCorrectionVisible
+          ? 'Masquer la correction'
+          : 'Voir la correction'}
+        icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
+        class="py-0.5 px-2 text-[0.7rem]"
+        inverted={true}
+        on:click={() => (isCorrectionVisible = !isCorrectionVisible)}
+      />
+    </div>
+  {/if}
+{:else}
+  <HeaderExerciceVueProf
+    {...headerExerciceProps}
+    {indiceExercice}
+    {indiceLastExercice}
+    on:clickCorrection={(event) => {
+      isCorrectionVisible = event.detail.isCorrectionVisible
+    }}
+    on:clickVisible={(event) => {
+      isContentVisible = event.detail.isVisible
+      isCorrectionVisible = event.detail.isVisible
+    }}
+    on:exerciseRemoved
+  />
+{/if}
 
 <div class="p-4">
   {#if isContentVisible}
+    {#if sourceBanqueExterne}
+      <p
+        class="text-[0.65rem] italic opacity-60 mb-2 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+      >
+        Source : {sourceBanqueExterne}
+      </p>
+    {/if}
     {#if exercice}
-      {#each exercice.png as url}
+      {#each exercice.png as url, i}
         <img
           src={url}
           class="mb-6"
-          style="width: calc(100% * {zoomFactor}"
+          style="width: min(100%, calc(850px * {zoomFactor}))"
           alt="énoncé"
         />
+        {#if isMobileView}
+          <div class="print-hidden flex flex-row mb-6">
+            <ButtonTextAction
+              text={exercice.png.length > 1
+                ? `Ouvrir l'énoncé (partie ${i + 1}) en plein écran`
+                : "Ouvrir l'énoncé en plein écran"}
+              icon="bx-zoom-in"
+              inverted={true}
+              class="py-0.5 px-2 text-[0.7rem]"
+              title="Ouvre l'image dans un nouvel onglet pour pouvoir zoomer"
+              on:click={() => openImageInNewTab(url)}
+            />
+          </div>
+        {/if}
       {/each}
     {/if}
   {/if}
@@ -134,17 +204,31 @@
     >
       <div class="container">
         {#if exercice}
-          {#each exercice.pngCor as url}
+          {#each exercice.pngCor as url, i}
             {#if noCorrectionAvailable}
               <p class="text-red-500">Aucune correction disponible</p>
             {:else}
               <img
                 src={url}
                 class="p-2"
-                style="width: calc(100% * {zoomFactor}"
+                style="width: min(100%, calc(850px * {zoomFactor}))"
                 alt="correction"
                 on:error={handleNoCorrectionAvailable}
               />
+              {#if isMobileView}
+                <div class="print-hidden flex flex-row mb-4 pl-2">
+                  <ButtonTextAction
+                    text={exercice.pngCor.length > 1
+                      ? `Ouvrir la correction ${i + 1} en grand`
+                      : 'Ouvrir la correction en grand'}
+                    icon="bx-zoom-in"
+                    inverted={true}
+                    class="py-0.5 px-2 text-[0.7rem]"
+                    title="Ouvre l'image dans un nouvel onglet pour pouvoir zoomer"
+                    on:click={() => openImageInNewTab(url)}
+                  />
+                </div>
+              {/if}
             {/if}
           {/each}
         {/if}
@@ -158,6 +242,20 @@
       <div
         class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
       ></div>
+    </div>
+  {/if}
+
+  {#if isMobileView && !isVueEleve && isSolutionAccessible}
+    <div class="print-hidden flex flex-row flex-wrap gap-2 mt-2 mb-8">
+      <ButtonTextAction
+        text={isCorrectionVisible
+          ? 'Masquer la correction'
+          : 'Afficher la correction'}
+        icon={isCorrectionVisible ? 'bx-hide' : 'bx-check-circle'}
+        inverted={true}
+        class="py-0.5 px-2 text-[0.7rem]"
+        on:click={() => (isCorrectionVisible = !isCorrectionVisible)}
+      />
     </div>
   {/if}
 </div>

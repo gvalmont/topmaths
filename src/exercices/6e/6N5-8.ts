@@ -1,9 +1,6 @@
 import { texPrix } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -21,7 +18,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Résoudre des problèmes de type : ... de plus ou ... de moins'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -37,9 +34,9 @@ export const dateDeModifImportante = '13/01/2026'
 export const uuid = '99522'
 
 export const refs = {
-  'fr-fr': ['6N5-8'],
+  'fr-fr': ['6N5-8', '5N1D-8'],
   'fr-2016': ['6C22'],
-  'fr-ch': ['9NO16-4'],
+  'fr-ch': [''], // Primaire anciennement :['9NO16-4'],
 }
 export default class ProblemesDePlusEtDeMoins extends Exercice {
   constructor() {
@@ -422,8 +419,7 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
 
           break
       }
-      if (context.isAmc) setReponse(this, i, somme)
-      else handleAnswers(this, i, { reponse: { value: texPrix(somme) } })
+      handleAnswers(this, i, { reponse: { value: texPrix(somme) } })
 
       if (this.questionJamaisPosee(i, m, somme)) {
         // Si la question n'a jamais été posée, on en crée une autre

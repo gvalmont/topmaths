@@ -38,7 +38,6 @@ import {
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre = 'Calculer des longueurs avec des triangles semblables'
 export const dateDePublication = '30/12/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -46,7 +45,7 @@ export const dateDePublication = '30/12/2024' // La date de publication initiale
 export const uuid = '58a64'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': [''],
+  'fr-ch': ['NR'],
 }
 /**
  * calcul de longueurs avec des triangles semblables
@@ -76,7 +75,7 @@ export default class nomExercice extends Exercice {
       melange: 4,
       nbQuestions: this.nbQuestions,
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeDeNomsDePolygones: string[] = []
       let texte = ''
       let texteCorr = ''

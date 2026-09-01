@@ -10,6 +10,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import { context } from '../../modules/context'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -21,12 +22,10 @@ import {
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Résoudre une équation du premier degré'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '02/04/2024'
@@ -37,8 +36,8 @@ export const dateDeModifImportante = '02/04/2024'
 export const uuid = '799c4'
 
 export const refs = {
-  'fr-fr': ['4L20', 'BP2RES8', '3AutoN14-1'],
-  'fr-ch': ['10FA3-7'],
+  'fr-fr': ['4L20', 'BP2RES8', '3AutoL04-1', 'BP1AUTO019'],
+  'fr-ch': ['NR'],
 }
 
 function gestionEspaceMiseEnEvidence(texte: string) {
@@ -359,17 +358,18 @@ export default class ExerciceEquation1 extends Exercice {
           break
       }
       texteCorr += `<br> La solution de l'équation ${texte} est $${miseEnEvidence(reponse.texFSD)}$.`
-      texte += ajouteChampTexteMathLive(
-        this,
-        i,
-        KeyboardType.clavierDeBaseAvecFraction,
-        { texteAvant: `<br>$ ${inconnue} = $ ` },
-      )
-      handleAnswers(this, i, { reponse: { value: reponse.texFSD } })
 
       if (this.questionJamaisPosee(i, a, b, c, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions[i] = texte
+        this.listeQuestions[i] =
+          texte +
+          `${ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBaseAvecFraction,
+            { texteAvant: `<br>Solution de l'équation  : ` },
+          )}`
+        handleAnswers(this, i, { reponse: { value: reponse.texFSD } })
         this.listeCorrections[i] = texteCorr
         if (context.isAmc) {
           this.autoCorrectionAMC[i] = {

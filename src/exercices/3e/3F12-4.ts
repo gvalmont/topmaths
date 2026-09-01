@@ -1,9 +1,10 @@
 import { courbe } from '../../lib/2d/Courbe'
 import { repere } from '../../lib/2d/reperes'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { chercheMinMaxFonction } from '../../lib/mathFonctions/etudeFonction'
 import {
   resolutionSystemeLineaire2x2,
@@ -19,12 +20,10 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = "Lire l'image d'un nombre à partir d'un graphique"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -37,8 +36,8 @@ export const amcType = 'AMCHybride'
 export const uuid = 'f2352'
 
 export const refs = {
-  'fr-fr': ['3F12-4'],
-  'fr-ch': ['11FA7-3', '1mF1-3'],
+  'fr-fr': ['3F12-4', '2F12-2'],
+  'fr-ch': ['10FA1B-11', '11FA1A-3', '1mF1-3'],
 }
 export default class ImageGraphique extends Exercice {
   constructor() {
@@ -51,7 +50,7 @@ export default class ImageGraphique extends Exercice {
 
     this.sup = 3
 
-    // context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1)
+    // this.spacingCorr = context.isHtml ? 3 : 1
     this.nbQuestions = 1
     this.pointsParQuestions = 3
   }
@@ -123,7 +122,7 @@ export default class ImageGraphique extends Exercice {
       }
 
       if (this.sup === 3) {
-        let a1: Number, b1: Number, c1: Number
+        let a1: number, b1: number, c1: number
         ;[a1, b1, c1] = resolutionSystemeLineaire3x3(
           x1,
           x2,
@@ -273,7 +272,7 @@ export default class ImageGraphique extends Exercice {
               champ2: { value: `${fx2}` },
               bareme: toutAUnPoint,
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
         } else {
           texte += `${addMultiMathfield(this, i, {
@@ -293,7 +292,7 @@ export default class ImageGraphique extends Exercice {
               champ3: { value: `${fx3}` },
               bareme: toutAUnPoint,
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
         }
       }

@@ -20,7 +20,7 @@ import Exercice from '../Exercice'
 export const titre = 'Utiliser la simple distributivité'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCHybride'
 export const amcReady = true
 
@@ -47,7 +47,7 @@ export const amcReady = true
 export const uuid = '77a62'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ExerciceDevelopperEnJS extends Exercice {
   constructor() {
@@ -57,7 +57,6 @@ export default class ExerciceDevelopperEnJS extends Exercice {
     this.sup3 = 8 // forme de développement
     this.sup4 = false
     this.titre = titre
-    this.interactifType = interactifType
     this.interactifReady = interactifReady
     this.nbQuestions = 6
     this.spacing = 2

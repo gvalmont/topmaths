@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
@@ -26,7 +26,6 @@ export const titre =
 export const amcReady = true
 export const amcType = 'qcmMult'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '25/10/2021'
@@ -42,7 +41,7 @@ export const uuid = '4e35d'
 export const refs = {
   'fr-fr': ['6N2J-4'],
   'fr-2016': ['6C11-2'],
-  'fr-ch': ['9NO3-6'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-6'],
 }
 
 /**
@@ -303,8 +302,11 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
             '<br>' +
             ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric)
         }
-        setReponse(this, i, ReponsesCorrectes, {
-          formatInteractif: 'ignorerCasse',
+        handleAnswers(this, i, {
+          reponse: {
+            value: ReponsesCorrectes.map((reponse) => reponse.toLowerCase()),
+            options: { texteSansCasse: true },
+          },
         })
         if (context.isAmc) {
           this.autoCorrection[i].enonce = `${texte}\n`

@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -14,15 +15,13 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = "Jouer avec la compréhension des multiples d'un nombre"
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '30/09/2023'
 
 /**
@@ -34,7 +33,7 @@ export const uuid = '2ae9b'
 
 export const refs = {
   'fr-fr': ['3A13-5'],
-  'fr-ch': ['9NO4-25'],
+  'fr-ch': [''],
 }
 export default class DivisionEuclidienneEtAjout extends Exercice {
   constructor() {
@@ -150,7 +149,7 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
       texte += texteNbAMC
 
       if (this.interactif) {
-        setReponse(this, i, reponse)
+        handleAnswers(this, i, { reponse: { value: reponse } })
         texte +=
           '<br>' +
           ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)

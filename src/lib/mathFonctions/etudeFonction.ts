@@ -265,7 +265,7 @@ export function tableauDeVariation({
       codeLatex += '}' + '\n\t'
     }
   }
-  codeLatex += '\\end{tikzpicture}\n'
+  codeLatex += '\\end{tikzpicture}'
   return codeLatex
 }
 
@@ -633,6 +633,10 @@ export type TableauSignesFacteursOptions = {
   nomVariable?: string
   nomFonction?: string
   espcl?: number
+  lgt?: number
+  afficherBornes?: boolean
+  borneInf?: string | number
+  borneSup?: string | number
 }
 /**
  * renvoie le tableau de signes d'une fonction
@@ -784,6 +788,10 @@ export function tableauSignesFacteurs(
     nomVariable = 'x',
     nomFonction = 'f(x)',
     espcl,
+    lgt,
+    afficherBornes = true,
+    borneInf,
+    borneSup,
   }: TableauSignesFacteursOptions = {},
 ) {
   const EPSILON = 1e-9
@@ -954,38 +962,52 @@ export function tableauSignesFacteurs(
   const premiereLigne: (string | number)[] = []
   const largeurFraction = context.isHtml ? 28 : 22
   const largeurStandard = context.isHtml ? 16 : 12
+  const contientCommandeFraction = (valeur: string | number) =>
+    typeof valeur === 'string' && /\\d?frac\b/.test(valeur)
   const largeurPremiereLigne = (
     valeur: string | number,
     point?: BoundaryPoint,
   ) => {
-    const formatFraction =
-      typeof valeur === 'string' &&
-      (valeur.includes('\\frac') || valeur.includes('\\dfrac'))
     const valeurFraction =
       point?.valeur instanceof FractionEtendue &&
       point.valeur.denIrred !== 1 &&
       point.valeur.numIrred !== 0
-    if (formatFraction || valeurFraction) return largeurFraction
+    if (contientCommandeFraction(valeur) || valeurFraction)
+      return largeurFraction
     return largeurStandard
   }
 
   let fractionsDansEntete = fractionTex
 
+  const textePoint = (point: BoundaryPoint) => {
+    if (fractionTex === false) {
+      if (point.valeur instanceof FractionEtendue) {
+        return texNombre(point.valeur.toNumber())
+      }
+      return stringNombre(point.valeur, 2)
+    }
+    if (point.valeur instanceof FractionEtendue) {
+      return point.valeur.texFractionSimplifiee
+    }
+    return new FractionEtendue(point.valeur, 1).texFractionSimplifiee
+  }
+
   for (let index = 0; index < points.length; index++) {
     const point = points[index]
+    const estBorneInf = index === 0
+    const estBorneSup = index === points.length - 1
+    const borneAffichee = estBorneInf
+      ? borneInf
+      : estBorneSup
+        ? borneSup
+        : undefined
     let texte: string | number = ''
-    if (index !== 0 && index !== points.length - 1) {
-      if (fractionTex === false) {
-        if (point.valeur instanceof FractionEtendue) {
-          texte = texNombre(point.valeur.toNumber())
-        } else {
-          texte = stringNombre(point.valeur, 2)
-        }
-      } else if (point.valeur instanceof FractionEtendue) {
-        texte = point.valeur.texFractionSimplifiee
-      } else {
-        texte = new FractionEtendue(point.valeur, 1).texFractionSimplifiee
-      }
+    if (
+      borneAffichee !== undefined ||
+      afficherBornes ||
+      (!estBorneInf && !estBorneSup)
+    ) {
+      texte = borneAffichee ?? textePoint(point)
       if (
         point.valeur instanceof FractionEtendue &&
         point.valeur.denIrred !== 1 &&
@@ -998,19 +1020,24 @@ export function tableauSignesFacteurs(
   }
 
   if (substituts && Array.isArray(substituts)) {
-    for (let i = 0; i < premiereLigne.length; i += 2) {
+    for (let index = 0; index < points.length; index++) {
+      const i = index * 2
       if (premiereLigne[i] === '') continue
-      const nb: number = Number(
-        String(premiereLigne[i]).replaceAll(/\s/g, '').replace(',', '.'),
-      )
+      if (index === 0 && borneInf !== undefined) continue
+      if (index === points.length - 1 && borneSup !== undefined) continue
       const substitut: Substitut | undefined = substituts.find(
-        (el: Substitut) => egal(el.antVal, nb, 0.01),
+        (el: Substitut) => egal(el.antVal, points[index].numeric, 0.01),
       )
       if (substitut) {
         premiereLigne[i] = substitut.antTex
       }
     }
   }
+
+  const contientFractionAffichee = premiereLigne.some(
+    (valeur, index) => index % 2 === 0 && contientCommandeFraction(valeur),
+  )
+  fractionsDansEntete = fractionsDansEntete || contientFractionAffichee
 
   const segments = points.length - 1
   const lignes: (string | number)[][] = []
@@ -1023,7 +1050,7 @@ export function tableauSignesFacteurs(
   ) => {
     const milieu = (gauche + droite) / 2
     const image = f(milieu)
-    const valeur = Number(image) ?? 0
+    const valeur = image ?? 0
     if (Number.isNaN(valeur)) return ''
     if (Math.abs(valeur) < EPSILON) return '0'
     return valeur > 0 ? '+' : '-'
@@ -1093,11 +1120,26 @@ export function tableauSignesFacteurs(
   }
   lignes.push(ligneFinale)
 
-  const entetes: [string, number, number][] = [[nomVariable, 1.5, 10]]
+  const hauteurEntete = contientFractionAffichee ? 2 : 1.5
+  const entetes: [string, number, number][] = [[nomVariable, hauteurEntete, 10]]
   for (const facteur of facteurs) {
     entetes.push([facteur.nom, 1.5, 10])
   }
   entetes.push([nomFonction, 1.5, 10])
+
+  const largeurLibelle = (libelle: string) => {
+    const sansDollars =
+      libelle[0] === '$' && libelle[libelle.length - 1] === '$'
+        ? libelle.substring(1, libelle.length - 1)
+        : libelle
+    const longueurApprox = sansDollars
+      .replaceAll(/\\d?frac\{([^}]*)\}\{([^}]*)\}/g, '$1$2')
+      .replaceAll(/\\[a-zA-Z]+/g, '')
+      .replaceAll(/[{}]/g, '').length
+    return Math.min(8, Math.max(3.4, 1.2 + longueurApprox * 0.35))
+  }
+  const largeurPremiereColonne =
+    lgt ?? Math.max(...entetes.map(([libelle]) => largeurLibelle(libelle)))
 
   const espacementColonnes =
     espcl ??
@@ -1114,7 +1156,7 @@ export function tableauSignesFacteurs(
     tabLines: lignes,
     espcl: espacementColonnes,
     deltacl: 0.8,
-    lgt: 3,
+    lgt: largeurPremiereColonne,
   })
 }
 
@@ -1149,6 +1191,10 @@ export function tableauVariationsFonction(
     nomFonction = 'f(x)',
     nomDerivee = 'f^{\\prime}(x)',
     precisionImage = 2,
+    deltacl = 0.8,
+    espcl = 5,
+    lgt = 3,
+    longueurDefaut = 20,
   }: {
     substituts?: Substitut[]
     step?: number | FractionEtendue
@@ -1158,7 +1204,11 @@ export function tableauVariationsFonction(
     nomFonction?: string
     nomDerivee?: string
     precisionImage?: number
-  },
+    deltacl?: number
+    espcl?: number
+    lgt?: number
+    longueurDefaut?: number
+  } = {},
 ) {
   const signes = signesFonction(derivee, xMin, xMax).filter(
     (signe) => signe.xG !== signe.xD,
@@ -1169,11 +1219,14 @@ export function tableauVariationsFonction(
   premiereLigne.push(
     ...signes.reduce(
       (previous, current) =>
-        previous.concat([stringNombre(Number(current.xG), 3), 10]),
+        previous.concat([stringNombre(Number(current.xG), 3), longueurDefaut]),
       initalValue,
     ),
   )
-  premiereLigne.push(stringNombre(Number(signes[signes.length - 1].xD), 3), 10)
+  premiereLigne.push(
+    stringNombre(Number(signes[signes.length - 1].xD), 3),
+    longueurDefaut,
+  )
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i += 2) {
       const nb: number = Number(
@@ -1197,13 +1250,13 @@ export function tableauVariationsFonction(
   }
   const tabLineDerivee = ['Line', 30]
   if (egal(derivee(Number(xMin)), 0)) {
-    tabLineDerivee.push('z', 10)
+    tabLineDerivee.push('z', longueurDefaut)
   } else {
-    tabLineDerivee.push('', 10)
+    tabLineDerivee.push('', longueurDefaut)
   }
   for (const signe of signes) {
-    tabLineDerivee.push(signe.signe, 10)
-    tabLineDerivee.push('z', 10)
+    tabLineDerivee.push(signe.signe, longueurDefaut)
+    tabLineDerivee.push('z', longueurDefaut)
   }
   if (!egal(derivee(Number(xMax)), 0)) {
     tabLineDerivee.splice(-2, 2)
@@ -1223,50 +1276,50 @@ export function tableauVariationsFonction(
   let variationD
   if (variationG.variation === 'croissant') {
     tabLineVariations.push(
-      `-/${stringNombre(fonction(Number(variationG.xG)), precisionImage)}`,
-      30,
+      `-/${texNombre(fonction(Number(variationG.xG)), precisionImage)}`,
+      longueurDefaut,
     )
   } else {
     tabLineVariations.push(
-      `+/${stringNombre(fonction(Number(variationG.xG)), precisionImage)}`,
-      30,
+      `+/${texNombre(fonction(Number(variationG.xG)), precisionImage)}`,
+      longueurDefaut,
     )
   }
   for (let i = 0; i < variations.length - 1; i++) {
     variationG = variations[i]
     variationD = variations[i + 1]
     if (variationG.variation === variationD.variation) {
-      tabLineVariations.push('R/', 10)
+      tabLineVariations.push('R/', longueurDefaut)
       tabLinesImage.push([
         'Ima',
         i + 1,
         i + 3,
         i + 2,
-        stringNombre(fonction(Number(variationG.xD)), precisionImage),
+        texNombre(fonction(Number(variationG.xD)), precisionImage),
       ])
     } else {
       tabLineVariations.push(
-        `${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(Number(variationG.xD)), precisionImage)}`,
-        30,
+        `${variationG.variation === 'croissant' ? '+' : '-'}/${texNombre(fonction(Number(variationG.xD)), precisionImage)}`,
+        longueurDefaut,
       )
     }
   }
   if (variationD != null) {
     if (variationD.variation === 'croissant') {
       tabLineVariations.push(
-        `+/${stringNombre(fonction(Number(variationD.xD)), precisionImage)}`,
-        30,
+        `+/${texNombre(fonction(Number(variationD.xD)), precisionImage)}`,
+        longueurDefaut,
       )
     } else {
       tabLineVariations.push(
-        `-/${stringNombre(fonction(Number(variationD.xD)), precisionImage)}`,
-        30,
+        `-/${texNombre(fonction(Number(variationD.xD)), precisionImage)}`,
+        longueurDefaut,
       )
     }
   } else {
     tabLineVariations.push(
-      `${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(Number(variationG.xD)), precisionImage)}`,
-      30,
+      `${variationG.variation === 'croissant' ? '+' : '-'}/${texNombre(fonction(Number(variationG.xD)), precisionImage)}`,
+      longueurDefaut,
     )
   }
   if (substituts && Array.isArray(substituts)) {
@@ -1289,20 +1342,20 @@ export function tableauVariationsFonction(
     tabInit: [
       ligneDerivee
         ? [
-            [nomVariable, 1.5, 10],
-            [nomDerivee, 2, 10],
-            [nomFonction, 3, 10],
+            [nomVariable, 1.5, longueurDefaut],
+            [nomDerivee, 2, longueurDefaut],
+            [nomFonction, 3, longueurDefaut],
           ]
         : [
-            [nomVariable, 1.5, 10],
-            [nomFonction, 3, 10],
+            [nomVariable, 1.5, longueurDefaut],
+            [nomFonction, 3, longueurDefaut],
           ],
       premiereLigne,
     ],
     tabLines,
-    espcl: 5, // taille en cm entre deux antécédents
-    deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-    lgt: 3, // taille de la première colonne en cm
+    espcl, // taille en cm entre deux antécédents
+    deltacl, // distance entre la bordure et les premiers et derniers antécédents
+    lgt, // taille de la première colonne en cm
   })
 }
 
@@ -1742,7 +1795,7 @@ export function creerTableauHtml({
           )
           if (tabLines[index][k * 2] !== '') {
             texte = String(tabLines[index][k * 2])
-            long = Number(tabLines[index][k * 2 - 1]) ?? 20
+            long = Number(tabLines[index][k * 2 + 1] ?? 20)
             codeVar = texte.split('/')
             if (codeVar.length === 1) {
               // il n'y a qu'un code

@@ -3,13 +3,13 @@ export const titre =
   'Calculer des images dans des fonctions polynomiales ou rationnelles'
 export const dateDePublication = '19/06/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const uuid = '8a78e'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CalculsImagesFonctionsPolynomialesOuRationnelles extends CalculsImagesFonctions {
   constructor() {

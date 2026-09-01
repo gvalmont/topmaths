@@ -9,10 +9,10 @@ import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { similitude } from '../../lib/2d/transformations'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
@@ -38,7 +38,7 @@ function radToDeg(rad: number) {
 }
 
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/05/2024'
@@ -126,14 +126,15 @@ export default class CalculDAngleFigureComplexe extends Exercice {
               xmax: D.x + 1,
               ymax: Math.max(C.y, D.y) + 1,
               optionsTikz: 'baseline=(current bounding box.north)',
+              display: 'block',
             },
             objetsMathalea,
           )
           if (!this.sup) {
-            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}\\text{ cm}$, $${A.nom + D.nom} = ${texNombre(AD, 1)}\\text{ cm}$ et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.`
+            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}\\text{ cm}$, $${A.nom + D.nom} = ${texNombre(AD, 1)}\\text{ cm}$ et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.<br>`
           }
           texte += this.interactif
-            ? "<br><br>Les valeurs d'angle seront arrondis au degré près."
+            ? "Les valeurs d'angle seront arrondis au degré près."
             : ''
           texteCorr = ''
           if (this.correctionDetaillee) {
@@ -147,6 +148,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 xmax: D.x + 1,
                 ymax: Math.max(C.y, D.y) + 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
+                display: 'block',
               },
               t1c,
               t2,
@@ -174,6 +176,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                   xmax: D.x + 1,
                   ymax: Math.max(C.y, D.y) + 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
+                  display: 'block',
                 },
                 t1,
                 t2c,
@@ -187,7 +190,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 texte4,
               )
           }
-          texteCorr += `<br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$. <br> Donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}$ <br>`
+          texteCorr += `$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$. <br> Donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}$ <br>`
           texteCorr += `Soit $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}$ <br> $\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${miseEnEvidence(ACD)}^\\circ$.<br>`
           texteCorr += `La somme des angles d'un triangle est égale à $180^\\circ$.<br> Donc $\\widehat{${B.nom + C.nom + A.nom}}=180^\\circ-90^\\circ-${BAC}^\\circ=${miseEnEvidence(90 - BAC)}^\\circ$.<br>`
           texteCorr += `De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.<br>`
@@ -201,7 +204,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 champ2: { value: String(90 - BAC) },
                 champ3: { value: String(90 - ACD) },
               },
-              { formatInteractif: 'multiMathfield' },
+              { formatInteractif: 'multi-mathfield' },
             )
 
             texte +=
@@ -238,10 +241,10 @@ export default class CalculDAngleFigureComplexe extends Exercice {
             objetsMathalea,
           )
           if (!this.sup) {
-            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}\\text{ cm}$, $${A.nom + D.nom} = ${texNombre(AD, 1)}\\text{ cm}$ et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.`
+            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}\\text{ cm}$, $${A.nom + D.nom} = ${texNombre(AD, 1)}\\text{ cm}$ et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.<br>`
           }
           texte += this.interactif
-            ? "<br><br>Les valeurs d'angle seront arrondis au degré près."
+            ? "Les valeurs d'angle seront arrondis au degré près."
             : ''
           texteCorr = ''
           if (this.correctionDetaillee) {
@@ -255,6 +258,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 xmax: D.x + 1,
                 ymax: Math.max(C.y, D.y) + 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
+                display: 'block',
               },
               t1c,
               t2,
@@ -266,7 +270,6 @@ export default class CalculDAngleFigureComplexe extends Exercice {
               texte1,
               texte2,
             )
-            texteCorr += '<br>'
           }
           texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$.<br> Donc $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}$ <br>`
           texteCorr += `Soit $\\sin(${ACB}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}$ <br> $${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\sin(${ACB}^\\circ)}\\approx${texNombre(AC, 1)}\\text{ cm}$.`
@@ -296,10 +299,10 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 texte4,
               )
           }
-          texteCorr += `<br><br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$. <br> $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}$<br>`
-          texteCorr += `Soit $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}$ <br> $\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${miseEnEvidence(ACD)}^\\circ$.`
-          texteCorr += `<br><br>La somme des angles d'un triangle est égale à $180^\\circ$. <br> Donc $\\widehat{${B.nom + A.nom + C.nom}}=180^\\circ-90^\\circ-${ACB}^\\circ=${miseEnEvidence(90 - ACB)}^\\circ$.`
-          texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.`
+          texteCorr += `$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$. <br> $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}$<br>`
+          texteCorr += `Soit $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}$ <br> $\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${miseEnEvidence(ACD)}^\\circ$.<br><br>`
+          texteCorr += `La somme des angles d'un triangle est égale à $180^\\circ$. <br> Donc $\\widehat{${B.nom + A.nom + C.nom}}=180^\\circ-90^\\circ-${ACB}^\\circ=${miseEnEvidence(90 - ACB)}^\\circ$.<br>`
+          texteCorr += `De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.`
           if (this.interactif) {
             handleAnswers(
               this,
@@ -310,7 +313,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 champ2: { value: String(90 - ACB) },
                 champ3: { value: String(90 - ACD) },
               },
-              { formatInteractif: 'multiMathfield' },
+              { formatInteractif: 'multi-mathfield' },
             )
 
             texte +=
@@ -328,7 +331,6 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           }
           break
       }
-      texte += '<br>'
       if (context.isAmc) {
         this.autoCorrectionAMC.push({
           enonce: texte,

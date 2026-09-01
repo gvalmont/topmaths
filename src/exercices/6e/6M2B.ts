@@ -1,5 +1,7 @@
-import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import {
+  choixDeroulant,
+  type AllChoicesType,
+} from '../../lib/customElements/ListeDeroulanteElement'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -14,7 +16,6 @@ import Exercice from '../Exercice'
 export const titre =
   'Connaître la formule de l’aire d’un carré ou d’un rectangle'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const dateDePublication = '03/08/2025'
 
 /**
@@ -27,7 +28,7 @@ export const uuid = 'f36f3'
 export const refs = {
   'fr-fr': ['6M2B'],
   'fr-2016': ['6M25-3'],
-  'fr-ch': [''],
+  'fr-ch': ['9GM1B-8'],
 }
 
 export default class FormulesAireCarreRectangle extends Exercice {
@@ -98,7 +99,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
       ],
     ]
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i])) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         let texte = ''
@@ -232,16 +233,21 @@ export default class FormulesAireCarreRectangle extends Exercice {
 
         texte = texteFixe[0]
         texte += this.interactif
-          ? choixDeroulant(this, 3 * i, choixListeDeroulantePourCeCas[0])
+          ? choixDeroulant(this, 3 * i, {
+              choices: choixListeDeroulantePourCeCas[0],
+            })
           : '$\\ldots\\ldots\\ldots$'
         texte += texteFixe[1]
         texte += this.interactif
-          ? choixDeroulant(this, 3 * i + 1, choixListeDeroulantePourCeCas[1])
+          ? choixDeroulant(this, 3 * i + 1, {
+              choices: choixListeDeroulantePourCeCas[1],
+            })
           : '$\\ldots\\ldots\\ldots$'
         texte += texteFixe[2]
         texte += this.interactif
-          ? choixDeroulant(this, 3 * i + 2, choixListeDeroulantePourCeCas[2]) +
-            '.'
+          ? choixDeroulant(this, 3 * i + 2, {
+              choices: choixListeDeroulantePourCeCas[2],
+            }) + '.'
           : '$\\ldots\\ldots\\ldots$'
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -254,22 +260,25 @@ export default class FormulesAireCarreRectangle extends Exercice {
 
   correctionInteractive = (i: number) => {
     const select1 = document.querySelector(
-      `#ex${this.numeroExercice}Q${3 * i}`,
+      `#liste-deroulanteEx${this.numeroExercice}Q${3 * i}`,
     ) as HTMLSelectElement
     const select2 = document.querySelector(
-      `#ex${this.numeroExercice}Q${3 * i + 1}`,
+      `#liste-deroulanteEx${this.numeroExercice}Q${3 * i + 1}`,
     ) as HTMLSelectElement
     const select3 = document.querySelector(
-      `#ex${this.numeroExercice}Q${3 * i + 2}`,
+      `#liste-deroulanteEx${this.numeroExercice}Q${3 * i + 2}`,
     ) as HTMLSelectElement
 
     if (this.answers === undefined) this.answers = {}
     if (select1?.value)
-      this.answers[`ex${this.numeroExercice}Q${3 * i}`] = select1.value
+      this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i}`] =
+        select1.value
     if (select2?.value)
-      this.answers[`ex${this.numeroExercice}Q${3 * i + 1}`] = select2.value
+      this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i + 1}`] =
+        select2.value
     if (select3?.value)
-      this.answers[`ex${this.numeroExercice}Q${3 * i + 2}`] = select3.value
+      this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i + 2}`] =
+        select3.value
     let isOk = false
     let isOk1 = false
     let isOk23 = false

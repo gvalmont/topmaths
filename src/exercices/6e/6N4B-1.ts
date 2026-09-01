@@ -19,7 +19,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Comprendre un algorithme répétitif sur des motifs'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '29/06/2025'
@@ -35,7 +34,7 @@ export const uuid = '328c3'
 export const refs = {
   'fr-fr': ['6N4B-1'],
   'fr-2016': ['6I14'],
-  'fr-ch': ['NR'],
+  'fr-ch': ['10FA1A-7'],
 }
 
 export default class PaternRepetitif extends Exercice {
@@ -80,7 +79,7 @@ export default class PaternRepetitif extends Exercice {
       ),
     )
     let indexInteractif = 0
-    for (let i = 0; i < this.nbQuestions; ) {
+    for (let i = 0; i < this.nbQuestions;) {
       let nbElements: number
       let shapes: string[]
       let longueurSerie: number
@@ -279,6 +278,7 @@ export default class PaternRepetitif extends Exercice {
                 {
                   exercice: this,
                   question: indexInteractif++,
+                  reponseParams: { formatInteractif: 'mathalea-mathfield' },
                   objetReponse: {
                     reponse: {
                       value:

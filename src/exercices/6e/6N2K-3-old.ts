@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -9,8 +10,6 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
@@ -18,7 +17,7 @@ export const titre =
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
  * @author Cédric GROLLEAU
@@ -43,7 +42,7 @@ export default class DivisionsEuclidiennesEgalite2Old extends Exercice {
       'Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = (b × q) + r avec r < b',
     )
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon opidiv n'est pas joli
     this.nbQuestions = 4
     this.sup = 1
   }
@@ -116,8 +115,18 @@ export default class DivisionsEuclidiennesEgalite2Old extends Exercice {
         ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase, {
           texteAvant: ' Reste : ',
         })
-      setReponse(this, 2 * i, q)
-      setReponse(this, 2 * i + 1, r)
+      handleAnswers(
+        this,
+        2 * i,
+        { reponse: { value: q } },
+        { formatInteractif: 'mathlive' },
+      )
+      handleAnswers(
+        this,
+        2 * i + 1,
+        { reponse: { value: r } },
+        { formatInteractif: 'mathlive' },
+      )
       if (context.isAmc) {
         this.autoCorrectionAMC[i] = {
           enonce: texte,

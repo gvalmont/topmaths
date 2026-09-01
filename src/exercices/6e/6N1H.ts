@@ -1,9 +1,9 @@
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { orangeMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
@@ -15,7 +15,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Lire l'abscisse décimale d'un point"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '31/10/2023'
@@ -29,7 +29,7 @@ export const uuid = 'c1889'
 export const refs = {
   'fr-fr': ['6N1H'],
   'fr-2016': ['6N30'],
-  'fr-ch': ['9NO7-1'],
+  'fr-ch': ['PR-35'],
 }
 export default class LireAbscisseDecimale extends Exercice {
   constructor() {
@@ -208,7 +208,7 @@ export default class LireAbscisseDecimale extends Exercice {
             champ2: { value: arrondi(xB / pas1 + abs0, 1 + Math.log10(pas1)) },
             champ3: { value: arrondi(xC / pas1 + abs0, 1 + Math.log10(pas1)) },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
 
         texte += `<br><br>`

@@ -1,9 +1,10 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point3d } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -20,14 +21,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Nommer des faces dans un pavé droit'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
 
 export const dateDePublication = '06/11/2022'
 
@@ -41,7 +39,7 @@ export const uuid = '6809f'
 export const refs = {
   'fr-fr': ['CM2G5B-2', 'BP2G1'],
   'fr-2016': ['6G42-1', 'BP2G1'],
-  'fr-ch': ['9ES7-5'],
+  'fr-ch': ['9ES2A-3'],
 }
 
 /**
@@ -106,7 +104,6 @@ export default class LireFacePaveDroit extends Exercice {
 
   nouvelleVersion() {
     this.sup4 = contraindreValeur(2, 6, this.sup4, 6)
-    this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
 
     const typesDeQuestionsIndisponibles = gestionnaireFormulaireTexte({
       max: 6,
@@ -175,7 +172,7 @@ export default class LireFacePaveDroit extends Exercice {
         mathalea2d(
           Object.assign({}, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
-            style: 'block',
+            display: 'block' as const,
           }),
           objetsEnonce,
         ) + '<br>'
@@ -196,9 +193,9 @@ export default class LireFacePaveDroit extends Exercice {
           options: {
             ordered: false,
           },
+          propositions: [],
         }
         this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-        this.autoCorrection[i].propositions = []
       }
 
       for (let ee = 0; ee < Math.min(choixFace.length, this.sup); ee++) {
@@ -223,10 +220,7 @@ export default class LireFacePaveDroit extends Exercice {
           texteCorr += `${resultatsPossibles[j]}, `
         texteCorr += `${resultatsPossibles[resultatsPossibles.length - 2]} ou ${resultatsPossibles[resultatsPossibles.length - 1]}.<br>`
 
-        if (
-          (this.interactifType && this.interactifType === 'qcm') ||
-          context.isAmc
-        ) {
+        if (this.sup3 !== 2 || context.isAmc) {
           resultatsImpossibles = []
           for (let j = 0; j < 6; j++) {
             if (j !== choixFace[ee]) {
@@ -242,7 +236,7 @@ export default class LireFacePaveDroit extends Exercice {
           }
         }
         this.autoCorrection[indiceQuestion] = {}
-        if (this.interactifType === 'qcm') {
+        if (this.sup3 !== 2) {
           this.autoCorrection[indiceQuestion].enonce = `${texte}\n`
           this.autoCorrection[indiceQuestion].propositions = [
             {
@@ -267,8 +261,11 @@ export default class LireFacePaveDroit extends Exercice {
           this.autoCorrection[indiceQuestion].options = {}
           texte += propositionsQcm(this, indiceQuestion).texte
         } else {
-          setReponse(this, indiceQuestion, resultatsPossibles, {
-            formatInteractif: 'texte',
+          handleAnswers(this, indiceQuestion, {
+            reponse: {
+              value: resultatsPossibles.map(String),
+              options: { texteAvecCasse: true },
+            },
           })
           texte +=
             ajouteChampTexteMathLive(

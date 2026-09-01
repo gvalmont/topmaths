@@ -3,12 +3,11 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = ''
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'x1fxq'
 export const refs = {
   'fr-fr': [],
@@ -29,10 +28,10 @@ export default class calcAvecChiffresPrio2026 extends ExerciceSimple {
   nouvelleVersion() {
     const annee = 2026
     const choix = this.canOfficielle ? true : choice([true, false])
-    const a = this.canOfficielle ? 3 : randint(1, 4)
+    const a = this.canOfficielle ? 3 : this.quotaRandint('a', 1, 4)
     const val = this.canOfficielle
       ? new Decimal(annee).div(1)
-      : new Decimal(annee).div(choice([1, 10, 100, 1000]))
+      : new Decimal(annee).div(this.quotaChoice('diviseur', [1, 10, 100, 1000]))
     if (a === 1) {
       this.question = `Calculer $${choix ? `4 \\times ${texNombre(val, 3)}\\times 25` : `25 \\times ${texNombre(val, 3)}\\times 4`}$.`
       this.reponse = texNombre(new Decimal(val).mul(100), 3)

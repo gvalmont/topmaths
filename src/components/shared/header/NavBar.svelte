@@ -7,6 +7,7 @@
   } from '../../../lib/types/languages'
   import ButtonIcon from '../forms/ButtonIcon.svelte'
   import ButtonToggleDarkMode from '../forms/ButtonToggleDarkMode.svelte'
+  import HelpPopup from '../modal/HelpPopup.svelte'
   import ModalLanguageChoice from '../modal/ModalLanguageChoice.svelte'
   import LanguageDropdown from '../ui/LanguageDropdown.svelte'
   import LanguageIcon from '../ui/LanguageIcon.svelte'
@@ -18,8 +19,11 @@
   export let subtitleType: 'export' | 'design' = 'export'
   export let locale: Language
   export let handleLanguage: (lang: string) => void
+  /** Permet de masquer le choix de la langue du référentiel (vue mobile). */
+  export let showLanguage: boolean = true
 
   let showLanguageChoiceModal: boolean = false
+  let showHelpPopup: boolean = false
 </script>
 
 <!--
@@ -97,10 +101,12 @@
       </div>
     </div>
     <div
-      class="flex flex-row space-x-4 pt-2
+      class="flex flex-row items-center space-x-4 pt-2
       pr-0 md:pr-4"
     >
-      {#if $globalOptions.v && VUES_WITH_LANG_STATUS_ONLY.includes($globalOptions.v)}
+      {#if !showLanguage}
+        <!-- rien : le choix de la langue est masqué -->
+      {:else if $globalOptions.v && VUES_WITH_LANG_STATUS_ONLY.includes($globalOptions.v)}
         <LanguageStatus {locale} />
       {:else}
         <!-- Menu déroulant en mode desktop -->
@@ -120,6 +126,12 @@
         </div>
       {/if}
       <ButtonToggleDarkMode />
+      <ButtonIcon
+        icon="bx-help-circle text-2xl"
+        title="Aide"
+        dataTour="help-button"
+        on:click={() => (showHelpPopup = true)}
+      />
       {#if $globalOptions.v !== '' && subtitleType !== 'design'}
         <ButtonIcon
           icon="bx-x"
@@ -133,3 +145,4 @@
   </div>
 </nav>
 <ModalLanguageChoice bind:showLanguageChoiceModal {locale} {handleLanguage} />
+<HelpPopup bind:isDisplayed={showHelpPopup} />

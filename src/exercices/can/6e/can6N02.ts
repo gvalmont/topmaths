@@ -1,12 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Déterminer un nombre à partir de son nombre de centaines, dizaines'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '01/07/2022'
@@ -19,7 +17,7 @@ export const dateDeModifImportante = '26/10/2024'
 export const uuid = '75d40'
 
 export const refs = {
-  'fr-fr': ['can6N02', '6N1A-flash2'],
+  'fr-fr': ['can6N02', '6N1A-flash2', '6AutoN3'],
   'fr-ch': [],
 }
 export default class RecomposerEntierSimple extends ExerciceSimple {
@@ -30,10 +28,10 @@ export default class RecomposerEntierSimple extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const c = randint(2, 30)
-    const d = randint(2, 30)
+    const c = this.quotaRandint('c', 2, 30)
+    const d = this.quotaRandint('d', 2, 30)
     switch (
-      choice([1, 2]) //
+      this.quotaChoice('cas', [1, 2]) //
     ) {
       case 1:
         this.reponse = c * 100

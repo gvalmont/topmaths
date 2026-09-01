@@ -23,345 +23,431 @@ import { readFileSync } from 'fs'
 import fs from 'fs/promises'
 import path from 'path'
 
-async function readInfos(
-  dirPath,
-  uuidMap,
-  exercicesNonInteractifs,
-  refToUuid,
-  exercicesShuffled,
-  codePays,
-  exercicesNonClasses = {},
-) {
+const typesSource = readFileSync('src/lib/types.ts', 'utf8')
+
+/**
+ * Lit les valeurs littérales d'une union TypeScript dans src/lib/types.ts.
+ * Le générateur de menu partage ainsi la même liste de formats que le moteur,
+ * sans maintenir une seconde liste à la main dans ce script JavaScript.
+ */
+function extractStringUnion(typeName) {
+  const union = typesSource.match(
+    new RegExp(`export type ${typeName}\\s*=([\\s\\S]*?)(?=\\nexport )`),
+  )?.[1]
+  if (union == null) {
+    throw new Error(`${typeName} est introuvable dans src/lib/types.ts`)
+  }
+  return [...union.matchAll(/\|\s*'([^']+)'/g)].map((match) => match[1])
+}
+
+const registeredInteractiveFormats = new Set([
+  ...extractStringUnion('InteractivityType'),
+  ...extractStringUnion('OldFormatInteractifType'),
+])
+
+/**
+ * Retourne le premier format interactif littéral reconnu dans le fichier.
+ *
+ * Les deux syntaxes utilisées par les exercices sont prises en charge :
+ * - objet/options : `formatInteractif: 'mathalea-qcm'` ;
+ * - affectation : `autoCorrection[i].formatInteractif = 'clique-figure'`.
+ */
+function extractInteractiveType(data) {
+  const formatPattern = /\bformatInteractif\s*(?::|=(?!=))\s*(['"])([^'"]+)\1/g
+  for (const match of data.matchAll(formatPattern)) {
+    if (registeredInteractiveFormats.has(match[2])) return match[2]
+  }
+
+  return inferInteractiveTypeFromHelpers(data)
+}
+
+/**
+ * Reconnaît les helpers qui créent un composant spécialisé. Ils ont priorité
+ * sur le repli mathlive, car les anciens exercices ne transmettaient pas
+ * toujours leur format à handleAnswers.
+ */
+function inferInteractiveTypeFromHelpers(data) {
+  const helperFormats = [
+    {
+      pattern: /\bremplisLesBlancs\s*\(/,
+      format: 'fill-in-the-blank',
+    },
+    {
+      pattern:
+        /\b(?:AddTabPropMathlive|AddTabDbleEntryMathlive|creeTableauMathliveElement)\s*\(/,
+      format: 'tableau-mathlive',
+    },
+  ]
+
+  const firstHelper = helperFormats
+    .map(({ pattern, format }) => ({ index: data.search(pattern), format }))
+    .filter(({ index }) => index >= 0)
+    .sort((a, b) => a.index - b.index)[0]
+
+  return firstHelper?.format ?? ''
+}
+
+async function readInfos(dirPath, contexts) {
   const files = await fs.readdir(dirPath)
-  for (const file of files) {
-    const filePath = path.posix.join(dirPath, file)
-    const stat = await fs.stat(filePath)
+  await Promise.all(
+    files.map(async (file) => {
+      const filePath = path.posix.join(dirPath, file)
+      const stat = await fs.stat(filePath)
 
-    if (stat.isDirectory()) {
-      await readInfos(
-        filePath,
-        uuidMap,
-        exercicesNonInteractifs,
-        refToUuid,
-        exercicesShuffled,
-        codePays,
-        exercicesNonClasses,
-      )
-    } else if (stat.isFile()) {
-      // Parcours séquentiel pour éviter d'ouvrir trop de fichiers en parallèle.
-      if (
-        file.match(/\.jsx?|\.ts$/) &&
-        !file.startsWith('_') &&
-        !file.endsWith('.test.ts') &&
-        file !== 'deprecatedExercice.js' &&
-        file !== 'MetaExerciceCan.ts' &&
-        !file.startsWith('Exercice') &&
-        file !== 'exerciseMethods.ts'
-      ) {
-        const infos = {}
-        const data = await fs.readFile(filePath, 'utf8')
-        if (data.includes('console.log(')) {
-          console.error(
-            '\x1b[34m%s\x1b[0m',
-            `console.log trouvé dans ${filePath}`,
-          )
-        }
-        // const matchUuid = data.match(/export const uuid = '(.*)'/) // EE : Cet ancien code ne gérait pas si un commentaire avec apostrophe suivant uuid.
-        const matchUuid = data.match(/export const uuid\s*=\s*'([^']*)'/)
-        infos.url = filePath.replace('src/exercices/', '')
-        infos.tags = []
-        if (matchUuid) {
-          if (uuidMap.has(matchUuid[1])) {
+      if (stat.isDirectory()) {
+        await readInfos(filePath, contexts)
+      } else if (stat.isFile()) {
+        // Check if it's a .js or .ts file, and exclude certain files
+        if (
+          file.match(/\.jsx?|\.ts$/) &&
+          !file.startsWith('_') &&
+          !file.endsWith('.test.ts') &&
+          file !== 'deprecatedExercice.js' &&
+          file !== 'MetaExerciceCan.ts' &&
+          !file.startsWith('Exercice') &&
+          file !== 'exerciseMethods.ts'
+        ) {
+          const data = await fs.readFile(filePath, 'utf8')
+          if (data.includes('console.log(')) {
             console.error(
-              '\x1b[31m%s\x1b[0m',
-              `${codePays}: uuid ${matchUuid[1]} en doublon  dans ${filePath} et ${uuidMap.get(matchUuid[1])}`,
+              '\x1b[34m%s\x1b[0m',
+              `console.log trouvé dans ${filePath}`,
             )
           }
-          uuidMap.set(matchUuid[1], filePath.replace('src/exercices/', ''))
-          infos.uuid = matchUuid[1]
-        } else {
-          // Pas d'erreur pour les fichiers beta
-          if (!filePath.includes('/beta/')) {
-            console.error(
-              '\x1b[31m%s\x1b[0m',
-              `${codePays}: uuid non trouvé dans ${filePath}`,
-            )
-          }
-        }
-        // const matchRefFR = data.match(/export const ref = '(.*)'/)
-        // if (matchRefFR) {
-        //   infos.idFR = matchRefFR[1]
-        // } else {{2}
-        //   if (!filePath.includes('beta') &{2}
-        //     !filePath.includes('/apps/' {2}&&
-        //     !filePath.includes('/ressources/')
-        //   ) {
-        //     console.error('\x1b[31m%s\x1b[0m', `ref non trouvé dans ${filePath}`)
-        //   }
-        // }
-        // Extract refs if present
-        const matchRef = data.match(
-          new RegExp(`export const refs = {[^]*'${codePays}': \\[([^\\]]*)\\]`),
-        )
-        if (matchRef) {
-          const refsArray = matchRef[1]
-            .split(',')
-            .map((ref) => ref.trim().replace(/'/g, ''))
-            .filter((ref) => ref !== '')
-
-          // Skip exercises marked as NR (non relevant) for CH
-          if (
-            codePays === 'fr-ch' &&
-            refsArray.length === 1 &&
-            refsArray[0] === 'NR'
-          ) {
-            // Do nothing - completely ignore this exercise
-            return
-          }
-
-          if (refsArray.length === 0) {
-            // Empty refs array: add to exercicesNonClasses for CH
-            // Only add if UUID is non-empty string
-            if (codePays === 'fr-ch' && infos.uuid && infos.uuid !== '') {
-              // Process the exercise to extract all metadata
-              const dataWithoutComments = data.replace(
-                /\/\/.*|\/\*[\s\S]*?\*\//g,
-                '',
-              )
-              const matchTitre =
-                dataWithoutComments.match(
-                  /^export\s+(?:const|let)\s*titre\s*=\s*'((?:[^\\]\\'|[^'])*)'\s*$/ims,
-                ) ||
-                dataWithoutComments.match(
-                  /^export\s+(?:const|let)\s*titre\s*=\s*"((?:[^\\]\\"|[^"])*)"\s*$/ims,
-                ) ||
-                dataWithoutComments.match(
-                  /^export\s+(?:const|let)\s*titre\s*=\s*`((?:[^\\]\\`|[^`])*)`\s*$/ims,
-                )
-              if (matchTitre) {
-                infos.titre = matchTitre[1]
-                  .replaceAll("\\'", "'")
-                  .replaceAll('\\\\', '\\')
-              }
-              const matchDate = data.match(
-                /export const dateDePublication = '([^']*)'/,
-              )
-              if (matchDate) {
-                infos.datePublication = matchDate[1]
-              }
-              const matchDateModif = data.match(
-                /export const dateDeModifImportante = '([^']*)'/,
-              )
-              if (matchDateModif) {
-                infos.dateModification = matchDateModif[1]
-              }
-              infos.features = {}
-              const matchInteractif = data.match(
-                /export const interactifReady = (.*)/,
-              )
-              const matchInteractifType = data.match(
-                /export const interactifType = (.*)/,
-              )
-              if (matchInteractif && matchInteractif[1] === 'true') {
-                infos.features.interactif = {
-                  isActive: true,
-                  type: matchInteractifType?.[1] || '',
-                }
-              } else {
-                infos.features.interactif = {
-                  isActive: false,
-                  type: '',
-                }
-                exercicesNonInteractifs.push(filePath)
-              }
-              const matchAmcType = data.match(/export const amcType = '(.*)'/)
-              if (matchAmcType) {
-                infos.features.amc = {
-                  isActive: true,
-                  type: matchAmcType[1] || '',
-                }
-              } else {
-                infos.features.amc = {
-                  isActive: false,
-                  type: '',
-                }
-              }
-              infos.typeExercice = 'alea'
-              infos.id = infos.uuid
-              // Add to the non-classified exercises
-              exercicesNonClasses[infos.uuid] = { ...infos }
-              exercicesShuffled[infos.uuid] = { ...infos }
-              refToUuid[infos.uuid] = infos.uuid
-            }
-          } else {
-            refsArray.forEach((ref) => {
-              // const newInfos = { ...infos, id: ref }
-              if (matchRef) {
-                infos.id = ref // matchRef[1]
-              }
-              /*
-                  On essaye de trouver le titre par regex.
-                  Cela ne fonctionnera pas dans les cas suivants :
-                  - si le titre utilise ` ET ${}
-                  - si le titre somme des strings (ex : 'Titre' + 'suite')
-                */
-              // EE : Rajout de la ligne suivante pour permettre de mettre des commentaires sur la ligne de titre sans gêner la gestion du menu.
-              const dataWithoutComments = data.replace(
-                /\/\/.*|\/\*[\s\S]*?\*\//g,
-                '',
-              )
-              const matchTitre =
-                dataWithoutComments.match(
-                  /^export\s+(?:const|let)\s*titre\s*=\s*'((?:[^\\]\\'|[^'])*)'\s*$/ims,
-                ) ||
-                dataWithoutComments.match(
-                  /^export\s+(?:const|let)\s*titre\s*=\s*"((?:[^\\]\\"|[^"])*)"\s*$/ims,
-                ) ||
-                dataWithoutComments.match(
-                  /^export\s+(?:const|let)\s*titre\s*=\s*`((?:[^\\]\\`|[^`])*)`\s*$/ims,
-                )
-              if (matchTitre) {
-                // ToDo : Est-ce qu'il y a d'autres caractères spéciaux à gérer que l'apostrophe ?
-                infos.titre = matchTitre[1]
-                  .replaceAll("\\'", "'")
-                  .replaceAll('\\\\', '\\')
-              } else {
-                console.error(
-                  '\x1b[31m%s\x1b[0m',
-                  `${codePays}: titre non trouvé dans ${filePath}`,
-                )
-              }
-              const matchDate = data.match(
-                /export const dateDePublication = '([^']*)'/,
-              )
-              if (matchDate) {
-                infos.datePublication = matchDate[1]
-              }
-              const matchDateModif = data.match(
-                /export const dateDeModifImportante = '([^']*)'/,
-              )
-              if (matchDateModif) {
-                infos.dateModification = matchDateModif[1]
-              }
-              infos.features = {}
-              const matchInteractif = data.match(
-                /export const interactifReady = (.*)/,
-              )
-              const matchInteractifType = data.match(
-                /export const interactifType = (.*)/,
-              )
-              if (matchInteractif && matchInteractif[1] === 'true') {
-                infos.features.interactif = {
-                  isActive: true,
-                  type: matchInteractifType?.[1] || '',
-                }
-              } else {
-                infos.features.interactif = {
-                  isActive: false,
-                  type: '',
-                }
-                exercicesNonInteractifs.push(filePath)
-              }
-              const matchAmcType = data.match(/export const amcType = '(.*)'/)
-              if (matchAmcType) {
-                infos.features.amc = {
-                  isActive: true,
-                  type: matchAmcType[1] || '',
-                }
-              } else {
-                infos.features.amc = {
-                  isActive: false,
-                  type: '',
-                }
-              }
-              const matchQcm = data.match(
-                /(= propositionsQcm\()|(extends ExerciceQcm)/,
-              )
-              if (matchQcm) {
-                if (matchQcm[0] === 'extends ExerciceQcm') {
-                  infos.features.qcm = {
-                    isActive: true,
-                    type: '',
-                  }
-                  // Regex pour capturer le contenu de this.reponses
-                  const arrayRegex =
-                    /this\.reponses\s*=\s*\[\s*((["'`][^"'`]*["'`]|[^,\s]+)(\s*,\s*(["'`][^"'`]*["'`]|[^,\s]+))*(\s*\/\/[^\n]*)?\s*)\]/s
-                  const arrayMatch = arrayRegex.exec(data)
-
-                  if (arrayMatch) {
-                    const arrayContent = arrayMatch[1]
-                    // Regex pour compter les éléments dans l'array
-                    const elementRegex =
-                      /(["'`][^"'`]*["'`]|[^,\s]+)(\s*\/\/[^\n]*)?/g
-                    const elements = arrayContent.match(elementRegex)
-                    const count = elements ? elements.length : 0
-                    if (count < 5 && count > 1) {
-                      infos.features.qcmcam = {
-                        isActive: true,
-                        type: '',
-                      }
-                    }
-                  }
-                } else {
-                  const objectRegex =
-                    /this\.autoCorrection\[\w+\]\s*=\s*\{[^}]*propositions\s*:\s*\[([^\]]*)\][^}]*\}/g
-                  const objectMatch = objectRegex.exec(data)
-
-                  if (objectMatch) {
-                    infos.features.qcm = {
-                      isActive: true,
-                      type: '',
-                    }
-                    const propositionsContent = objectMatch[1]
-                    // Regex pour compter les éléments de propositions à l'intérieur de l'objet capturé
-                    const propositionRegex =
-                      /\{\s*texte:\s*.*?,\s*statut:\s*.*?\s*\}/g
-                    const matchPropositions =
-                      propositionsContent.match(propositionRegex)
-                    const count = matchPropositions
-                      ? matchPropositions.length
-                      : 0
-                    if (count < 5 && count > 1) {
-                      infos.features.qcmcam = {
-                        isActive: true,
-                        type: '',
-                      }
-                    }
-                  }
-                }
-              }
-              const versionQcmRegex = /versionQcm(Disponible)*\s*=\s*true/
-              const versionQcmMatch = versionQcmRegex.exec(data)
-              if (versionQcmMatch) {
-                infos.features.qcm = {
-                  isActive: true,
-                  type: '',
-                }
-              }
-              infos.typeExercice = 'alea'
-              if (infos.id !== undefined) {
-                exercicesShuffled[infos.id] = { ...infos }
-                refToUuid[infos.id] = infos.uuid
-              }
-            })
-          }
-        } else {
-          if (
-            !filePath.includes('beta') &&
-            !filePath.includes('/apps/') &&
-            !filePath.includes('a-2024') &&
-            !filePath.includes('/ressources/')
-          ) {
-            if (codePays !== 'fr-2016') {
-              // Pour éviter de polluer les logs avec les références qui ne suivent pas encore la nouvelle nomenclature post-réforme de 2025
-              console.error(
-                '\x1b[31m%s\x1b[0m',
-                `${codePays}: ref non trouvé dans ${filePath}`,
-              )
-            }
+          for (const context of contexts) {
+            extractInfos(data, filePath, context)
           }
         }
       }
+    }),
+  )
+}
+
+/**
+ * Analyse le contenu d'un fichier d'exercice (déjà lu) pour un pays donné
+ * et alimente les accumulateurs du contexte correspondant.
+ */
+function extractInfos(
+  data,
+  filePath,
+  {
+    uuidMap,
+    exercicesNonInteractifs,
+    refToUuid,
+    exercicesShuffled,
+    codePays,
+    exercicesNonClasses,
+    refMap,
+  },
+) {
+  const infos = {}
+  // const matchUuid = data.match(/export const uuid = '(.*)'/) // EE : Cet ancien code ne gérait pas si un commentaire avec apostrophe suivant uuid.
+  const matchUuid = data.match(/export const uuid\s*=\s*'([^']*)'/)
+  infos.url = filePath.replace('src/exercices/', '')
+  infos.tags = []
+  const matchTags = data.match(/export const tags\s*=\s*\[([^\]]*)\]/)
+  if (matchTags) {
+    infos.tags = matchTags[1]
+      .split(',')
+      .map((tag) => tag.trim().replace(/^['"]|['"]$/g, ''))
+      .filter((tag) => tag !== '')
+  }
+  if (matchUuid) {
+    if (uuidMap.has(matchUuid[1])) {
+      console.error(
+        '\x1b[31m%s\x1b[0m',
+        `${codePays}: uuid ${matchUuid[1]} en doublon  dans ${filePath} et ${uuidMap.get(matchUuid[1])}`,
+      )
+    }
+    uuidMap.set(matchUuid[1], filePath.replace('src/exercices/', ''))
+    infos.uuid = matchUuid[1]
+  } else {
+    // Pas d'erreur pour les fichiers beta
+    if (!filePath.includes('/beta/')) {
+      console.error(
+        '\x1b[31m%s\x1b[0m',
+        `${codePays}: uuid non trouvé dans ${filePath}`,
+      )
+    }
+  }
+  // const matchRefFR = data.match(/export const ref = '(.*)'/)
+  // if (matchRefFR) {
+  //   infos.idFR = matchRefFR[1]
+  // } else {{2}
+  //   if (!filePath.includes('beta') &{2}
+  //     !filePath.includes('/apps/' {2}&&
+  //     !filePath.includes('/ressources/')
+  //   ) {
+  //     console.error('\x1b[31m%s\x1b[0m', `ref non trouvé dans ${filePath}`)
+  //   }
+  // }
+  // Extract refs if present
+  const matchRef = data.match(
+    new RegExp(`export const refs = {[^]*'${codePays}': \\[([^\\]]*)\\]`),
+  )
+  if (matchRef) {
+    const refsArray = matchRef[1]
+      .split(',')
+      .map((ref) => ref.trim().replace(/'/g, ''))
+      .filter((ref) => ref !== '')
+
+    // Skip exercises marked as NR (non relevant) for CH
+    if (
+      codePays === 'fr-ch' &&
+      refsArray.length === 1 &&
+      refsArray[0] === 'NR'
+    ) {
+      // Do nothing - completely ignore this exercise
+      return
+    }
+
+    if (refsArray.length === 0) {
+      // Empty refs array: add to exercicesNonClasses for CH
+      // Only add if UUID is non-empty string
+      if (codePays === 'fr-ch' && infos.uuid && infos.uuid !== '') {
+        // Process the exercise to extract all metadata
+        const dataWithoutComments = data.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '')
+        const matchTitre =
+          dataWithoutComments.match(
+            /^export\s+(?:const|let)\s*titre\s*=\s*'((?:[^\\]\\'|[^'])*)'\s*$/ims,
+          ) ||
+          dataWithoutComments.match(
+            /^export\s+(?:const|let)\s*titre\s*=\s*"((?:[^\\]\\"|[^"])*)"\s*$/ims,
+          ) ||
+          dataWithoutComments.match(
+            /^export\s+(?:const|let)\s*titre\s*=\s*`((?:[^\\]\\`|[^`])*)`\s*$/ims,
+          )
+        if (matchTitre) {
+          infos.titre = matchTitre[1]
+            .replaceAll("\\'", "'")
+            .replaceAll('\\\\', '\\')
+        }
+        const matchDate = data.match(
+          /export const dateDePublication = '([^']*)'/,
+        )
+        if (matchDate) {
+          infos.datePublication = matchDate[1]
+        }
+        const matchDateModif = data.match(
+          /export const dateDeModifImportante = '([^']*)'/,
+        )
+        if (matchDateModif) {
+          infos.dateModification = matchDateModif[1]
+        }
+        infos.features = {}
+        const matchInteractif = data.match(
+          /export const interactifReady = (.*)/,
+        )
+        const interactiveFormat = extractInteractiveType(data)
+        if (matchInteractif && matchInteractif[1] === 'true') {
+          infos.features.interactif = {
+            isActive: true,
+            type: interactiveFormat || 'mathlive',
+          }
+        } else {
+          infos.features.interactif = {
+            isActive: false,
+            type: '',
+          }
+          exercicesNonInteractifs.push(filePath)
+        }
+        const matchAleatoire = data.match(
+          /this\.pasDeVersionAleatoire\s*=\s*true/,
+        )
+        infos.features.aleatoire = {
+          isActive: !matchAleatoire,
+          type: '',
+        }
+        const matchAmcType = data.match(/export const amcType = '(.*)'/)
+        if (matchAmcType) {
+          infos.features.amc = {
+            isActive: true,
+            type: matchAmcType[1] || '',
+          }
+        } else {
+          infos.features.amc = {
+            isActive: false,
+            type: '',
+          }
+        }
+        infos.typeExercice = 'alea'
+        infos.id = infos.uuid
+        // Add to the non-classified exercises
+        exercicesNonClasses[infos.uuid] = { ...infos }
+        exercicesShuffled[infos.uuid] = { ...infos }
+        refToUuid[infos.uuid] = infos.uuid
+      }
+    } else {
+      refsArray.forEach((ref) => {
+        // const newInfos = { ...infos, id: ref }
+        if (matchRef) {
+          infos.id = ref // matchRef[1]
+        }
+        /*
+          On essaye de trouver le titre par regex.
+          Cela ne fonctionnera pas dans les cas suivants :
+          - si le titre utilise ` ET ${}
+          - si le titre somme des strings (ex : 'Titre' + 'suite')
+        */
+        // EE : Rajout de la ligne suivante pour permettre de mettre des commentaires sur la ligne de titre sans gêner la gestion du menu.
+        const dataWithoutComments = data.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '')
+        const matchTitre =
+          dataWithoutComments.match(
+            /^export\s+(?:const|let)\s*titre\s*=\s*'((?:[^\\]\\'|[^'])*)'\s*$/ims,
+          ) ||
+          dataWithoutComments.match(
+            /^export\s+(?:const|let)\s*titre\s*=\s*"((?:[^\\]\\"|[^"])*)"\s*$/ims,
+          ) ||
+          dataWithoutComments.match(
+            /^export\s+(?:const|let)\s*titre\s*=\s*`((?:[^\\]\\`|[^`])*)`\s*$/ims,
+          )
+        if (matchTitre) {
+          // ToDo : Est-ce qu'il y a d'autres caractères spéciaux à gérer que l'apostrophe ?
+          infos.titre = matchTitre[1]
+            .replaceAll("\\'", "'")
+            .replaceAll('\\\\', '\\')
+        } else {
+          console.error(
+            '\x1b[31m%s\x1b[0m',
+            `${codePays}: titre non trouvé dans ${filePath}`,
+          )
+        }
+        const matchDate = data.match(
+          /export const dateDePublication = '([^']*)'/,
+        )
+        if (matchDate) {
+          infos.datePublication = matchDate[1]
+        }
+        const matchDateModif = data.match(
+          /export const dateDeModifImportante = '([^']*)'/,
+        )
+        if (matchDateModif) {
+          infos.dateModification = matchDateModif[1]
+        }
+        infos.features = {}
+        const matchInteractif = data.match(
+          /export const interactifReady = (.*)/,
+        )
+        const interactiveFormat = extractInteractiveType(data)
+        if (matchInteractif && matchInteractif[1] === 'true') {
+          infos.features.interactif = {
+            isActive: true,
+            type: interactiveFormat || 'mathlive',
+          }
+        } else {
+          infos.features.interactif = {
+            isActive: false,
+            type: '',
+          }
+          exercicesNonInteractifs.push(filePath)
+        }
+        const matchAleatoire = data.match(
+          /this\.pasDeVersionAleatoire\s*=\s*true/,
+        )
+        infos.features.aleatoire = {
+          isActive: !matchAleatoire,
+          type: '',
+        }
+        const matchAmcType = data.match(/export const amcType = '(.*)'/)
+        if (matchAmcType) {
+          infos.features.amc = {
+            isActive: true,
+            type: matchAmcType[1] || '',
+          }
+        } else {
+          infos.features.amc = {
+            isActive: false,
+            type: '',
+          }
+        }
+        const matchQcm = data.match(
+          /(= propositionsQcm\()|(extends ExerciceQcm)/,
+        )
+        if (matchQcm) {
+          if (matchQcm[0] === 'extends ExerciceQcm') {
+            infos.features.qcm = {
+              isActive: true,
+              type: '',
+            }
+            // Regex pour capturer le contenu de this.reponses
+            const arrayRegex =
+              /this\.reponses\s*=\s*\[\s*((["'`][^"'`]*["'`]|[^,\s]+)(\s*,\s*(["'`][^"'`]*["'`]|[^,\s]+))*(\s*\/\/[^\n]*)?\s*)\]/s
+            const arrayMatch = arrayRegex.exec(data)
+
+            if (arrayMatch) {
+              const arrayContent = arrayMatch[1]
+              // Regex pour compter les éléments dans l'array
+              const elementRegex =
+                /(["'`][^"'`]*["'`]|[^,\s]+)(\s*\/\/[^\n]*)?/g
+              const elements = arrayContent.match(elementRegex)
+              const count = elements ? elements.length : 0
+              if (count < 5 && count > 1) {
+                infos.features.qcmcam = {
+                  isActive: true,
+                  type: '',
+                }
+              }
+            }
+          } else {
+            const objectRegex =
+              /this\.autoCorrection\[\w+\]\s*=\s*\{[^}]*propositions\s*:\s*\[([^\]]*)\][^}]*\}/g
+            const objectMatch = objectRegex.exec(data)
+
+            if (objectMatch) {
+              infos.features.qcm = {
+                isActive: true,
+                type: '',
+              }
+              const propositionsContent = objectMatch[1]
+              // Regex pour compter les éléments de propositions à l'intérieur de l'objet capturé
+              const propositionRegex =
+                /\{\s*texte:\s*.*?,\s*statut:\s*.*?\s*\}/g
+              const matchPropositions =
+                propositionsContent.match(propositionRegex)
+              const count = matchPropositions ? matchPropositions.length : 0
+              if (count < 5 && count > 1) {
+                infos.features.qcmcam = {
+                  isActive: true,
+                  type: '',
+                }
+              }
+            }
+          }
+        }
+        const versionQcmRegex = /versionQcm(Disponible)*\s*=\s*true/
+        const versionQcmMatch = versionQcmRegex.exec(data)
+        if (versionQcmMatch) {
+          infos.features.qcm = {
+            isActive: true,
+            type: '',
+          }
+        }
+        infos.typeExercice = 'alea'
+        if (infos.id !== undefined) {
+          if (refMap.has(infos.id)) {
+            console.error(
+              '\x1b[31m%s\x1b[0m',
+              `${codePays}: ref ${infos.id} en doublon dans ${filePath} et ${refMap.get(infos.id)}`,
+            )
+          }
+          refMap.set(infos.id, filePath.replace('src/exercices/', ''))
+          exercicesShuffled[infos.id] = { ...infos }
+          refToUuid[infos.id] = infos.uuid
+        }
+      })
+    }
+  } else {
+    if (
+      codePays !== 'fr-2016' &&
+      !filePath.includes('beta') &&
+      !filePath.includes('/apps/') &&
+      !filePath.includes('a-2024') &&
+      !filePath.includes('/ressources/')
+    ) {
+      console.error(
+        '\x1b[31m%s\x1b[0m',
+        `${codePays}: ref non trouvé dans ${filePath}`,
+      )
     }
   }
 }
@@ -375,6 +461,16 @@ function handleExerciceSvelte(uuidToUrl) {
   uuidToUrl.outilScratch = 'OutilScratch.svelte'
   return uuidToUrl
 }
+
+// Trie les clés d'un objet pour rendre le JSON généré déterministe
+// (l'ordre d'insertion dépend de l'ordre de fin des lectures concurrentes)
+const sortKeys = (obj) =>
+  Object.keys(obj)
+    .sort()
+    .reduce((sorted, key) => {
+      sorted[key] = obj[key]
+      return sorted
+    }, {})
 
 const createFiles = (
   referentiel,
@@ -405,12 +501,7 @@ const createFiles = (
       return obj
     }, {})
   // Sort exercices by keys
-  const exercices = Object.keys(exercicesShuffled)
-    .sort()
-    .reduce((obj, key) => {
-      obj[key] = exercicesShuffled[key]
-      return obj
-    }, {})
+  const exercices = sortKeys(exercicesShuffled)
   fs.writeFile(
     'src/json/exercices' + codePays + '.json',
     JSON.stringify(exercices, null, 2),
@@ -426,7 +517,7 @@ const createFiles = (
   )
   fs.writeFile(
     'src/json/refToUuid' + codePays + '.json',
-    JSON.stringify(refToUuid, null, 2),
+    JSON.stringify(sortKeys(refToUuid), null, 2),
   )
   for (const themePath of themesPath) {
     const theme = themePath.split('.').pop()
@@ -454,10 +545,22 @@ const createFiles = (
       ...referentiel['1e']['1A'],
     }
   }
+  if (codePays === 'FR' && referentiel['2e']?.['2A'] && exercices['2A']) {
+    referentiel['2e']['2A'] = {
+      '2A': exercices['2A'],
+      ...referentiel['2e']['2A'],
+    }
+  }
   if (codePays === 'FR' && referentiel['3e']?.['3Auto'] && exercices['3A']) {
     referentiel['3e']['3Auto'] = {
       '3A': exercices['3A'],
       ...referentiel['3e']['3Auto'],
+    }
+  }
+  if (codePays === 'FR' && referentiel['6e']?.['6Auto'] && exercices['6A']) {
+    referentiel['6e']['6Auto'] = {
+      '6A': exercices['6A'],
+      ...referentiel['6e']['6Auto'],
     }
   }
   if (codePays === 'FR') {
@@ -475,7 +578,7 @@ const createFiles = (
     if (!referentiel['Non classés']['divers']) {
       referentiel['Non classés']['divers'] = {}
     }
-    referentiel['Non classés']['divers'] = exercicesNonClasses
+    referentiel['Non classés']['divers'] = sortKeys(exercicesNonClasses)
   }
   sortQcmInReferentiel(referentiel, codePays)
   fs.writeFile(
@@ -552,87 +655,88 @@ const referentiel2022 = JSON.parse(emptyRef2022)
 
 const exercicesDir = './src/exercices'
 
-const uuidMapCH = new Map()
-const exercicesNonInteractifsCH = []
-const exercicesShuffledCH = {}
-const refToUuidCH = {}
-const exercicesNonClassesCH = {}
-
-const uuidMapFR = new Map()
-const exercicesNonInteractifsFR = []
-const exercicesShuffledFR = {}
-const refToUuidFR = {}
-
-const uuidMapFR2016 = new Map()
-const exercicesNonInteractifsFR2016 = []
-const exercicesShuffledFR2016 = {}
-const refToUuidFR2016 = {}
-
-async function main() {
-  await readInfos(
-    exercicesDir,
-    uuidMapCH,
-    exercicesNonInteractifsCH,
-    refToUuidCH,
-    exercicesShuffledCH,
-    'fr-ch',
-    exercicesNonClassesCH,
-  )
-  createFiles(
-    referentielCH,
-    uuidMapCH,
-    exercicesShuffledCH,
-    exercicesNonInteractifsCH,
-    refToUuidCH,
-    'CH',
-    exercicesNonClassesCH,
-  )
-  console.log('CH: uuidsToUrl et referentiel ont été mis à jour')
-
-  await readInfos(
-    exercicesDir,
-    uuidMapFR,
-    exercicesNonInteractifsFR,
-    refToUuidFR,
-    exercicesShuffledFR,
-    'fr-fr',
-  )
-  createFiles(
-    referentiel2022,
-    uuidMapFR,
-    exercicesShuffledFR,
-    exercicesNonInteractifsFR,
-    refToUuidFR,
-    'FR',
-  )
-  console.log(
-    'FR: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour',
-  )
-
-  await readInfos(
-    exercicesDir,
-    uuidMapFR2016,
-    exercicesNonInteractifsFR2016,
-    refToUuidFR2016,
-    exercicesShuffledFR2016,
-    'fr-2016',
-  )
-  createFiles(
-    JSON.parse(emptyRef2022),
-    uuidMapFR2016,
-    exercicesShuffledFR2016,
-    exercicesNonInteractifsFR2016,
-    refToUuidFR2016,
-    'FR-2016',
-  )
-  console.log(
-    'FR-2016: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour',
-  )
+const contextCH = {
+  codePays: 'fr-ch',
+  uuidMap: new Map(),
+  exercicesNonInteractifs: [],
+  refToUuid: {},
+  exercicesShuffled: {},
+  exercicesNonClasses: {},
+  refMap: new Map(),
 }
 
-main().catch((err) => {
-  console.error(err)
-})
+const contextFR = {
+  codePays: 'fr-fr',
+  uuidMap: new Map(),
+  exercicesNonInteractifs: [],
+  refToUuid: {},
+  exercicesShuffled: {},
+  exercicesNonClasses: {},
+  refMap: new Map(),
+}
+
+const contextFR2016 = {
+  codePays: 'fr-2016',
+  uuidMap: new Map(),
+  exercicesNonInteractifs: [],
+  refToUuid: {},
+  exercicesShuffled: {},
+  exercicesNonClasses: {},
+  refMap: new Map(),
+}
+
+// Une seule traversée de src/exercices : chaque fichier n'est lu qu'une fois
+// puis analysé pour chacun des référentiels
+readInfos(exercicesDir, [contextCH, contextFR, contextFR2016])
+  .then(() => {
+    createFiles(
+      referentielCH,
+      contextCH.uuidMap,
+      contextCH.exercicesShuffled,
+      contextCH.exercicesNonInteractifs,
+      contextCH.refToUuid,
+      'CH',
+      contextCH.exercicesNonClasses,
+    )
+    console.log('CH: uuidsToUrl et referentiel ont été mis à jour')
+    createFiles(
+      referentiel2022,
+      contextFR.uuidMap,
+      contextFR.exercicesShuffled,
+      contextFR.exercicesNonInteractifs,
+      contextFR.refToUuid,
+      'FR',
+    )
+    console.log(
+      'FR: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour',
+    )
+    createFiles(
+      JSON.parse(emptyRef2022),
+      contextFR2016.uuidMap,
+      contextFR2016.exercicesShuffled,
+      contextFR2016.exercicesNonInteractifs,
+      contextFR2016.refToUuid,
+      'FR-2016',
+    )
+    console.log(
+      'FR-2016: uuidsToUrl et referentiel ont été mis à jour',
+    )
+    // On choisit comme point de comparaison la liste de UUID francais
+    // (générée après la traversée pour que le test d'unicité porte sur la liste complète)
+    let uuid = createUuid()
+    while (contextFR.uuidMap.has(uuid)) {
+      uuid = createUuid()
+    }
+    console.log('Le nouvel uuid généré est :', uuid)
+    console.log(
+      'Vous pouvez maintenant ajouter la ligne suivante au nouvel exercice :',
+    )
+    console.log(`export const uuid = '${uuid}'`)
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+
 /**
  * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités)
  * @returns {string}
@@ -646,13 +750,3 @@ function createUuid() {
   })
   return uuid
 }
-// On choisit comme point de comparaison la liste de UUID francais
-let uuid = createUuid()
-while (uuidMapFR.has(uuid)) {
-  uuid = createUuid()
-}
-console.log('Le nouvel uuid généré est :', uuid)
-console.log(
-  'Vous pouvez maintenant ajouter la ligne suivante au nouvel exercice :',
-)
-console.log(`export const uuid = '${uuid}'`)

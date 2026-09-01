@@ -18,7 +18,6 @@ import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Calculer une distance avec le théorème de Thalès'
 
 export const interactifReady = true
-export const interactifType = 'custom'
 
 export const dateDePublication = '25/12/2025'
 
@@ -41,6 +40,7 @@ export default class AutoTheoremeThales extends ExerciceSimple {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.formatChampTexte = KeyboardType.alphanumeric
+    this.formatInteractif = 'meta-custom'
   }
 
   nouvelleVersion() {
@@ -125,7 +125,6 @@ export default class AutoTheoremeThales extends ExerciceSimple {
       champ4: { value: [D.nom + E.nom, String(longueurDE)] },
     }
     if (context.isHtml) {
-      this.formatInteractif = 'fillInTheBlank'
       this.consigne = // this.consigne n'admet pas de figure en LaTeX
         figure +
         `Sur la figure ci-dessus, les droites $(${nomPara1})$ et $(${nomPara2})$ sont parallèles.<br><br>
@@ -185,17 +184,17 @@ $\\dfrac{${miseEnEvidence(
       if (
         champ2 === den1[0] ||
         champ2 === den1[0][1] + den1[0][0] ||
-        champ2.replace('{,}', '.') === den1[1].toString()
+        champ2.replace(',', '.') === den1[1].toString()
       ) {
         if (
           champ3 === num2[0] ||
           champ3 === num2[0][1] + num2[0][0] ||
-          champ3.replace('{,}', '.') === num2[1].toString()
+          champ3.replace(',', '.') === num2[1].toString()
         ) {
           if (
             champ4 === den2[0] ||
             champ4 === den2[0][1] + den2[0][0] ||
-            champ4.replace('{,}', '.') === den2[1].toString()
+            champ4.replace(',', '.') === den2[1].toString()
           ) {
             result = 'OK'
           } else result = 'KO'
@@ -206,17 +205,17 @@ $\\dfrac{${miseEnEvidence(
       if (
         champ1 === den1[0] ||
         champ1 === den1[0][1] + den1[0][0] ||
-        champ1.replace('{,}', '.') === den1[1].toString()
+        champ1.replace(',', '.') === den1[1].toString()
       ) {
         if (
           champ4 === num2[0] ||
           champ4 === num2[0][1] + num2[0][0] ||
-          champ4.replace('{,}', '.') === num2[1].toString()
+          champ4.replace(',', '.') === num2[1].toString()
         ) {
           if (
             champ3 === den2[0] ||
             champ3 === den2[0][1] + den2[0][0] ||
-            champ3.replace('{,}', '.') === den2[1].toString()
+            champ3.replace(',', '.') === den2[1].toString()
           ) {
             result = 'OK'
           } else result = 'KO'
@@ -227,17 +226,17 @@ $\\dfrac{${miseEnEvidence(
       if (
         champ4 === den1[0] ||
         champ4 === den1[0][1] + den1[0][0] ||
-        champ4.replace('{,}', '.') === den1[1].toString()
+        champ4.replace(',', '.') === den1[1].toString()
       ) {
         if (
           champ1 === num2[0] ||
           champ1 === num2[0][1] + num2[0][0] ||
-          champ1.replace('{,}', '.') === num2[1].toString()
+          champ1.replace(',', '.') === num2[1].toString()
         ) {
           if (
             champ2 === den2[0] ||
             champ2 === den2[0][1] + den2[0][0] ||
-            champ2.replace('{,}', '.') === den2[1].toString()
+            champ2.replace(',', '.') === den2[1].toString()
           ) {
             result = 'OK'
           } else result = 'KO'
@@ -248,17 +247,17 @@ $\\dfrac{${miseEnEvidence(
       if (
         champ3 === den1[0] ||
         champ3 === den1[0][1] + den1[0][0] ||
-        champ3.replace('{,}', '.') === den1[1].toString()
+        champ3.replace(',', '.') === den1[1].toString()
       ) {
         if (
           champ2 === num2[0] ||
           champ2 === num2[0][1] + num2[0][0] ||
-          champ2.replace('{,}', '.') === num2[1].toString()
+          champ2.replace(',', '.') === num2[1].toString()
         ) {
           if (
             champ1 === den2[0] ||
             champ1 === den2[0][1] + den2[0][0] ||
-            champ1.replace('{,}', '.') === den2[1].toString()
+            champ1.replace(',', '.') === den2[1].toString()
           ) {
             result = 'OK'
           } else result = 'KO'

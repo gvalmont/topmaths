@@ -1,17 +1,16 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { deparenthise } from '../../lib/mathFonctions/EnleverParenthesesInutiles'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Relatif } from '../../modules/Relatif'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const dateDeModifImportante = '02/11/2025'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre =
@@ -29,7 +28,7 @@ export const uuid = '450ae'
 
 export const refs = {
   'fr-fr': ['4C10-0'],
-  'fr-ch': ['10NO4-2'],
+  'fr-ch': ['9NO2C-2', '10NO2A-6'],
 }
 export default class SigneProduitQuotientRelatifs extends Exercice {
   exo: string
@@ -114,17 +113,17 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
 
       switch (listeTypeDeQuestions[i]) {
         case 1: // 2 facteurs
-          texte = `$ ${ecritureNombreRelatif(
+          texte = `$ ${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(num.relatifs[1])} $`
-          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`
+          )} \\times ${ecritureParentheseSiNegatif(num.relatifs[1])} $`
+          texteCorr = `$ ${ecritureParentheseSiNegatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecritureParentheseSiNegatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`
           texteCorr += `<br> ${num.setRegleSigneProduit(
             num.relatifs[0],
             num.relatifs[1],
           )}`
-          texteCorr += `<br>Donc $ ${ecritureNombreRelatif(
+          texteCorr += `<br>Donc $ ${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
           )} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1]),
@@ -132,13 +131,13 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
           reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           break
         case 2: // 3 facteurs
-          texte = `$ ${ecritureNombreRelatif(
+          texte = `$ ${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )} \\times ${ecritureNombreRelatif(num.relatifs[2])} $`
-          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
-          texteCorr += ` et $ ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(num.relatifs[2])} $`
+          texteCorr = `$ ${ecritureParentheseSiNegatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureParentheseSiNegatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
+          texteCorr += ` et $ ${ecritureParentheseSiNegatif(
             num.relatifs[2],
           )} $ est ${num.getSigneString()[2]}.`
           texteCorr += `<br> ${num.setRegleSigneProduit(
@@ -146,11 +145,11 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
             num.relatifs[1],
             num.relatifs[2],
           )}`
-          texteCorr += `<br>Donc $ ${ecritureNombreRelatif(
+          texteCorr += `<br>Donc $ ${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[2],
           )} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(
@@ -166,28 +165,28 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
           )
           break
         case 3: // 4 facteurs
-          texte = `$ ${ecritureNombreRelatif(
+          texte = `$ ${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[2],
-          )} \\times ${ecritureNombreRelatif(num.relatifs[3])} $`
-          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `
-          texteCorr += `$ ${ecritureNombreRelatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecritureNombreRelatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}.`
+          )} \\times ${ecritureParentheseSiNegatif(num.relatifs[3])} $`
+          texteCorr = `$ ${ecritureParentheseSiNegatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureParentheseSiNegatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `
+          texteCorr += `$ ${ecritureParentheseSiNegatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecritureParentheseSiNegatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}.`
           texteCorr += `<br> ${num.setRegleSigneProduit(
             num.relatifs[0],
             num.relatifs[1],
             num.relatifs[2],
             num.relatifs[3],
           )}`
-          texteCorr += `<br>Donc $ ${ecritureNombreRelatif(
+          texteCorr += `<br>Donc $ ${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[2],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[3],
           )} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(
@@ -205,17 +204,17 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
           )
           break
         case 4: // quotient de 2 nombres
-          texte = `$ \\dfrac{${ecritureNombreRelatif(
+          texte = `$ \\dfrac{${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )}}{${ecritureNombreRelatif(num.relatifs[1])}} $`
-          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`
+          )}}{${ecritureParentheseSiNegatif(num.relatifs[1])}} $`
+          texteCorr = `$ ${ecritureParentheseSiNegatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecritureParentheseSiNegatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`
           texteCorr += `<br> ${num.setRegleSigneQuotient(
             num.relatifs[0],
             num.relatifs[1],
           )}`
-          texteCorr += `<br>Donc $ \\dfrac{${ecritureNombreRelatif(
+          texteCorr += `<br>Donc $ \\dfrac{${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )}}{${ecritureNombreRelatif(
+          )}}{${ecritureParentheseSiNegatif(
             num.relatifs[1],
           )}} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1]),
@@ -223,13 +222,13 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
           reponse = num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           break
         case 5: // quotient d'1 nombre sur un produit de 2 nombres
-          texte = `$ \\dfrac{${ecritureNombreRelatif(
+          texte = `$ \\dfrac{${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )}}{${ecritureNombreRelatif(
+          )}}{${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )} \\times ${ecritureNombreRelatif(num.relatifs[2])}} $`
-          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
-          texteCorr += ` et $ ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(num.relatifs[2])}} $`
+          texteCorr = `$ ${ecritureParentheseSiNegatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureParentheseSiNegatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
+          texteCorr += ` et $ ${ecritureParentheseSiNegatif(
             num.relatifs[2],
           )} $ est ${num.getSigneString()[2]}.`
           texteCorr += `<br> ${num.setRegleSigneQuotient(
@@ -237,11 +236,11 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
             num.relatifs[1],
             num.relatifs[2],
           )}`
-          texteCorr += `<br>Donc $ \\dfrac{${ecritureNombreRelatif(
+          texteCorr += `<br>Donc $ \\dfrac{${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )}}{${ecritureNombreRelatif(
+          )}}{${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[2],
           )}} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(
@@ -257,13 +256,13 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
           )
           break
         case 6: // quotient d'1 produit de 2 nombres sur 1 nombre
-          texte = `$ \\dfrac{${ecritureNombreRelatif(
+          texte = `$ \\dfrac{${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )}}{${ecritureNombreRelatif(num.relatifs[2])}} $`
-          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
-          texteCorr += ` et $ ${ecritureNombreRelatif(
+          )}}{${ecritureParentheseSiNegatif(num.relatifs[2])}} $`
+          texteCorr = `$ ${ecritureParentheseSiNegatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureParentheseSiNegatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
+          texteCorr += ` et $ ${ecritureParentheseSiNegatif(
             num.relatifs[2],
           )} $ est ${num.getSigneString()[2]}.`
           texteCorr += `<br> ${num.setRegleSigneQuotient(
@@ -271,11 +270,11 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
             num.relatifs[1],
             num.relatifs[2],
           )}`
-          texteCorr += `<br>Donc $ \\dfrac{${ecritureNombreRelatif(
+          texteCorr += `<br>Donc $ \\dfrac{${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )}}{${ecritureNombreRelatif(
+          )}}{${ecritureParentheseSiNegatif(
             num.relatifs[2],
           )}} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(
@@ -292,28 +291,28 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
           break
         case 7: // quotient de 2 produits de 2 nombres
         default:
-          texte = `$ \\dfrac{${ecritureNombreRelatif(
+          texte = `$ \\dfrac{${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )}}{${ecritureNombreRelatif(
+          )}}{${ecritureParentheseSiNegatif(
             num.relatifs[2],
-          )} \\times ${ecritureNombreRelatif(num.relatifs[3])}} $`
-          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `
-          texteCorr += `$ ${ecritureNombreRelatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecritureNombreRelatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}.`
+          )} \\times ${ecritureParentheseSiNegatif(num.relatifs[3])}} $`
+          texteCorr = `$ ${ecritureParentheseSiNegatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureParentheseSiNegatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `
+          texteCorr += `$ ${ecritureParentheseSiNegatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecritureParentheseSiNegatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}.`
           texteCorr += `<br> ${num.setRegleSigneQuotient(
             num.relatifs[0],
             num.relatifs[1],
             num.relatifs[2],
             num.relatifs[3],
           )}`
-          texteCorr += `<br>Donc $ \\dfrac{${ecritureNombreRelatif(
+          texteCorr += `<br>Donc $ \\dfrac{${ecritureParentheseSiNegatif(
             num.relatifs[0],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[1],
-          )}}{${ecritureNombreRelatif(
+          )}}{${ecritureParentheseSiNegatif(
             num.relatifs[2],
-          )} \\times ${ecritureNombreRelatif(
+          )} \\times ${ecritureParentheseSiNegatif(
             num.relatifs[3],
           )}} $ est ${texteEnCouleurEtGras(
             num.getSigneProduitString(

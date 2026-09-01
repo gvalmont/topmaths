@@ -1,5 +1,7 @@
-import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import {
+  choixDeroulant,
+  type AllChoicesType,
+} from '../../lib/customElements/ListeDeroulanteElement'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
@@ -19,7 +21,6 @@ import Exercice from '../Exercice'
 
 export const titre = "Connaître la définition d'une unité d'aire"
 export const interactifReady = true
-export const interactifType = 'custom'
 export const dateDePublication = '03/08/2025'
 
 /**
@@ -133,7 +134,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
 
     let indiceInteractif = 0
     this.tabIndiceInteractif = [0]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const unite = unitesChoisies[cpt]
 
       let texte = ''
@@ -195,11 +196,9 @@ export default class FormulesAireCarreRectangle extends Exercice {
           }
           texte = texteFixe[0]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif,
-                choixListeDeroulantePourCeCas[0],
-              )
+            ? choixDeroulant(this, indiceInteractif, {
+                choices: choixListeDeroulantePourCeCas[0],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
           break
@@ -290,19 +289,15 @@ export default class FormulesAireCarreRectangle extends Exercice {
           }
           texte = texteFixe[0]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif,
-                choixListeDeroulantePourCeCas[0],
-              )
+            ? choixDeroulant(this, indiceInteractif, {
+                choices: choixListeDeroulantePourCeCas[0],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif + 1,
-                choixListeDeroulantePourCeCas[1],
-              )
+            ? choixDeroulant(this, indiceInteractif + 1, {
+                choices: choixListeDeroulantePourCeCas[1],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[2]
           break
@@ -356,27 +351,21 @@ export default class FormulesAireCarreRectangle extends Exercice {
 
           texte = texteFixe[0]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif,
-                choixListeDeroulantePourCeCas[0],
-              )
+            ? choixDeroulant(this, indiceInteractif, {
+                choices: choixListeDeroulantePourCeCas[0],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif + 1,
-                choixListeDeroulantePourCeCas[1],
-              )
+            ? choixDeroulant(this, indiceInteractif + 1, {
+                choices: choixListeDeroulantePourCeCas[1],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[2]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif + 2,
-                choixListeDeroulantePourCeCas[2],
-              )
+            ? choixDeroulant(this, indiceInteractif + 2, {
+                choices: choixListeDeroulantePourCeCas[2],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[3]
           break
@@ -413,16 +402,26 @@ export default class FormulesAireCarreRectangle extends Exercice {
     let isOk = false
     if (this.listeReponses[i].length === 3) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       const select2 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
       ) as HTMLSelectElement
       const select3 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 2}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 2}`,
       ) as HTMLSelectElement
       let isOk1 = false
       let isOk23 = false
+      if (this.answers === undefined) this.answers = {}
+      if (select1?.value)
+        this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i}`] =
+          select1.value
+      if (select2?.value)
+        this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i + 1}`] =
+          select2.value
+      if (select3?.value)
+        this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i + 2}`] =
+          select3.value
       if (
         select1?.value != null &&
         select2.value != null &&
@@ -444,10 +443,10 @@ export default class FormulesAireCarreRectangle extends Exercice {
       )
     } else if (this.listeReponses[i].length === 2) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       const select2 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
       ) as HTMLSelectElement
       let isOk1 = false
       let isOk2 = false
@@ -466,7 +465,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
     } else {
       // if (this.listeReponses[i].length === 1) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       if (select1?.value != null) {
         const choix1 = select1.value

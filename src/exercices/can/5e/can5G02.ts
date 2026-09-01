@@ -5,11 +5,10 @@ import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { bleuMathalea } from '../../../lib/colors'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 /**
@@ -21,7 +20,6 @@ function degTan(deg: number): number {
 
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -32,7 +30,7 @@ export const interactifType = 'mathLive'
 export const uuid = '7b386'
 
 export const refs = {
-  'fr-fr': ['can5G02'],
+  'fr-fr': ['can5G02', 'auto5G5B-flash1'],
   'fr-ch': [],
 }
 export default class AngleTriangleIsocele extends ExerciceSimple {
@@ -46,13 +44,13 @@ export default class AngleTriangleIsocele extends ExerciceSimple {
   nouvelleVersion() {
     let objets
     const nom = creerNomDePolygone(3, ['QD'])
-    const a = randint(8, 14, 12) * 5
+    const a = this.quotaRandint('a', 8, 14, [12]) * 5
     const A = pointAbstrait(0, 0, nom[0])
     const B = pointAbstrait(5, 0, nom[1])
     const C = pointAbstrait(2.5, 2.5 * degTan(a), nom[2])
     const pol = polygoneAvecNom(A, B, C)
 
-    switch (choice(['a', 'b'])) {
+    switch (this.quotaChoice('typeDeQuestions', ['a', 'b'])) {
       case 'a':
         objets = []
 
@@ -70,7 +68,7 @@ export default class AngleTriangleIsocele extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 1,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             fixeBordures(objets),
           ),
@@ -100,7 +98,7 @@ export default class AngleTriangleIsocele extends ExerciceSimple {
               mainlevee: false,
               amplitude: 0.3,
               scale: 0.8,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             fixeBordures(objets),
           ),

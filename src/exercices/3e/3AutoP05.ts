@@ -18,14 +18,13 @@ import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Lire un graphique cartésien'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '24/12/2025'
 
 export const uuid = '6b987'
 
 export const refs = {
-  'fr-fr': ['3AutoP05'],
+  'fr-fr': ['3AutoS02-7'],
   'fr-ch': [],
 }
 

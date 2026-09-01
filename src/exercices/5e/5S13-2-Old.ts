@@ -17,15 +17,14 @@ import {
 import Exercice from '../Exercice'
 
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer des fréquences statistiques'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -126,7 +125,7 @@ function graphique(
       {},
       fixeBordures([diagramme], { rxmin: -3, rymin: -3, rymax: 1.5 }),
       {
-        style: 'inline',
+        display: 'inline' as const,
         scale: 0.5,
       },
     ),
@@ -289,7 +288,7 @@ export const uuid = 'ff67d'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * version 0 :
@@ -476,15 +475,18 @@ function questionsEtCorrections(
   } else {
     if (!context.isAmc) {
       // Questions pour interactivité html
-      setReponse(
+      handleAnswers(
         exercice,
         numero * 2,
-        serie.effectifs[serie.rangEffectifCache],
-        { formatInteractif: 'calcul' },
+        { reponse: { value: serie.effectifs[serie.rangEffectifCache] } },
+        { formatInteractif: 'mathlive' },
       )
-      setReponse(exercice, numero * 2 + 1, frequenceDemandee, {
-        formatInteractif: 'calcul',
-      })
+      handleAnswers(
+        exercice,
+        numero * 2 + 1,
+        { reponse: { value: frequenceDemandee } },
+        { formatInteractif: 'mathlive' },
+      )
       questions = [
         preambule,
         numAlpha(0) +
@@ -556,7 +558,9 @@ function questionsEtCorrections(
           },
         ],
       }
-      exercice.questionsAMC[numero] = amcConvert(exercice.autoCorrectionAMC[numero])
+      exercice.questionsAMC[numero] = amcConvert(
+        exercice.autoCorrectionAMC[numero],
+      )
     }
   }
   return {
@@ -619,7 +623,7 @@ export default class CalculerDesFrequencesOld extends Exercice {
       melange: 3,
       nbQuestions: this.nbQuestions,
     }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeDeQuestions[i]) {
         case 1: // tableau
           transit = exerciceAvecTableau(theme, this, i)

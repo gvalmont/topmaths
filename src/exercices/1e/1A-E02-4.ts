@@ -8,11 +8,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '118c2'
 export const refs = {
-  'fr-fr': ['1A-E02-4'],
+  'fr-fr': ['1A-E02-4', '2A-E2-4'],
   'fr-ch': ['autres-9'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -45,7 +45,8 @@ export default class Auto1AE2c extends ExerciceQcmA {
   versionAleatoire: () => void = () => {
     let compteur = 0
     do {
-      switch (choice([1, 2, 3, 4])) {
+      //switch (choice([1, 2, 3, 4])) {
+      switch (choice([4])) {
         case 1: {
           // Case 1: glacier qui diminue de 1 à 7%
           const taux = randint(1, 7)
@@ -212,9 +213,10 @@ export default class Auto1AE2c extends ExerciceQcmA {
             'club de lecture',
             "club d'échecs",
           ])
-
-          this.enonce = `Le nombre d'adhérents d'un ${typeClub} ${verbe[2]} de $${taux}\\,\\%$ chaque année.<br>
-        Si $N(n)$ désigne le nombre d'adhérents du ${typeClub} pour l'année $n$ on a :`
+          const lettreEOuPas = typeClub === 'association' ? 'e' : ''
+          const duOuPas = typeClub !== 'association' ? 'du ' : "de l'"
+          this.enonce = `Le nombre d'adhérents d'un${lettreEOuPas} ${typeClub} ${verbe[2]} de $${taux}\\,\\%$ chaque année.<br>
+        Si $N(n)$ désigne le nombre d'adhérents ${duOuPas}${typeClub} pour l'année $n$, on a :`
 
           const bonneReponse1 = `N(n + 1) = ${coeffMultiplicateur} \\times N(n)`
           const bonneReponse2 = `N(n + 1) = N(n)${signe}${tauxDecimal}\\times N(n)`
@@ -251,17 +253,12 @@ export default class Auto1AE2c extends ExerciceQcmA {
         }
       }
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {
-        egaliteExpression: true,
-      })
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {
     super()
     this.versionAleatoire()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
   }
 }

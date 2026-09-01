@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -7,7 +6,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Transformer des minutes en heures décimales'
 export const dateDePublication = '06/09/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -19,7 +18,7 @@ export const uuid = '99957'
 
 export const refs = {
   'fr-fr': ['can6D08', '6M4C-flash4'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class MinutesHeuresDecimale extends ExerciceSimple {
   constructor() {
@@ -31,7 +30,7 @@ export default class MinutesHeuresDecimale extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choixType = choice([1, 2, 2])
+    const choixType = this.quotaChoice('choixType', [1, 2, 2])
 
     switch (choixType) {
       case 1:

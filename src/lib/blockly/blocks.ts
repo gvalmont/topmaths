@@ -1,5 +1,7 @@
 import * as Blockly from 'blockly/core'
 
+let isBlocklyBlocksInitialized = false
+
 // Define the block styles: https://developers.google.com/blockly/guides/configure/web/themes#block_style
 /* const blockStyles = {
   hat_blocks: {
@@ -16,7 +18,9 @@ import * as Blockly from 'blockly/core'
 })
 */
 
-export function init() {
+export function ensureBlocklyBlocksInitialized() {
+  if (isBlocklyBlocksInitialized) return ''
+
   Blockly.Blocks['start'] = {
     init: function () {
       this.appendDummyInput().appendField('Démonstration')
@@ -25,6 +29,31 @@ export function init() {
       this.setStyle('hat_blocks') // Set the style to match the style *name*.
       this.setColour(50)
       this.setTooltip('Démonstration')
+      this.setHelpUrl('')
+    },
+  }
+
+  Blockly.Blocks['demarrer'] = {
+    init: function () {
+      this.appendDummyInput().appendField('Démarrer')
+      this.setInputsInline(true)
+      this.setNextStatement(true, null)
+      this.setStyle('hat_blocks')
+      this.setColour(50)
+      this.setTooltip('Point de depart du script')
+      this.setHelpUrl('')
+    },
+  }
+
+  Blockly.Blocks['dire_2s'] = {
+    init: function () {
+      this.appendValueInput('MESSAGE').setCheck(null).appendField('dire')
+      this.appendDummyInput().appendField('pendant 2 s')
+      this.setInputsInline(true)
+      this.setPreviousStatement(true, null)
+      this.setNextStatement(true, null)
+      this.setColour(160)
+      this.setTooltip('Affiche une valeur pendant 2 secondes')
       this.setHelpUrl('')
     },
   }
@@ -522,5 +551,11 @@ export function init() {
     },
   }
 
+  isBlocklyBlocksInitialized = true
   return ''
+}
+
+// Compatibilite descendante pour les imports existants.
+export function init() {
+  return ensureBlocklyBlocksInitialized()
 }

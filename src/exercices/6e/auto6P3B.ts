@@ -1,9 +1,6 @@
 import { texPrix } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -18,7 +15,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Résoudre des problèmes de type : ... fois plus ou ... fois moins'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -31,9 +28,9 @@ export const dateDePublication = '02/05/2025'
 export const uuid = 'c71fb'
 
 export const refs = {
-  'fr-fr': ['auto6P3B'],
+  'fr-fr': ['auto6P3B', '6AutoP2'],
   'fr-2016': ['6P11-3'],
-  'fr-ch': ['9NO16-6'],
+  'fr-ch': [''], // Primaire anciennement :['9NO16-6'],
 }
 export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
   constructor() {
@@ -110,8 +107,7 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
           }
           texteCorr = `$${texPrix(resu)}$ € $\\times ${f}$ = $${texPrix(value)}$ € <br>`
           texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(value))}$ €.`
-          if (context.isAmc) setReponse(this, i, value)
-          else handleAnswers(this, i, { reponse: { value: texPrix(value) } })
+          handleAnswers(this, i, { reponse: { value: texPrix(value) } })
           break
         }
         case 'combienDeFoisMoins': {
@@ -128,8 +124,7 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
           }
           texteCorr = `$${texPrix(value)}$ € $\\div ${f}$ = $${texPrix(resu)}$ € <br>`
           texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(resu))}$ €.`
-          if (context.isAmc) setReponse(this, i, resu)
-          else handleAnswers(this, i, { reponse: { value: texPrix(resu) } })
+          handleAnswers(this, i, { reponse: { value: texPrix(resu) } })
           break
         }
         case 'foisMoinsQue': {
@@ -149,8 +144,7 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
           texte += '.'
           texteCorr = `$${texPrix(value)}$ € $\\div ${f}$ = $${texPrix(resu)}$ € <br>`
           texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(resu))}$ €.`
-          if (context.isAmc) setReponse(this, i, resu)
-          else handleAnswers(this, i, { reponse: { value: texPrix(resu) } })
+          handleAnswers(this, i, { reponse: { value: texPrix(resu) } })
           break
         }
         case 'foisPlusQue': {

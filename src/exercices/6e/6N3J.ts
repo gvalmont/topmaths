@@ -1,6 +1,6 @@
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   choice,
   combinaisonListes,
@@ -15,7 +15,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Ordonner une liste de nombres écrits sous forme de fractions ou de nombres mixtes'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDePublication = '21/07/2025'
 export const dateDeModificationImportante = '02/04/2026'
 
@@ -89,7 +89,7 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
     let listeTypeDeSignes = this.sup2 === 3 ? [1, 2] : [this.sup2]
     listeTypeDeSignes = combinaisonListes(listeTypeDeSignes, this.nbQuestions)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const croissant = listeTypeDeQuestions[i] === 1
       const ordre = croissant ? 'croissant' : 'décroissant'
       const symbole = croissant ? '<' : '>'
@@ -224,7 +224,7 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
               value: fractionsTrieesFinales[4],
             },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
 
         let texteCorr = ''

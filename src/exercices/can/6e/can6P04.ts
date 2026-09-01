@@ -1,13 +1,13 @@
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -20,7 +20,7 @@ export const uuid = 'da0c1'
 
 export const refs = {
   'fr-fr': ['can6P04', '6N3Q-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class AppliquerUnPourcentage extends ExerciceSimple {
   bis: boolean
@@ -34,7 +34,11 @@ export default class AppliquerUnPourcentage extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, p
-    switch (this.bis ? choice([4, 5, 6]) : choice([1, 2, 3])) {
+    switch (
+      this.bis
+        ? this.quotaChoice('cas', [4, 5, 6])
+        : this.quotaChoice('cas', [1, 2, 3])
+    ) {
       case 1: // prendre 10%
         a = randint(2, 99)
         this.reponse = a / 10

@@ -8,12 +8,12 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer une valeur définie avec un pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '15/09/2024'
 export const uuid = '0b829'
 export const refs = {
   'fr-fr': ['can4P06'],
-  'fr-ch': ['9NO14-13'],
+  'fr-ch': ['10FA2B-21'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -64,13 +64,11 @@ export default class ValeursDefPourcentage extends ExerciceSimple {
         ${choix[0]}\\,\\% \\text{ de } N &=  ${texNombre(valeur, 2)}\\\\
         100\\,\\% \\text{ de } N&=${choix[2]}\\times${texNombre(valeur, 2)}\\\\
         ${choix[0] === 5 && !Number.isInteger((choix[0] * choix[1]) / 100) ? `100\\,\\% \\text{ de } N&=\\underbrace{2\\times 10}_{=20}\\times${texNombre(valeur, 2)}\\\\` : context.isHtml ? '' : '\\'}
-        N&=${miseEnEvidence(`${texNombre(choix[1], 0)}`)}
-        \\end{aligned}$
-          `
+        ${miseEnEvidence('N')}&${miseEnEvidence(`=${texNombre(choix[1], 0)}`)}
+        \\end{aligned}$<br>`
     if (choix[0] === 5 && !Number.isInteger((choix[0] * choix[1]) / 100)) {
-      this.correction += `<br>  ${texteGras('Remarque : ')} <br>
-              Pour multiplier un nombre par $20$, on peut le multiplier par $10$, puis par $2$.
-                `
+      this.correction += `${texteGras('Remarque : ')} <br>
+              Pour multiplier un nombre par $20$, on peut le multiplier par $10$, puis par $2$.`
     }
 
     if (this.interactif && !this.versionQcm) {

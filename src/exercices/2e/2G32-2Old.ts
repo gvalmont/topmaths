@@ -4,7 +4,6 @@ export const titre =
 
 export const dateDeModifImportante = '03/03/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  *
@@ -14,7 +13,7 @@ export const uuid = '0ec77'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 class EqCartpointVecteurOld extends EqCartDroite {
   constructor() {

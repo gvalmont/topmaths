@@ -1,6 +1,7 @@
 import Figure from 'apigeom'
 import type { MathfieldElement } from 'mathlive'
-import handleApigeomFigureElement from '../../lib/apigeom/apigeom-figure'
+import { createApigeomFigureHtml } from '../../lib/apigeom/apigeom-figure'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { generateCleaner } from '../../lib/interactif/cleaners'
 import ce from '../../lib/interactif/comparisonFunctions'
@@ -16,12 +17,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
-export const interactifType = 'custom'
 export const dateDeModifImportante = '29/03/2026'
 
 /**
@@ -31,9 +30,9 @@ export const dateDeModifImportante = '29/03/2026'
 export const uuid = 'ab44e'
 
 export const refs = {
-  'fr-fr': ['6N3F-2', '3AutoN06-2'],
+  'fr-fr': ['6N3F-2', '3AutoN06'],
   'fr-2016': ['6N20-2'],
-  'fr-ch': ['9NO11-2'],
+  'fr-ch': ['9NO3C-2'],
 }
 
 export default class ExerciceFractionsDifferentesEcritures extends Exercice {
@@ -93,8 +92,9 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
         denominator: 2,
         numberOfRectangles: 5,
       })
-      handleApigeomFigureElement()
-      this.introduction = `<apigeom-figure interactive default-action='FILL' x-min=${figure.xMin} y-min=${figure.yMin} width=${figure.width} height=${figure.height} numero-exercice=${this.numeroExercice} index=0 auto-index><script type="application/json">${figure.json}</script></apigeom-figure>`
+      this.introduction = createApigeomFigureHtml(figure, {
+        numeroExercice: this.numeroExercice,
+      })
     } else {
       this.introduction = ''
     }

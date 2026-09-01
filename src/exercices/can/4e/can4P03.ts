@@ -1,11 +1,10 @@
 import { tableau2x2 } from '../../../lib/2d/tableau'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une quatrième proportionnelle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -29,9 +28,9 @@ export default class QuatriemeProportionnelle extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 6)
+    const a = this.quotaRandint('a', 1, 6)
     const b = randint(4, 8, a) * 2
-    const c = choice([2, 3, 4, 5])
+    const c = this.quotaChoice('c', [2, 3, 4, 5])
     this.reponse = b * c
     switch (randint(0, 3)) {
       case 0:

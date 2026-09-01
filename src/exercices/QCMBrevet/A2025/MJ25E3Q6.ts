@@ -20,7 +20,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Volume (Métropole Juin 2025)'
@@ -63,7 +63,7 @@ export default class MetropoleJ25EX3Q6 extends ExerciceQcmA {
 
     const objets = [pyr.c2d, hauteur.c2d, diag1.c2d, diag2.c2d, ang, l, p, h]
     const figure = mathalea2d(
-      Object.assign({ style: 'display: inline-bloc' }, fixeBordures(objets)),
+      Object.assign({ display: 'inline-block' } as const, fixeBordures(objets)),
       objets,
     )
 

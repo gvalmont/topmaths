@@ -17,7 +17,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Effectuer des conversions d’aire (du cm² au m²)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '28/07/2025'
 export const dateDeModifImportante = '9/09/2025'
@@ -33,7 +32,7 @@ export const uuid = '026d9'
 export const refs = {
   'fr-fr': ['6M2A'],
   'fr-2016': ['6M23-1'],
-  'fr-ch': ['NR'],
+  'fr-ch': ['9GM1A-5'],
 }
 export default class convertirAiresVersion2025 extends Exercice {
   constructor() {
@@ -145,8 +144,8 @@ export default class convertirAiresVersion2025 extends Exercice {
       const operation = versUnitePlusPetite ? '~\\times~' : '~\\div~'
       texteCorr = `$1${unite1} = ${facteur} ${unite2}$ et donc la mesure en $${unite2}$ est $100$ fois plus ${adjectif} que la mesure en $${unite1}$`
       texteCorr += versUnitePlusPetite
-        ? ` ($1 ${unite1}$ est une centaine de $1 ${unite2}$)`
-        : ` ($1 ${unite1}$ est un centième de $1 ${unite2}$)`
+        ? ` ($1 ${unite1}$ est une centaine de $${unite2}$)`
+        : ` ($1 ${unite1}$ est un centième de $${unite2}$)`
       texteCorr += '.<br>'
       texteCorr += `$${texNombre(val)} ${unite1} = ${texNombre(val)} ${miseEnEvidence(`\\times 1${sp()}${unite1}`, bleuMathalea)}$ = `
       if (!versUnitePlusPetite)

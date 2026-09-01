@@ -22,7 +22,7 @@ export const titre = 'Simplifier des expressions exponentielles'
 
 export const dateDePublication = '2/7/2024'
 export const interactifReady = true
-export const interactifType = 'mathlive'
+
 export const uuid = '9325e'
 export const refs = {
   'fr-fr': [''],
@@ -80,7 +80,7 @@ export default class SimplifierExponentielles extends Exercice {
     if (this.sup >= 2) {
       this.consigne = 'Soit $x$ un réel. Simplifier les expressions suivantes :'
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let answer = ''
@@ -220,7 +220,12 @@ export default class SimplifierExponentielles extends Exercice {
       if (this.interactif) {
         texte +=
           `<br><br> $${lettreDepuisChiffre(i + 1)} = $` +
-          ajouteChampTexteMathLive(this, i, KeyboardType.lycee)
+          ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierPersonnalisable,
+            { dataKeys: ['EXP'] },
+          )
         handleAnswers(this, i, { reponse: { value: answer } })
       }
       if (this.questionJamaisPosee(i, texte)) {

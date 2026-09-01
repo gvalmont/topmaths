@@ -7,11 +7,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '6cf57'
 export const refs = {
-  'fr-fr': ['1A-C03-13'],
+  'fr-fr': ['1A-C03-13', '2A-N3-13'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Résoudre un problème de hauteur avec une puissance de 10'
@@ -391,6 +391,19 @@ export default class Auto1AC3m extends ExerciceQcmA {
 
   constructor() {
     super()
+    this.tip = `
+  <p style="margin: 0 0 10px 0;">
+    Il faut bien identifier les informations utiles.
+  </p>
+  <ul style="list-style-type: disc; padding-left: 1.5em; margin: 0 0 14px 0; line-height: 2;">
+    <li>Repérer à quoi correspond l'épaisseur donnée : une feuille, dix feuilles ou cent feuilles.</li>
+    <li>Identifier l'unité de l'épaisseur donnée.</li>
+    <li>Repérer le nombre de feuilles dans la pile à calculer.</li>
+    <li>Identifier l'unité attendue pour la réponse.</li>
+  </ul>
+  <p style="margin: 0;">
+   Faire un tableau de conversion si besoin.
+  </p>`
     this.versionAleatoire()
   }
 }

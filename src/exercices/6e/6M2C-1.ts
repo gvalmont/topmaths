@@ -1,10 +1,10 @@
-import PerimetreOuAireDeCarresRectanglesTriangles from '../5e/5M11-1'
+import PerimetreOuAireDeCarresRectanglesTriangles from '../bp2/bp2AutoV4'
 
 export const titre =
   'Calculer périmètre et/ou aire de carrés, rectangles et triangles rectangles'
 export const dateDePublication = '30/07/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -16,9 +16,9 @@ export const amcType = 'AMCHybride'
 export const uuid = '5e598'
 
 export const refs = {
-  'fr-fr': ['6M2C-1'],
+  'fr-fr': ['6M2C-1', 'BP1AUTO104'],
   'fr-2016': ['6M11-1a'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class PerimetreOuAireDeCarresRectangles extends PerimetreOuAireDeCarresRectanglesTriangles {
   constructor() {

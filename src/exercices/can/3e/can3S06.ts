@@ -1,10 +1,8 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le rang d’une médiane'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -27,8 +25,8 @@ export default class Mediane extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(10, 15)
-    const n = randint(1, 4)
+    const a = this.quotaRandint('a', 10, 15)
+    const n = this.quotaRandint('n', 1, 4)
     const c = a * 2 * n + 1
     this.question = `Une série statistique de $${c}$ données est rangée dans l’ordre croissant.<br>
    

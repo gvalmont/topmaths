@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le prochain multiple de 3 ou de 9'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -16,8 +16,8 @@ export const amcType = 'AMCNum'
 export const uuid = '2aa64'
 
 export const refs = {
-  'fr-fr': ['can5C08'],
-  'fr-ch': ['9NO4-33'],
+  'fr-fr': ['can5C08', '5N1J-flash1'],
+  'fr-ch': ['9NO1A-10'],
 }
 export default class ProchainMultipleDeTroisOuDeNeuf extends ExerciceSimple {
   constructor() {
@@ -41,7 +41,7 @@ export default class ProchainMultipleDeTroisOuDeNeuf extends ExerciceSimple {
       sommeB += parseInt(bString[i])
     }
 
-    if (choice([0, 1])) {
+    if (this.quotaChoice('typeDeQuestions', [0, 1])) {
       this.reponse = a + 3 - (a % 3)
       this.question = `Quel est le plus petit entier supérieur strictement à $${texNombre(a)}$ qui soit divisible par $3$ ?`
       this.correction = `On calcule mentalement la somme des chiffres de $${texNombre(a)}$, on trouve $${texNombre(sommeA)}$.<br>`

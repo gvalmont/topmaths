@@ -1,6 +1,6 @@
 import type { MathfieldElement } from 'mathlive'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import type { IExercice } from '../../../lib/types'
@@ -9,7 +9,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Additionner un entier et une fraction'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'e12d9'
 export const refs = {
   'fr-fr': [''],

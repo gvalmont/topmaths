@@ -9,8 +9,8 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
-import { orangeMathalea, bleuMathalea } from '../../lib/colors'
-import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
+import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
 import { abs } from '../../lib/outils/nombres'
 import { getLang } from '../../lib/stores/languagesStore'
@@ -23,12 +23,12 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const titre =
   "Tracer une droite à partir d'un point et d'un coefficient directeur ou d'un vecteur directeur"
 export const dateDePublication = '09/03/2025'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * @author Gilles Mora (interactif par Éric Elter)
@@ -37,7 +37,7 @@ export const uuid = '580a6'
 
 export const refs = {
   'fr-fr': ['2G32-4'],
-  'fr-ch': ['10FA5-19', '11FA8-16', '1mF2-14'],
+  'fr-ch': ['11FA1B-22', '1mF2-14'],
 }
 export default class RepresenterfDroite extends Exercice {
   figuresApiGeom: Figure[] = []
@@ -73,14 +73,16 @@ export default class RepresenterfDroite extends Exercice {
       defaut: 4,
       nbQuestions: this.nbQuestions,
     })
-    this.figures = []
+    this.figuresApiGeom = []
+    this.figuresApiGeomCorr = []
 
     const textO = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const xA = randint(-3, 3)
       const yA = randint(-2, 2)
       const A = pointAbstrait(xA, yA, 'A')
       const B = pointAbstrait(0, 0, 'B')
+      let pente = 0
       const cadre = {
         xMin: Math.min(-3, xA - 5),
         yMin: Math.min(-4, yA - 5),
@@ -102,6 +104,7 @@ export default class RepresenterfDroite extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           {
+            pente = a
             B.x = xA + 1
             B.y = yA + a
             const droiteAB = droite(A, B)
@@ -170,6 +173,7 @@ export default class RepresenterfDroite extends Exercice {
               coeffDir[0],
               coeffDir[1],
             ).simplifie()
+            pente = coeffDirF.num / coeffDirF.den
             B.x = xA + coeffDir[1]
             B.y = yA + coeffDir[0]
             const droiteAB = droite(A, B)
@@ -234,6 +238,7 @@ export default class RepresenterfDroite extends Exercice {
               texte += mathalea2d(cadreFenetreSvg, monRepere, textO)
             texteCorr = `On commence par placer le point $A$ de coordonnées $(${xA}\\,;\\,${yA})$.<br>`
             if (xu === 0) {
+              pente = 9999
               texteCorr +=
                 'Comme la première coordonnée du vecteur $\\vec{u}$ est nulle, la droite $d$ est verticale.<br>'
               if (!context.isHtml)
@@ -248,6 +253,7 @@ export default class RepresenterfDroite extends Exercice {
                   nomvAB,
                 )
             } else if (yu === 0) {
+              pente = 0
               texteCorr +=
                 'Comme la deuxième coordonnée du vecteur $\\vec{u}$ est nulle, la droite $d$ est horizontale.<br>'
               if (!context.isHtml)
@@ -262,6 +268,7 @@ export default class RepresenterfDroite extends Exercice {
                   nomvAB,
                 )
             } else {
+              pente = yu / xu
               texteCorr += ` À partir de ce point, on se décale ${xu === 1 || xu === -1 ? "d'une unité vers la" : `de $${abs(xu)}$ unités`} vers la  ${xu < 0 ? 'gauche' : 'droite'}, puis on ${yu < 0 ? 'descend' : 'monte'} de $${abs(yu)}$ ${yu === 1 || yu === -1 || yu === 0 ? 'unité' : 'unités'}.<br>
             On obtient alors le point $B$ qui permet de tracer le vecteur $\\overrightarrow{AB}$.<br>
             On peut alors tracer alors la droite $(AB)$.<br>`
@@ -281,57 +288,66 @@ export default class RepresenterfDroite extends Exercice {
           break
       }
 
-      const figure = new Figure({
-        xMin: cadre.xMin + 0.1,
-        yMin: cadre.yMin + 0.1,
-        width: 290,
-        height: 290,
-      })
-      if (isFigureArray(this.figures)) this.figures.push(figure)
-      const figureCorr = new Figure({
-        xMin: cadre.xMin + 0.1,
-        yMin: cadre.yMin + 0.1,
-        width: 290,
-        height: 290,
-      })
-      if (isFigureArray(this.figures)) this.figures.push(figureCorr)
-      figure.options.labelAutomaticBeginsWith = 'A'
-      figure.create('Grid')
-      figure.options.color = bleuMathalea
-      figure.options.gridWithTwoPointsOnSamePosition = false
-      figure.options.thickness = 2
-      figure.snapGrid = true
-      figureCorr.loadJson(JSON.parse(figure.json))
+      if (this.questionJamaisPosee(i, xA, yA, pente)) {
+        const figure = new Figure({
+          xMin: cadre.xMin + 0.1,
+          yMin: cadre.yMin + 0.1,
+          width: 290,
+          height: 290,
+        })
+        const figureCorr = new Figure({
+          xMin: cadre.xMin + 0.1,
+          yMin: cadre.yMin + 0.1,
+          width: 290,
+          height: 290,
+        })
+        figure.options.labelAutomaticBeginsWith = 'A'
+        figure.create('Grid')
+        figure.options.color = bleuMathalea
+        figure.options.gridWithTwoPointsOnSamePosition = false
+        figure.options.thickness = 2
+        figure.snapGrid = true
+        figureCorr.loadJson(JSON.parse(figure.json))
 
-      this.figuresApiGeom[i] = figure
+        this.figuresApiGeom[i] = figure
 
-      const A1 = figureCorr.create('Point', { x: A.x, y: A.y, label: A.nom })
-      const B1 = figureCorr.create('Point', { x: B.x, y: B.y, label: B.nom })
-      this.pointsA[i] = A1
-      this.pointsB[i] = B1
-      figureCorr.create('Line', {
-        point1: A1,
-        point2: B1,
-        color: orangeMathalea,
-      })
+        const A1 = figureCorr.create('Point', { x: A.x, y: A.y, label: A.nom })
+        const B1 = figureCorr.create('Point', { x: B.x, y: B.y, label: B.nom })
+        this.pointsA[i] = A1
+        this.pointsB[i] = B1
+        figureCorr.create('Line', {
+          point1: A1,
+          point2: B1,
+          color: orangeMathalea,
+        })
 
-      figure.setToolbar({
-        tools: ['POINT', 'LINE', 'NAME_POINT', 'MOVE_LABEL', 'DRAG', 'REMOVE'],
-        position: 'top',
-      })
+        figure.setToolbar({
+          tools: [
+            'POINT',
+            'LINE',
+            'NAME_POINT',
+            'MOVE_LABEL',
+            'DRAG',
+            'REMOVE',
+          ],
+          position: 'top',
+        })
 
-      const emplacementPourFigure = figureApigeom({ exercice: this, i, figure })
-      const emplacementPourFigureCorr = figureApigeom({
-        exercice: this,
-        i,
-        figure: figureCorr,
-        idAddendum: 'correction',
-        isDynamic: false,
-      })
-      texte += emplacementPourFigure
-      texteCorr += emplacementPourFigureCorr
-
-      if (this.questionJamaisPosee(i, xA, yA)) {
+        this.figuresApiGeomCorr[i] = figureCorr
+        const emplacementPourFigure = figureApigeom({
+          exercice: this,
+          i,
+          figure,
+        })
+        const emplacementPourFigureCorr = figureApigeom({
+          exercice: this,
+          i,
+          figure: figureCorr,
+          idAddendum: 'correction',
+          isDynamic: false,
+        })
+        texte += emplacementPourFigure
+        texteCorr += emplacementPourFigureCorr
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -342,6 +358,7 @@ export default class RepresenterfDroite extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
+    if (i === undefined || this.figuresApiGeom === undefined) return ['KO']
     if (this.pointsA[i] == null || this.pointsB[i] == null) return 'KO'
     const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
@@ -350,7 +367,7 @@ export default class RepresenterfDroite extends Exercice {
 
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
-    this.answers[figure.id] = figure.json
+    this.answers[figure.id] = figureAnswerJson(figure)
 
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,

@@ -2,7 +2,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une expression pour une valeur particulière*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -25,7 +25,7 @@ export default class CalculSubstitution extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b, d
-    switch (randint(1, 4)) {
+    switch (this.quotaRandint('cas', 1, 4)) {
       case 1:
         a = randint(-5, -1)
         b = randint(1, 9)

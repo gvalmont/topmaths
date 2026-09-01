@@ -12,7 +12,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Résoudre un problème de facture'
@@ -28,23 +28,22 @@ export default class Auto1C19 extends ExerciceQcmA {
 
   versionOriginale: () => void = () => {
     this.enonce = `Dans une région de France, le tarif de l'eau est le suivant : <br>
-              Un abonnement annuel et $3{,}50$ € par mètre cube consommé. <br>
-              Une famille a payé une facture de $352{,}50$ € pour une consommation de $85\\text{ m}^3$.<br>
+              Un abonnement annuel et $3,50$ € par mètre cube consommé. <br>
+              Une famille a payé une facture de $352,50$ € pour une consommation de $85\\text{ m}^3$.<br>
             Le prix de l'abonnement est donné par le calcul :`
 
-    this.correction = `La facture s'élève à $352{,}50$ € pour une consommation de $85\\text{ m}^3$.<br>
+    this.correction = `La facture s'élève à $352,50$ € pour une consommation de $85\\text{ m}^3$.<br>
                    En notant $a$ le montant de l'abonnement, on obtient : <br>
                    $\\begin{aligned}
-                   a+3{,}50\\times 85 &=352{,}50\\\\
-                   a&=${miseEnEvidence('352{,}50-3{,}50\\times 85')}
-                   \\end{aligned}$
-                   `
+                   a+3,50\\times 85 &=352,50\\\\
+                   a&=${miseEnEvidence('352,50-3,50\\times 85')}
+                   \\end{aligned}$`
 
     this.reponses = [
-      '$352{,}50-3{,}50\\times 85$',
-      '$\\dfrac{352{,}50}{3{,}50\\times 85}$',
-      '$\\dfrac{3{,}50\\times 85}{352{,}50}$',
-      '$352{,}50+3{,}50\\times 85$',
+      '$352,50-3,50\\times 85$',
+      '$\\dfrac{352,50}{3,50\\times 85}$',
+      '$\\dfrac{3,50\\times 85}{352,50}$',
+      '$352,50+3,50\\times 85$',
     ]
   }
 
@@ -66,8 +65,7 @@ export default class Auto1C19 extends ExerciceQcmA {
                          $\\begin{aligned}
                          a+${texNombre(p, 2, true)}\\times ${n} &=${texNombre(fac, 3)}\\\\
                          a&=${miseEnEvidence(`${texNombre(fac, 3)}-${texNombre(p, 2, true)}\\times ${n}`)}
-                         \\end{aligned}$
-                         `
+                         \\end{aligned}$`
 
           this.reponses = [
             `$${texNombre(fac, 3)}-${texNombre(p, 2, true)}\\times ${n}$`,
@@ -139,7 +137,7 @@ export default class Auto1C19 extends ExerciceQcmA {
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    // this.options = { vertical: true, ordered: false }
+
     this.versionAleatoire()
     this.spacing = 1.5
   }

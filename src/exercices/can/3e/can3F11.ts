@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Utiliser le vocabulaire image/antécédent'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '02/10/2023'
 
 /**
@@ -16,7 +16,7 @@ export const dateDePublication = '02/10/2023'
 export const uuid = 'd85c2'
 
 export const refs = {
-  'fr-fr': ['can3F11'],
+  'fr-fr': ['can3F11', 'can2F10-01', '2F10-flash1'],
   'fr-ch': [],
 }
 export default class VocabulaireImageAntecedent extends ExerciceSimple {
@@ -30,7 +30,7 @@ export default class VocabulaireImageAntecedent extends ExerciceSimple {
   nouvelleVersion() {
     const ListeNomF = ['f', 'g', 'h', 'u', 'v', 'w', 'c', 'd']
     switch (
-      choice([1, 2, 3]) //, 2, 3, 4, 5, 6
+      this.quotaChoice('cas', [1, 2, 3]) //, 2, 3, 4, 5, 6
     ) {
       case 1:
         {

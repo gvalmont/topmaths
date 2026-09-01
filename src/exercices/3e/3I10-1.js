@@ -31,7 +31,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Analyser des scripts Scratch'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -67,8 +67,6 @@ export default class ScratchMultiScript extends Exercice {
 
     this.spacing = 2
     this.nbQuestions = 1
-
-    this.typeExercice = 'Scratch'
 
     this.sup = '2'
     this.correctionDetailleeDisponible = true
@@ -116,7 +114,7 @@ export default class ScratchMultiScript extends Exercice {
     context.unitesLutinParCm = 20 // avancer de 10 pour le lutin lui fait parcourir 1cm (en fait 0,5cm car j'ai ajouté un scale=0.5 pour la sortie latex)
     context.pixelsParCm = 20 // 20 pixels d'écran représentent 1cm (enfin ça dépend du zoom, donc c'est juste un réglage par défaut)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsCorrection = []
       couleurs[i] = []
       const x = []
@@ -422,7 +420,7 @@ export default class ScratchMultiScript extends Exercice {
         mathalea2d(
           Object.assign({}, fixeBordures(lePlateau.objets), {
             scale: 0.4,
-            style: 'display: inline',
+            display: 'inline',
           }),
           lePlateau.objets,
         ),
@@ -458,7 +456,7 @@ export default class ScratchMultiScript extends Exercice {
       objetsCorrection.push(lePlateau.objets, lutins[i])
       texteCorr += mathalea2d(
         Object.assign({}, fixeBordures(objetsCorrection), {
-          style: 'display: inline',
+          display: 'inline',
           scale: 0.4,
         }),
         objetsCorrection,
@@ -488,7 +486,7 @@ export default class ScratchMultiScript extends Exercice {
           mathalea2d(
             Object.assign({}, fixeBordures(lePlateau.objets), {
               scale: 0.4,
-              style: 'display: inline',
+              display: 'inline',
             }),
             lePlateau.objets,
           ),

@@ -170,7 +170,7 @@ async function createDefaultRoutes(page: Page) {
 }
 
 export async function getQuestions(page: Page, urlExercice: string) {
-  const questionSelector = 'div#exo0 div.mb-5 div.container>li'
+  const questionSelector = 'div#exo0 div.mb-5 li'
 
   // console.log('getQuestions')
 
@@ -304,11 +304,19 @@ async function fillMathField(
 
   if (promptCount > 1 && Array.isArray(answer)) {
     for (let i = 0; i < answer.length && i < promptCount; i++) {
-      await prompts[i].click()
+      // force: true car MathLive 0.110 imbrique un span partageant le même
+      // data-atom-id sous .ML__prompt (fix du hit-testing des prompts), ce
+      // qui fait échouer la vérification stricte d'actionabilité de
+      // Playwright alors que le clic réel fonctionne bien pour l'utilisateur.
+      await prompts[i].click({ force: true })
+      await page.waitForTimeout(100) // Ajout d'un délai pour s'assurer que le champ est prêt à recevoir la saisie
       await champTexteMathlive.pressSequentially(answer[i].toString())
     }
   } else {
+    await champTexteMathlive.focus()
+    await page.waitForTimeout(100)
     await champTexteMathlive.click()
+    await page.waitForTimeout(100) // Ajout d'un délai pour s'assurer que le champ est prêt à recevoir la saisie
     await champTexteMathlive.pressSequentially(
       Array.isArray(answer) ? (answer[0]?.toString() ?? '') : answer.toString(),
     )
@@ -341,6 +349,7 @@ export async function inputAnswerById(
 
 export async function checkFeedback(page: Page, questions: Question[]) {
   await checkButtonClick(page)
+  await page.waitForTimeout(1000) // attendre un peu pour que le feedback s'affiche
   await addFeedbacks(page, questions)
 
   for (const question of questions) {

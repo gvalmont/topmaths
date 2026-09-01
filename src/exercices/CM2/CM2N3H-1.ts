@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -10,7 +10,6 @@ import Exercice from '../Exercice'
 export const titre = 'Diviser un entier par 10, 100 ou 1000'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const amcType = 'AMCNum'
 /**
@@ -44,7 +43,7 @@ export default class DiviserPar101001000 extends Exercice {
       b = choice([10, 100, 1000])
       texte = `$${texNombre(a)}\\div${texNombre(b)}=$`
       texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(a / b)}$`
-      setReponse(this, i, arrondi(a / b))
+      handleAnswers(this, i, { reponse: { value: arrondi(a / b) } })
       if (this.interactif)
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
 

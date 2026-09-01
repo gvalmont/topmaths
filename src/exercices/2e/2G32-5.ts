@@ -7,8 +7,8 @@ import { repere } from '../../lib/2d/reperes'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
-import { orangeMathalea, bleuMathalea } from '../../lib/colors'
-import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
+import figureApigeom from '../../lib/figureApigeom'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -21,11 +21,11 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const titre = "Tracer une droite à partir d'une équation cartésienne"
 export const dateDePublication = '09/03/2025'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * @author Jean-Léon HENRY (adapté de 2G30-9)
@@ -47,7 +47,7 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
 
   nouvelleVersion() {
     this.figuresApiGeom = []
-    this.figures = []
+    this.figuresApiGeomCorr = []
 
     const textO = latex2d('\\text{O}', -0.3, -0.3, {
       letterSize: 'scriptsize',
@@ -63,7 +63,11 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
       const coeffMult = randint(-2, 2, [0])
       const ordonnéeOrigine = yA - pente * xA
       const vecteurDirecteur = vecteur(coeffMult, coeffMult * pente)
-      const C = pointAbstrait(xA + vecteurDirecteur.x, yA + vecteurDirecteur.y, 'B')
+      const C = pointAbstrait(
+        xA + vecteurDirecteur.x,
+        yA + vecteurDirecteur.y,
+        'B',
+      )
 
       // Coefficient de l'équation cartésienne
       const coeffs = [
@@ -191,61 +195,66 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
         }
       }
 
-      const figure = new Figure({
-        xMin: cadre.xMin + 0.1,
-        yMin: cadre.yMin + 0.1,
-        width: 290,
-        height: 290,
-      })
-      const figureCorr = new Figure({
-        xMin: cadre.xMin + 0.1,
-        yMin: cadre.yMin + 0.1,
-        width: 290,
-        height: 290,
-      })
-      figure.options.labelAutomaticBeginsWith = 'A'
-      figure.create('Grid')
-      figure.options.color = bleuMathalea
-      figure.options.gridWithTwoPointsOnSamePosition = false
-      figure.options.thickness = 2
-      figure.snapGrid = true
-      figureCorr.loadJson(JSON.parse(figure.json))
+      if (this.questionJamaisPosee(i, xA, yA, B.x, B.y)) {
+        const figure = new Figure({
+          xMin: cadre.xMin + 0.1,
+          yMin: cadre.yMin + 0.1,
+          width: 290,
+          height: 290,
+        })
+        const figureCorr = new Figure({
+          xMin: cadre.xMin + 0.1,
+          yMin: cadre.yMin + 0.1,
+          width: 290,
+          height: 290,
+        })
+        figure.options.labelAutomaticBeginsWith = 'A'
+        figure.create('Grid')
+        figure.options.color = bleuMathalea
+        figure.options.gridWithTwoPointsOnSamePosition = false
+        figure.options.thickness = 2
+        figure.snapGrid = true
+        figureCorr.loadJson(JSON.parse(figure.json))
 
-      this.figuresApiGeom[i] = figure
-      if (isFigureArray(this.figures)) this.figures.push(figure)
-      if (isFigureArray(this.figures)) this.figures.push(figureCorr)
+        this.figuresApiGeom[i] = figure
 
-      const A1 = figureCorr.create('Point', { x: A.x, y: A.y, label: A.nom })
-      const B1 = figureCorr.create('Point', { x: C.x, y: C.y, label: C.nom })
-      this.pointsA[i] = A1
-      this.pointsB[i] = B1
-      figureCorr.create('Line', {
-        point1: A1,
-        point2: B1,
-        color: orangeMathalea,
-      })
+        const A1 = figureCorr.create('Point', { x: A.x, y: A.y, label: A.nom })
+        const B1 = figureCorr.create('Point', { x: C.x, y: C.y, label: C.nom })
+        this.pointsA[i] = A1
+        this.pointsB[i] = B1
+        figureCorr.create('Line', {
+          point1: A1,
+          point2: B1,
+          color: orangeMathalea,
+        })
 
-      figure.setToolbar({
-        tools: ['POINT', 'LINE', 'NAME_POINT', 'MOVE_LABEL', 'DRAG', 'REMOVE'],
-        position: 'top',
-      })
+        figure.setToolbar({
+          tools: [
+            'POINT',
+            'LINE',
+            'NAME_POINT',
+            'MOVE_LABEL',
+            'DRAG',
+            'REMOVE',
+          ],
+          position: 'top',
+        })
+        this.figuresApiGeomCorr[i] = figureCorr
 
-      const emplacementPourFigure = figureApigeom({
-        exercice: this,
-        i,
-        figure,
-      })
-      const emplacementPourFigureCorr = figureApigeom({
-        exercice: this,
-        i,
-        figure: figureCorr,
-        idAddendum: 'correction',
-        isDynamic: false,
-      })
-      texte += emplacementPourFigure
-      texteCorr += emplacementPourFigureCorr
-
-      if (this.questionJamaisPosee(i, xA, yA)) {
+        const emplacementPourFigure = figureApigeom({
+          exercice: this,
+          i,
+          figure,
+        })
+        const emplacementPourFigureCorr = figureApigeom({
+          exercice: this,
+          i,
+          figure: figureCorr,
+          idAddendum: 'correction',
+          isDynamic: false,
+        })
+        texte += emplacementPourFigure
+        texteCorr += emplacementPourFigureCorr
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -256,6 +265,7 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
+    if (i === undefined || this.figuresApiGeom === undefined) return ['KO']
     if (this.pointsA[i] == null || this.pointsB[i] == null) return 'KO'
     const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
@@ -264,7 +274,7 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
 
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
-    this.answers[figure.id] = figure.json
+    this.answers[figure.id] = figureAnswerJson(figure)
 
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,

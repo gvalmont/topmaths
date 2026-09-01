@@ -1,14 +1,7 @@
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import {
-  arrondi,
-  nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDe,
-} from '../../lib/outils/nombres'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
@@ -27,7 +20,7 @@ export const titre =
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
 /**
  * Écriture décimale à partir de différentes manières de l'énoncé
@@ -46,7 +39,7 @@ export const uuid = 'e8e24'
 export const refs = {
   'fr-fr': ['6N1A-1'],
   'fr-2016': ['6N23-4'],
-  'fr-ch': ['9NO10-3'],
+  'fr-ch': [''], // Primaire anciennement : ['9NO10-3'],
 }
 export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice {
   constructor() {
@@ -77,7 +70,6 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, n, choix;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(2, 9)
       b = randint(2, 9, a)
@@ -139,17 +131,6 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
             texteCorr = `$${a}+${texFractionFromString(b, 10)}+${texFractionFromString(c, 10)}=${a}+${texFractionFromString(b + c, 10)}=${a}+${texNombre((b + c) / 10)}=${texNombre(reponseAMC)}$`
           }
           break
-      }
-      if (context.isAmc) {
-        const choixDigit = randint(0, 1)
-        setReponse(this, i, reponseAMC, {
-          digits:
-            nombreDeChiffresDe(reponseAMC) +
-            randint(choixDigit, choixDigit + 1),
-          decimals:
-            nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
-          signe: false,
-        })
       }
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 

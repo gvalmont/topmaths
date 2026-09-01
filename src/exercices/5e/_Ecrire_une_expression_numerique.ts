@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import {
@@ -18,11 +19,9 @@ import {
 import Exercice from '../Exercice'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale'
 import choisirExpressionNumerique from './_choisirExpressionNumerique'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const interactifReady = true
-export const interactifType = ['mathLive', 'listeDeroulante']
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/09/2023'
@@ -52,7 +51,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
   }
 
   nouvelleVersion() {
-    this.interactifType = this.version !== 2 ? 'mathLive' : 'listeDeroulante'
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup4,
@@ -101,9 +99,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
       nbOperations = listeTypeDeQuestions[i]
       val1 = randint(2, 5)
       val2 = randint(6, 9)
-      if (this.version > 2 && nbOperations === 1 && !this.litteral) {
-        nbOperations++
-      }
       if (!this.litteral) {
         const sousCas = listeSousCasParNbOperation[nbOperations - 1][i]
         resultats = choisirExpressionNumerique(
@@ -363,15 +358,17 @@ export default class EcrireUneExpressionNumerique extends Exercice {
           } else {
             texte +=
               sp(10) +
-              choixDeroulant(this, i, [
-                { label: '?', value: '' },
-                ...shuffle([
-                  { label: 'une somme', value: 'somme' },
-                  { label: 'une différence', value: 'différence' },
-                  { label: 'un produit', value: 'produit' },
-                  { label: 'un quotient', value: 'quotient' },
-                ]),
-              ])
+              choixDeroulant(this, i, {
+                choices: [
+                  { label: '?', value: '' },
+                  ...shuffle([
+                    { label: 'une somme', value: 'somme' },
+                    { label: 'une différence', value: 'différence' },
+                    { label: 'un produit', value: 'produit' },
+                    { label: 'un quotient', value: 'quotient' },
+                  ]),
+                ],
+              })
             const val =
               typeof expNom === 'string'
                 ? expNom.replace('une ', '').replace('un ', '')
@@ -381,7 +378,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               this,
               i,
               { reponse: { value: String(val) } },
-              { formatInteractif: 'listeDeroulante' },
+              { formatInteractif: 'liste-deroulante' },
             )
           }
         }

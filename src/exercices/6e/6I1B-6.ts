@@ -1,5 +1,5 @@
 import { createScratchSimulatorElement } from '@scratch2latex/scratch-core/ScratchSimulator'
-import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
+import { DomReadyActionElement } from '../../lib/customElements/DomReadyAction'
 import { choice, shuffle, shuffle4tableaux } from '../../lib/outils/arrayOutils'
 import { enumeration } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -10,7 +10,7 @@ import Exercice from '../Exercice'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 
 export const interactifReady = true
-export const interactifType = 'cliqueFigure'
+
 export const dateDePublication = '14/02/2026'
 
 export const titre = 'Trouver le bon programme Scratch'
@@ -21,6 +21,9 @@ export const refs = {
   'fr-2016': [],
   'fr-ch': [],
 }
+
+const scratchSimulatorButtonAction = '6I1B-6:scratch-simulator-button'
+
 /**
  * @author Jean-claude Lhote
  * Cet exercice utilise le simulateur Scratch (ScratchSimulator) couplé à l'interpréteur Scratch (ScratchInterpreter) de la librairie maison.
@@ -57,6 +60,7 @@ export default class TrouverLeBonProgramme extends Exercice {
   }
 
   nouvelleVersion(): void {
+    registerScratchSimulatorButton()
     let max: number = 4
     if (this.niveau === '6') {
       max = 4
@@ -68,7 +72,7 @@ export default class TrouverLeBonProgramme extends Exercice {
         'Nombres séparés par des tirets\n1 : Avancer\n2 : Tourner\n3 : Ajouter\n4 : Carré\n5 : Polygone\n6 : Rebours\n7 : Escalier\n0 : Mélange',
       ]
     }
-    this.figures = []
+    this.cliqueFiguresArray = []
     const listeTypeDeProgrammes = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -85,7 +89,7 @@ export default class TrouverLeBonProgramme extends Exercice {
           : this.sup2 === 3
             ? 2000
             : 4000
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeDeProgrammes = [
         getProgrammesAvancer,
         getProgrammesTourner,
@@ -148,7 +152,7 @@ export default class TrouverLeBonProgramme extends Exercice {
       )
       const ligne2 = programmes.programmesListe
       this.autoCorrection[i] = {}
-      setCliqueFigure(this.autoCorrection[i])
+      this.autoCorrection[i].formatInteractif = 'clique-figure'
       this.autoCorrection[i].enonce = programmes.enonce
       this.autoCorrection[i].propositions = [
         {
@@ -172,7 +176,7 @@ export default class TrouverLeBonProgramme extends Exercice {
           statut: vraisOuFaux[4],
         },
       ]
-      this.figures[i] = [
+      this.cliqueFiguresArray[i] = [
         {
           solution: vraisOuFaux[0],
           id: `cliqueFigure0Ex${this.numeroExercice}Q${i}`,
@@ -197,13 +201,6 @@ export default class TrouverLeBonProgramme extends Exercice {
 
       const ligne2Brut =
         programmes.programmesCodeBrut || programmes.programmesListe
-      const simulateurs = ligne2Brut.map((code) =>
-        createScratchSimulatorElement(
-          code.replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
-          delai,
-          false,
-        ),
-      )
       if (context.isHtml) {
         texte +=
           '<div style="margin: 20px 0; display: flex; flex-wrap: wrap; gap: 12px; width: 100%; align-items: flex-start;">'
@@ -285,7 +282,21 @@ export default class TrouverLeBonProgramme extends Exercice {
             ${
               context.isHtml
                 ? `<div style="margin: 20px 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); width: 100%; align-self: stretch;">
-     ${simulateurs.map((s, i) => `<div style="border: 1px solid #ddd; padding: 10px;"><div style="font-weight: 600; margin-bottom: 8px;">Programme ${i + 1}</div>${s}</div>`).join('')}</div>`
+     ${ligne2Brut
+       .map(
+         (codeScratch, i) =>
+           `<div style="border: 1px solid #ddd; padding: 10px;"><div style="font-weight: 600; margin-bottom: 8px;">Programme ${i + 1}</div>${DomReadyActionElement.create(
+             {
+               action: scratchSimulatorButtonAction,
+               payload: {
+                 codeScratch,
+                 delai,
+                 insertProgramme: context.isTypst,
+               },
+             },
+           )}</div>`,
+       )
+       .join('')}</div>`
                 : ''
             }`,
         )
@@ -294,6 +305,43 @@ export default class TrouverLeBonProgramme extends Exercice {
       cpt++
     }
   }
+}
+
+let scratchSimulatorButtonRegistered = false
+
+function registerScratchSimulatorButton() {
+  if (scratchSimulatorButtonRegistered) return
+  scratchSimulatorButtonRegistered = true
+  DomReadyActionElement.registerCallback<{
+    codeScratch: string
+    delai: number
+    insertProgramme: boolean
+  }>(scratchSimulatorButtonAction, ({ element, payload }) => {
+    element.innerHTML = ''
+    element.classList.add('mt-3', 'block')
+    const button = document.createElement('button')
+    const simulatorContainer = document.createElement('div')
+    button.type = 'button'
+    button.textContent = 'Lancer le simulateur'
+    button.className =
+      'inline-flex items-center px-3 py-2 bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas font-medium text-xs rounded shadow-md hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest focus:bg-coopmaths-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:outline-none transition duration-150 ease-in-out'
+
+    const onClick = () => {
+      simulatorContainer.innerHTML = createScratchSimulatorElement(
+        payload.codeScratch,
+        payload.delai,
+        payload.insertProgramme,
+      )
+    }
+
+    button.addEventListener('click', onClick)
+    element.append(button, simulatorContainer)
+
+    return () => {
+      button.removeEventListener('click', onClick)
+      element.innerHTML = ''
+    }
+  })
 }
 function programmeAvancerType1(nbPas: number, vraiOuFaux: boolean) {
   let codeScratch = `\\begin{scratch}[blocks, scale=0.6]
@@ -317,7 +365,7 @@ function programmeAvancerType2(nbPas: number, vraiOuFaux: boolean) {
 \\blockrepeat{répéter \\ovalnum{${vraiOuFaux ? nbPas - 1 : nbPas}} fois}{
 \\blockmove{avancer de \\ovalnum{20} pas}
 }
-\\end{scratch}\n`
+\\end{scratch}`
   return codeScratch
 }
 
@@ -330,7 +378,7 @@ function programmeAvancerType3(nbPas: number, vraiOuFaux: boolean) {
 \\blockmove{avancer de \\ovalnum{20} pas}
 }
 \\blockmove{avancer de \\ovalnum{20} pas}
-\\end{scratch}\n`
+\\end{scratch}`
   return codeScratch
 }
 
@@ -344,7 +392,7 @@ function programmeAvancerType4(nbPas: number, vraiOuFaux: boolean) {
 \\blockmove{avancer de \\ovalnum{20} pas}
 }
 ${(nbPas % 2 === 1 && vraiOuFaux) || (nbPas % 2 === 0 && !vraiOuFaux) ? '\\blockmove{avancer de \\ovalnum{20} pas}' : ''}
-\\end{scratch}\n`
+\\end{scratch}`
   return codeScratch
 }
 
@@ -357,7 +405,7 @@ function programmeAvancerType5(nbPas: number, vraiOuFaux: boolean) {
 \\blockmove{avancer de \\ovalnum{10} pas}
 }
 ${vraiOuFaux ? '\\blockmove{avancer de \\ovalnum{20} pas}' : '\\blockmove{avancer de \\ovalnum{10} pas}'}
-\\end{scratch}\n`
+\\end{scratch}`
   return codeScratch
 }
 
@@ -432,7 +480,7 @@ function programmeTournerType2(angle: number, vraiOuFaux: boolean) {
 \\blockmove{tourner \\turnright{} de \\ovalnum{10} degrés}
 }
 \\blockmove{tourner \\turnleft{} de \\ovalnum{10} degrés}
-\\end{scratch}\n`
+\\end{scratch}`
   return codeScratch
 }
 
@@ -443,7 +491,7 @@ function programmeTournerType3(angle: number, vraiOuFaux: boolean) {
 \\blockmove{tourner \\turnright{} de \\ovalnum{10} degrés}
 }
 \\blockmove{tourner \\turnright{} de \\ovalnum{10} degrés}
-\\end{scratch}\n`
+\\end{scratch}`
   return codeScratch
 }
 
@@ -456,7 +504,7 @@ function programmeTournerType4(angle: number, vraiOuFaux: boolean) {
 }
 }
 ${(angle % 20 === 10 && vraiOuFaux) || (angle % 20 === 0 && !vraiOuFaux) ? '\\blockmove{tourner \\turnright{} de \\ovalnum{10} degrés}' : ''}
-\\end{scratch}\n`
+\\end{scratch}`
   return codeScratch
 }
 
@@ -467,7 +515,7 @@ function programmeTournerType5(angle: number, vraiOuFaux: boolean) {
 \\blockmove{tourner \\turnright{} de \\ovalnum{5} degrés}
 }
 ${vraiOuFaux ? '\\blockmove{tourner \\turnleft{} de \\ovalnum{10} degrés}' : '\\blockmove{tourner \\turnright{} de \\ovalnum{10} degrés}'}
-\\end{scratch}\n`
+\\end{scratch}`
   return codeScratch
 }
 

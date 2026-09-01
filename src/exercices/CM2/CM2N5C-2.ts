@@ -1,7 +1,7 @@
 import QuestionsMasses from '../6e/6N5-2'
 export const titre = 'Résoudre des problèmes de masses'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -18,7 +18,7 @@ export const uuid = 'ec3cc'
 export const refs = {
   'fr-fr': ['CM2N5C-2'],
   'fr-2016': ['c3C13-1'],
-  'fr-ch': ['9FA3-22'],
+  'fr-ch': ['9FA2B-15'],
 }
 export default class QuestionsMassesCM extends QuestionsMasses {
   constructor() {

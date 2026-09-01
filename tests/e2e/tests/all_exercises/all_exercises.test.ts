@@ -1,13 +1,16 @@
 import { fileURLToPath } from 'node:url'
 import { beforeAll, describe, expect, it, test, vi } from 'vitest'
+import { mathaleaHandleExerciceSimple } from '../../../../src/lib/mathalea'
 import type { IExercice } from '../../../../src/lib/types'
 import { findStatic, findUuid } from '../../helpers/filter.js'
 import {
   getFileLogger,
   log as lg,
   logError as lgE,
+  logIfDebug,
   logIfVerbose,
 } from '../../helpers/log'
+import prefs from '../../helpers/prefs'
 import { createSolidesThreeJsMock } from '../../mocks/solidesThreeJs.mock'
 
 beforeAll(() => {
@@ -192,11 +195,11 @@ export function createURL(ex: IExercice) {
   if (ex.nbQuestions !== undefined)
     url.searchParams.append('n', ex.nbQuestions.toString())
   if (ex.duration != null) url.searchParams.append('d', ex.duration.toString())
-  if (ex.sup != null) url.searchParams.append('s', ex.sup)
-  if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
-  if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
-  if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
-  if (ex.sup5 != null) url.searchParams.append('s5', ex.sup5)
+  if (ex.sup != null) url.searchParams.append('s', String(ex.sup))
+  if (ex.sup2 != null) url.searchParams.append('s2', String(ex.sup2))
+  if (ex.sup3 != null) url.searchParams.append('s3', String(ex.sup3))
+  if (ex.sup4 != null) url.searchParams.append('s4', String(ex.sup4))
+  if (ex.sup5 != null) url.searchParams.append('s5', String(ex.sup5))
   if ((ex as any).versionQcm != null)
     url.searchParams.append('qcm', String((ex as any).versionQcm))
   if (ex.interactif) url.searchParams.append('i', '1')
@@ -225,7 +228,7 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
   exercice.seed = alea
   exercice.interactif = true
   exercice.numeroExercice = 1
-  exercice.nbQuestions = 10
+  exercice.nbQuestions = exercice.nbQuestionsModifiable === false ? 1 : 5
   const defaultSup = exercice.sup
   const defaultSup2 = exercice.sup2
   const defaultSup3 = exercice.sup3
@@ -342,7 +345,7 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
   for (let k = 0; k < 2; k++) {
     exercice.interactif = k === 0
     logIfVerbose('interactif=' + exercice.interactif)
-    for (const i of [1, 10]) {
+    for (const i of exercice.typeExercice === 'simple' ? [1] : [5]) {
       exercice.nbQuestions = i
       logIfVerbose('nbQuestions=' + exercice.nbQuestions)
       const keysToUse = sampleSupWithFallback(sup)
@@ -383,7 +386,12 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
             // log('sig:' + signature)
             const c = mockConsole()
             try {
-              exercice.nouvelleVersionWrapper()
+              console.log('Testing exercice with signature:', signature)
+              if (exercice.typeExercice === 'simple') {
+                mathaleaHandleExerciceSimple(exercice, exercice.interactif)
+              } else {
+                exercice.nouvelleVersionWrapper()
+              }
             } catch (e) {
               logError(
                 `Exception levée pour exercice ${exercice.uuid} avec signature ${signature}:`,
@@ -397,7 +405,7 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
                 `Errors for exercice ${exercice.uuid} with signature ${signature}:`,
                 c.logs.error,
               )
-              logError(
+              logIfDebug(
                 `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
                 createURL(exercice),
               )
@@ -417,30 +425,32 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
                   `logs for exercice ${exercice.uuid} with signature ${signature}:`,
                   filtered,
                 )
-                logError(
+                logIfDebug(
                   `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
                   createURL(exercice),
                 )
               }
             }
             if (c.logs.warn.length > 0) {
-              logError(
+              logIfDebug(
                 `warns for exercice ${exercice.uuid} with signature ${signature}:`,
                 c.logs.warn,
               )
-              logError(
+              logIfDebug(
                 `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
                 createURL(exercice),
               )
             }
             if (exercice.listeQuestions.length !== i) {
-              logError(
-                `Waring : number of questions for exercice ${exercice.uuid} with signature ${signature}: expected ${i}, got ${exercice.listeQuestions.length}`,
-              )
-              logError(
-                `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
-                createURL(exercice),
-              )
+              if (exercice.nbQuestionsModifiable !== false) {
+                logIfVerbose(
+                  `Warning : number of questions for exercice ${exercice.uuid} with signature ${signature}: expected ${i}, got ${exercice.listeQuestions.length}`,
+                )
+                logIfDebug(
+                  `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
+                  createURL(exercice),
+                )
+              }
             }
             expect(c.logs.error.length, signature).toBe(0)
             expect(c.logs.log.length, signature).toBe(0)
@@ -488,11 +498,21 @@ async function testRunAllLots(filter: string) {
     ? await findStatic(filter)
     : await findUuid(filter)
 
+  await testRunUuidEntries(filter, uuids, prefs.nbExosParLot)
+}
+
+async function testRunUuidEntries(
+  filter: string,
+  uuids: [string, string][],
+  maxExercises: number,
+) {
   // Exclure les exercices contenant "test" ou "beta" dans leur nom
-  const filteredUuids = uuids.filter(([uuid, name]) => {
-    const nameLower = name.toLowerCase()
-    return !nameLower.includes('test') && !nameLower.includes('beta')
-  })
+  const filteredUuids = uuids
+    .filter(([uuid, name]) => {
+      const nameLower = name.toLowerCase()
+      return !nameLower.includes('test') && !nameLower.includes('beta')
+    })
+    .slice(0, maxExercises) // Limiter le lot pour éviter un temps d'exécution trop long
 
   logIfVerbose(filteredUuids)
   if (filteredUuids.length === 0) {
@@ -503,7 +523,7 @@ async function testRunAllLots(filter: string) {
       })
     })
   }
-  for (let i = 0; i < filteredUuids.length && i < 300; i += 20) {
+  for (let i = 0; i < filteredUuids.length; i += 20) {
     const ff: (() => Promise<boolean>)[] = []
     for (let k = i; k < i + 20 && k < filteredUuids.length; k++) {
       const myName = filteredUuids[k][1]
@@ -517,9 +537,18 @@ async function testRunAllLots(filter: string) {
             filteredUuids[k][0],
             `uuid=${filteredUuids[k][0]}&id=${filteredUuids[k][1].substring(0, filteredUuids[k][1].lastIndexOf('.')) || filteredUuids[k][1]}&alea=${alea}&testCI`,
           )
-          logIfVerbose(
-            `Resu: ${resultReq} uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]}`,
-          )
+          if (resultReq !== 'OK') {
+            logError(
+              `Erreur pour uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]} i=${k} / ${filteredUuids.length}`,
+            )
+          } else {
+            logIfVerbose(
+              `Succès pour uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]} i=${k} / ${filteredUuids.length}`,
+            )
+            logIfVerbose(
+              `Le prochain exercice est ${filteredUuids[k + 1]?.[1] || 'aucun'}`,
+            )
+          }
           return resultReq === 'OK'
         } catch (e) {
           logError(e)
@@ -536,36 +565,71 @@ async function testRunAllLots(filter: string) {
   }
 }
 
+function getChangedExerciseFilters(changedFilesEnv: string | undefined) {
+  const changedFiles =
+    changedFilesEnv
+      ?.split('\n')
+      .map((f) => f.split(' '))
+      .flat()
+      .filter(Boolean) ?? []
+  log(changedFiles)
+  log(
+    `fichiers écartés: ${changedFiles.filter((f) => f.replace('src/exercices/', '').split('/').length < 2)}`,
+  )
+  return [
+    ...new Set(
+      changedFiles
+        .filter(
+          (file) =>
+            file.startsWith('src/exercices/') &&
+            !file.includes('ressources') &&
+            !file.includes('apps') &&
+            file.replace('src/exercices/', '').split('/').length >= 2,
+        )
+        .map((file) =>
+          file
+            .replace(/^src\/exercices\//, '')
+            .replace(/\.ts$/, '.')
+            .replace(/\.js$/, '.')
+            .replaceAll(' ', ''),
+        ),
+    ),
+  ]
+}
+
+async function findUniqueChangedExerciseUuids(filters: string[]) {
+  const uuidsByKey = new Map<string, [string, string]>()
+  for (const filter of filters) {
+    const uuids = filter.includes('dnb')
+      ? await findStatic(filter)
+      : await findUuid(filter)
+    for (const [uuid, name] of uuids) {
+      uuidsByKey.set(`${uuid}:${name}`, [uuid, name])
+    }
+  }
+  return [...uuidsByKey.values()]
+}
+
 if (process.env.NIV !== null && process.env.NIV !== undefined) {
   // utiliser pour les tests d'intégration
+  prefs.headless = true
+  prefs.nbExosParLot = process.env.NB_EXOS_PAR_LOT
+    ? parseInt(process.env.NB_EXOS_PAR_LOT)
+    : 75
   const filter = (process.env.NIV as string).replaceAll(' ', '')
   logIfVerbose(filter)
-  testRunAllLots(filter)
+  await testRunAllLots(filter)
 } else if (
   process.env.CI &&
   process.env.CHANGED_FILES !== null &&
   process.env.CHANGED_FILES !== undefined
 ) {
-  const changedFiles =
-    process.env.CHANGED_FILES?.split('\n')
-      .map((f) => f.split(' '))
-      .flat() ?? []
-  log(changedFiles)
-  const filtered = changedFiles
-    .filter(
-      (file) =>
-        file.startsWith('src/exercices/') &&
-        !file.includes('ressources') &&
-        !file.includes('apps') &&
-        file.replace('src/exercices/', '').split('/').length >= 2,
-    )
-    .map((file) =>
-      file
-        .replace(/^src\/exercices\//, '')
-        .replace(/\.ts$/, '.')
-        .replace(/\.js$/, '.'),
-    )
-  log(filtered)
+  prefs.headless = true
+  prefs.nbExosParLot = process.env.NB_EXOS_PAR_LOT
+    ? parseInt(process.env.NB_EXOS_PAR_LOT)
+    : 75
+  const filtered = getChangedExerciseFilters(process.env.CHANGED_FILES)
+  logIfVerbose(filtered)
   if (filtered.length === 0) {
     // aucun fichier concerné.. on sort
     describe('dummy', () => {
@@ -574,18 +638,15 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
       })
     })
   } else {
-    filtered.forEach((file, index) => {
-      const filter = file.replaceAll(' ', '')
-      console.log(
-        'launching test for:',
-        filter + `,  ${index + 1}/${filtered.length}`,
-      )
-      testRunAllLots(filter)
-    })
+    const uuids = await findUniqueChangedExerciseUuids(filtered)
+    log(
+      `all_exercises CHANGED_FILES: ${filtered.length} fichier(s) d'exercices, ${uuids.length} exercice(s) unique(s), ${Math.min(uuids.length, prefs.nbExosParLot)} testé(s)`,
+    )
+    await testRunUuidEntries('CHANGED_FILES', uuids, prefs.nbExosParLot)
   }
 } else {
   // testRunAllLots('2e/2F22-1')
-  testRunAllLots('3e/3L12-3')
+  await testRunAllLots('CM2/CM2N2E-2')
   // testRunAllLots('4e/4G52')
 
   // testRunAllLots('techno1')

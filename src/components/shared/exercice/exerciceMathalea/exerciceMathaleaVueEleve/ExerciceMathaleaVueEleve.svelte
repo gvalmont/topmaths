@@ -4,10 +4,14 @@
   import { get } from 'svelte/store'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
+  import { afficheAlerteUniteManquante } from '../../../../../lib/interactif/afficheScore'
   import {
+    exerciceAUneUniteManquante,
+    exerciceContientCliqueFigure,
     exerciceInteractif,
     prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
+  import { decodeAnswers } from '../../../../../lib/lms/answersCodec'
   import {
     mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
@@ -30,7 +34,6 @@
   import { loadMathLive } from '../../../../../modules/loaders'
   import { statsTracker } from '../../../../../modules/statsUtils'
   import { countMathField } from '../../countMathField'
-  import { handleCorrectionAffichee } from '../../handleCorrection'
   import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
   import Question from './presentationalComponents/Question.svelte'
@@ -42,7 +45,9 @@
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
-  let isInteractif = exercise.interactif && exercise?.interactifReady
+  let isInteractif =
+    exercise.interactifObligatoire ||
+    (exercise.interactif && exercise?.interactifReady)
 
   /*
    * MGu Attention interfaceParams est un objet qui est une copie du store,
@@ -70,10 +75,21 @@
       log('new interfaceParams subscribe:' + JSON.stringify(interfaceParams))
       interfaceParams = value[exerciseIndex]
     }
+    if (
+      exercise.interactifObligatoire &&
+      interfaceParams &&
+      interfaceParams.interactif !== '1'
+    ) {
+      exercise.interactif = true
+      interfaceParams.interactif = '1'
+      exercicesParams.update((params) => params)
+    }
   })
 
   // une variable locale car si on modifie isCorrectionVisible, parfois elle devient undefined
   let isCorrectVisible = isCorrectionVisible
+  // résultat (correct/incorrect) de chaque question, utilisé pour n'afficher la correction que sous les questions fausses
+  let questionsIsOk: boolean[] = []
 
   // URL-driven display toggles (only used for FlowMath recorder)
   let boutonValidationUrlFlag = true
@@ -83,7 +99,10 @@
   let title: string
   $: {
     const reference = exercise.id ?? ''
-    if ($globalOptions.isTitleDisplayed && $globalOptions.isReferenceDisplayed) {
+    if (
+      $globalOptions.isTitleDisplayed &&
+      $globalOptions.isReferenceDisplayed
+    ) {
       title = reference ? `${reference} - ${exercise.titre}` : exercise.titre
     } else if ($globalOptions.isTitleDisplayed) {
       title = exercise.titre
@@ -93,10 +112,6 @@
       title = ''
     }
   }
-  // Evènement indispensable pour pointCliquable par exemple
-  const exercicesAffiches = new window.Event('exercicesAffiches', {
-    bubbles: true,
-  })
 
   let numberOfAnswerFields: number = 0
   let lastRenderedSignature = ''
@@ -123,7 +138,7 @@
     exercise.numeroExercice = exerciseIndex
   }
 
-  function updateAnswers() {
+  async function updateAnswers() {
     if ($globalOptions.done === '1' && $globalOptions.recorder !== 'capytale') {
       const q1 = document.querySelector<HTMLElement>(
         '#exercice' + exercise.numeroExercice + 'Q0',
@@ -134,14 +149,9 @@
         field.setAttribute('disabled', 'true')
       })
       const url = new URL(window.location.href)
-      // Pour Moodle, les réponses sont dans l'URL
+      // Pour Moodle, les réponses sont dans l'URL, compressées ou en JSON brut
       const answers = url.searchParams.get('answers')
-      const objAnswers = answers ? JSON.parse(answers) : undefined
-      if (
-        JSON.stringify($globalOptions.answers) === JSON.stringify(objAnswers)
-      ) {
-        $globalOptions.answers = objAnswers
-      }
+      const objAnswers = answers ? await decodeAnswers(answers) : undefined
       mathaleaUpdateUrlFromExercicesParams()
       Promise.all(mathaleaWriteStudentPreviousAnswers(objAnswers)).then(() => {
         // une fois que les réponses sont chargées et on en est sûr, on clique...
@@ -240,7 +250,7 @@
         log('end loadMathLive')
         time = window.performance.now()
         log('duration loadMathLive:' + (time - starttime))
-        if (exercise.interactifType === 'cliqueFigure' && !isCorrectVisible) {
+        if (exerciceContientCliqueFigure(exercise) && !isCorrectVisible) {
           prepareExerciceCliqueFigure(exercise)
         }
         time = window.performance.now()
@@ -251,10 +261,6 @@
         time = window.performance.now()
         log('duration updateAnswers:' + (time - starttime))
       }
-    }
-    document.dispatchEvent(exercicesAffiches)
-    if (isCorrectVisible) {
-      handleCorrectionAffichee()
     }
     log(
       'afterUpdate:n° ' +
@@ -273,6 +279,7 @@
     log('newData:' + exercise.id + ', v:' + $globalOptions.v)
     exercise.isDone = false
     if (isCorrectVisible) switchCorrectionVisible(false)
+    questionsIsOk = []
     exercise.seed = generateFreshSeed()
     if (buttonScore?.dataset?.capytaleLoadAnswers === '1') {
       // si les données ont été chargées par Capytale, on remet à 0
@@ -307,7 +314,11 @@
     }
   }
   async function removeAllInteractif() {
-    if (exercise?.interactifReady && isInteractif) {
+    if (
+      exercise?.interactifReady &&
+      isInteractif &&
+      !exercise.interactifObligatoire
+    ) {
       isInteractif = false
       updateInterfaceParamsAndReLoadExerciseIfNeed()
     }
@@ -322,6 +333,7 @@
         ', v:' +
         $globalOptions.v,
     )
+    if (exercise.interactifObligatoire) isInteractif = true
     if (reloadExercise && exercise.typeExercice === 'simple') {
       if (exercise.seed === undefined) exercise.seed = generateFreshSeed()
       seedrandom(exercise.seed, { global: true })
@@ -393,8 +405,62 @@
     mathaleaUpdateUrlFromExercicesParams()
   }
 
+  function getCapytaleSerializableAnswers(
+    sourceAnswers: Record<string, string> | undefined,
+  ) {
+    if (sourceAnswers == null) return sourceAnswers
+    const serializableAnswers = { ...sourceAnswers }
+    const qcmCustomKeys = Object.keys(sourceAnswers).filter((key) =>
+      key.startsWith('mathalea-qcmEx'),
+    )
+    for (const customKey of qcmCustomKeys) {
+      const legacyPrefix = customKey.replace('mathalea-qcm', '')
+      for (const key of Object.keys(serializableAnswers)) {
+        if (key === legacyPrefix || key.startsWith(`${legacyPrefix}R`)) {
+          delete serializableAnswers[key]
+        }
+      }
+    }
+    const dragAndDropCustomKeys = Object.keys(sourceAnswers).filter((key) =>
+      key.startsWith('drag-and-dropEx'),
+    )
+    for (const customKey of dragAndDropCustomKeys) {
+      const legacyPrefix = customKey.replace('drag-and-drop', '')
+      for (const key of Object.keys(serializableAnswers)) {
+        if (
+          key === legacyPrefix ||
+          key.startsWith(`rectangleDND${legacyPrefix}`) ||
+          key.startsWith(`texteDND${legacyPrefix}`)
+        ) {
+          delete serializableAnswers[key]
+        }
+      }
+    }
+    const cliqueFigureCustomKeys = Object.keys(sourceAnswers).filter((key) =>
+      key.startsWith('clique-figureEx'),
+    )
+    for (const customKey of cliqueFigureCustomKeys) {
+      const legacySuffix = customKey.replace('clique-figure', '')
+      for (const key of Object.keys(serializableAnswers)) {
+        if (key.startsWith('cliquefigure') && key.endsWith(legacySuffix)) {
+          delete serializableAnswers[key]
+        }
+      }
+    }
+    return serializableAnswers
+  }
+
   async function verifExerciceVueEleve() {
     log('verifExerciceVueEleve')
+    exercise.nbTentativesVerification =
+      (exercise.nbTentativesVerification ?? 0) + 1
+    if (
+      exercise.nbTentativesVerification === 1 &&
+      exerciceAUneUniteManquante(exercise)
+    ) {
+      afficheAlerteUniteManquante(divScore)
+      return
+    }
     if (exercise.numeroExercice != null && !(exercise.isDone === true))
       statsTracker(
         exercise,
@@ -406,11 +472,9 @@
 
     if (exercise.numeroExercice != null) {
       const previousBestScore = interfaceParams?.bestScore ?? 0
-      const { numberOfPoints, numberOfQuestions } = exerciceInteractif(
-        exercise,
-        divScore,
-        buttonScore,
-      )
+      const { numberOfPoints, numberOfQuestions, perQuestionIsOk } =
+        exerciceInteractif(exercise, divScore, buttonScore)
+      questionsIsOk = perQuestionIsOk
       const isThisTryBetter = numberOfPoints >= previousBestScore
       if (
         buttonScore.dataset.capytaleLoadAnswers === '1' &&
@@ -461,7 +525,7 @@
             indice: exercise.numeroExercice as number,
             state: 'done',
             alea: exercise.seed,
-            answers: exercise.answers,
+            answers: getCapytaleSerializableAnswers(exercise.answers),
             numberOfPoints,
             numberOfQuestions,
             bestScore,
@@ -611,6 +675,12 @@
   }
 
   function switchInteractif() {
+    if (exercise.interactifObligatoire) {
+      isInteractif = true
+      exercise.interactif = true
+      updateInterfaceParamsAndReLoadExerciseIfNeed()
+      return
+    }
     if (isCorrectVisible) switchCorrectionVisible()
     isInteractif = !isInteractif
     exercise.interactif = isInteractif
@@ -669,6 +739,7 @@
         showInteractivityButton={$globalOptions.recorder === 'flowmath'
           ? boutonInteractiviteUrlFlag
           : true}
+        showNewDataButton={!exercise.pasDeVersionAleatoire}
       />
       <article
         class=" {$isMenuNeededForExercises
@@ -720,6 +791,8 @@
                 {questionIndex}
                 {exerciseIndex}
                 isCorrectionVisible={isCorrectVisible}
+                isQuestionCorrect={questionsIsOk[questionIndex]}
+                hideCorrectionOnSuccess={$globalOptions.isCorrectionOnlyOnError}
               />
             {/each}
             <div bind:this={divScore} id="divScoreEx{exerciseIndex}"></div>

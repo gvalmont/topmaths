@@ -8,6 +8,7 @@ import {
 } from '../../lib/2d/representantVecteur'
 import { latex2d } from '../../lib/2d/textes'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -24,9 +25,8 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre = 'Calculer un  produit scalaire avec des coordonnées'
 export const dateDePublication = '29/04/2025'
 export const dateDeModifImportante = '13/03/2026'
@@ -268,7 +268,7 @@ export default class ProduitScalaireCoordonnees extends Exercice {
                 Calculer $\\vec{u}\\cdot\\vec{v}$.`
             texte += mathalea2d(
               Object.assign(
-                { scale: 0.7, pixelsParCm: 30, style: 'inline' },
+                { scale: 0.7, pixelsParCm: 30, display: 'inline' } as const,
                 fixeBordures(objets),
               ),
               objets,

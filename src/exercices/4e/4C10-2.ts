@@ -2,7 +2,7 @@ import SigneProduitQuotientRelatifs from './4C10-0'
 
 export const dateDeModifImportante = '02/11/2025'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = "Donner le signe d'un quotient de nombres relatifs"
@@ -16,7 +16,7 @@ export const uuid = 'aa4f9'
 
 export const refs = {
   'fr-fr': ['4C10-2'],
-  'fr-ch': ['10NO4-4'],
+  'fr-ch': ['9NO2C-4'],
 }
 
 export default class SigneQuotientRelatifs extends SigneProduitQuotientRelatifs {

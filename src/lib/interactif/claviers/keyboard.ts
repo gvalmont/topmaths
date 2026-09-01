@@ -8,8 +8,10 @@ const KEYBOARD_CATEGORIES = [
   'angles',
   'clavierHms',
   'clavierDeBase',
+  'clavierPersonnalisable',
   'clavierLimites',
   'clavierLectureLimites',
+  'clavierLimitesSimple',
   'clavierCompare',
   'clavierCompareAvecNombres',
   'clavierDeBaseAvecX',
@@ -44,6 +46,7 @@ const KEYBOARD_CATEGORIES = [
   'vFON',
   'volume',
   'variableN',
+  'algo',
 ] as const
 
 export type KeyboardCategory = (typeof KEYBOARD_CATEGORIES)[number] // on crée le type à partir du tableau de strings comme un union type de toutes les strings
@@ -107,12 +110,18 @@ export const convertKeyboardTypeToBlocks = (
   switch (type) {
     case KeyboardType.clavierDeBase:
       return ['numbersOperations']
+    // Base sobre : les touches spécifiques à chaque question sont ajoutées
+    // par `dataKeys` (voir `components/keyboard/lib/touchesPersonnalisees.ts`).
+    case KeyboardType.clavierPersonnalisable:
+      return ['numbers', 'basicOperations']
     case KeyboardType.college6eme: // A supprimer
       return ['numbersOperations']
     case KeyboardType.clavierLimites:
       return ['limites']
     case KeyboardType.clavierLectureLimites:
       return ['lectureLimites']
+    case KeyboardType.clavierLimitesSimple:
+      return ['limitesSimple']
     case KeyboardType.vFON:
       return ['numbersOperations', 'vFON']
     case KeyboardType.clavierDeBaseAvecX:
@@ -202,6 +211,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'estOuestSudNord']
     case KeyboardType.nombresEtDegreCelsius:
       return ['numbers', 'degreCelsius']
+    case KeyboardType.algo:
+      return ['numbers', 'algo']
 
     default:
       window.notify(
@@ -293,8 +304,8 @@ const shortcutsByKeyboards = {
   default: {
     // D: { mode: 'math', value: 'd' }, // On avait un problème avec la notation D et mathLive
     '*': { mode: 'math', value: '\\times' },
-    '.': { mode: 'math', value: '{,}' },
-    ',': { mode: 'math', value: '{,}' },
+    '.': { mode: 'math', value: ',' },
+    ',': { mode: 'math', value: ',' },
     '%': { mode: 'math', value: '\\%' },
     '²': { mode: 'math', value: '^2' },
     '³': { mode: 'math', value: '^3' },
@@ -413,5 +424,11 @@ const shortcutsByKeyboards = {
 
   numbersSpace: {
     ' ': '\\,',
+  },
+  algo: {
+    '>': { mode: 'math', value: '\\rightarrow' },
+    '<': { mode: 'math', value: '\\leftarrow' },
+    '^': { mode: 'math', value: '\\uparrow' },
+    v: { mode: 'math', value: '\\downarrow' },
   },
 } as ShortcutsByKeyboards

@@ -1,4 +1,3 @@
-
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
@@ -7,12 +6,11 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Compter le nombre d'axe de symétrie d'une figure"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '7102b'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -26,7 +24,7 @@ export default class NomExercice extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-this.optionsChampTexte = { texteApres: '.' }
+    this.optionsChampTexte = { texteApres: '.' }
     this.canOfficielle = false
   }
 
@@ -63,7 +61,7 @@ this.optionsChampTexte = { texteApres: '.' }
     objets1.push(P1, code1, code2, code3)
     objets2.push(P2, code1b, code1c, code2c, code3c, code4c, code2b, code3)
     objets3.push(P3, code1c, code3d, code4d)
-    const choix = randint(1, 3)
+    const choix = this.quotaRandint('choix', 1, 3)
     if (this.canOfficielle) {
       this.reponse = 2
       this.question = mathalea2d(
@@ -76,7 +74,7 @@ this.optionsChampTexte = { texteApres: '.' }
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.8,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets1,
       )
@@ -96,7 +94,7 @@ this.optionsChampTexte = { texteApres: '.' }
             mainlevee: false,
             amplitude: 0.5,
             scale: 0.8,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets1,
         )
@@ -117,7 +115,7 @@ this.optionsChampTexte = { texteApres: '.' }
             mainlevee: false,
             amplitude: 0.5,
             scale: 0.8,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets2,
         )
@@ -137,7 +135,7 @@ this.optionsChampTexte = { texteApres: '.' }
             mainlevee: false,
             amplitude: 0.5,
             scale: 0.8,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           objets3,
         )

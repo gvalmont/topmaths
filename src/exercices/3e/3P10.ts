@@ -11,7 +11,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Étudier des variations en pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Problèmes de variations en pourcentage
@@ -27,8 +26,8 @@ export const interactifType = 'mathLive'
 export const uuid = '0bcef'
 
 export const refs = {
-  'fr-fr': ['3P10', '3AutoP08-1'],
-  'fr-ch': ['10FA4-5'],
+  'fr-fr': ['3P10', '3AutoP03-3'],
+  'fr-ch': ['10FA2B-12'],
 }
 export default class EvolutionsEnPourcentage extends Exercice {
   onlyMoney = false
@@ -70,7 +69,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
       this.nbQuestions,
     )
     let date, cetteAnnee, anneeDerniere, etablissement, facture, nb
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let depart, arrive, taux, coeff, reponse
       let texte = ''
       let texteApres = ''

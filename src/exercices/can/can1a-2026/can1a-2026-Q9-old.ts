@@ -1,12 +1,13 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
-export const titre = 'Donner les coordonnées du sommet à partir d\'une forme canonique'
+export const titre =
+  "Donner les coordonnées du sommet à partir d'une forme canonique"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'fqsqa'
 export const refs = {
   'fr-fr': [],

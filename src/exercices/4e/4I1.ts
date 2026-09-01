@@ -1,7 +1,7 @@
 import { createScratchSimulatorElement } from '@scratch2latex/scratch-core/ScratchSimulator'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
-import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
+import { DomReadyActionElement } from '../../lib/customElements/DomReadyAction'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
@@ -20,7 +20,6 @@ import Exercice from '../Exercice'
 export const titre = 'Dessiner avec scratch'
 export const dateDeModifImportante = '10/06/2025'
 export const interactifReady = true
-export const interactifType = 'cliqueFigure'
 
 /**
  * Dessiner selon un programme scratch
@@ -35,12 +34,16 @@ export const refs = {
   'fr-fr': ['4I1', '3AutoI01-1'],
   'fr-ch': ['autres-16'],
 }
+
+const scratchSimulatorButtonAction = '4I1:scratch-simulator-button'
+
 export default class TracerAvecScratch extends Exercice {
   constructor() {
     super()
+    registerScratchSimulatorButton()
     this.consigne =
       'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
-    this.typeExercice = 'Scratch'
+
     this.nbQuestions = 3
   }
 
@@ -52,7 +55,7 @@ export default class TracerAvecScratch extends Exercice {
       this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    this.figures = [[], [], [], []]
+    this.cliqueFiguresArray = [[], [], [], []]
 
     for (
       let i = 0, texte, texteCorr, cpt = 0;
@@ -150,7 +153,7 @@ export default class TracerAvecScratch extends Exercice {
           figLutinEnonce[indiceLutin] = mathalea2d(
             Object.assign(
               {
-                style: 'display: inline-block',
+                display: 'inline-block',
                 xmin: -4,
                 ymin: -13.5,
                 xmax: 10,
@@ -158,7 +161,7 @@ export default class TracerAvecScratch extends Exercice {
                 pixelsParCm: 20,
                 scale: 0.4,
                 id: `cliquefigure${indiceLutin}Ex${this.numeroExercice}Q${i}`,
-              },
+              } as const,
               fixeBordures([lutinEnonce[indiceLutin]]),
             ),
             lutinEnonce[indiceLutin],
@@ -183,14 +186,14 @@ export default class TracerAvecScratch extends Exercice {
         const figLutinCorr = mathalea2d(
           Object.assign(
             {
-              style: 'display: inline-block',
+              display: 'inline-block',
               xmin: -4,
               ymin: -13.5,
               xmax: 10,
               ymax: 0.5,
               pixelsParCm: 20,
               scale: 0.4,
-            },
+            } as const,
             fixeBordures([lutinCorr]),
           ),
           lutinCorr,
@@ -201,22 +204,18 @@ export default class TracerAvecScratch extends Exercice {
         const enonces = []
         enonces.push({
           enonce: `
-          ${scratchblock(situations[0].codeScratch)}
-          <br>
-          ${situations[0].fig}
-          `,
+          ${scratchblock(situations[0].codeScratch)}<br>
+          ${situations[0].fig}`,
           question: '',
           correction: `
-          La figure tracée par le programme a ${situations[0].nbCotes} côtés de même longueur et ${situations[0].nbCotes} angles de même mesure, c'est un ${texteEnCouleurEtGras(situations[0].nom, bleuMathalea)}.
-          <br><br>
-          ${situations[0].fig_corr}
-          `,
+          La figure tracée par le programme a ${situations[0].nbCotes} côtés de même longueur et ${situations[0].nbCotes} angles de même mesure, c'est un ${texteEnCouleurEtGras(situations[0].nom, bleuMathalea)}.<br><br>
+          ${situations[0].fig_corr}`,
           scratchCorrection: situations[0].codeScratch,
         })
 
         return enonces
       }
-      this.figures[i] = [
+      this.cliqueFiguresArray[i] = [
         { id: `cliquefigure0Ex${this.numeroExercice}Q${i}`, solution: true },
         { id: `cliquefigure1Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `cliquefigure2Ex${this.numeroExercice}Q${i}`, solution: false },
@@ -233,7 +232,7 @@ export default class TracerAvecScratch extends Exercice {
       texteCorr = `${enonces[listeTypeDeQuestions[i] - 1].correction}`
       if (this.interactif) {
         this.autoCorrection[i] = {}
-        setCliqueFigure(this.autoCorrection[i])
+        this.autoCorrection[i].formatInteractif = 'clique-figure'
 
         texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
@@ -241,16 +240,59 @@ export default class TracerAvecScratch extends Exercice {
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] =
-          texteCorr + context.isHtml
-            ? createScratchSimulatorElement(
-                enonces[listeTypeDeQuestions[i] - 1].scratchCorrection,
-                500,
-              )
-            : ''
+          texteCorr +
+          (context.isHtml
+            ? DomReadyActionElement.create({
+                action: scratchSimulatorButtonAction,
+                payload: {
+                  codeScratch:
+                    enonces[listeTypeDeQuestions[i] - 1].scratchCorrection,
+                  delai: 500,
+                  insertProgramme: true,
+                },
+              })
+            : '')
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
+}
+
+let scratchSimulatorButtonRegistered = false
+
+function registerScratchSimulatorButton() {
+  if (scratchSimulatorButtonRegistered) return
+  scratchSimulatorButtonRegistered = true
+  DomReadyActionElement.registerCallback<{
+    codeScratch: string
+    delai: number
+    insertProgramme: boolean
+  }>(scratchSimulatorButtonAction, ({ element, payload }) => {
+    element.innerHTML = ''
+    element.classList.add('my-4', 'block')
+    const button = document.createElement('button')
+    const simulatorContainer = document.createElement('div')
+    button.type = 'button'
+    button.textContent = 'Lancer le simulateur'
+    button.className =
+      'inline-flex items-center px-4 py-2 bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas font-medium text-sm rounded shadow-md hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest focus:bg-coopmaths-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:outline-none transition duration-150 ease-in-out'
+
+    const onClick = () => {
+      simulatorContainer.innerHTML = createScratchSimulatorElement(
+        payload.codeScratch,
+        payload.delai,
+        payload.insertProgramme,
+      )
+    }
+
+    button.addEventListener('click', onClick)
+    element.append(button, simulatorContainer)
+
+    return () => {
+      button.removeEventListener('click', onClick)
+      element.innerHTML = ''
+    }
+  })
 }

@@ -1,16 +1,16 @@
 import { courbe } from '../../../lib/2d/Courbe'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Lire graphiquement un nombre dérivé'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '21/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -62,7 +62,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
     let frac: FractionEtendue
     let valueFrac: number
     let fraction = []
-    switch (choice([1, 2, 3, 4, 5])) {
+    switch (this.quotaChoice('type', [1, 2, 3, 4, 5])) {
       case 1:
         a = randint(1, 2)
         nbre = randint(-1, 1)
@@ -113,7 +113,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
               ymax: 10,
               pixelsParCm: 14,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             r,
             o,
@@ -176,7 +176,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
               ymax: 3,
               pixelsParCm: 14,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             r,
             o,
@@ -238,7 +238,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
               ymax: 12,
               pixelsParCm: 14,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             r,
             o,
@@ -306,7 +306,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
               ymax: 12,
               pixelsParCm: 14,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             r,
             o,
@@ -375,7 +375,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
               ymax: 12,
               pixelsParCm: 14,
               scale: 0.5,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             r,
             o,

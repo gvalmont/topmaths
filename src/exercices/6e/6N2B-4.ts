@@ -20,7 +20,7 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const titre =
   'Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ?'
 
@@ -36,7 +36,7 @@ export const uuid = '18559'
 export const refs = {
   'fr-fr': ['6N2B-4'],
   'fr-2016': ['6C30-6'],
-  'fr-ch': ['9NO8-5'],
+  'fr-ch': ['9NO1G-12'],
 }
 export default class MultiplierUnNombreParPuissanceDeDix extends Exercice {
   constructor() {

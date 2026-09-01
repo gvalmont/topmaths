@@ -13,12 +13,11 @@ import {
 } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un côté avec le théorème de Pythagore'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -27,7 +26,7 @@ export const interactifType = 'mathLive'
 export const uuid = '4b711'
 
 export const refs = {
-  'fr-fr': ['can4G04', 'BP2AutoR5', '3AutoG11-2'],
+  'fr-fr': ['can4G04', 'BP2AutoR5', '3AutoG11'],
   'fr-ch': [],
 }
 export default class CalculCotePythagore extends ExerciceSimple {
@@ -40,8 +39,8 @@ export default class CalculCotePythagore extends ExerciceSimple {
 
   nouvelleVersion() {
     const nom = creerNomDePolygone(3, ['QD'])
-    const a = randint(2, 5) //
-    const b = randint(6, 10) //
+    const a = this.quotaRandint('a', 2, 5) //
+    const b = this.quotaRandint('b', 6, 10) //
     const c2 = b ** 2 - a ** 2
     const A = pointAbstrait(0, 0, nom[0])
     const B = pointAdistance(A, a, -90, nom[1])
@@ -61,7 +60,7 @@ export default class CalculCotePythagore extends ExerciceSimple {
       }),
     )
     this.question = `Déterminer la valeur exacte de $${nom[1]}${nom[2]}$.<br>`
-    this.question += `${mathalea2d(Object.assign({ scale: 0.5, style: 'margin: auto; display: block' }, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
+    this.question += `${mathalea2d(Object.assign({ scale: 0.5, display: 'block', center: !context.isHtml } as const, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
     this.optionsChampTexte = { texteAvant: `<br>$${nom[1]}${nom[2]}=$` }
     this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
       On obtient :<br><br>

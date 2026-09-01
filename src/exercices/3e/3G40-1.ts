@@ -17,7 +17,6 @@ import Exercice from '../Exercice'
 export const dateDePublication = '13/07/2025'
 export const titre = 'Utiliser le repérage géodésique'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const uuid = '75ea3'
 
@@ -219,7 +218,7 @@ function choisirNVillesAssezLointaines(n: number) {
     })
 
     let cpt = 0
-    for (let i = 0; i < n && cpt < 100; ) {
+    for (let i = 0; i < n && cpt < 100;) {
       const ville = choice(listeVilles)
       if (
         !villes.some(
@@ -290,23 +289,21 @@ function buildSceneContent(
         position: [0, 10, -100],
       },
       // Points des villes
-      ...villes.map(
-        (ville): GeoPointDescription => ({
-          type: 'geoPoint',
-          latitude: ville.latitude,
-          longitude: ville.longitude,
-          spherePosition: [0, 0, 0],
-          sphereRadius: 4,
-          label: ville.label,
-          labelOffset: ville.labelOffset,
-          pointColor: ville.pointColor,
-          pointRadius: ville.pointRadius,
-          labelColor: ville.labelColor,
-          labelSize: ville.labelSize,
-          font: ville.font,
-          transparent: ville.transparent,
-        }),
-      ),
+      ...villes.map((ville): GeoPointDescription => ({
+        type: 'geoPoint',
+        latitude: ville.latitude,
+        longitude: ville.longitude,
+        spherePosition: [0, 0, 0],
+        sphereRadius: 4,
+        label: ville.label,
+        labelOffset: ville.labelOffset,
+        pointColor: ville.pointColor,
+        pointRadius: ville.pointRadius,
+        labelColor: ville.labelColor,
+        labelSize: ville.labelSize,
+        font: ville.font,
+        transparent: ville.transparent,
+      })),
       // Graduations de l'équateur (longitudes)
       ...points,
       // Graduations des méridiens (latitudes)
@@ -320,8 +317,6 @@ function buildSceneContent(
 }
 
 export default class ReperageSurLaTerre extends Exercice {
-  destroyers = []
-
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['3D dynamique', true]
@@ -440,14 +435,14 @@ export default class ReperageSurLaTerre extends Exercice {
       for (let i = 0; i < this.nbQuestions; i++) {
         const ville = villes[i]
         const choix = choice(['latitude', 'longitude']) satisfies
-          | 'latitude'
-          | 'longitude'
+          'latitude' | 'longitude'
         const question =
           `Quelle est la ${choix} de ${ville.label} ?` +
           ajouteQuestionMathlive({
             exercice: this,
             question: i,
             typeInteractivite: 'fillInTheBlank',
+            reponseParams: { formatInteractif: 'fill-in-the-blank' },
             content: '%{champ1}°%{champ2}',
             classe: KeyboardType.geolocalisation,
             objetReponse: {
@@ -479,8 +474,7 @@ export default class ReperageSurLaTerre extends Exercice {
       for (let i = 0; i < this.nbQuestions; i++) {
         const ville = villes[i]
         const choix = choice(['latitude', 'longitude']) satisfies
-          | 'latitude'
-          | 'longitude'
+          'latitude' | 'longitude'
         const question = `Quelle est la ${choix} de ${ville.label} dont les coordonnées GPS sont $(~${texNombre(Math.round(ville.latitude), 0)}~;~${texNombre(Math.round(ville.longitude), 0)}~)$ ?<br>
          On donnera la réponse arrondie à l'unité, sous la forme d'un angle positif avec son orientation (N, S, E ou O).`
         const correction = `La ${choix} de ${ville.label} est d'environ $${miseEnEvidence(

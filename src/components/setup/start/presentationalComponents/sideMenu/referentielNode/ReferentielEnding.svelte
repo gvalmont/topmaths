@@ -2,6 +2,7 @@
   import katex from 'katex'
   import { onDestroy, tick } from 'svelte'
   import {
+    isBanqueExterneType,
     isExerciceItemInReferentiel,
     isGeoDynamic,
     isTool,
@@ -9,8 +10,10 @@
     resourceHasPlace,
     type JSONReferentielEnding,
   } from '../../../../../../lib/types/referentiels'
+  import { MAX_ETOILES } from '../../../../../../lib/types/banquesExternes'
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   import { mathaleaGenerateSeed } from '../../../../../../lib/mathalea'
+  import { scrollToLastExercise } from '../../../../../../lib/scrollToLastExercise'
   import {
     changes,
     exercicesParams,
@@ -20,6 +23,7 @@
   import { isLessThan1Month } from '../../../../../../lib/types/dates'
   import SelectedIndicator from '../../../../../shared/forms/SelectedIndicator.svelte'
   import NoInteractivityIcon from '../../../../../shared/icons/NoInteractivityIcon.svelte'
+  import NoRandomizationIcon from '../../../../../shared/icons/NoRandomizationIcon.svelte'
   import QcmCamIcon from '../../../../../shared/icons/QcmCamIcon.svelte'
 
   export let ending: JSONReferentielEnding
@@ -87,8 +91,8 @@
     const newExercise = {
       uuid: ending.uuid,
       alea: mathaleaGenerateSeed(),
-      interactif: isGeoDynamic(ending) ? '1' : '0',
     } as InterfaceParams
+    if (isGeoDynamic(ending)) newExercise.interactif = '1'
     if (isExerciceItemInReferentiel(ending) || isTool(ending)) {
       newExercise.id = ending.id
     }
@@ -100,6 +104,9 @@
     }
     exercicesParams.update((list) => [...list, newExercise])
     $changes++
+    // On attend le rendu du DOM puis on fait défiler jusqu'au nouvel
+    // exercice ajouté pour le rendre visible.
+    tick().then(scrollToLastExercise)
   }
   /**
    * Retirer l'exercice de la liste (si plusieurs occurences
@@ -143,6 +150,9 @@
   style="padding-left: {(nestedLevelCount * 2) / 6}rem"
 >
   <div
+    data-tour-id={isExerciceItemInReferentiel(ending) || isTool(ending)
+      ? ending.id
+      : undefined}
     class={`w-full relative inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest ${selectedCount >= 1 ? 'bg-coopmaths-warn dark:bg-coopmathsdark-warn' : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'} cursor-pointer`}
   >
     <button
@@ -208,6 +218,27 @@
                 />
               </span>
             {/if}
+            {#if !ending.features.aleatoire?.isActive}
+              &nbsp;<span
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip="Pas de version aléatoire"
+              >
+                <NoRandomizationIcon
+                  class="inline-flex h-3 w-3 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark fill-coopmaths-warn-dark dark:fill-coopmathsdark-warn-dark stroke-coopmaths-warn-dark dark:stroke-coopmathsdark-warn-dark"
+                />
+              </span>
+            {/if}
+            {#if ending.tags.length > 0}
+              <div class="pl-2">
+                {#each ending.tags as tag}
+                  <span
+                    class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
+                  >
+                    {tag}
+                  </span>
+                {/each}
+              </div>
+            {/if}
           </div>
         {:else if resourceHasPlace(ending)}
           <!-- Exercices d'annales -->
@@ -240,6 +271,55 @@
             class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
             <span class="font-bold">{ending.id} - </span>{ending.titre}
+          </div>
+        {:else if isBanqueExterneType(ending)}
+          <!-- Exercice d'une banque externe ajoutée par l'utilisateur :
+               titre, étoiles de difficulté puis étiquettes -->
+          <div
+            class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+          >
+            <div class="flex flex-row items-center gap-2">
+              <span>{ending.titre}</span>
+              {#if ending.etoiles !== undefined && ending.etoiles > 0}
+                <span
+                  class="shrink-0 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark leading-none"
+                  title="Difficulté : {ending.etoiles} sur {MAX_ETOILES}"
+                >
+                  {#each { length: ending.etoiles } as _}
+                    <i class="bx bxs-star text-[0.65rem]"></i>
+                  {/each}
+                </span>
+              {/if}
+            </div>
+            {#if ending.tags.length > 0}
+              <div class="pl-2 pt-px">
+                {#each ending.tags as tag}
+                  <span
+                    class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
+                  >
+                    {tag}
+                  </span>
+                {/each}
+              </div>
+            {/if}
+          </div>
+        {:else if 'titre' in ending && ending.titre}
+          <!-- Exercice statique avec titre (ex. ressources partenaires MathAdata) -->
+          <div
+            class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+          >
+            {ending.titre}
+            {#if ending.tags.length > 0}
+              <div class="pl-2 pt-px">
+                {#each ending.tags as tag}
+                  <span
+                    class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
+                  >
+                    {tag}
+                  </span>
+                {/each}
+              </div>
+            {/if}
           </div>
         {:else}
           <!-- Exercice de la bibliothèque -->

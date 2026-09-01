@@ -3,12 +3,10 @@
  */
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le double ou la moitié'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '16/11/2021'
@@ -34,8 +32,9 @@ export default class DoubleOuBienMoitie extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    let a = randint(2, 4) * 10 + randint(1, 9)
-    if (choice([true, false])) {
+    let a =
+      this.quotaRandint('dizaine', 2, 4) * 10 + this.quotaRandint('unite', 1, 9)
+    if (this.quotaChoice('doubleOuMoitie', [true, false])) {
       this.reponse = a << 1
       this.question = `Calculer le double de $ ${a} $.`
       this.correction = `$${a}\\times 2 = ${a << 1}$`

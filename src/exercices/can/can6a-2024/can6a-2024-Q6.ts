@@ -1,10 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '8665b'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -44,7 +43,7 @@ export default class NomExercice extends ExerciceSimple {
           [39, 70],
           [37, 70],
         ]
-    const valeurs = choice(listeValeurs)
+    const valeurs = this.quotaChoice('valeurs', listeValeurs)
 
     this.reponse = valeurs[1]
     this.question = `J'ai reçu $${valeurs[0]}$ € puis $${valeurs[1] - valeurs[0]}$ €. <br>

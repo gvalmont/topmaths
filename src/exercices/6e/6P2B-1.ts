@@ -1,8 +1,8 @@
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { Personne } from '../../lib/outils/Personne'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -23,7 +23,6 @@ import Exercice from '../Exercice'
 export const titre =
   'Calculer des probabilités dans une expérience aléatoire à une épreuve'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
@@ -36,7 +35,7 @@ export const uuid = '69e1a'
 
 export const refs = {
   'fr-fr': ['6P2B-1'],
-  'fr-ch': [''],
+  'fr-ch': ['11NO4A-1'],
 }
 
 export default class FonctionsProbabilite6e extends Exercice {
@@ -96,7 +95,7 @@ export default class FonctionsProbabilite6e extends Exercice {
       'la couleur',
       'la couleur',
     ]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       const index1 = listeIndex[i]
@@ -154,7 +153,7 @@ export default class FonctionsProbabilite6e extends Exercice {
             champ4: { value: new FractionEtendue(n[m] + n[p], somme).texFSD },
           },
           {
-            formatInteractif: 'multiMathfield',
+            formatInteractif: 'multi-mathfield',
           },
         )
 
@@ -182,8 +181,7 @@ export default class FonctionsProbabilite6e extends Exercice {
             : `donc de ${n[p]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`
         texteCorr +=
           numAlpha(2) +
-          ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets} et il y a ${somme} ${objets} possibles.
-          <br>La probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} est `
+          ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets} et il y a ${somme} ${objets} possibles.<br>La probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} est `
         reponseValue = new FractionEtendue(somme - n[q], somme).texFSD
         texteCorr +=
           this.niveau === 5
@@ -210,7 +208,7 @@ export default class FonctionsProbabilite6e extends Exercice {
           ` On sait qu'on tombera sur ${article} ${objet} mais on ne sait pas ${defini} sera ${singulier(qualites[index1][0], index1)}, ${singulier(qualites[index1][1], index1)}, ${singulier(qualites[index1][2], index1)}, ${singulier(qualites[index1][3], index1)} ou ${singulier(qualites[index1][4], index1)}.<br>On ne peut pas prévoir à l'avance le résultat, c'est donc une expérience aléatoire.<br>`
         texte += numAlpha(1) + ' Quelles sont les issues ?<br>'
         const issues = qualites[index1]
-          .map((q, i) => `- ${texteEnCouleurEtGras(singulier(q, index1))}`)
+          .map((q) => `- ${texteEnCouleurEtGras(singulier(q, index1))}`)
           .join(' ;<br>\n')
         texteCorr += numAlpha(1) + `Les issues sont :<br>${issues}.<br>`
         texte +=

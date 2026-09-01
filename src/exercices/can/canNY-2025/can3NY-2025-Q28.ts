@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Trouver un inverse ou un opposé'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'c6cbe'
 export const refs = {
   'fr-fr': [],
@@ -25,8 +24,8 @@ export default class InverseOppose extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const nbre = choice([-2025, 2025])
-    if (choice([true, false])) {
+    const nbre = this.quotaChoice('nbre', [-2025, 2025])
+    if (this.quotaChoice('choix', [true, false])) {
       this.question = `Quel est l'opposé de  $${texNombre(nbre)}$ ? `
       this.correction = `L'opposé de $${texNombre(nbre)}$ est $${miseEnEvidence(`${texNombre(-nbre)}`)}$.`
       this.reponse = -nbre

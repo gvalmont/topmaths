@@ -9,7 +9,6 @@
   export let setAllInteractive: (isAllInteractive: boolean) => void
   export let newDataForAll: () => void
   export let trash: () => void
-  export let setFullScreen: (isFullScreen: boolean) => void
   export let handleExport: (vue: VueType) => void
   export let exportQcmCam: () => Promise<void>
 </script>
@@ -25,11 +24,11 @@
       {setAllInteractive}
       {newDataForAll}
       {trash}
-      {setFullScreen}
     />
   </div>
   <div
     slot="export-buttons"
+    data-tour="export-buttons"
     class="flex flex-row justify-end items-center space-x-3 md:space-x-4"
   >
     <ExportButtons {handleExport} {exportQcmCam} />

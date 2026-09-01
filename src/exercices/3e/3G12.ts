@@ -6,10 +6,11 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { arcenciel, texcolors } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -26,15 +27,13 @@ import {
 import { Pavage, pavage } from '../../modules/Pavage'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Trouver l'image d'une figure par une rotation dans un pavage"
 export const dateDePublication = '16/12/2020'
 export const dateDeModifImportante = '01/04/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -47,7 +46,7 @@ export const uuid = '442e0'
 
 export const refs = {
   'fr-fr': ['3G12'],
-  'fr-ch': ['10ES2-11'],
+  'fr-ch': ['9ES3D-2'],
 }
 export default class PavageEtRotation2D extends Exercice {
   constructor() {
@@ -74,7 +73,7 @@ export default class PavageEtRotation2D extends Exercice {
     this.sup2 = false // On cache les barycentres par défaut.
     this.sup3 = 7
     this.sup4 = true // On ignore les rotations centrales par défaut.
-    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
   }
 
   nouvelleVersion() {
@@ -172,17 +171,11 @@ export default class PavageEtRotation2D extends Exercice {
     let couples: number[][] = []
     let tailles = []
     let monpavage
-    let fenetre
+    let fenetreMathalea2d
     let texte = ''
     let texteCorr = ''
     let typeDePavage = contraindreValeur(1, 7, this.sup, 1) as
-      | 1
-      | 2
-      | 3
-      | 4
-      | 5
-      | 6
-      | 7
+      1 | 2 | 3 | 4 | 5 | 6 | 7
     let nombreTentatives
     let nombrePavageTestes = 1
     const propositionsAMC = []
@@ -210,13 +203,7 @@ export default class PavageEtRotation2D extends Exercice {
       typeDePavage = randint(1, 7) as 1 | 2 | 3 | 4 | 5 | 6 | 7
     } else {
       typeDePavage = Math.max(Math.min(7, this.sup3), 1) as
-        | 1
-        | 2
-        | 3
-        | 4
-        | 5
-        | 6
-        | 7
+        1 | 2 | 3 | 4 | 5 | 6 | 7
     }
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0
@@ -245,7 +232,7 @@ export default class PavageEtRotation2D extends Exercice {
       Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
       Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
       monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
-      fenetre = monpavage.fenetre
+      fenetreMathalea2d = monpavage.fenetre
       do {
         // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
@@ -263,10 +250,10 @@ export default class PavageEtRotation2D extends Exercice {
           A = monpavage.barycentres[index1] // Ou on choisit un barycentre
         }
         while (
-          A.x - 5 < fenetre.xmin ||
-          A.x + 5 > fenetre.xmax ||
-          A.y - 5 < fenetre.ymin ||
-          A.y + 5 > fenetre.ymax
+          A.x - 5 < fenetreMathalea2d.xmin ||
+          A.x + 5 > fenetreMathalea2d.xmax ||
+          A.y - 5 < fenetreMathalea2d.ymin ||
+          A.y + 5 > fenetreMathalea2d.ymax
         ) {
           index1 = randint(
             Math.floor(monpavage.nb_polygones / 3),
@@ -360,7 +347,7 @@ export default class PavageEtRotation2D extends Exercice {
         objets.push(monpavage.polygones[i])
       }
 
-      texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+      texte = mathalea2d(fenetreMathalea2d, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
       texte += `Soit la rotation de centre $A$ et d'angle ${alpha}$^\\circ$ dans le sens `
       if (sensdirect === 1) {
         texte += "contraire des aiguilles d'une montre.<br>"
@@ -401,7 +388,9 @@ export default class PavageEtRotation2D extends Exercice {
             ],
           })
         } else {
-          setReponse(this, i, couples[i][1])
+          handleAnswers(this, i, {
+            reponse: { value: couples[i][1] },
+          })
         }
         if (this.correctionDetaillee) {
           t = this.nbQuestions * 3
@@ -451,7 +440,12 @@ export default class PavageEtRotation2D extends Exercice {
         }
       }
       if (this.correctionDetaillee) {
-        texteCorr += mathalea2d(fenetre, objets, objetsCorrection, texteGris)
+        texteCorr += mathalea2d(
+          fenetreMathalea2d,
+          objets,
+          objetsCorrection,
+          texteGris,
+        )
       }
       if (context.isAmc) {
         this.autoCorrectionAMC[0] = {

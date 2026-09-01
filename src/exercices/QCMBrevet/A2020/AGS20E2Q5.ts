@@ -4,11 +4,11 @@ import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = 'f7abe'
 export const refs = {
-  'fr-fr': ['3L1QCM-10', 'BP2AutoI5'],
+  'fr-fr': ['3L1QCM-10', 'BP2AutoI5', 'BP1AUTO067'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calcul littéral développement  (09/2020 Antilles-Guyane)'

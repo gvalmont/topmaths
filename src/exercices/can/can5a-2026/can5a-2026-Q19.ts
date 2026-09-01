@@ -12,7 +12,7 @@ import ExerciceCan from '../../ExerciceCan'
 export const titre =
   'Calculer un angle dans un triangle connaissant les deux autres'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'e9ly4'
 export const refs = {
   'fr-fr': [],
@@ -113,7 +113,7 @@ export default class Can52026Q19 extends ExerciceCan {
         mainlevee: false,
         amplitude: 0.3,
         scale: 0.7,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       [triangle, labels, affAngleD, affAngleF, affAngleE],
     )

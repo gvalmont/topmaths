@@ -17,7 +17,7 @@ import Exercice from '../Exercice'
 
 export const titre =
   "Etudier le sens de variation d'une suite définie de façon explicite"
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '03/10/2024'
 /**
  * @author Samuel Rattoray
@@ -50,7 +50,6 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
     this.autoCorrection = []
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
-      min: 1,
       max: 3,
       melange: 4,
       defaut: 4,

@@ -8,15 +8,15 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '0ca7a'
 export const refs = {
-  'fr-fr': ['1A-S03-1'],
+  'fr-fr': ['1A-S03-1', '2A-S3-1'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  "Lire un écart interquartile d'une série en boite à moustaches"
+  "Lire un écart interquartile d'une série en boîte à moustaches"
 export const dateDePublication = '31/12/2025'
 /**
  * @author Jean-claude Lhote
@@ -42,12 +42,12 @@ export default class LireEcartTypeBoiteMoustachesQCM extends ExerciceQcmA {
       texNombre(maSerie.max() - maSerie.quartiles().q1, 0),
       texNombre(maSerie.mediane() - maSerie.quartiles().q1, 0),
     ].map((r) => `$${r}$`)
-    this.enonce = `Une série statistique est résumée par le diagramme en boite ci-dessous, utilisez-le pour donner la valeur de l'écart interquartile de cette série.<br>
+    this.enonce = `Une série statistique est résumée par le diagramme en boîte ci-dessous, l'utiliser pour donner la valeur de l'écart interquartile de cette série.<br>
       ${moustache}`
 
     // Correction : explication simple, claire
     this.correction = `L'écart interquartile est la différence entre le troisième quartile et le premier quartile.<br>
-      D'après le diagramme en boite, on a $Q_3 = ${maSerie.quartiles().q3}$ et $Q_1 = ${maSerie.quartiles().q1}$.<br>
+      D'après le diagramme en boîte, on a $Q_3 = ${maSerie.quartiles().q3}$ et $Q_1 = ${maSerie.quartiles().q1}$.<br>
       Donc l'écart interquartile est $Q_3 - Q_1 = ${maSerie.quartiles().q3} - ${maSerie.quartiles().q1} = ${miseEnEvidence(maSerie.ecartInterQuartile())}$.`
   }
 
@@ -89,7 +89,6 @@ export default class LireEcartTypeBoiteMoustachesQCM extends ExerciceQcmA {
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }
 }

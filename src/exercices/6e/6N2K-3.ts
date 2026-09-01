@@ -1,16 +1,15 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
@@ -18,7 +17,7 @@ export const titre =
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
  * @author Cédric GROLLEAU
@@ -29,7 +28,7 @@ export const uuid = '37268'
 export const refs = {
   'fr-fr': ['6N2K-3'],
   'fr-2016': ['6C11-1'],
-  'fr-ch': ['9NO3-5'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-5'],
 }
 export default class DivisionsEuclidiennesEgalite2 extends Exercice {
   constructor() {
@@ -43,7 +42,7 @@ export default class DivisionsEuclidiennesEgalite2 extends Exercice {
       'Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = (b × q) + r avec r < b',
     )
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon opidiv n'est pas joli
     this.nbQuestions = 4
     this.sup = 1
   }
@@ -128,7 +127,7 @@ export default class DivisionsEuclidiennesEgalite2 extends Exercice {
           bareme: toutAUnPoint,
         },
         {
-          formatInteractif: 'multiMathfield',
+          formatInteractif: 'multi-mathfield',
         },
       )
       if (context.isAmc) {

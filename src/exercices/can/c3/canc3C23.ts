@@ -6,12 +6,11 @@ import {
 import { randint } from '../../../modules/outils'
 
 import { bleuMathalea } from '../../../lib/colors'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le complément à 10, 100, 1000'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '03/08/2025'
@@ -38,7 +37,7 @@ export default class ComplementADixCentMille extends ExerciceSimple {
 
   nouvelleVersion() {
     switch (
-      choice([1, 1, 1, 2, 3, 3, 3, 3]) //
+      this.quotaChoice('typeDeQuestions', [1, 1, 1, 2, 3, 3, 3, 3]) //
     ) {
       case 1: // complément à 100
         {
@@ -47,8 +46,7 @@ export default class ComplementADixCentMille extends ExerciceSimple {
           this.correction = `$100-${a}=${miseEnEvidence(100 - a)}$<br>`
           this.reponse = 100 - a
           this.correction += texteEnCouleur(
-            `
-    <br> Mentalement : <br><br>
+            `Mentalement : <br><br>
     $${a} \\xrightarrow{+${10 - (a % 10)}} ${a + (10 - (a % 10))} \\xrightarrow{+${100 - (a + (10 - (a % 10)))}} 100$.
      `,
             bleuMathalea,
@@ -62,8 +60,7 @@ export default class ComplementADixCentMille extends ExerciceSimple {
           this.correction = `$10-${a}=${miseEnEvidence(10 - a)}$<br>`
           this.reponse = 10 - a
           this.correction += texteEnCouleur(
-            `
-    <br> Mentalement : <br>
+            `Mentalement : <br>
     pour calculer $10-${a}$, on peut penser : « Combien faut-il ajouter à $${a}$ pour obtenir $10$ ? » <br>
      $${10 - a}$ car $${a}+${10 - a}=10$. <br><br>
      `,
@@ -103,8 +100,7 @@ export default class ComplementADixCentMille extends ExerciceSimple {
           diagramme += ` \\xrightarrow{+${etapeVers1000}} ${texNombre(1000)}$.`
 
           this.correction += texteEnCouleur(
-            `
-    <br> Mentalement : <br><br>
+            `Mentalement : <br><br>
     ${diagramme} <br><br>
      `,
             bleuMathalea,

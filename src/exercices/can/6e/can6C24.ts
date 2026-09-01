@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleur,
@@ -13,7 +12,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier ou diviser par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '19/02/2023'
@@ -27,7 +26,7 @@ export const uuid = '53034'
 
 export const refs = {
   'fr-fr': ['can6C24', '6N2B-flash1'],
-  'fr-ch': ['NR'],
+  'fr-ch': ['9NO1G-6'],
 }
 export default class MultiplierParPuissanceDixNeg extends ExerciceSimple {
   constructor() {
@@ -46,7 +45,7 @@ export default class MultiplierParPuissanceDixNeg extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 9)
+    const a = this.quotaRandint('a', 1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, b)
     const facteur = arrondi(a * 100 + b * 10 + c)
@@ -54,8 +53,11 @@ export default class MultiplierParPuissanceDixNeg extends ExerciceSimple {
     let typeQuestionsDisponibles = ['multiplier', 'diviser']
     if (this.sup === 1) typeQuestionsDisponibles = ['multiplier']
     else if (this.sup === 2) typeQuestionsDisponibles = ['diviser']
-    const typeQuestion = choice(typeQuestionsDisponibles)
-    const d = choice([0.1, 0.01, 0.001])
+    const typeQuestion = this.quotaChoice(
+      'typeQuestion',
+      typeQuestionsDisponibles,
+    )
+    const d = this.quotaChoice('d', [0.1, 0.01, 0.001])
     this.reponse = arrondi(facteur * d)
     this.distracteurs = [
       arrondi(facteur / d),

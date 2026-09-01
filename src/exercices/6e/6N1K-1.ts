@@ -1,3 +1,4 @@
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -15,12 +16,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const dateDePublication = '28/09/2022'
 export const titre = "Trouver une valeur approchée ou l'arrondi d'un décimal"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 /**
  * * Arrondir_un_decimal_selon_une_precision_donnée
  * @author Mickael Guironnet
@@ -29,7 +29,7 @@ export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['6N1K-1', 'BP2AutoS8'],
   'fr-2016': ['6N31-6', 'BP2AutoS8'],
-  'fr-ch': ['9NO7-9'],
+  'fr-ch': ['PR-43'],
 }
 export const uuid = 'd2b82'
 
@@ -44,8 +44,8 @@ export default class ArrondirUnDecimal extends Exercice {
 
     this.nbQuestions = 6
 
-    context.isHtml ? (this.spacing = 1.2) : (this.spacing = 1.5)
-    context.isHtml ? (this.spacingCorr = 1.2) : (this.spacingCorr = 1.5)
+    this.spacing = context.isHtml ? 1.2 : 1.5
+    this.spacingCorr = context.isHtml ? 1.2 : 1.5
 
     this.besoinFormulaireTexte = [
       'Type de questions',

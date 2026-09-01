@@ -6,7 +6,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Métropole 09/23 : primitive'
@@ -42,7 +42,7 @@ Une des primitives $F$ de la fonction $f$ sur $\\mathbb R$ est définie par :`
 
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
+    this.options.vertical = true
     this.versionOriginale()
   }
 }

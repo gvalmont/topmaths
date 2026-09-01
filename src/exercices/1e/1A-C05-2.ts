@@ -6,11 +6,11 @@ export const dateDePublication = '15/10/2025'
 export const uuid = 'edf86'
 // @Author Gilles Mora
 export const refs = {
-  'fr-fr': ['1A-C05-2'],
+  'fr-fr': ['1A-C05-2', '2A-N5-2'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Déterminer un ordre de grandeur avec des puissances de 10'
@@ -73,10 +73,7 @@ export default class auto1AC5a extends ExerciceQcmA {
         this.appliquerLesValeurs(a, b, 3)
       }
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {})
-    )
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true))
   }
 
   constructor() {

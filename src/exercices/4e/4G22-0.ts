@@ -6,6 +6,7 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { orangeMathalea } from '../../lib/colors'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -14,18 +15,16 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { orangeMathalea } from '../../lib/colors'
 
 export const titre = 'Calculer dans un triangle équilatéral (longueur, aire)'
 export const dateDePublication = '12/12/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const uuid = 'b18e9'
 
 export const refs = {
   'fr-fr': ['4G22-0'],
-  'fr-ch': [],
+  'fr-ch': ['10GM1D-6'],
 }
 
 function figureTriangleEquilateral(
@@ -216,7 +215,7 @@ export default class TriangleEquilateral extends Exercice {
       defaut: 1,
       nbQuestions: this.nbQuestions,
     }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typeDeReponse =
         this.sup2 === 1
           ? 'Donner la valeur exacte'
@@ -251,6 +250,7 @@ export default class TriangleEquilateral extends Exercice {
                 exercice: this,
                 question: i,
                 texteApres: ' cm',
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')
@@ -287,6 +287,7 @@ export default class TriangleEquilateral extends Exercice {
                 exercice: this,
                 question: i,
                 texteApres: ' cm$^2$',
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')
@@ -323,6 +324,7 @@ export default class TriangleEquilateral extends Exercice {
                 exercice: this,
                 question: i,
                 texteApres: ' cm',
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')

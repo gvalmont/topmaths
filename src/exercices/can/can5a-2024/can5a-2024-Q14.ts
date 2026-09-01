@@ -1,17 +1,15 @@
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/mathalea2d'
-import { randint } from '../../../modules/outils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Déterminer une abscisse sur une droite graduée'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'f7b05'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -25,7 +23,7 @@ export default class NomExercice extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-this.optionsChampTexte = { texteApres: '.' }
+    this.optionsChampTexte = { texteApres: '.' }
     this.canOfficielle = false
   }
 
@@ -55,7 +53,7 @@ this.optionsChampTexte = { texteApres: '.' }
           xmax: 10,
           ymax: 1.5,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         d,
       )
@@ -64,11 +62,12 @@ this.optionsChampTexte = { texteApres: '.' }
       Une graduation correspond donc à $0,25$.<br>
       Ainsi, l'abscisse du point $A$ est : $${miseEnEvidence(texNombre(1.25))}$.`
     } else {
-      const choix = choice([true, false])
-      const a = choice(
+      const choix = this.quotaChoice('choix', [true, false])
+      const a = this.quotaChoice(
+        'a',
         ['0.25', '0.75', '1.25', '1.5', '1.75', '2.25', '2.75'].map(Number),
       )
-      const b = randint(1, 14, [5, 10]) / 5
+      const b = this.quotaRandint('b', 1, 14, [5, 10]) / 5
       const d = droiteGraduee({
         Unite: 3,
         Min: 0,
@@ -93,7 +92,7 @@ this.optionsChampTexte = { texteApres: '.' }
           xmax: 10,
           ymax: 1.2,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         d,
       )
@@ -104,8 +103,8 @@ this.optionsChampTexte = { texteApres: '.' }
     }
 
     this.canReponseACompleter = '$\\ldots$'
-       if (!this.interactif && context.isHtml) {
-         this.question += '$\\ldots$'
-       }
-     }
-   }
+    if (!this.interactif && context.isHtml) {
+      this.question += '$\\ldots$'
+    }
+  }
+}

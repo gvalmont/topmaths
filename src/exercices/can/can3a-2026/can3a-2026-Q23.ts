@@ -7,13 +7,14 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Calculer l'aire d'un triangle rectangle"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'tsd68'
 export const refs = {
   'fr-fr': [],
@@ -120,7 +121,7 @@ export default class Can32026Q23 extends ExerciceCan {
         mainlevee: false,
         amplitude: 0.3,
         scale: 0.4,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       objets,
     )

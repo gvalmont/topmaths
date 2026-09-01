@@ -5,7 +5,6 @@ import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../../lib/2d/polygones'
 import { carre } from '../../../lib/2d/polygonesParticuliers'
 import { latex2d } from '../../../lib/2d/textes'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -16,7 +15,7 @@ export const titre = 'Mesurer une aire de carré, rectangle, triangle rectangle'
 export const dateDePublication = '25/04/2024'
 export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Éric Elter
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 
 /**
@@ -25,8 +24,8 @@ export const amcReady = true
 export const uuid = 'b486a'
 
 export const refs = {
-  'fr-fr': ['can6M16', 'auto6M2C-flash2'],
-  'fr-ch': ['9GM1-12'],
+  'fr-fr': ['can6M16', 'auto6M2C-flash2', 'BP1AUTO105', '6AutoA1-2'],
+  'fr-ch': ['9GM1B-16'],
 }
 export default class AireUsuelleParComptageCan extends ExerciceSimple {
   constructor() {
@@ -67,7 +66,7 @@ export default class AireUsuelleParComptageCan extends ExerciceSimple {
     let objet: Polygone
     let value: string[]
     let aire: string
-    const choix = choice([true, false])
+    const choix = this.quotaChoice('choix', [true, false])
     do {
       if (choix) {
         a = randint(4, 8)
@@ -163,7 +162,7 @@ export default class AireUsuelleParComptageCan extends ExerciceSimple {
     }
     const figure = mathalea2d(
       Object.assign(
-        { pixelsParCm: 20, scale: 0.5, style: 'display: block' },
+        { pixelsParCm: 20, scale: 0.5, display: 'block' } as const,
         fixeBordures(objets, {
           rxmin: -0.1,
           rxmax: 0.1,
@@ -173,7 +172,7 @@ export default class AireUsuelleParComptageCan extends ExerciceSimple {
       ),
       [grille(xmin, ymin, xmax, ymax, 'gray', 0.6, 1), ...objets],
     )
-    this.question = `${figure} Quelle est l'aire de la figure ci-dessus ?`
+    this.question = `${figure}Quelle est l'aire de la figure ci-dessus ?`
     this.optionsChampTexte = { texteApres: `$${unite}$` }
     this.reponse = value
     this.correction = `L'aire de cette figure est : $${miseEnEvidence(value[0])}\\text{ soit }${miseEnEvidence(String(aire))}${unite}$.`

@@ -4,10 +4,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance'
 import { context } from '../../modules/context'
 
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
@@ -23,7 +20,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 
 export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '09/05/2025'
@@ -44,7 +41,7 @@ export const uuid = 'bae57'
 
 export const refs = {
   'fr-fr': ['4C33-1'],
-  'fr-ch': ['10NO2-11'],
+  'fr-ch': ['10NO3D-9'],
 }
 // une fonction pour des infos supp sur les exposants
 function remarquesPuissances(
@@ -111,8 +108,8 @@ export default class PuissancesDunRelatif1 extends Exercice {
       '1 : Positif\n2 : Négatif\n3 : Mélange',
     ]
     this.consigne = 'Écrire sous la forme $a^n$.'
-    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
-    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
     this.sup = '1-2-3-4'
@@ -146,7 +143,6 @@ export default class PuissancesDunRelatif1 extends Exercice {
         base1,
         base,
         baseUtile,
-        baseUtileBisAMC,
         exp0,
         exp1,
         exp,
@@ -156,7 +152,6 @@ export default class PuissancesDunRelatif1 extends Exercice {
         texte,
         texteCorr,
         reponseInteractive,
-        exposantInteractif,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
@@ -202,11 +197,9 @@ export default class PuissancesDunRelatif1 extends Exercice {
               `${baseUtile}^{${exp[1] + exp[0]}}`,
               `${-base}^{${exp[1] + exp[0]}}`,
             ]
-            baseUtileBisAMC = -base
           } else {
             reponseInteractive = `${baseUtile}^{${exp[1] + exp[0]}}`
           }
-          exposantInteractif = exp[1] + exp[0]
           break
         case 2: // quotient de puissances de même base
           // Pour que la couleur de la base associée à l'exposant max soit toujours rouge.
@@ -295,14 +288,12 @@ export default class PuissancesDunRelatif1 extends Exercice {
               `${baseUtile}^{${exp[0] - exp[1]}}`,
               `${-base}^{${exp[0] - exp[1]}}`,
             ]
-            baseUtileBisAMC = -base
           } else {
             reponseInteractive = `${baseUtile}^{${exp[0] - exp[1]}}`
           }
-          exposantInteractif = exp[0] - exp[1]
           break
         case 3: // exponentiation
-          exp = [randint(2, 4), randint(2, 4)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
+          exp = [randint(2, 3), randint(2, 3)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
           texte = `$${lettre}=(${baseUtile}^{${exp[0]}})^{${exp[1]}}$`
 
           if (this.correctionDetaillee) {
@@ -343,11 +334,9 @@ export default class PuissancesDunRelatif1 extends Exercice {
               `${baseUtile}^{${exp[0] * exp[1]}}`,
               `${-base}^{${exp[0] * exp[1]}}`,
             ]
-            baseUtileBisAMC = -base
           } else {
             reponseInteractive = `${baseUtile}^{${exp[0] * exp[1]}}`
           }
-          exposantInteractif = exp[0] * exp[1]
           break
         case 4: // produit de puissances de même exposant
           base0 = randint(2, 8, [4, 6])
@@ -360,7 +349,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
             (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([-1, 1])) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
 
           base = [base0, base1] // on choisit 2 bases différentes c'est mieux
-          exp = randint(2, 5, 6) // on choisit un exposant
+          exp = randint(2, 4) // on choisit un exposant
           texte = `$${lettre}=${ecritureParentheseSiNegatif(base0)}^{${exp}}\\times ${ecritureParentheseSiNegatif(base1)}^{${exp}}$`
           texteCorr += texte
 
@@ -388,9 +377,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
               ? `${base0 * base1}^{${exp}}`
               : `(${base0 * base1})^{${exp}}`
           baseUtile = base0 * base1
-          baseUtileBisAMC = base[0] * base1 // juste pour ne pas avoir à ajouter une batterie de lignes spécifiques pour ce cas, je mets deux fois la même chose
           base = baseUtile
-          exposantInteractif = exp
           break
         case 5: // quotient de puissances de même exposant (a^n/b^n = (a/b)^n)
         default:
@@ -441,32 +428,20 @@ export default class PuissancesDunRelatif1 extends Exercice {
               ? `${base0 / base1}^{${exp}}`
               : `(${base0 / base1})^{${exp}}`
           baseUtile = base0 / base1
-          baseUtileBisAMC = base0 / base1
           base = baseUtile
-          exposantInteractif = exp
           break
       }
 
+      handleAnswers(this, i, {
+        reponse: { value: reponseInteractive, options: { puissance: true } },
+      })
       if (this.interactif && !context.isAmc) {
-        handleAnswers(this, i, {
-          reponse: { value: reponseInteractive, options: { puissance: true } },
-        })
         texte += ajouteChampTexteMathLive(
           this,
           i,
           KeyboardType.clavierFullOperations,
           { texteAvant: ' $=$' },
         )
-      }
-      if (context.isAmc) {
-        setReponse(this, i, reponseInteractive, {
-          formatInteractif: 'puissance',
-          basePuissance: base,
-          exposantPuissance: exposantInteractif,
-          exposantNbChiffres: 2,
-          signe: true,
-          aussiCorrect: baseUtileBisAMC,
-        })
       }
       if (
         this.questionJamaisPosee(i, base, exp0, exp1, listeTypeDeQuestions[i])

@@ -7,14 +7,14 @@ import Exercice from '../../Exercice'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 
 export const titre = 'Calculer des probabilités à partir d’un arbre'
 export const dateDePublication = '25/12/2021'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -108,7 +108,7 @@ export default class CalculProbaArbre2e extends Exercice {
       texte = `On donne l'arbre de probabilités ci-dessous et $P(C)=${texProba(pC)}$.<br><br> 
       `
       texte += mathalea2d(
-        Object.assign({ style: 'inline' }, fixeBordures(objets)),
+        Object.assign({ display: 'inline' } as const, fixeBordures(objets)),
         objets,
       )
       texte += `<br>
@@ -120,7 +120,7 @@ export default class CalculProbaArbre2e extends Exercice {
       texteCorr += `Or $P(\\bar{A} \\cap C)=P(\\bar{A}) \\times P_{\\bar{A}}(C)=${texProba(pB)}x$.<br>`
       texteCorr += `Donc $${texProba(pB)}x=P(C)-P(A \\cap C)=${texProba(pC)}-${texProba(pA)}\\times ${texProba(pAC)}=${texProba(pC)}-${texProba(pA * pAC)}=${texProba(pC.toNumber() - pA * pAC)}$.<br>`
       texteCorr += `Donc $x=\\dfrac{${texProba(pC.toNumber() - pA * pAC)}}{${texProba(pB)}}=${miseEnEvidence(texProba(pBC))}$.`
-      setReponse(this, i, pBC)
+      handleAnswers(this, i, { reponse: { value: pBC } })
       this.canEnonce = `On donne l'arbre de probabilités ci-dessous et $P(C)=${texProba(pC)}$.<br>
       
       `
@@ -130,7 +130,7 @@ export default class CalculProbaArbre2e extends Exercice {
           xmax: 14,
           ymin: 0,
           ymax: 6,
-          style: 'inline',
+          display: 'inline',
           scale: 0.5,
         },
         objets,

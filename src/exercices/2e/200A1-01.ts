@@ -10,15 +10,14 @@ import ExerciceSimple from '../ExerciceSimple'
 
 export const titre = "Lister tous les diviseurs d'un entier"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '15/11/2025'
 export const uuid = '15fd6'
 
 export const refs = {
-  'fr-fr': ['200A1-01'],
-  'fr-ch': ['9NO4-32'],
+  'fr-fr': [],
+  'fr-ch': ['9NO1A-13'],
 }
 
 /**

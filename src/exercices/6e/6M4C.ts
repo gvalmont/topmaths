@@ -12,7 +12,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Convertir des durées'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Conversions de durées.
@@ -27,9 +26,9 @@ export const dateDeModifImportante = '10/11/2024'
 export const uuid = '8b0f9'
 
 export const refs = {
-  'fr-fr': ['6M4C', '3AutoG06-5'],
+  'fr-fr': ['6M4C', '3AutoM01-1'],
   'fr-2016': ['6D10'],
-  'fr-ch': ['10GM3-1'],
+  'fr-ch': ['9GM3A-3', '10GM3B-1'],
 }
 export default class ConversionsDeDurees extends Exercice {
   expectedAnswers: Hms[] = []
@@ -68,7 +67,7 @@ export default class ConversionsDeDurees extends Exercice {
     let s = 0
     let j = 0
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const consigne = 'Convertir '
       if (typesDeQuestions[i] === 1) {
         const sousTypeDeQuestion = listeSousTypeDeQuestionV1[i]
@@ -112,7 +111,6 @@ export default class ConversionsDeDurees extends Exercice {
           operande1: h + 24 * j,
           operande2: 24,
           type: 'divisionE',
-          style: 'margin-bottom: 1em',
           options: { solution: true, colore: bleuMathalea },
         })
         texteCorr += `<br>$${texNombre(
@@ -132,14 +130,12 @@ export default class ConversionsDeDurees extends Exercice {
             operande1: h * 3600 + m * 60 + s,
             operande2: 3600,
             type: 'divisionE',
-            style: 'margin-bottom: 1em',
             options: { solution: true, colore: bleuMathalea },
           })
           texteCorr += operation({
             operande1: m * 60 + s,
             operande2: 60,
             type: 'divisionE',
-            style: 'margin-bottom: 1em',
             options: { solution: true, colore: bleuMathalea },
           })
           texteCorr += `<br>$${texNombre(
@@ -158,10 +154,9 @@ export default class ConversionsDeDurees extends Exercice {
             operande1: m * 60 + s,
             operande2: 60,
             type: 'divisionE',
-            style: 'margin-bottom: 1em',
             options: { solution: true, colore: bleuMathalea },
           })
-          texteCorr += `$${texNombre(
+          texteCorr += `<br>$${texNombre(
             m * 60 + s,
           )}~\\text{s} = (${formatMinute(m)}\\times60~\\text{s})+${formatMinute(s)}~\\text{s}=`
           texteCorr +=
@@ -183,14 +178,12 @@ export default class ConversionsDeDurees extends Exercice {
             operande1: h + 24 * j + 24 * 7 * s,
             operande2: 24,
             type: 'divisionE',
-            style: 'margin-bottom: 1em',
             options: { solution: true, colore: bleuMathalea },
           })
           texteCorr += operation({
             operande1: 7 * s + j,
             operande2: 7,
             type: 'divisionE',
-            style: 'margin-bottom: 1em',
             options: { solution: true, colore: bleuMathalea },
           })
           texteCorr += `<br>$${texNombre(h + 24 * j + 24 * 7 * s)}~\\text{h} = (${

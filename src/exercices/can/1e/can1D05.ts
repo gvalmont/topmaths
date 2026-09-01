@@ -1,17 +1,18 @@
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { Spline, spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 
 export const dateDePublication = '05/05/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre =
   "Déterminer graphiquement le nombre de solutions de l'équation $f\\prime(x)=0$"
 /**
@@ -116,7 +117,12 @@ export default class ResolEquationDerivee extends ExerciceSimple {
     const courbe1 = theSpline.courbe({
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: bleuMathalea, taille: 2, style: 'x', epaisseur: 2 },
+      optionsNoeuds: {
+        color: bleuMathalea,
+        taille: 2,
+        style: 'x',
+        epaisseur: 2,
+      },
       color: bleuMathalea,
     })
     const objetsEnonce = [repere1, courbe1]
@@ -126,10 +132,10 @@ export default class ResolEquationDerivee extends ExerciceSimple {
     Déterminer le nombre de solutions de l'équation $f'(x)=0$.<br><br>` +
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          { pixelsParCm: 30, scale: 0.65, center: !context.isHtml },
           {
             xmin: bornes.xMin - 1,
-            ymin: bornes.yMin - 1,
+            ymin: bornes.yMin - 2,
             xmax: bornes.xMax + 1,
             ymax: bornes.yMax + 1,
           },
@@ -137,7 +143,6 @@ export default class ResolEquationDerivee extends ExerciceSimple {
         objetsEnonce,
         o,
       ) // fixeBordures(objetsEnonce))
-    this.question += '<br>'
     const extrema = nuage.filter((el) => el.deriveeGauche === 0)
     // const nbreExtremum=nuage.filter((el)=>el.deriveeGauche===0).length
     this.reponse = String(extrema.length)
@@ -152,7 +157,7 @@ export default class ResolEquationDerivee extends ExerciceSimple {
       "On donne la représentation graphique d'une fonction $f$. <br>" +
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+          { pixelsParCm: 30, scale: 0.65, center: !context.isHtml },
           {
             xmin: bornes.xMin - 1,
             ymin: bornes.yMin - 1,

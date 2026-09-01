@@ -7,7 +7,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Passer d'un décimal à une fraction"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '31/10/2022'
@@ -18,7 +18,7 @@ export const dateDePublication = '31/10/2022'
 export const uuid = '67f09'
 
 export const refs = {
-  'fr-fr': ['can5C22'],
+  'fr-fr': ['can5C22', 'auto6N3C-flash1', '6AutoN2-1'],
   'fr-ch': [],
 }
 export default class DecimalVersFraction extends ExerciceSimple {
@@ -33,8 +33,8 @@ export default class DecimalVersFraction extends ExerciceSimple {
   nouvelleVersion() {
     let a, d, maFraction
 
-    a = randint(1, 39, [10, 20, 30])
-    switch (choice([1, 2, 3])) {
+    a = this.quotaRandint('a', 1, 39, [10, 20, 30])
+    switch (this.quotaChoice('typeDeQuestions', [1, 2, 3])) {
       case 1: // division par 10
         d = a / 10
         maFraction = new FractionEtendue(a, 10)

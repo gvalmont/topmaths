@@ -1,15 +1,15 @@
 import { traceBarreHorizontale } from '../../../lib/2d/diagrammes'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { repere } from '../../../lib/2d/reperes'
+import { bleuMathalea } from '../../../lib/colors'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { prenom } from '../../../lib/outils/Personne'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Lire un diagramme en barres'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -21,8 +21,8 @@ export const amcType = 'AMCNum'
 export const uuid = '1957a'
 
 export const refs = {
-  'fr-fr': ['can6S01', 'auto6P1A-flash1'],
-  'fr-ch': ['9FA1-9'],
+  'fr-fr': ['can6S01', 'auto6P1A-flash1', 'BP1AUTO029', '6AutoS1-2'],
+  'fr-ch': ['9FA4A-5'],
 }
 export default class LectureDiagrammeBarre extends ExerciceSimple {
   constructor() {
@@ -44,8 +44,8 @@ export default class LectureDiagrammeBarre extends ExerciceSimple {
       ['nombre de vêtements', 'une armoire', ['chemises', 'T-shirts', 'pulls']],
     ]
     const quidam = prenom()
-    const n = randint(0, 2)
-    const a = randint(2, 10)
+    const n = this.quotaRandint('n', 0, 2)
+    const a = this.quotaRandint('a', 2, 10)
     const b = randint(2, 10, a)
     const c = randint(2, 10, [a, b])
     const r = repere({
@@ -90,12 +90,12 @@ export default class LectureDiagrammeBarre extends ExerciceSimple {
     `
     this.question += mathalea2d(
       Object.assign(
-        { scale: 0.4, style: 'display: block' },
+        { scale: 0.4, display: 'block' } as const,
         fixeBordures(objets),
       ),
       objets,
     )
-    this.question += ` Combien y a-t-il de ${valeurs[n][0]} en tout ?`
+    this.question += `Combien y a-t-il de ${valeurs[n][0]} en tout ?`
     this.correction = `Il y a $${a}+${b}+${c} = ${miseEnEvidence(this.reponse.toString())}$ ${valeurs[n][0]} en tout.`
   }
 }

@@ -3,12 +3,12 @@ export const titre = 'Calculer des volumes de solides'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+
 export const dateDeModifImportante = '17/04/2025'
 export const uuid = 'b6cbe'
 export const refs = {
   'fr-fr': ['4G53', 'BP2G12'],
-  'fr-ch': ['10GM2-2', '11GM2-1'],
+  'fr-ch': ['11GM2-2'],
 }
 export default class CalculDeVolumes4e extends CalculDeVolumes {
   constructor() {

@@ -15,7 +15,7 @@ export const refs = {
   'fr-ch': ['4mProbStat-20'],
 }
 export const titre =
-  'Préparation DNB : Statistiques, pourcentages, trigonométrie'
+  'Préparation DNB : Probabilité, arithmétique'
 export const dateDePublication = '27/06/2025'
 
 /*
@@ -60,8 +60,8 @@ export default class ExerciceMetropole392024 extends ExerciceBrevetA {
     ajout: number,
   ): void {
     this.introduction = texteItalique(
-      "D'après l'exercice 1 du brevet Métropole juin 2025.<br>",
-    )
+      "D'après l'exercice 1 du brevet Métropole juin 2025.",
+    ) + '<br>'
 
     const nbPrem = urneB.filter((n) => estPremier(n)).length
     const probaPrem = new FractionEtendue(nbPrem, urneB.length)
@@ -78,11 +78,11 @@ export default class ExerciceMetropole392024 extends ExerciceBrevetA {
       urneB.length,
     )
     const probaSupAajout = new FractionEtendue(
-      [...urneA, ajout].filter((n) => n >= 20).length,
-      urneA.length + +1,
+      [...urneA, ajout].filter((n) => n >= min).length,
+      urneA.length + 1,
     )
     const probaSupBajout = new FractionEtendue(
-      [...urneB, ajout].filter((n) => n >= 20).length,
+      [...urneB, ajout].filter((n) => n >= min).length,
       urneB.length + 1,
     )
     const nbMulA = urneA.filter((n) => n % table === 0).length

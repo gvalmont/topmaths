@@ -19,7 +19,6 @@ export const titre =
 export const dateDePublication = '03/04/2025'
 export const dateDeModifImportante = '20/06/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
@@ -28,7 +27,7 @@ export const interactifType = 'mathLive'
 export const uuid = '76231'
 
 export const refs = {
-  'fr-fr': ['3S20-2', '1Tec-P11'],
+  'fr-fr': ['3S20-2', '1Tec-P20', 'BP1AUTO049'],
   'fr-ch': ['3mP-7'],
 }
 export default class CalculProbaTab2Entrées extends Exercice {
@@ -53,7 +52,7 @@ export default class CalculProbaTab2Entrées extends Exercice {
       ],
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const { texte, texteCorr, alea } = typeDeQuestion[i](this, i)
 
       if (this.questionJamaisPosee(i, ...alea)) {
@@ -387,7 +386,7 @@ function moule(
   )
   question1 += exercice.interactif ? tableauInteractif.output : tableau
   handleAnswers(exercice, question * 4, objetReponse1, {
-    formatInteractif: 'mathlive',
+    formatInteractif: 'tableau-mathlive',
   })
   const tableauCorr = tableauColonneLigne(colonneEnt, ligneEnt, contenuCorr)
   const correction1 = `${exercice.correctionDetaillee ? correctionDetaillee1 : ''}Voici le tableau des effectifs :<br>${tableauCorr}`
@@ -397,6 +396,7 @@ function moule(
     ajouteQuestionMathlive({
       exercice,
       question: question * 4 + 1,
+      reponseParams: { formatInteractif: 'mathalea-mathfield' },
       objetReponse: {
         reponse: {
           value: proba2.texFraction,
@@ -412,6 +412,7 @@ function moule(
     ajouteQuestionMathlive({
       exercice,
       question: question * 4 + 2,
+      reponseParams: { formatInteractif: 'mathalea-mathfield' },
       objetReponse: {
         reponse: {
           value: proba3.texFraction,
@@ -427,6 +428,7 @@ function moule(
     ajouteQuestionMathlive({
       exercice,
       question: question * 4 + 3,
+      reponseParams: { formatInteractif: 'mathalea-mathfield' },
       objetReponse: {
         reponse: {
           value: proba4.texFraction,

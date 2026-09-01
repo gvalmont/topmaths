@@ -4,7 +4,6 @@ export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can5P11 pour les auto 1er
@@ -14,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = '1b3f9'
 
 export const refs = {
-  'fr-fr': ['1A-R02-2'],
+  'fr-fr': ['1A-R02-2', '2A-R2-2', 'BP1SP08'],
   'fr-ch': ['10QCM-4'],
 }
 export default class Auto1AR5 extends ValeursDefPourcentage {

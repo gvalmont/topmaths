@@ -2,6 +2,7 @@ import Figure from 'apigeom/src/Figure'
 import type Decimal from 'decimal.js'
 import seedrandom from 'seedrandom'
 import type { IExercice, IExerciceSimple } from '../lib/types'
+import { attachExerciseCustomCallbacks } from '../lib/customElements/MetaCustomElement'
 import { CRC32 } from '../modules/crc32'
 import FractionEtendue from '../modules/FractionEtendue'
 import type { IFractionEtendue } from '../modules/FractionEtendue.type'
@@ -36,6 +37,7 @@ export function exportedNouvelleVersionWrapper(
   this.reinit()
   seedrandom(this.seed, { global: true })
   this.nouvelleVersion(numeroExercice, numeroQuestion)
+  attachExerciseCustomCallbacks(this)
   this.checkSum = CRC32.hexQuestions(this.listeQuestions)
 }
 
@@ -50,18 +52,31 @@ export function exportedReinit(this: IExerciceSimple) {
   this.autoCorrection = []
   this.autoCorrectionAMC = []
   this.distracteurs = []
+  this.tiragesParQuestion = undefined
   this.checkSum = undefined
-  if (this.figures) {
-    // figure APIGEOM
-    this.figures.forEach((fig) => {
+  if (this.figuresApiGeom) {
+    // figures apigeom auto-enregistrées par figureApigeom()
+    this.figuresApiGeom.forEach((fig) => {
       if (fig instanceof Figure) {
         fig.destroy()
       }
     })
+    this.figuresApiGeom = []
   }
-  this.figures = []
+  if (this.figuresApiGeomCorr) {
+    // figures apigeom auto-enregistrées par figureApigeom()
+    this.figuresApiGeomCorr.forEach((fig) => {
+      if (fig instanceof Figure) {
+        fig.destroy()
+      }
+    })
+    this.figuresApiGeomCorr = []
+  }
+
+  this.cliqueFiguresArray = []
   if (this.dragAndDrops && this.dragAndDrops.length > 0) {
     for (const leDragAndDrop of this.dragAndDrops) {
+      if (leDragAndDrop == null) continue
       for (const [element, type, listener] of leDragAndDrop.listeners) {
         element.removeEventListener(type, listener as EventListener)
       }
@@ -88,9 +103,15 @@ function empreinteTexte(str: string): string {
     h1 = Math.imul(h1 ^ c, 2654435761)
     h2 = Math.imul(h2 ^ c, 1597334677)
   }
-  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909)
-  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909)
-  const hash = (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16).padStart(16, '0')
+  h1 =
+    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
+    Math.imul(h2 ^ (h2 >>> 13), 3266489909)
+  h2 =
+    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
+    Math.imul(h1 ^ (h1 >>> 13), 3266489909)
+  const hash = (4294967296 * (2097151 & h2) + (h1 >>> 0))
+    .toString(16)
+    .padStart(16, '0')
   return hash.length > str.length ? str : hash
 }
 

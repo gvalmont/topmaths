@@ -8,11 +8,11 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = "Calculer la fraction d'un décimal"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '30/04/2024'
 export const uuid = '669aa'
 export const refs = {
-  'fr-fr': ['can5C29'],
+  'fr-fr': ['can5C29', 'auto5N3I-flash1'],
   'fr-ch': [],
 }
 /**
@@ -29,7 +29,7 @@ export default class fractionsDecimaux extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2, 3])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2, 3])) {
       case 1: // quart
         {
           const b = new Decimal(randint(1, 16, [5, 10])).div(10)

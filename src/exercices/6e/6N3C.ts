@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -23,13 +24,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre = 'Compléter des égalités à trou multiplicatives'
 export const dateDePublication = '07/07/2025'
@@ -42,7 +40,7 @@ export const dateDePublication = '07/07/2025'
 export const uuid = 'e9ba3'
 
 export const refs = {
-  'fr-fr': ['6N3C'],
+  'fr-fr': ['6N3C', '6AutoF1-3'],
   'fr-2016': ['6N23-5b'],
   'fr-ch': [''],
 }

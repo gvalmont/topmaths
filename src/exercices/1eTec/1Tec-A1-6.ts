@@ -4,7 +4,7 @@ import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Calculer des proportions de proportions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '09/05/2023'
@@ -17,8 +17,8 @@ export const dateDeModifImportante = '09/05/2023'
 export const uuid = 'f0c23'
 
 export const refs = {
-  'fr-fr': ['2S10-11'],
-  'fr-ch': [],
+  'fr-fr': ['2I10-11'],
+  'fr-ch': ['10FA2B-17'],
 }
 export default class ProportiondeProportion extends ExerciceSimple {
   constructor() {

@@ -1,6 +1,6 @@
 import DenombrerCubes from '../../6e/6G8A-1'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 export const amcReady = true
 export const titre = 'Compter les cubes'
@@ -13,7 +13,7 @@ export const uuid = '76b93'
 
 export const refs = {
   'fr-fr': ['can6G02', '6G8A-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CompterLesCubesManquant extends DenombrerCubes {
   constructor() {

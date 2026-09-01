@@ -1,6 +1,5 @@
 import Decimal from 'decimal.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -8,7 +7,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Compléter une multiplication'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'b0a02'
 export const refs = {
   'fr-fr': [],
@@ -32,9 +31,9 @@ export default class ProduitACompleter extends ExerciceSimple {
 
   nouvelleVersion() {
     const a = 2025
-    const b = choice([10, 100, 1000])
+    const b = this.quotaChoice('b', [10, 100, 1000])
     const resultat = new Decimal(2025).mul(b)
-    const choix = choice([true, false])
+    const choix = this.quotaChoice('choix', [true, false])
     this.reponse = texNombre(b, 3)
     this.consigne = "Compléter l'égalité.<br>"
     handleAnswers(this, 0, { champ1: { value: this.reponse } })

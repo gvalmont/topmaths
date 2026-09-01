@@ -1,18 +1,17 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { labyrinthe } from '../../modules/Labyrinthe'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Parcourir un labyrinthe de numération décimale'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '9/12/2020'
@@ -28,7 +27,7 @@ export const uuid = '8064e'
 export const refs = {
   'fr-fr': ['6N1A-4'],
   'fr-2016': ['6N10-5'],
-  'fr-ch': ['9NO1-6'],
+  'fr-ch': [''], // Primaire anciennement :['9NO1-6'],
 }
 export default class ExerciceLabyrintheNumeration extends Exercice {
   constructor() {
@@ -269,7 +268,7 @@ export default class ExerciceLabyrintheNumeration extends Exercice {
           champ1: { value: numeroDeSortie },
           champ2: { value: nbDeNombresRencontres },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
     }
     texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
@@ -287,7 +286,9 @@ export default class ExerciceLabyrintheNumeration extends Exercice {
           ],
         },
       ]
-      this.questionsAMC = this.autoCorrectionAMC.map((questionAMC) => amcConvert(questionAMC))
+      this.questionsAMC = this.autoCorrectionAMC.map((questionAMC) =>
+        amcConvert(questionAMC),
+      )
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

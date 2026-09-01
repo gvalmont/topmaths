@@ -1,7 +1,6 @@
 import ExoRose from '../6e/_Roses'
 export const titre = 'Résoudre une Rose multiplicative avec des fractions'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '12/08/2022'
@@ -15,7 +14,7 @@ export const uuid = '4713e'
 
 export const refs = {
   'fr-fr': ['4C22-4', 'BP2AutoH16'],
-  'fr-ch': ['10NO5-9'],
+  'fr-ch': ['10NO3A-7'],
 }
 export default class RoseAdditive4F extends ExoRose {
   // c'est l'ExoRose zéro contenu dans _Roses.js

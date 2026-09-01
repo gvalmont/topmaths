@@ -1,11 +1,10 @@
 import FabriqueAYohaku from '../6e/_Yohaku'
 export const titre =
-  'Résoudre un Yohaku additif expressions littérales niveau 1'
+  'Résoudre un Yohaku additif avec des expressions littérales'
 export const dateDePublication = '10/08/2022'
 export const dateDeModifImportante = '16/12/2023'
 
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -13,7 +12,7 @@ export const uuid = '4c5da'
 
 export const refs = {
   'fr-fr': ['4L10-3'],
-  'fr-ch': ['10FA1-16'],
+  'fr-ch': ['10FA4E-5'],
 }
 /**
  * @author Jean-claude Lhote

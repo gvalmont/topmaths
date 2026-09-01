@@ -14,7 +14,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre = 'Résoudre une équation du second degré (égale à 0)'
 export const dateDeModifImportante = '17/12/2024'
 
@@ -27,7 +27,7 @@ export const uuid = 'cf78f'
 
 export const refs = {
   'fr-fr': ['1AL23-21'],
-  'fr-ch': ['11FA10-10'],
+  'fr-ch': ['11FA5B-13'],
 }
 export default class ResoudreEquationDegre2Entiers extends Exercice {
   constructor() {

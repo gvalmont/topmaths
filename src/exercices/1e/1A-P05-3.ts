@@ -14,7 +14,7 @@ export const refs = {
   'fr-ch': ['4mProbStat-2'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Déterminer une probabilité conditionnelle'
@@ -79,7 +79,7 @@ export default class auto1AP3c extends ExerciceQcmA {
 
     this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
     this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      Object.assign({ display: 'inline' } as const, fixeBordures(objets)),
       objets,
     )
     this.enonce += '<br>$p_C(A)$ est égal à :'
@@ -179,7 +179,7 @@ export default class auto1AP3c extends ExerciceQcmA {
 
     this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
     this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      Object.assign({ display: 'inline' } as const, fixeBordures(objets)),
       objets,
     )
     this.enonce += '<br>$P_C(A)$ est égal à :'
@@ -196,6 +196,7 @@ export default class auto1AP3c extends ExerciceQcmA {
     P_C(A)&=\\dfrac{P(A \\cap C)}{P(C)}\\\\
     &=\\dfrac{P(A)\\times P_A(C)}{P(C)}\\\\
     &=\\dfrac{${pC1.texFractionSimplifiee}}{${pC.texFractionSimplifiee}}\\\\
+    &=${pC1.texFractionSimplifiee}\\times ${pC.inverse().texFractionSimplifiee}\\\\
     &=${miseEnEvidence(Reponse.texFractionSimplifiee)}\\\\
      \\end{aligned}$`
     // --- Distracteurs sûrs, distincts et ≠ bonne réponse --- Merci mon ami Chat GPT pour cette astuce, devenue trop lourde car j'ai viré un distracteur....

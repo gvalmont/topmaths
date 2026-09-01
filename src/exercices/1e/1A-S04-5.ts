@@ -8,14 +8,14 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '5bb2a'
 export const refs = {
-  'fr-fr': ['1A-S04-5'],
+  'fr-fr': ['1A-S04-5', '2A-S4-5', 'BP1AUTO040'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = "Calculer une moyenne à partir d'un histogramme"
+export const titre = "Calculer une moyenne à partir d'un diagramme en barres"
 export const dateDePublication = '01/01/2026'
 /**
  * @author Jean-claude Lhote
@@ -33,6 +33,8 @@ export default class CalculMoyenneHistogrammeQCM extends ExerciceQcmA {
       cumul: false,
       barres: true,
       valuesOn: true,
+      titre: 'Diagramme de la série statistique étudiée',
+      labelHorizontal: 'Valeurs de la série',
     })
     const moyenne = maSerie.moyenne()
     const q1 = maSerie.q1
@@ -51,7 +53,7 @@ export default class CalculMoyenneHistogrammeQCM extends ExerciceQcmA {
     // Correction : explication simple, claire
     this.correction = `La moyenne est la somme des valeurs divisée par le nombre de valeurs.<br>
     Il y a un total de $${n}$ valeurs.<br>
-    En regardant le diagramme, on obtient la somme des valeurs suivante :<br>
+    En regardant le diagramme, on obtient la somme suivante des valeurs :<br>
     $${maSerie.serieTableau.map(([v, e]) => `${e} \\times ${v}`).join('+')}=${texNombre(somme, 0)}$.<br>
     Donc la moyenne est : $\\dfrac{${somme}}{${n}}=${miseEnEvidence(
       texNombre(moyenne, 3),
@@ -84,7 +86,6 @@ export default class CalculMoyenneHistogrammeQCM extends ExerciceQcmA {
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }
 }

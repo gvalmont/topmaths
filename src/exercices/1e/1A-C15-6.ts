@@ -12,7 +12,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Résoudre un problème d'abonnement"
@@ -32,7 +32,7 @@ export default class Auto1C15r extends ExerciceQcmA {
   ): void {
     this.enonce = `Pour s'entraîner dans une salle de sport, on règle chaque mois un abonnement pour une carte d'adhérent.<br>
     Cette carte donne droit à un tarif préférentiel pour chaque séance.<br>
-    Un client ne se souvient pas du montant du forfait mensuel ni du tarif préférentiel, mais il a retrouvé ses deux derniers tickets de caisse.<br>
+    Un client ne se souvient pas du montant du forfait mensuel, ni du tarif préférentiel, mais il a retrouvé ses deux derniers tickets de caisse.<br>
     Le premier ticket indique qu'il a payé $${texNombre(abo + nbreSeance1 * prixH)}$ euros pour $${nbreSeance1}$ séances d'entraînement.<br>
     Le second ticket indique qu'il a payé $${texNombre(abo + nbreSeance2 * prixH)}$ euros pour $${nbreSeance2}$ séances d'entraînement.<br>
     Quel est le montant de l'abonnement mensuel ?`
@@ -71,13 +71,7 @@ Le montant de l'abonnement mensuel est donc de $${miseEnEvidence(abo + sp(1) + '
 
       this.appliquerLesValeurs(prixH, nbreSeance1, nbreSeance2, abo)
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, false, {
-        unite: true,
-        precisionUnite: 0,
-      })
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, false)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {

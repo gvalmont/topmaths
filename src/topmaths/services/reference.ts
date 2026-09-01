@@ -24,7 +24,7 @@ export function buildGradeFromObjectiveReference(
  * To be used in Curriculum.svelte and LaTeX export in Coopmaths style
  */
 export function buildThemeFromReference(
-  reference: ObjectiveReference,
+  reference: string,
 ): 'nombres' | 'gestion' | 'gestionbis' | 'grandeurs' | 'geo' | 'algo' {
   const lettre = reference.slice(1, 2)
   if (lettre === 'C' || lettre === 'N') return 'nombres'

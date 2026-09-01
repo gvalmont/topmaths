@@ -1,3 +1,4 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import {
@@ -5,17 +6,15 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../../lib/outils/ecritures'
-import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '16/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -28,7 +27,7 @@ export const dateDePublication = '16/02/2022' // La date de publication initiale
 export const uuid = '88acd'
 
 export const refs = {
-  'fr-fr': ['can1S13'],
+  'fr-fr': ['can1S11'],
   'fr-ch': [],
 }
 export default class NatureSuiteEx extends Exercice {
@@ -49,7 +48,7 @@ export default class NatureSuiteEx extends Exercice {
     let props: { texte: string; texteCorr: string }
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (
         choice([1, 2, 3, 4]) //
       ) {
@@ -133,8 +132,8 @@ export default class NatureSuiteEx extends Exercice {
           a = randint(-10, 10, [-1, 0])
           b = randint(-10, 10, [-1, 0, 1, a])
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =
-          ${a === 1 ? `${ecritureParentheseSiNegatif(b)}^n$` : `${a}\\times${ecritureParentheseSiNegatif(b)}^n$`}
-<br>Alors, $(${s}_n)$ est une suite ...`
+          ${a === 1 ? `${ecritureParentheseSiNegatif(b)}^n$` : `${a}\\times${ecritureParentheseSiNegatif(b)}^n$`}<br>
+          Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
             options: { vertical: false },
@@ -158,27 +157,24 @@ export default class NatureSuiteEx extends Exercice {
             texte += props.texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =
-          ${a === 1 ? `${ecritureParentheseSiNegatif(b)}^n$` : `${a}\\times${ecritureParentheseSiNegatif(b)}^n$`}
-<br>       Quelle est la nature de cette suite ?<br> 
+          ${a === 1 ? `${ecritureParentheseSiNegatif(b)}^n$` : `${a}\\times${ecritureParentheseSiNegatif(b)}^n$`}<br>
+                 Quelle est la nature de cette suite ?<br> 
             Donner sa raison et son premier terme.`
           }
           if (a === 1) {
-            texteCorr = `$${s}_{n+1} = ${ecritureParentheseSiNegatif(b)}^{n+1}=${ecritureParentheseSiNegatif(b)}\\times \\underbrace{ ${ecritureParentheseSiNegatif(b)}^{n}}_{${s}_{n}}=${ecritureParentheseSiNegatif(b)}\\times ${s}_{n}$.
-         `
+            texteCorr = `$${s}_{n+1} = ${ecritureParentheseSiNegatif(b)}^{n+1}=${ecritureParentheseSiNegatif(b)}\\times \\underbrace{ ${ecritureParentheseSiNegatif(b)}^{n}}_{${s}_{n}}=${ecritureParentheseSiNegatif(b)}\\times ${s}_{n}$.<br>`
           } else {
-            texteCorr = `$${s}_{n+1} =${a}\\times ${ecritureParentheseSiNegatif(b)}^{n+1}=${ecritureParentheseSiNegatif(b)}\\times \\underbrace{${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)}^{n}}_{${s}_{n}}=${ecritureParentheseSiNegatif(b)}\\times ${s}_{n}$.
-         `
+            texteCorr = `$${s}_{n+1} =${a}\\times ${ecritureParentheseSiNegatif(b)}^{n+1}=${ecritureParentheseSiNegatif(b)}\\times \\underbrace{${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)}^{n}}_{${s}_{n}}=${ecritureParentheseSiNegatif(b)}\\times ${s}_{n}$.<br>`
           }
-          texteCorr += `  <br>
-        On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite géométrique de raison')} $${miseEnEvidence(b)}$ et de premier terme $${s}_0=${a}\\times ${ecritureParentheseSiNegatif(b)}^0=${a}$.`
+          texteCorr += `On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite géométrique de raison')} $${miseEnEvidence(b)}$ et de premier terme $${s}_0=${a}\\times ${ecritureParentheseSiNegatif(b)}^0=${a}$.`
 
           break
 
         case 4: // suite geométrique avec quotient
           a = randint(-10, 10, [-1, 0])
           b = randint(2, 10, a)
-          texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}}{${b}^n}$.
-         <br>Alors, $(${s}_n)$ est une suite ...`
+          texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}}{${b}^n}$.<br>
+          Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
             options: { vertical: false },
@@ -204,9 +200,8 @@ export default class NatureSuiteEx extends Exercice {
             Quelle est la nature de cette suite ?<br> 
             Donner sa raison et son premier terme.`
           }
-          texteCorr = `$${s}_{n+1} =\\dfrac{${a}}{${b}^{n+1}}=\\dfrac{1}{${b}}\\times \\underbrace{\\dfrac{${a}}{${b}^n}}_{${s}_{n}}=\\dfrac{1}{${b}}\\times ${s}_n$`
-          texteCorr += `  <br>
-        On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite géométrique de raison')} $${miseEnEvidence(`\\dfrac{1}{${b}}`)}$ et de premier terme $${s}_{0} =\\dfrac{${a}}{${b}^0}=${a}$.`
+          texteCorr = `$${s}_{n+1} =\\dfrac{${a}}{${b}^{n+1}}=\\dfrac{1}{${b}}\\times \\underbrace{\\dfrac{${a}}{${b}^n}}_{${s}_{n}}=\\dfrac{1}{${b}}\\times ${s}_n$<br>`
+          texteCorr += `On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite géométrique de raison')} $${miseEnEvidence(`\\dfrac{1}{${b}}`)}$ et de premier terme $${s}_{0} =\\dfrac{${a}}{${b}^0}=${a}$.`
           break
       }
 

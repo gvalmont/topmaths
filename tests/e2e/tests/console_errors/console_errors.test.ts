@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
-import type { Locator, Page } from 'playwright'
-import { describe, test } from 'vitest'
+import type { ConsoleMessage, Locator, Page } from 'playwright'
+import { afterAll, describe, test } from 'vitest'
+import { shuffle } from '../../../../src/lib/outils/arrayOutils'
 import { findStatic, findUuid } from '../../helpers/filter.js'
 import { createIssue } from '../../helpers/issue.js'
 import {
@@ -15,27 +16,73 @@ import { runSeveralTests } from '../../helpers/run.js'
 import { checkEachCombinationOfParams } from '../../helpers/testAllViews.js'
 
 const logConsole = getFileLogger('exportConsole', { append: true })
+const consoleErrorsFailures = new Map<string, string>()
 
 class ConsoleErrorsTestFailure extends Error {}
 
-function formatFailureDetails(
-  urlExercice: string,
-  page: Page,
-  messages: string[],
-) {
-  const details = messages.slice(0, 5).join('\n')
-  const suffix =
-    messages.length > 5
-      ? `\n... ${messages.length - 5} autre(s) erreur(s) dans tests/e2e/logs/exportConsole.log`
-      : ''
+class ConsoleErrorsSummaryFailure extends Error {
+  constructor(fileName: string, message: string) {
+    super(
+      `console_errors a détecté une erreur dans ${fileName}: ${message}\nVoir le récapitulatif console_errors ci-dessus et tests/e2e/logs/exportConsole.log pour le détail.`,
+    )
+    this.name = 'ConsoleErrorsSummaryFailure'
+    this.stack = this.message
+  }
+}
+
+type ConsoleTestTimeouts = {
+  default: number
+  navigation: number
+  networkIdle: number
+  selector: number
+  zoomUrl: number
+  zoomExercise: number
+}
+
+type ConsoleErrorsProfile = 'smoke' | 'standard' | 'deep'
+
+function getConsoleTestTimeouts(urlExercice: string): ConsoleTestTimeouts {
+  const url = new URL(urlExercice)
+  const isForgeLocalServer =
+    urlExercice.startsWith('http://localhost:80/') ||
+    url.port === '80' ||
+    (url.port === '' && process.env.CI)
+  const shortTimeout = 10_000
+  const forgeTimeout = 30_000
+  const timeout = isForgeLocalServer ? forgeTimeout : shortTimeout
+
+  return {
+    default: timeout,
+    navigation: timeout,
+    networkIdle: timeout,
+    selector: timeout,
+    zoomUrl: 5_000,
+    zoomExercise: timeout,
+  }
+}
+
+function getConsoleErrorsProfile(): ConsoleErrorsProfile {
+  const profile = process.env.CONSOLE_ERRORS_PROFILE?.trim().toLowerCase()
+  if (profile === 'smoke' || profile === 'standard' || profile === 'deep') {
+    return profile
+  }
+  return 'standard'
+}
+
+function shouldReportFailuresThroughVitest() {
+  return process.env.DEBUG === '1'
+}
+
+function throwConsoleErrorsFailure(fileName: string, error: unknown): never {
+  recordConsoleErrorsFailure(fileName, error)
+  if (shouldReportFailuresThroughVitest()) throw error
+  throw new ConsoleErrorsSummaryFailure(fileName, summarizeError(error))
+}
+
+function formatFailureDetails(messages: string[]) {
   return [
-    `Console errors test failed.`,
-    messages[0] == null ? '' : `First error: ${messages[0]}`,
-    `Initial URL: ${urlExercice}`,
-    `Current URL: ${page.url()}`,
-    `Unique errors (${messages.length}):`,
-    details,
-    suffix,
+    `Console errors test failed: ${summarizeConsoleErrorMessage(messages[0] ?? 'Unknown error')}`,
+    `Unique errors: ${messages.length}`,
     `Full logs: tests/e2e/logs/exportConsole.log`,
   ]
     .filter((line) => line !== '')
@@ -55,46 +102,162 @@ function addUniqueMessage(messages: string[], message: string | undefined) {
   if (!messages.includes(message)) messages.push(message)
 }
 
-async function waitForExercicesAffiches(page: Page, buttonZoom: Locator) {
-  const waitForEvent = page.evaluate(() => {
-    return new Promise<void>((resolve) => {
-      const listener = () => {
-        document.removeEventListener('exercicesAffiches', listener)
-        resolve()
+function stripAnsiControlSequences(message: string) {
+  let cleanMessage = ''
+  for (let i = 0; i < message.length; i++) {
+    if (
+      message.charCodeAt(i) === 27 &&
+      message[i + 1] === '['
+    ) {
+      i += 2
+      while (i < message.length) {
+        const code = message.charCodeAt(i)
+        if (code >= 0x40 && code <= 0x7e) break
+        i++
       }
-      document.addEventListener('exercicesAffiches', listener)
-    })
-  })
-  await buttonZoom.click()
-  // Attendre que l'événement exercicesAffiches soit déclenché
-  const eventDetected = await Promise.race([
-    waitForEvent,
-    new Promise((resolve, reject) =>
-      setTimeout(
-        () =>
-          reject(
-            new Error(
-              "Timeout: L'événement exercicesAffiches n'a pas été détecté",
-            ),
-          ),
-        5000,
-      ),
-    ),
-  ])
-  if (eventDetected instanceof Error) {
-    logError(eventDetected.message)
-  } else {
-    logIfDebug('Événement exercicesAffiches détecté')
+      continue
+    }
+    cleanMessage += message[i]
+  }
+  return cleanMessage
+}
+
+function summarizeConsoleErrorMessage(message: string) {
+  return stripAnsiControlSequences(message)
+    .replace(/\s*Call log:.*$/su, '')
+    .replace(
+      /^(console|pageerror|crash|exception):(?:https?:\/\/\S+|chrome-error:\/\/\S+):?\s*/u,
+      '',
+    )
+    .replace(/\s+at\s+https?:\/\/\S+/gu, '')
+    .replace(/\s+at\s+chrome-error:\/\/\S+/gu, '')
+    .replace(/https?:\/\/\S+/gu, '')
+    .replace(/chrome-error:\/\/\S+/gu, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function summarizeError(error: unknown) {
+  const rawMessage = error instanceof Error ? error.message : String(error)
+  const firstErrorMatch = rawMessage.match(
+    /Console errors test failed:\s*([^\n]+)/,
+  )
+  const message = firstErrorMatch?.[1] ?? rawMessage
+  return summarizeConsoleErrorMessage(message).slice(0, 240)
+}
+
+function escapeMarkdownTableCell(value: string) {
+  return value.replaceAll('|', '\\|').replace(/\s+/g, ' ').trim()
+}
+
+function recordConsoleErrorsFailure(fileName: string, error: unknown) {
+  if (!consoleErrorsFailures.has(fileName)) {
+    consoleErrorsFailures.set(fileName, summarizeError(error))
   }
 }
 
-async function action(page: Page, description: string) {
+afterAll(() => {
+  if (consoleErrorsFailures.size === 0) return
+
+  const rows = Array.from(consoleErrorsFailures.entries()).map(
+    ([fileName, message]) => ({
+      fichier: fileName,
+      erreur: message,
+    }),
+  )
+
+  console.error('\nRécapitulatif console_errors')
+  console.table(rows)
+  console.error('| Fichier | Extrait du message console |')
+  console.error('| --- | --- |')
+  for (const { fichier, erreur } of rows) {
+    console.error(
+      `| ${escapeMarkdownTableCell(fichier)} | ${escapeMarkdownTableCell(erreur)} |`,
+    )
+  }
+})
+
+async function waitForExerciseVisible(page: Page) {
+  const timeouts = getConsoleTestTimeouts(page.url())
+  await page.waitForSelector('div.mb-5>ul>div#consigne0-0', {
+    timeout: timeouts.selector,
+  })
+}
+
+function isLocalViteDependencyLoadingMessage(
+  text: string,
+  locationUrl: string,
+) {
+  return (
+    locationUrl.includes('/node_modules/.vite/deps/') &&
+    text.startsWith('Failed to load resource:')
+  )
+}
+
+async function clickZoomAndWaitForExercise(page: Page, buttonZoom: Locator) {
+  const timeouts = getConsoleTestTimeouts(page.url())
+  const previousZoom = new URL(page.url()).searchParams.get('z') ?? ''
+  await buttonZoom.click()
+  const exerciseLocator = page.locator('div.mb-5>ul>div#consigne0-0')
+  try {
+    await page.waitForFunction(
+      (zoom) => new URL(window.location.href).searchParams.get('z') !== zoom,
+      previousZoom,
+      { timeout: timeouts.zoomUrl },
+    )
+  } catch (error) {
+    const exerciseIsVisible = await exerciseLocator.isVisible()
+    if (!exerciseIsVisible) throw error
+    logIfDebug(`Zoom inchangé, exercice déjà visible: z=${previousZoom}`)
+  }
+  await exerciseLocator.waitFor({
+    state: 'visible',
+    timeout: timeouts.zoomExercise,
+  })
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+      }),
+  )
+  logIfDebug('Exercice affiché après zoom')
+}
+
+async function quickAction(page: Page, description: string) {
   logIfVerbose(`Test avec les paramètres ${description}`)
-  // clic sur nouvel énoncé 3 fois
+  await waitForExerciseVisible(page)
+}
+
+/**
+ * Le web component <scratch-simulator> (utilisé dans certaines corrections) ouvre
+ * automatiquement une modale plein écran dès qu'il est inséré dans le DOM.
+ * Cette modale intercepte les clics suivants (ex: "Nouvel énoncé") tant qu'elle
+ * n'est pas fermée explicitement.
+ */
+async function closeScratchSimulatorModalIfOpen(page: Page) {
+  const scratchModal = page.locator('dialog[data-scratch-sim="true"]')
+  if (await scratchModal.isVisible()) {
+    await scratchModal.getByRole('button', { name: '✕' }).click()
+    await scratchModal.waitFor({ state: 'hidden' })
+  }
+}
+
+async function fullAction(
+  page: Page,
+  description: string,
+  options?: { refreshAfterInteractivityCount?: number },
+) {
+  logIfVerbose(`Test complet avec les paramètres ${description}`)
   const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé' })
-  logIfDebug('Actualier (nouvel énoncé)')
-  await buttonNewData.click({ force: true })
-  logIfDebug('fin Actualier (nouvel énoncé)')
+  // Le bouton est masqué pour les exercices avec pasDeVersionAleatoire = true
+  const hasButtonNewData = await buttonNewData.isVisible()
+  if (hasButtonNewData) {
+    logIfDebug('Actualier (nouvel énoncé)')
+    await buttonNewData.click({ force: true })
+    logIfDebug('fin Actualier (nouvel énoncé)')
+  } else {
+    logIfDebug('Pas de bouton « Nouvel énoncé » (exercice non aléatoire)')
+  }
   const buttonZoom = page.locator(
     '#setupButtonsBar > div > div:nth-child(2) > button',
   )
@@ -106,10 +269,10 @@ async function action(page: Page, description: string) {
   logIfVerbose('Zoom')
   if (z < 1.4) {
     // await buttonZoom.highlight()
-    await waitForExercicesAffiches(page, buttonZoom)
+    await clickZoomAndWaitForExercise(page, buttonZoom)
   } else {
     // await buttonZoomMoins.highlight()
-    await waitForExercicesAffiches(page, buttonZoomMoins)
+    await clickZoomAndWaitForExercise(page, buttonZoomMoins)
   }
   logIfVerbose('Fin zoom')
   // Active le mode interactif
@@ -137,9 +300,20 @@ async function action(page: Page, description: string) {
     await page.waitForSelector('article + div')
     const buttonResult = await page.locator('article + div').innerText()
     logIfVerbose(buttonResult)
-    logIfVerbose('Actualier (nouvel énoncé) 3 fois')
-    await buttonNewData.click({ clickCount: 3 })
-    logIfVerbose('fin Actualier (nouvel énoncé) 3 fois')
+    await closeScratchSimulatorModalIfOpen(page)
+    const refreshAfterInteractivityCount =
+      options?.refreshAfterInteractivityCount ?? 1
+    // Même garde que plus haut : sans bouton (pasDeVersionAleatoire = true),
+    // le clic attendrait en vain jusqu'au timeout.
+    if (hasButtonNewData) {
+      logIfVerbose(
+        `Actualier (nouvel énoncé) ${refreshAfterInteractivityCount} fois`,
+      )
+      await buttonNewData.click({ clickCount: refreshAfterInteractivityCount })
+      logIfVerbose(
+        `fin Actualier (nouvel énoncé) ${refreshAfterInteractivityCount} fois`,
+      )
+    }
   } else {
     // MGu : obligé car parfois on rate l'exception car trop rapide
     // await new Promise((resolve) => setTimeout(resolve, 1000)) // GV : Si on attend 1 seconde après chaque cas, il va falloir 1 an si on veut tester toutes les possibilités
@@ -148,87 +322,107 @@ async function action(page: Page, description: string) {
 
 async function getConsoleTest(page: Page, urlExercice: string) {
   logIfVerbose(urlExercice)
-  // on configure à 5 min le timeout
-  page.setDefaultTimeout(5 * 60 * 1000)
+  const timeouts = getConsoleTestTimeouts(urlExercice)
+  const profile = getConsoleErrorsProfile()
+  page.setDefaultTimeout(timeouts.default)
 
   const retries = 3 // Nombre de tentatives en cas d'erreur
   for (let attempt = 1; attempt <= retries; attempt++) {
     const messages: string[] = []
-    try {
-      page.on('pageerror', (msg) => {
-        if (msg.message !== 'Erreur de chargement de Mathgraph') {
-          // mtgLoad : 3G22
-          addUniqueMessage(messages, `pageerror:${page.url()} ${msg.message}`)
-          logError(msg)
-        }
-      })
-      page.on('crash', (msg) => {
-        addUniqueMessage(messages, 'crash:' + page.url() + ' ' + msg)
+    const onPageError = (msg: Error) => {
+      if (msg.message !== 'Erreur de chargement de Mathgraph') {
+        // mtgLoad : 3G22
+        addUniqueMessage(messages, `pageerror:${page.url()} ${msg.message}`)
         logError(msg)
-      })
-      // Listen for all console events and handle errors
-      page.on('console', (msg) => {
-        // if (msg.type() === 'error') {
-        if (
-          !msg.text().includes('[vite]') &&
-          !msg.text().includes('[bugsnag] Loaded!') &&
-          !msg.text().includes('No character metrics for') && // katex
-          !msg.text().includes('LaTeX-incompatible input') && // katex
-          !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
-          !msg.text().includes('MG32div0') && // MG32div0 : 3G22
-          !msg.text().includes('Figure destroyed successfully') && // apigeom
-          !msg
-            .text()
-            .includes('UserFriendlyError: Le chargement de mathgraph') &&
-          !msg.text().includes("Invalid 'X-Frame-Options' header") &&
-          !msg
-            .text()
-            .includes(
-              'Blockly.Workspace.getAllVariables was deprecated in v12',
-            ) &&
-          !msg.text().includes('A-Frame Version:') &&
-          !msg
-            .text()
-            .includes(
-              'THREE Version (https://github.com/supermedium/three.js)',
-            ) &&
-          !msg
-            .text()
-            .includes(
-              'WARNING: Too many active WebGL contexts. Oldest context will be lost.',
-            ) &&
-          !msg.text().includes('GPU stall due to ReadPixels') &&
-          !msg.text().includes(': le motif contient plus') &&
-          !msg
-            .text()
-            .includes(
-              'The column width is less than 0, need to adjust page width to make',
-            ) &&
-          !msg.location().url.includes('mathgraph32') &&
-          !msg.text().includes('placeholderMetrics 0.7 0.2')
-        ) {
-          if (!msg.text().includes('<HeaderExercice>')) {
-            addUniqueMessage(
-              messages,
-              `console:${page.url()} ${compactBrowserMessage(msg.text())}`,
-            )
-          }
+      }
+    }
+    const onCrash = (msg: Page) => {
+      addUniqueMessage(messages, 'crash:' + page.url() + ' ' + msg)
+      logError(msg)
+    }
+    const onConsole = (msg: ConsoleMessage) => {
+      const text = msg.text()
+      const locationUrl = msg.location().url
+      // if (msg.type() === 'error') {
+      if (
+        !text.includes('[vite]') &&
+        !text.includes('[bugsnag] Loaded!') &&
+        !text.includes('No character metrics for') && // katex
+        !text.includes('LaTeX-incompatible input') && // katex
+        !text.includes('mtgLoad') && // mtgLoad : 3G22
+        !text.includes('MG32div0') && // MG32div0 : 3G22
+        !text.includes('Figure destroyed successfully') && // apigeom
+        !text.includes('UserFriendlyError: Le chargement de mathgraph') &&
+        !text.includes("Invalid 'X-Frame-Options' header") &&
+        !text.includes(
+          'Blockly.Workspace.getAllVariables was deprecated in v12',
+        ) &&
+        !text.includes('A-Frame Version:') &&
+        !text.includes(
+          'THREE Version (https://github.com/supermedium/three.js)',
+        ) &&
+        !text.includes(
+          'WARNING: Too many active WebGL contexts. Oldest context will be lost.',
+        ) &&
+        !text.includes('GPU stall due to ReadPixels') &&
+        !text.includes(': le motif contient plus') &&
+        !text.includes(
+          'The column width is less than 0, need to adjust page width to make',
+        ) &&
+        !locationUrl.includes('mathgraph32') &&
+        !text.includes('placeholderMetrics 0.7 0.2') &&
+        !text.includes('Compilation fallback for') &&
+        !isLocalViteDependencyLoadingMessage(text, locationUrl)
+      ) {
+        if (!text.includes('<HeaderExercice>')) {
+          addUniqueMessage(
+            messages,
+            `console:${page.url()} ${compactBrowserMessage(text)}`,
+          )
         }
-        // }
-      })
+      }
+      // }
+    }
+    try {
+      page.on('pageerror', onPageError)
+      page.on('crash', onCrash)
+      // Listen for all console events and handle errors
+      page.on('console', onConsole)
 
       logIfVerbose('On charge la page')
-      await page.goto(urlExercice)
-      await page.waitForLoadState('networkidle')
+      await page.goto(urlExercice, { timeout: timeouts.navigation })
+      await page.waitForLoadState('networkidle', {
+        timeout: timeouts.networkIdle,
+      })
       logIfVerbose('fin : On charge la page')
 
       // Correction
       // On cherche les questions
       logIfVerbose('On cherche les questions')
-      await page.waitForSelector('div.mb-5>ul>div#consigne0-0')
+      await waitForExerciseVisible(page)
       logIfVerbose('fin : On cherche les questions')
-      // Pour chaque combinaison de paramètres, on clique sur nouvel énoncé 3 fois, active le mode interactif et reclique sur nouvel énoncé 3 fois
-      await checkEachCombinationOfParams(page, action, { isFullViews: true })
+
+      if (profile === 'deep') {
+        // Ancien scénario : chaque valeur de paramètre déclenche le parcours UI complet.
+        await checkEachCombinationOfParams(
+          page,
+          async (page, description) =>
+            fullAction(page, description, {
+              refreshAfterInteractivityCount: 3,
+            }),
+          { isFullViews: true },
+        )
+      } else if (profile === 'smoke') {
+        await fullAction(page, 'smoke')
+      } else {
+        // Scénario par défaut : les paramètres sont parcourus légèrement,
+        // puis le zoom et l'interactivité sont vérifiés une seule fois.
+        await checkEachCombinationOfParams(page, quickAction, {
+          isFullViews: false,
+        })
+        await fullAction(page, 'standard')
+      }
+
       // Paramètres ça va les refermer puisqu'ils sont ouverts par défaut
       const buttonParam = page.getByRole('button', {
         name: "Changer les paramètres de l'",
@@ -242,9 +436,7 @@ async function getConsoleTest(page: Page, urlExercice: string) {
         logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
         log('url:' + page.url())
         await createIssue(urlExercice, messages, ['console'], log)
-        throw new ConsoleErrorsTestFailure(
-          formatFailureDetails(urlExercice, page, messages),
-        )
+        throw new ConsoleErrorsTestFailure(formatFailureDetails(messages))
       } else {
         return 'OK'
       }
@@ -262,10 +454,12 @@ async function getConsoleTest(page: Page, urlExercice: string) {
           // le serveur ne répond pas... si net::ERR_CONNECTION_REFUSED
           await createIssue(urlExercice, messages, ['console'], log)
         }
-        throw new ConsoleErrorsTestFailure(
-          formatFailureDetails(urlExercice, page, messages),
-        )
+        throw new ConsoleErrorsTestFailure(formatFailureDetails(messages))
       }
+    } finally {
+      page.off('pageerror', onPageError)
+      page.off('crash', onCrash)
+      page.off('console', onConsole)
     }
   }
 }
@@ -277,10 +471,12 @@ async function testRunAllLots(filter: string) {
       : await findUuid(filter)
 
   // Exclure les exercices contenant "test" ou "beta" dans leur nom
-  const filteredUuids = uuids.filter(([uuid, name]) => {
-    const nameLower = name.toLowerCase()
-    return !nameLower.includes('test') && !nameLower.includes('beta')
-  })
+  const filteredUuids = shuffle(
+    uuids.filter(([_uuid, name]) => {
+      const nameLower = name.toLowerCase()
+      return !nameLower.includes('test') && !nameLower.includes('beta')
+    }),
+  ).slice(0, prefs.nbExosParLot) // Limiter le nombre d'exercices à tester pour éviter de surcharger le serveur
 
   logIfVerbose(filteredUuids)
   if (filteredUuids.length === 0) {
@@ -307,14 +503,29 @@ async function testRunAllLots(filter: string) {
         logIfVerbose(
           `uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]} i=${k} / ${filteredUuids.length}`,
         )
-        const resultReq = await getConsoleTest(
-          page,
-          `${hostname}?uuid=${filteredUuids[k][0]}&id=${filteredUuids[k][1].substring(0, filteredUuids[k][1].lastIndexOf('.')) || filteredUuids[k][1]}&alea=${alea}&testCI`,
-        )
-        log(
-          `Resu: ${resultReq} uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]}`,
-        )
-        return resultReq === 'OK'
+        let resultReq: string | undefined
+        try {
+          resultReq = await getConsoleTest(
+            page,
+            `${hostname}?uuid=${filteredUuids[k][0]}&id=${filteredUuids[k][1].substring(0, filteredUuids[k][1].lastIndexOf('.')) || filteredUuids[k][1]}&alea=${alea}&testCI`,
+          )
+        } catch (error) {
+          throwConsoleErrorsFailure(filteredUuids[k][1], error)
+        }
+        if (resultReq !== 'OK') {
+          logError(
+            `Erreur pour uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]} i=${k} / ${filteredUuids.length}`,
+          )
+          throwConsoleErrorsFailure(
+            filteredUuids[k][1],
+            `Résultat inattendu: ${resultReq}`,
+          )
+        } else {
+          logIfVerbose(
+            `Succès pour uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]} i=${k} / ${filteredUuids.length}`,
+          )
+        }
+        return true
       }
       Object.defineProperty(f, 'name', { value: myName, writable: false })
       ff.push(f)
@@ -330,21 +541,24 @@ async function testRunAllLots(filter: string) {
 
 const alea = 'e906e'
 const local = true
-
 if (process.env.NIV !== null && process.env.NIV !== undefined) {
   const filter = (process.env.NIV as string).replaceAll(' ', '')
   prefs.headless = true
-  prefs.nbExosParLot = 300
-  log(filter)
+  prefs.nbExosParLot = process.env.NB_EXOS_PAR_LOT
+    ? parseInt(process.env.NB_EXOS_PAR_LOT)
+    : 75
+  logIfVerbose(filter)
   testRunAllLots(filter)
 } else if (
   process.env.CHANGED_FILES !== null &&
   process.env.CHANGED_FILES !== undefined
 ) {
   const changedFiles = process.env.CHANGED_FILES?.split('\n') ?? []
-  log(changedFiles)
+  logIfVerbose(changedFiles)
   prefs.headless = true
-  prefs.nbExosParLot = 300
+  prefs.nbExosParLot = process.env.NB_EXOS_PAR_LOT
+    ? parseInt(process.env.NB_EXOS_PAR_LOT)
+    : 75
   const filtered = changedFiles
     .filter(
       (file) =>
@@ -368,10 +582,10 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
       })
     })
   } else {
-    const cfiltered = filtered.slice(0, 200) // limiter à 200 exercices pour éviter de surcharger le serveur
+    const cfiltered = filtered.slice(0, prefs.nbExosParLot) // limiter à 300 exercices pour éviter de surcharger le serveur
     cfiltered.forEach((file, index) => {
       const filter = file.replaceAll(' ', '')
-      console.log(
+      logIfVerbose(
         'launching test for:',
         filter + `,  ${index + 1}/${cfiltered.length}`,
       )

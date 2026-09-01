@@ -1,21 +1,29 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import Figure from 'apigeom'
 import type CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { apigeomFigureToSvg } from '../../lib/apigeom/apigeom-figure'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 import { bleuMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import { representationFraction } from '../../modules/representationsFractions'
-import { amcConvert } from '../../lib/amc/amcBuilders'
 
 export const titre = 'Représenter des fractions'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '15/01/2024'
 
@@ -30,7 +38,7 @@ export const uuid = '87479'
 export const refs = {
   'fr-fr': ['CM2N2A-2'],
   'fr-2016': ['6N14'],
-  'fr-ch': ['9NO10-1'],
+  'fr-ch': ['9NO3A-2'],
 }
 export default class RepresenterUneFraction extends Exercice {
   figures: Figure[] = []
@@ -47,9 +55,23 @@ export default class RepresenterUneFraction extends Exercice {
       6,
       '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe',
     ]
+    this.besoinFormulaire2Texte = [
+      'Type de question',
+      'Nombres séparés par des tirets :\n0 : Mélange\n1 : Représenter la fraction\n2 : Donner la fraction représentée',
+    ]
   }
 
   nouvelleVersion() {
+    const listeTypeDeQuestion = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 2,
+      melange: 0,
+      defaut: 1,
+      nbQuestions: this.nbQuestions,
+    })
+    this.figuresApiGeom = []
+    this.figuresApiGeomCorr = []
     let sc
     const ppc = 20
     if (context.isHtml) {
@@ -89,9 +111,12 @@ export default class RepresenterUneFraction extends Exercice {
           break
       }
       f = fraction(num, den)
-      texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
+      texte =
+        listeTypeDeQuestion[i] === 1
+          ? `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
+          : `Sachant qu'un disque représente une unité, Quelle est la fraction représentée ?<br>`
       this.numerators[i] = num
-      if (this.interactif) {
+      if (this.interactif && listeTypeDeQuestion[i] === 1) {
         const figure = new Figure({
           xMin: -1.6,
           yMin: -1.6,
@@ -100,7 +125,7 @@ export default class RepresenterUneFraction extends Exercice {
         })
         figure.options.color = bleuMathalea
         figure._scale = context.isHtml ? 1 : 0.6
-        this.figures[i] = figure
+        this.figuresApiGeom[i] = figure
         figure.create('CircleFractionDiagram', {
           denominator: den,
           numberOfCircle: 3,
@@ -116,20 +141,35 @@ export default class RepresenterUneFraction extends Exercice {
         })
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
         figure.divUserMessage.style.display = 'none'
-      } else {
-        // if (context.isHtml) {
-        //   texte += figure.getStaticHtml()
-        // } else {
-        //   texte += figure.tikz()
-        // }
+      } else if (listeTypeDeQuestion[i] === 1) {
         const f2 = fraction(den * 3, den)
         texte += mathalea2d(
           params,
-          representationFraction(f2, 0, 0, 2, 0, 'gateau', 'white'),
+          representationFraction(
+            f2,
+            0,
+            0,
+            2,
+            0,
+            'gateau',
+            listeTypeDeQuestion[i] === 1 ? 'white' : bleuMathalea,
+          ),
+        )
+      } else {
+        texte += mathalea2d(
+          params,
+          representationFraction(f, 0, 0, 2, 0, 'gateau', bleuMathalea),
+        )
+      }
+      if (listeTypeDeQuestion[i] === 2 && this.interactif) {
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
         )
       }
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
-      if (this.interactif) {
+      if (this.interactif && listeTypeDeQuestion[i] === 1) {
         const figureCorr = new Figure({
           xMin: -2,
           yMin: -2,
@@ -143,7 +183,10 @@ export default class RepresenterUneFraction extends Exercice {
           radius: 1,
         })
         diagrammeCorr.numerator = num
-        texteCorr += figureCorr.getStaticHtml()
+        texteCorr += context.isTypst
+          ? apigeomFigureToSvg(figureCorr)
+          : figureCorr.getStaticHtml()
+        this.figuresApiGeomCorr[i] = figureCorr
       } else {
         texteCorr += mathalea2d(
           params,
@@ -157,6 +200,10 @@ export default class RepresenterUneFraction extends Exercice {
             bleuMathalea,
           ),
         )
+        if (listeTypeDeQuestion[i] === 2) {
+          texteCorr += `L'unité est partagée en $${den}$ parts et ${num} parts sont coloriées en bleu.<br>
+          La fraction représentée est donc $${f.texFraction}$.`
+        }
       }
       if (context.isAmc) {
         this.autoCorrectionAMC[i] = {
@@ -180,6 +227,26 @@ export default class RepresenterUneFraction extends Exercice {
         this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
       if (this.questionJamaisPosee(i, num, den)) {
+        if (listeTypeDeQuestion[i] === 2) {
+          handleAnswers(
+            this,
+            i,
+            {
+              reponse: {
+                value: f.texFraction,
+                options: { fractionEgale: true },
+              },
+            },
+            { formatInteractif: 'mathalea-mathfield' },
+          )
+        } else {
+          handleAnswers(
+            this,
+            i,
+            { reponse: { value: '' } },
+            { formatInteractif: 'meta-custom' },
+          )
+        }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
@@ -191,9 +258,13 @@ export default class RepresenterUneFraction extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
+    if (i === undefined || this.figuresApiGeom === undefined) return ['KO']
+
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figures[i].id] = this.figures[i].json
+    this.answers[this.figuresApiGeom[i].id] = figureAnswerJson(
+      this.figuresApiGeom[i],
+    )
     let result = 'KO'
     const divCheck = document.querySelector(
       `#resultatCheckEx${this.numeroExercice}Q${i}`,
@@ -201,7 +272,7 @@ export default class RepresenterUneFraction extends Exercice {
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,
     )
-    const diagramme = this.figures[i].elements.get(
+    const diagramme = this.figuresApiGeom[i].elements.get(
       'element0',
     ) as CircleFractionDiagram
     if (diagramme.type !== 'CircleFractionDiagram')
@@ -219,8 +290,8 @@ export default class RepresenterUneFraction extends Exercice {
       }
       result = 'KO'
     }
-    this.figures[i].isDynamic = false
-    this.figures[i].divUserMessage.style.display = 'none'
+    this.figuresApiGeom[i].isDynamic = false
+    this.figuresApiGeom[i].divUserMessage.style.display = 'none'
     return result
   }
 }

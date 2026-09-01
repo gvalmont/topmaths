@@ -1,12 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer avec les chiffres'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'a4cbf'
 export const refs = {
   'fr-fr': [],
@@ -27,7 +26,7 @@ export default class calcAvecChiffres extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([1, 2, 3])
+    const choix = this.quotaChoice('choix', [1, 2, 3])
 
     if (choix === 1) {
       this.question = '$2+0+2+5$'

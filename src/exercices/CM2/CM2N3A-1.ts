@@ -1,7 +1,7 @@
 import TablesDeMultiplications from '../6e/_Tables_de_multiplications'
 export const titre = 'Connaître les tables de multiplication'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '27/08/2024'
@@ -13,7 +13,7 @@ export const dateDeModifImportante = '27/08/2024'
 export const uuid = '4e27f'
 
 export const refs = {
-  'fr-fr': ['CM2N3A-1'],
+  'fr-fr': ['CM2N3A-1', 'auto6N3D-1', 'auto5N3A', 'auto5N4A'],
   'fr-2016': ['c3C10-1'],
   'fr-ch': [],
 }

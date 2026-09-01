@@ -1,3 +1,5 @@
+import { clesBanquesPartageables } from './stores/banquesExternesStore'
+import { estUuidBanqueExterne } from './types/banquesExternes'
 import type { InterfaceParams } from './types'
 
 export function createURL(params: InterfaceParams[]) {
@@ -7,6 +9,18 @@ export function createURL(params: InterfaceParams[]) {
       window.location.host +
       window.location.pathname,
   )
+  // Banques externes distantes : le lien doit dire d'où viennent les uuid `bq-`,
+  // sans quoi le destinataire ne pourrait pas afficher ces exercices. Seules
+  // les banques hébergées sur une forge sont référençables (une banque zip
+  // n'existe que sur la machine où elle a été déposée).
+  const uuidsDeBanque = params
+    .map((ex) => ex.uuid)
+    .filter((uuid) => estUuidBanqueExterne(uuid))
+  if (uuidsDeBanque.length > 0) {
+    for (const cle of clesBanquesPartageables(uuidsDeBanque)) {
+      url.searchParams.append('bq', cle)
+    }
+  }
   for (const ex of params) {
     url.searchParams.append('uuid', ex.uuid)
     if (ex.id != null) url.searchParams.append('id', ex.id)
@@ -20,6 +34,9 @@ export function createURL(params: InterfaceParams[]) {
     if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
     if (ex.sup5 != null) url.searchParams.append('s5', ex.sup5)
     if (ex.versionQcm != null) url.searchParams.append('qcm', ex.versionQcm)
+    // Le coefficient par défaut n'alourdit pas l'URL
+    if (ex.coeffBareme != null && ex.coeffBareme !== 1)
+      url.searchParams.append('coef', ex.coeffBareme.toString())
     if (ex.interactif === '1') url.searchParams.append('i', '1')
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
     if (ex.tip != null) url.searchParams.append('tip', String(ex.tip))

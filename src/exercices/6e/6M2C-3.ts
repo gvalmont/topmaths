@@ -6,7 +6,7 @@ import {
   texteParPositionEchelle,
 } from '../../lib/2d/textes'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
@@ -29,14 +29,13 @@ export const dateDePublication = '09/04/2022'
 export const dateDeModifImportante = '27/03/2024'
 export const titre = "Résoudre des problèmes d'aires de rectangles"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const uuid = '9a5fe'
 
 export const refs = {
-  'fr-fr': ['6M2C-3'],
+  'fr-fr': ['6M2C-3', 'BP1AUTO107'],
   'fr-2016': ['6M10-1'],
-  'fr-ch': ['9GM1-9'],
+  'fr-ch': ['9GM1B-21'],
 }
 /**
  * @author Jean-claude Lhote
@@ -212,7 +211,7 @@ function dessineCheminAires(
   let y = 0
   let index = 0
   const listeCellules = []
-  for (let etape = 0; etape <= nombreTotalEtapes; ) {
+  for (let etape = 0; etape <= nombreTotalEtapes;) {
     switch (alternance) {
       case 'colonne':
         do {
@@ -702,7 +701,6 @@ export default class ProblemesAiresRectangles extends Exercice {
     for (
       let q = 0, cpt = 0, texte, texteCorr, reponse;
       q < this.nbQuestions && cpt < 50;
-
     ) {
       const typeDeGrille = choisitFormatGrille(nombreTotalEtapes[q])
       // On détermine les 8 longueurs nécessaires et on prépare la grille de rectangles
@@ -756,7 +754,7 @@ export default class ProblemesAiresRectangles extends Exercice {
       texte = tablo[0]
       texteCorr = tablo[1]
       reponse = tablo[2]
-      setReponse(this, q, reponse)
+      handleAnswers(this, q, { reponse: { value: reponse } })
       texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierNumbers, {
         texteAvant: 'Réponse : ',
         texteApres: this.sup4 === 1 ? '$ \\text{ cm}$' : '$ \\text{ cm}^2$',

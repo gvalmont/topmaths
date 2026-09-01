@@ -17,7 +17,6 @@ import {
 import Exercice from '../Exercice'
 export const titre = 'Calculer  une probabilité avec un arbre'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '29/04/2025'
 
@@ -191,7 +190,7 @@ export default class CalculerProbaArbre extends Exercice {
           texte +=
             mathalea2d(
               Object.assign(
-                { scale: 0.7, style: 'inline' },
+                { scale: 0.7, display: 'inline' } as const,
                 fixeBordures(objets),
               ),
               objets,
@@ -281,7 +280,7 @@ export default class CalculerProbaArbre extends Exercice {
           texte +=
             mathalea2d(
               Object.assign(
-                { scale: 0.7, style: 'inline' },
+                { scale: 0.7, display: 'inline' } as const,
                 fixeBordures(objets),
               ),
               objets,
@@ -325,7 +324,7 @@ export default class CalculerProbaArbre extends Exercice {
           texte +=
             mathalea2d(
               Object.assign(
-                { scale: 0.7, style: 'inline' },
+                { scale: 0.7, display: 'inline' } as const,
                 fixeBordures(objets),
               ),
               objets,

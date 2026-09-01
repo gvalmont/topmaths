@@ -5,10 +5,9 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { minToHoraire } from '../../../lib/outils/dateEtHoraires'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
-import { randint } from '../../../modules/outils'
 export const titre = 'Déterminer un nombre de minutes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '4pvxi'
 export const refs = {
   'fr-fr': [],
@@ -34,7 +33,9 @@ export default class nbreMinutes2026 extends ExerciceSimple {
     const heureDebut = 20
     const minutesDebut = annee % 100
     const prenom = prenomF()
-    const dureeMinutes = this.canOfficielle ? 40 : randint(40, 55)
+    const dureeMinutes = this.canOfficielle
+      ? 40
+      : this.quotaRandint('dureeMinutes', 40, 55)
     const dureeHeures = 1
 
     // Calcul de l'heure de fin

@@ -1,4 +1,3 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -6,7 +5,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = "Charger d'unités"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'ygq20'
 export const refs = {
   'fr-fr': [],
@@ -28,9 +27,11 @@ export default class ChangerUnites extends ExerciceSimple {
 
   nouvelleVersion() {
     const annee = 2026
-    const choix = this.canOfficielle ? false : choice([true, false])
+    const choix = this.canOfficielle
+      ? false
+      : this.quotaChoice('choix', [true, false])
     if (choix) {
-      this.reponse = texNombre(annee/ 100, 2)
+      this.reponse = texNombre(annee / 100, 2)
       this.question = `$${texNombre(annee)}\\text{ cm}$  `
 
       this.correction = `
@@ -46,9 +47,9 @@ export default class ChangerUnites extends ExerciceSimple {
       this.canEnonce = 'Compléter.'
       this.canReponseACompleter = `$${texNombre(annee)}\\text{ cm}$  $=$  $~~\\ldots~~\\text{ m}$`
     } else {
-      this.reponse = texNombre(annee* 100, 2)
+      this.reponse = texNombre(annee * 100, 2)
       this.question = `$${texNombre(annee)}\\text{ m}$   `
-      this.correction = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  alors $${texNombre(annee)}\\text{ m}=${miseEnEvidence(texNombre(annee*100))}\\text{ cm}$.`
+      this.correction = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  alors $${texNombre(annee)}\\text{ m}=${miseEnEvidence(texNombre(annee * 100))}\\text{ cm}$.`
       if (!this.interactif) {
         this.question += '$=\\ldots\\text{ cm}$'
       }

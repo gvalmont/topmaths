@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de proportionnalité*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '19/07/2022'
@@ -19,8 +19,8 @@ export const dateDePublication = '19/07/2022'
 export const uuid = 'afbda'
 
 export const refs = {
-  'fr-fr': ['can5P07'],
-  'fr-ch': [],
+  'fr-fr': ['can5P07', '5P1C-flash1'],
+  'fr-ch': ['9FA2B-10'],
 }
 export default class Proportionnalite2 extends ExerciceSimple {
   constructor() {
@@ -48,7 +48,7 @@ export default class Proportionnalite2 extends ExerciceSimple {
       ['citrouilles', 'citrouille'],
     ]
     switch (
-      choice([1, 2]) //
+      this.quotaChoice('typeDeQuestions', [1, 2]) //
     ) {
       case 1: // proportionnalité avec fruits
         choix = choice(['a', 'b', 'c'])

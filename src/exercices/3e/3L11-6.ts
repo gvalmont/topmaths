@@ -13,14 +13,14 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '22/05/2021'
 
 /**
@@ -31,7 +31,7 @@ export const uuid = '51360'
 
 export const refs = {
   'fr-fr': ['3L11-6', 'BP2AutoI22'],
-  'fr-ch': ['11FA3-3'],
+  'fr-ch': ['11FA4B-3'],
 }
 export default class FactoriserUneExpression3e extends Exercice {
   constructor() {

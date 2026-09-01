@@ -19,6 +19,7 @@ import {
   pointIntersectionDD,
   pointSurCercle,
 } from '../../lib/2d/utilitairesPoint'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { texTexte } from '../../lib/format/texTexte'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -40,12 +41,10 @@ import {
 } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Calculer périmètre et aire de figures composées'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '06/05/2024'
@@ -264,7 +263,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 pixelsParCm: 20,
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
-              },
+                display: 'block',
+              } as const,
               fixeBordures([A, B, C, D, E, pointAbstrait(C.x, C.y + 0.5)], {
                 rxmin: -1.2,
                 rymin: -1.2,
@@ -281,7 +281,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   pixelsParCm: 20,
                   zoom: 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
-                },
+                  display: 'block',
+                } as const,
                 fixeBordures(
                   [
                     A,
@@ -297,8 +298,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               ),
               objetsCorrection,
             )
-            texteCorr += `<br>
-            On peut découper cette figure en un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(l1, 1)} cm
+            texteCorr += `On peut découper cette figure en un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(l1, 1)} cm
             et un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2, 1)} cm
             et ${stringNombre(l1, 1)} cm.<br>`
           } else {
@@ -384,7 +384,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 pixelsParCm: 20,
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
-              },
+                display: 'block',
+              } as const,
               fixeBordures([M, N, S, O, P, pointAbstrait(N.x, N.y + 0.5)], {
                 rxmin: -1,
                 rymin: -1.2,
@@ -401,7 +402,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   pixelsParCm: 20,
                   zoom: 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
-                },
+                  display: 'block',
+                } as const,
                 fixeBordures([M, N, S, O, P, pointAbstrait(N.x, N.y + 0.5)], {
                   rxmin: -1,
                   rymin: -1.2,
@@ -575,7 +577,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 pixelsParCm: 20,
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
-              },
+                display: 'block',
+              } as const,
               fixeBordures([M, N, S, O, P, pointAbstrait(N.x, N.y + 0.5)], {
                 rxmin: -1,
                 rymin: -1,
@@ -592,7 +595,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   pixelsParCm: 20,
                   zoom: 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
-                },
+                  display: 'block',
+                } as const,
                 fixeBordures([M, N, S, O, P, pointAbstrait(N.x, N.y + 0.5)], {
                   rxmin: -1,
                   rymin: -1,
@@ -600,8 +604,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               ),
               objetsCorrection,
             )
-            texteCorr += `<br>
-            La figure est composée d'un rectangle et deux triangles rectangles.<br>`
+            texteCorr += `La figure est composée d'un rectangle et deux triangles rectangles.<br>`
           } else {
             texteCorr = `La figure est un carré de côté ${stringNombre(c, 1)} cm auquel il faut enlever un triangle de ${stringNombre(c, 1)} cm de base et ${stringNombre(h, 1)} cm de hauteur.<br>`
             texteCorr +=
@@ -685,7 +688,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 pixelsParCm: 20,
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
-              },
+                display: 'block',
+              } as const,
               fixeBordures(
                 [A, B, C, D, E, demicercle, pointAbstrait(C.x, C.y + 0.2)],
                 {
@@ -704,7 +708,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   pixelsParCm: 20,
                   zoom: 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
-                },
+                  display: 'block',
+                } as const,
                 fixeBordures(
                   [A, B, C, D, E, demicercle, pointAbstrait(C.x, C.y + 0.2)],
                   {
@@ -827,7 +832,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 pixelsParCm: 20,
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
-              },
+                display: 'block',
+              } as const,
               fixeBordures(
                 [
                   A,
@@ -855,7 +861,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   pixelsParCm: 20,
                   zoom: 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
-                },
+                  display: 'block',
+                } as const,
                 fixeBordures(
                   [
                     A,
@@ -875,8 +882,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               ),
               objetsCorrection,
             )
-            texteCorr += `<br>
-            La figure est composée d'un rectangle
+            texteCorr += `La figure est composée d'un rectangle
             et de deux demi-disques.<br>`
           } else {
             texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(L2, 1)} cm`
@@ -988,7 +994,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 pixelsParCm: 20,
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
-              },
+                display: 'block',
+              } as const,
               fixeBordures(
                 [demicercle, A, B, C, D, E, pointAbstrait(C.x, C.y + 0.6)],
                 {
@@ -1007,7 +1014,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   pixelsParCm: 20,
                   zoom: 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
-                },
+                  display: 'block',
+                } as const,
                 fixeBordures(
                   [demicercle, A, B, C, D, E, pointAbstrait(C.x, C.y + 0.2)],
                   {
@@ -1018,8 +1026,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
               ),
               objetsCorrection,
             )
-            texteCorr += `<br>
-            La figure est composée d'un rectangle, d'un triangle rectangle et d'un demi-disque.<br>`
+            texteCorr += `La figure est composée d'un rectangle, d'un triangle rectangle et d'un demi-disque.<br>`
           } else {
             texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(l1, 1)} cm, `
             texteCorr += `d'un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2, 1)} cm et ${stringNombre(l1, 1)} cm `

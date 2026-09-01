@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils'
+import { bleuMathalea } from '../../../lib/colors'
 import {
   miseEnEvidence,
   texteEnCouleur,
@@ -6,11 +6,10 @@ import {
 import { texRacineCarree } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 
 export const titre = 'Calculer la diagonale d’un carré'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '09/09/2021'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -33,7 +32,7 @@ export default class DiagonaleCarre extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('cas', [1, 2])) {
       case 1:
         {
           const a = randint(1, 10) //

@@ -12,7 +12,6 @@ import Exercice from '../Exercice'
 export const titre =
   'Trouver une probabilité sous forme fractionnaire, décimale et en pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * @author Éric Elter
@@ -23,7 +22,7 @@ export const uuid = 'b8296'
 export const refs = {
   'fr-fr': [],
   'fr-2016': [],
-  'fr-ch': [''],
+  'fr-ch': ['NR'],
 }
 export default class Probabilites6e extends Exercice {
   constructor() {
@@ -48,7 +47,7 @@ export default class Probabilites6e extends Exercice {
       [9, 10, 90],
     ]
     const couleur = ['noire', 'blanche', 'rouge', 'bleue', 'verte', 'jaune']
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const frac: [number, number, number] = choice(fracPossible)
       const choix = choice([true, false])
       const choixCouleur = [choice(couleur)]

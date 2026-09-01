@@ -3,15 +3,14 @@ import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { bleuMathalea } from '../../../lib/colors'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -35,7 +34,7 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, A, B, C, D, E, objets, nom
-    if (choice([true, false])) {
+    if (this.quotaChoice('sens', [true, false])) {
       nom = creerNomDePolygone(5, ['QD'])
       a = randint(1, 9) + randint(1, 5) / 10 + randint(1, 9) / 100
 
@@ -69,7 +68,7 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
           pixelsParCm: 18,
           mainlevee: false,
           amplitude: 0.5,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )
@@ -114,7 +113,7 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
           pixelsParCm: 18,
           mainlevee: false,
           amplitude: 0.5,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )

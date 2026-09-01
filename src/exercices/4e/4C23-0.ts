@@ -15,14 +15,14 @@ import Exercice from '../Exercice'
 
 export const titre =
   'Effectuer des calculs simples avec un nombre entier et une fraction'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 export const dateDePublication = '11/02/2026'
 export const uuid = 'c2e0a'
 
 export const refs = {
   'fr-fr': ['4C23-0'],
-  'fr-ch': [],
+  'fr-ch': ['10NO3B-2'],
 }
 
 /**
@@ -74,7 +74,7 @@ export default class CalculsSimplesEntiersFractions extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const fractionsDisponibles = [
         [1, 3],
         [2, 3],

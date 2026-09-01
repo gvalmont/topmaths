@@ -1,10 +1,9 @@
-import CalculToutAvecPartie from '../can/2e/can2C23'
+import CalculToutAvecPartie from '../can/2e/can2I10-02'
 export const titre = 'Calculer le tout connaissant une partie'
 export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can5P11 pour les auto 1er
@@ -14,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'c8a75'
 
 export const refs = {
-  'fr-fr': ['1A-R02-3'],
+  'fr-fr': ['1A-R02-3', '2A-R2-3', 'BP1SP09'],
   'fr-ch': [],
 }
 export default class Auto1AR5a extends CalculToutAvecPartie {

@@ -8,13 +8,14 @@ import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Déterminer une ordonnée/abscisse avec une fonction linéaire'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '02/11/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -26,7 +27,7 @@ export const dateDePublication = '02/11/2022'
 export const uuid = 'bf9f2'
 
 export const refs = {
-  'fr-fr': ['can3F10'],
+  'fr-fr': ['can3F10', 'can2F12-03', '2F12-flash3'],
   'fr-ch': [],
 }
 export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
@@ -38,7 +39,7 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
 
   nouvelleVersion() {
     let xA, yB
-    const a = choice([0.5, 1.5, 2, 2.5, 3, 3.5, 4])
+    const a = this.quotaChoice('a', [0.5, 1.5, 2, 2.5, 3, 3.5, 4])
     if (a === 0.5 || a === 1.5 || a === 2) {
       xA = choice([2, 4])
     } else {
@@ -46,7 +47,7 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
     }
     const yA = a * xA
     const f = (x: number) => a * x
-    const xB = randint(5, 10)
+    const xB = this.quotaRandint('xB', 5, 10)
     if (a === 0.5) {
       yB = randint(6, 10) * 2
     } else if (a === 1.5) {
@@ -108,7 +109,7 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
         ymax,
         pixelsParCm: 30,
         scale: 0.75,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       courbe(f, { repere: r1, color: bleuMathalea, epaisseur: 2 }),
       r1,
@@ -118,7 +119,7 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
       sAAx,
       sAAy,
     )
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('cas', [1, 2])) {
       case 1: //
         this.question = `$B(${xB}\\,;\\, \\ldots)$ est un point de la droite $(OA)$.<br>
         Quelle est son ordonnée ?<br>

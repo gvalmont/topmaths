@@ -5,11 +5,11 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { randint } from '../../modules/outils'
 import { mathaleaRenderDiv } from '../../lib/mathalea'
 import { context } from '../../modules/context'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const titre = 'Tracer un triangle à partir de longueurs des 3 côtés'
 export const dateDePublication = '29/10/2023'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * Tracer un triangle à partir de longueurs des 3 côtés
@@ -107,14 +107,14 @@ class ConstructionTriangle extends ExerciceSimple {
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
-  correctionInteractive = () => {
+  correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figure.id] = this.figure.json
+    this.answers[this.figure.id] = figureAnswerJson(this.figure)
     const resultat = []
     // 1 point par distance correcte + 2 points si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(
-      `#feedbackEx${this.numeroExercice}Q${0}`,
+      `#feedbackEx${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
     let feedback = ''
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [

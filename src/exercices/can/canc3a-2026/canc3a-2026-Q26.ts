@@ -6,16 +6,15 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { wrapperApigeomToMathalea } from '../../../lib/apigeom/apigeomZoom'
 import figureApigeom from '../../../lib/figureApigeom'
-import { ajouteFeedback } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceCan from '../../ExerciceCan'
 import { bleuMathalea } from '../../../lib/colors'
+import { figureAnswerJson } from '../../../lib/apigeom/figureAnswer'
 
 export const titre = 'Tracer un segment de longueur fractionnaire'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const uuid = '775b7'
 export const refs = {
   'fr-fr': [],
@@ -36,7 +35,7 @@ export default class Can2026CM2Q26 extends ExerciceCan {
     super()
     this.formatChampTexte = 'none'
     this.nbQuestionsModifiable = false
-    this.formatInteractif = 'custom'
+    this.formatInteractif = 'meta-custom'
   }
 
   enonce(num?: number, den?: number) {
@@ -150,13 +149,15 @@ export default class Can2026CM2Q26 extends ExerciceCan {
 
     const emplacementPourFigure = figureApigeom({
       exercice: this,
-      i: 25,
+      // L'index de la question dans un méta-exercice est appliqué par
+      // `figureApigeom()` à partir de `indexQuestionHote`.
+      i: 0,
       figure,
       defaultAction: 'SEGMENT',
     })
     if (context.isHtml) {
       if (this.interactif) {
-        this.question += emplacementPourFigure + ajouteFeedback(this, 0)
+        this.question += emplacementPourFigure
       } else {
         this.question += wrapperApigeomToMathalea(figure)
       }
@@ -196,7 +197,7 @@ export default class Can2026CM2Q26 extends ExerciceCan {
     figure.divUserMessage.style.display = 'none'
 
     if (this.answers == null) this.answers = {}
-    this.answers[figure.id] = figure.json
+    this.answers[figure.id] = figureAnswerJson(figure)
 
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,

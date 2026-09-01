@@ -1,11 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Convertir en mètres'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -17,8 +16,8 @@ export const amcType = 'AMCNum'
 export const uuid = 'd52aa'
 
 export const refs = {
-  'fr-fr': ['can6M03', 'auto6M1C-flash2'],
-  'fr-ch': [],
+  'fr-fr': ['can6M03', 'auto6M1C-flash2', '6AutoL2-1'],
+  'fr-ch': ['NR'],
 }
 export default class ConvertirEnM extends ExerciceSimple {
   constructor() {
@@ -29,7 +28,7 @@ export default class ConvertirEnM extends ExerciceSimple {
 
   nouvelleVersion() {
     let a
-    if (choice([true, false])) {
+    if (this.quotaChoice('typeConversion', [true, false])) {
       a = randint(0, 5) * 10 + randint(1, 9)
       this.reponse = a * 1000
       this.question = `$${a}\\text{ km}$ font combien de mètres ?`

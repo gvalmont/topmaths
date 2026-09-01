@@ -1,288 +1,113 @@
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { personnes } from '../../lib/outils/Personne'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { context } from '../../modules/context'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
-export const titre =
-  'Calculer des probabilités dans une situation concrète (union et intersection)'
-export const dateDePublication = '26/05/2024'
+export const titre = "Vérifier la cohérence d'une loi de probabilité"
+export const dateDePublication = '18/08/2026'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
-/**
- *
- * @author Gilles Mora
- */
-export const uuid = 'ac940'
+
+export const uuid = '2e408'
+
 export const refs = {
   'fr-fr': ['2S30-7'],
   'fr-ch': [],
 }
-export default class ProbaConcret extends Exercice {
+
+export function genereEffectifsDeSomme100(): number[] {
+  const coupures = [0, 100]
+  for (let i = 0; i < 5; i++) coupures.push(randint(0, 100))
+  coupures.sort((a, b) => a - b)
+  return shuffle(coupures.slice(1).map((borne, i) => borne - coupures[i]))
+}
+
+export function rendSommeIncorrecte(effectifs: number[]): number[] {
+  const resultat = [...effectifs]
+  const indicesModifiables = resultat
+    .map((effectif, indice) => ({ effectif, indice }))
+    .filter(({ effectif }) => effectif > 0 || effectif < 100)
+  const { effectif, indice } = choice(indicesModifiables)
+  const signe = effectif === 0 ? 1 : effectif === 100 ? -1 : choice([-1, 1])
+  const variationMaximale = signe === 1 ? 100 - effectif : effectif
+  resultat[indice] += signe * randint(1, Math.min(10, variationMaximale))
+  return resultat
+}
+
+function frequenceLatex(effectif: number): string {
+  return texNombre(effectif / 100, 2)
+}
+
+/**
+ * Vérifier qu'une liste de fréquences définit une loi de probabilité.
+ *
+ * @author Arnaud Meistermann
+ */
+export default class CoherenceLoiProbabilite extends Exercice {
   constructor() {
     super()
-    // this.consigne = 'Calculer '
-    this.sup = 7
     this.nbQuestions = 1
-    this.spacing = context.isHtml ? 1.5 : 2
-    this.spacingCorr = context.isHtml ? 1.5 : 2
   }
 
   nouvelleVersion() {
-    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
-      saisie: this.sup,
-      min: 1,
-      max: 6,
-      melange: 7,
-      defaut: 7,
-      nbQuestions: this.nbQuestions,
-    })
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+      const [proprietaire, contradicteur] = personnes(2)
+      const tableauCorrect = choice([true, false])
+      const effectifsCorrects = genereEffectifsDeSomme100()
+      const effectifs = tableauCorrect
+        ? effectifsCorrects
+        : rendSommeIncorrecte(effectifsCorrects)
+      const frequences = effectifs.map(frequenceLatex)
+      const somme = effectifs.reduce((total, effectif) => total + effectif, 0)
+      const sommeLatex = frequenceLatex(somme)
 
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions,
-    )
-
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const a = randint(1, 20)
-      let texte = ''
-      let texteCorr = ''
-
-      const total = randint(6, 9) * 20
-      const nbCadres = randint(20, 60)
-      const nbEmployes = total - nbCadres
-      const nbFemmes = randint(25, 50)
-      const nbHommes = total - nbFemmes
-      const nbFemmesEtCadres = randint(10, 15)
-      const nbHommesEtCadres = nbCadres - nbFemmesEtCadres
-      const nbFemmesEtEmployees = nbFemmes - nbFemmesEtCadres
-      const nbHommesEtEmployes = nbHommes - nbHommesEtCadres
-
-      const listeEvenementIntersection = [
-        [
-          'F\\cap C',
-          'la personne choisie est une femme qui fait partie des cadres',
-          new FractionEtendue(nbFemmesEtCadres, total).texFraction,
-          'de femmes cadres',
-        ],
-        [
-          '\\overline{F}\\cap C',
-          'la personne choisie est un homme qui fait partie des cadres',
-          new FractionEtendue(nbHommesEtCadres, total).texFraction,
-          "d'hommes cadres",
-        ],
-        [
-          '\\overline{F}\\cap \\overline{C}',
-          'la personne choisie est un homme qui fait partie des employés',
-          new FractionEtendue(nbHommesEtEmployes, total).texFraction,
-          "d'hommes employés",
-        ],
-        [
-          'F\\cap \\overline{C}',
-          'la personne choisie est une femme qui fait partie des employés',
-          new FractionEtendue(nbFemmesEtEmployees, total).texFraction,
-          'de femmes employées',
-        ],
-      ]
-      const EvInter = choice(listeEvenementIntersection)
-
-      const listeEvenementUnion = [
-        [
-          'F\\cup C',
-          'F',
-          new FractionEtendue(nbFemmes, total).texFraction,
-          'C',
-          new FractionEtendue(nbCadres, total).texFraction,
-          'F\\cap C',
-          new FractionEtendue(nbFemmesEtCadres, total).texFraction,
-          'la personne choisie est une femme ou fait partie des cadres',
-          new FractionEtendue(nbFemmes + nbCadres - nbFemmesEtCadres, total)
-            .texFraction,
-        ],
-        [
-          '\\overline{F}\\cup C',
-          '\\overline{F}',
-          new FractionEtendue(nbHommes, total).texFraction,
-          'C',
-          new FractionEtendue(nbCadres, total).texFraction,
-          '\\overline{F}\\cap C',
-          new FractionEtendue(nbHommesEtCadres, total).texFraction,
-          'la personne choisie est un homme ou fait partie des cadres',
-          new FractionEtendue(nbHommes + nbCadres - nbHommesEtCadres, total)
-            .texFraction,
-        ],
-        [
-          'F\\cup \\overline{C}',
-          'F',
-          new FractionEtendue(nbFemmes, total).texFraction,
-          '\\overline{C}',
-          new FractionEtendue(nbEmployes, total).texFraction,
-          'F\\cap \\overline{C}',
-          new FractionEtendue(nbFemmesEtEmployees, total).texFraction,
-          'la personne choisie est une femme ou fait partie des employés',
-          new FractionEtendue(
-            nbFemmes + nbEmployes - nbFemmesEtEmployees,
-            total,
-          ).texFraction,
-        ],
-        [
-          '\\overline{F}\\cup \\overline{C}',
-          '\\overline{F}',
-          new FractionEtendue(nbHommes, total).texFraction,
-          '\\overline{C}',
-          new FractionEtendue(nbEmployes, total).texFraction,
-          '\\overline{F}\\cap \\overline{C}',
-          new FractionEtendue(nbHommesEtEmployes, total).texFraction,
-          'la personne choisie est une femme ou fait partie des employés',
-          new FractionEtendue(nbHommes + nbEmployes - nbHommesEtEmployes, total)
-            .texFraction,
-        ],
-      ]
-      const EvUnion = choice(listeEvenementUnion)
-
-      const listeEvenementCond = [
-        [
-          'est une femme',
-          "qu'elle soit cadre",
-          'Nombre de femmes',
-          'Nombre de femmes cadres',
-          new FractionEtendue(nbFemmesEtCadres, nbFemmes).texFraction,
-        ],
-        [
-          'est un homme',
-          "qu'il soit cadre",
-          "Nombre d'hommes",
-          "Nombre d'hommes cadres",
-          new FractionEtendue(nbHommesEtCadres, nbHommes).texFraction,
-        ],
-        [
-          'est un homme',
-          "qu'il soit employé",
-          "Nombre d'hommes",
-          "Nombre d'hommes employés",
-          new FractionEtendue(nbHommesEtEmployes, nbHommes).texFraction,
-        ],
-        [
-          'est une femme',
-          "qu'elle soit employée",
-          'Nombre de femmes',
-          'Nombre de femmes employées',
-          new FractionEtendue(nbFemmesEtEmployees, nbFemmes).texFraction,
-        ],
-        [
-          'fait partie des cadres',
-          'que ce soit une femme',
-          'Nombre de cadres',
-          'Nombre de femmes cadres',
-          new FractionEtendue(nbFemmesEtCadres, nbCadres).texFraction,
-        ],
-        [
-          'fait partie des cadres',
-          'que ce soit un homme',
-          'Nombre de cadres',
-          "Nombre d'hommes cadres",
-          new FractionEtendue(nbHommesEtCadres, nbCadres).texFraction,
-        ],
-        [
-          'fait partie des employés',
-          'que ce soit une femme',
-          "Nombre d'employés",
-          'Nombre de femmes employées',
-          new FractionEtendue(nbFemmesEtEmployees, nbEmployes).texFraction,
-        ],
-        [
-          'fait partie des employés',
-          'que ce soit un homme',
-          "Nombre d'employés",
-          "Nombre d'hommes employées",
-          new FractionEtendue(nbHommesEtEmployes, nbEmployes).texFraction,
-        ],
-      ]
-      const EvCond = choice(listeEvenementCond)
-
-      const choix1 = choice([true, false])
-      const choix2 = choice([true, false])
-      const tableau = tableauColonneLigne(
-        ['', '\\text{Femmes}', '\\text{Hommes}', '\\text{Total}'],
-        ['\\text{Cadres}', '\\text{Employés}', '\\text{Total}'],
-        [
-          `${nbFemmesEtCadres}`,
-          `${nbHommesEtCadres}`,
-          `${nbCadres}`,
-          `${nbFemmesEtEmployees}`,
-          `${nbHommesEtEmployes}`,
-          `${nbEmployes}`,
-          `${nbFemmes}`,
-          `${nbHommes}`,
-          `${total}`,
-        ],
+      let texte = `${proprietaire.prenom} possède un dé truqué et affirme que la probabilité d'apparition de chacune des faces est donnée par le tableau suivant.<br>`
+      texte += `${contradicteur.prenom} affirme que ce tableau est nécessairement faux. A-t-il raison ?<br><br>`
+      texte += tableauColonneLigne(
+        ['\\text{Issue}', '1', '2', '3', '4', '5', '6'],
+        ['\\text{Probabilité}'],
+        frequences,
       )
 
-      texte = `Le personnel d'une entreprise est constitué de $${total}$ personnes qui se répartissent de
-          la manière suivante :  <br>
-            ${tableau}
-               `
+      this.autoCorrection[i] = {
+        enonce: `${texte}\n`,
+        options: { ordered: false, radio: true },
+        propositions: [
+          {
+            texte: `${contradicteur.prenom} a raison.`,
+            statut: !tableauCorrect,
+          },
+          {
+            texte: `${contradicteur.prenom} a tort.`,
+            statut: tableauCorrect,
+          },
+        ],
+      }
+      if (this.interactif) texte += `<br>${propositionsQcm(this, i).texte}`
 
-      texte += `Au cours de la fête de fin d'année, le comité d'entreprise offre un séjour à la
-               montagne à une personne choisie au hasard parmi les $${total}$ personnes de cette
-               entreprise.<br>
-               On définit les évènements suivants : <br>
-               C : « la personne choisie fait partie des cadres » ;
-               F : « la personne choisie est une femme ».<br>`
-      texte += `${addMultiMathfield(this, i, {
-        dataTemplate: `a) Calculer la probabilité de l'événement ${choix1 ? `$${EvInter[0]}$` : `: « ${EvInter[1]} »`}. %{champ1}<br>
-        b) Calculer la probabilité de l'événement ${choix2 ? `$${EvUnion[0]}$` : `: « ${EvUnion[7]} »`}. %{champ2}<br>
-        c) On sait que la personne choisie ${EvCond[0]}. Quelle est la probabilité ${EvCond[1]} ? %{champ3}`,
-        dataOptions: {
-          champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-          champ2: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-          champ3: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-        },
-      })}`
-      handleAnswers(
-        this,
-        i,
-        {
-          champ1: { value: EvInter[2] },
-          champ2: { value: EvUnion[8] },
-          champ3: { value: EvCond[4] },
-          bareme: toutAUnPoint,
-        },
-        { formatInteractif: 'multiMathfield' },
-      )
-      texteCorr = `${numAlpha(0)} La probabilité est donnée par : <br>
-          $P(${EvInter[0]})=\\dfrac{\\text{Nombre ${EvInter[3]}}}{\\text{Effectif total}}=${miseEnEvidence(EvInter[2])}$.
-               `
-      texteCorr += `<br><br>${numAlpha(1)} La probabilité est donnée par : <br>
-$\\begin{aligned}
-P(${EvUnion[0]})&=P(${EvUnion[1]})+P(${EvUnion[3]})-P(${EvUnion[5]})\\\\
-&=${EvUnion[2]}+${EvUnion[4]}-${EvUnion[6]}\\\\
-&=${miseEnEvidence(EvUnion[8])}
-  \\end{aligned}$
-                    `
-      texteCorr += `<br><br>${numAlpha(2)} La probabilité est donnée par : <br>
-          $P=\\dfrac{\\text{${EvCond[3]}}}{\\text{${EvCond[2]}}}=${miseEnEvidence(EvCond[4])}$.
-        
-               `
+      const calculSomme = frequences.join('+')
+      let correction = `Pour définir une loi de probabilité, toutes les probabilités doivent être comprises entre $0$ et $1$. De plus, leur somme doit être égale à $1$.<br>`
+      correction += `Ici, toutes les fréquences sont comprises entre $0$ et $1$.<br>`
+      correction += `$${calculSomme}=${sommeLatex}${tableauCorrect ? '' : '\\neq 1'}$.<br>`
+      correction += tableauCorrect
+        ? `La somme est égale à $1$.<br>Il est possible que ce tableau soit correct. ${texteEnCouleurEtGras(`${contradicteur.prenom} a tort`)}.`
+        : `La somme n'est pas égale à $1$ : ${texteEnCouleurEtGras(`${contradicteur.prenom} a raison`)}.`
 
-      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a)) {
-        // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+      if (
+        this.questionJamaisPosee(
+          i,
+          proprietaire.prenom,
+          contradicteur.prenom,
+          ...effectifs,
+        )
+      ) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(correction)
         i++
       }
-      cpt++
     }
     listeQuestionsToContenu(this)
   }

@@ -1,13 +1,27 @@
 <script lang="ts">
   import seedrandom from 'seedrandom'
-  import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
+  import {
+    afterUpdate,
+    beforeUpdate,
+    getContext,
+    onDestroy,
+    onMount,
+    tick,
+  } from 'svelte'
   import { get } from 'svelte/store'
   import ExerciceSimple from '../../../../../exercices/ExerciceSimple'
   import {
     exercisesUuidRanking,
     uuidCount,
   } from '../../../../../lib/components/counts'
+  import { afficheAlerteUniteManquante } from '../../../../../lib/interactif/afficheScore'
   import {
+    normaliseCoeffBareme,
+    pointsMaxExercice,
+  } from '../../../../../lib/interactif/baremeExercice'
+  import {
+    exerciceAUneUniteManquante,
+    exerciceContientCliqueFigure,
     exerciceInteractif,
     prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
@@ -22,6 +36,7 @@
   import {
     changes,
     exercicesParams,
+    pointsMaxParExercice,
     resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
@@ -33,12 +48,11 @@
   } from '../../../../../lib/types'
   import type { HeaderProps } from '../../../../../lib/types/ui'
   import { loadMathLive } from '../../../../../modules/loaders'
+  import ButtonTextAction from '../../../forms/ButtonTextAction.svelte'
+  import BasicClassicModal from '../../../modal/BasicClassicModal.svelte'
   import { countMathField } from '../../countMathField'
-  import { handleCorrectionAffichee } from '../../handleCorrection'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import Settings from './presentationalComponents/Settings.svelte'
-  import BasicClassicModal from '../../../modal/BasicClassicModal.svelte'
-  import ButtonTextAction from '../../../forms/ButtonTextAction.svelte'
 
   let isIndiceModalDisplayed = false
   let isTipAvailable: boolean
@@ -65,9 +79,7 @@
   let exercicesNumber: number = get(exercicesParams).length
 
   let id: string =
-    interfaceParams && interfaceParams.id
-      ? interfaceParams.id
-      : ''
+    interfaceParams && interfaceParams.id ? interfaceParams.id : ''
 
   const subscribeExercicesParamsStore = exercicesParams.subscribe((value) => {
     log('new interface')
@@ -79,18 +91,30 @@
     if (exercicesNumber !== value.length) {
       exercicesNumber = value.length
     }
+    if (
+      exercise.interactifObligatoire &&
+      interfaceParams &&
+      interfaceParams.interactif !== '1'
+    ) {
+      exercise.interactif = true
+      interfaceParams.interactif = '1'
+      exercicesParams.update((params) => params)
+    }
   })
 
   let columnsCount = interfaceParams.cols || 1
   let isVisible = true
   let isContentVisible = true
-  let isSettingsVisible = true
-  let isInteractif = exercise.interactif
+  // Dans la vue mobile, les paramètres sont masqués tant qu'ils n'ont pas été
+  // demandés depuis le menu de l'exercice : ils occuperaient tout l'écran.
+  const isMobileView = getContext('mobileView') === true
+  let isSettingsVisible = !isMobileView
+  let isInteractif = exercise.interactif || exercise.interactifObligatoire
   const interactifReady = exercise.interactifReady
-  const exerciceHasNoSettings =
+  const exerciceHasNoSettingsExceptBareme =
     !exercise.nbQuestionsModifiable &&
     !exercise.correctionDetailleeDisponible &&
-    !exercise.seed &&
+    !!exercise.pasDeVersionAleatoire &&
     !exercise.besoinFormulaireCaseACocher &&
     !exercise.besoinFormulaireNumerique &&
     !exercise.besoinFormulaireTexte &&
@@ -107,6 +131,12 @@
     !exercise.besoinFormulaire5Numerique &&
     !exercise.besoinFormulaire5Texte &&
     !(exercise.tip && exercise.tip.length > 0)
+  /** Nombre de points maximum de l'exercice, hors coefficient de barème. */
+  let pointsMax = 0
+  // Un exercice interactif garde le réglage de son barème, même s'il n'a
+  // aucun autre paramètre.
+  $: exerciceHasNoSettings =
+    exerciceHasNoSettingsExceptBareme && !(isInteractif && pointsMax > 0)
   isTipAvailable = exercise.tipAvailable !== false
   let isExerciceChecked = false
   const generateTitleAddendum = (): string => {
@@ -136,6 +166,7 @@
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
     if (!isInteractif && divScore) divScore.innerHTML = ''
     headerProps.settingsReady = !exerciceHasNoSettings
+    headerProps.randomReady = !exercise.pasDeVersionAleatoire
     headerProps.isSortable = true
     headerProps.isDeletable = true
     headerProps.isHidable = true
@@ -172,11 +203,28 @@
     }
   }
 
+  /**
+   * Met à jour le nombre de points maximum affiché dans les paramètres.
+   * À appeler après chaque (re)génération des questions, qui remplit
+   * `autoCorrection`.
+   */
+  function refreshPointsMax() {
+    const nouveauPointsMax = isInteractif ? pointsMaxExercice(exercise) : 0
+    if (pointsMax !== nouveauPointsMax) pointsMax = nouveauPointsMax
+    pointsMaxParExercice.update((liste) => {
+      if (liste[exerciseIndex] === nouveauPointsMax) return liste
+      const nouvelleListe = [...liste]
+      nouvelleListe[exerciseIndex] = nouveauPointsMax
+      return nouvelleListe
+    })
+  }
+
   beforeUpdate(async () => {
     log('beforeUpdate:' + exercise.id)
     if (numberOfAnswerFields !== countMathField(exercise)) {
       numberOfAnswerFields = countMathField(exercise)
     }
+    refreshPointsMax()
     if (get(exercicesParams)[exerciseIndex] !== interfaceParams) {
       // interface à changer car un exercice a été supprimé au dessus...
       interfaceParams = get(exercicesParams)[exerciseIndex]
@@ -239,10 +287,7 @@
       mathaleaRenderDiv(divExercice)
       if (isInteractif) {
         await loadMathLive()
-        if (
-          exercise?.interactifType === 'cliqueFigure' &&
-          !isCorrectionVisible
-        ) {
+        if (exerciceContientCliqueFigure(exercise) && !isCorrectionVisible) {
           prepareExerciceCliqueFigure(exercise)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
@@ -252,7 +297,8 @@
           exercise.seed !== undefined &&
           window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) !=
             null &&
-          isContentVisible
+          isContentVisible &&
+          !isCorrectionVisible
         ) {
           await newData()
         }
@@ -261,20 +307,13 @@
         isSettingsVisible = false
       }
     }
-    // Evènement indispensable pour pointCliquable par exemple
-    const exercicesAffiches = new window.Event('exercicesAffiches', {
-      bubbles: true,
-    })
-    document.dispatchEvent(exercicesAffiches)
-    if (isCorrectionVisible) {
-      handleCorrectionAffichee()
-    }
   })
 
   async function newData() {
     log('newData' + exercise.id)
     if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
+      isExerciceChecked = false
       if (
         exercise !== undefined &&
         typeof exercise?.applyNewSeed === 'function'
@@ -299,7 +338,8 @@
     await updateDisplay()
   }
   async function removeAllInteractif() {
-    if (exercise?.interactifReady) isInteractif = false
+    if (exercise?.interactifReady && !exercise.interactifObligatoire)
+      isInteractif = false
     await updateDisplay()
   }
 
@@ -356,6 +396,10 @@
       isTipAvailable = event.detail.tipAvailable
       interfaceParams.tip = exercise.tipAvailable ? '1' : '0'
     }
+    if (event.detail.coeffBareme !== undefined) {
+      exercise.coeffBareme = normaliseCoeffBareme(event.detail.coeffBareme)
+      interfaceParams.coeffBareme = exercise.coeffBareme
+    }
     exercicesParams.update((list) => {
       // interfaceParams a été mis à jour donc le store est à jour
       return list
@@ -370,6 +414,21 @@
     }
   }
 
+  /**
+   * Un custom element de l'énoncé (le sélecteur des questions de cours par
+   * exemple) peut demander de nouveaux réglages en émettant l'événement DOM
+   * `settings`, avec le même `detail` que le panneau latéral.
+   */
+  function ecouteReglagesDeLEnonce(node: HTMLElement) {
+    const ecouteur = (event: Event) => handleNewSettings(event as CustomEvent)
+    node.addEventListener('settings', ecouteur)
+    return {
+      destroy() {
+        node.removeEventListener('settings', ecouteur)
+      },
+    }
+  }
+
   async function updateDisplay(withNewVersion = true) {
     log('updateDisplay:' + exercise.id)
     if (
@@ -379,6 +438,7 @@
     ) {
       return
     }
+    if (exercise.interactifObligatoire) isInteractif = true
     if (
       exercise.seed === undefined &&
       typeof exercise.applyNewSeed === 'function'
@@ -438,11 +498,21 @@
     ) {
       exercise.nouvelleVersionWrapper(exerciseIndex)
     }
+    refreshPointsMax()
     mathaleaUpdateUrlFromExercicesParams()
     await adjustMathalea2dFiguresWidth()
   }
 
   function verifExercice() {
+    exercise.nbTentativesVerification =
+      (exercise.nbTentativesVerification ?? 0) + 1
+    if (
+      exercise.nbTentativesVerification === 1 &&
+      exerciceAUneUniteManquante(exercise)
+    ) {
+      afficheAlerteUniteManquante(divScore)
+      return
+    }
     isCorrectionVisible = true
     isExerciceChecked = true
     resultsByExercice.update((l) => {
@@ -462,6 +532,8 @@
     buttonScore.classList.remove(...buttonScore.classList)
     buttonScore.classList.add(
       'inline-flex',
+      'self-start',
+      'w-auto',
       'px-6',
       'py-2.5',
       'ml-6',
@@ -600,6 +672,41 @@
     }
     await updateDisplay()
   }
+
+  /**
+   * Applique l'affichage ou le masquage de la correction.
+   * Utilisée par la barre de titre (vue bureau) et par les boutons placés
+   * sous l'exercice (vue mobile).
+   */
+  async function applyCorrectionVisibility(
+    nextIsCorrectionVisible: boolean,
+    nextIsContentVisible: boolean = true,
+  ) {
+    isContentVisible = nextIsContentVisible
+    isCorrectionVisible = nextIsCorrectionVisible
+    if (
+      isLocalStorageAvailable() &&
+      exercise.id !== undefined &&
+      isCorrectionVisible
+    ) {
+      window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
+    }
+    if (
+      nextIsCorrectionVisible &&
+      !isExerciceChecked &&
+      isInteractif &&
+      !exercise.interactifObligatoire
+    ) {
+      // On ne désactive l'interactivité que si on affiche la correction
+      // d'un exercice interactif pas encore vérifié (contournement de la
+      // vérification) : la masquer, ou la (re)montrer après vérification,
+      // ne doit pas changer l'état d'interactivité.
+      isInteractif = false
+      exercise.interactif = isInteractif
+      await updateDisplay()
+    }
+    await adjustMathalea2dFiguresWidth()
+  }
 </script>
 
 <div class="z-0 flex-1" bind:this={divExercice}>
@@ -610,26 +717,15 @@
     }}
     on:clickSettings={(event) =>
       (isSettingsVisible = event.detail.isSettingsVisible)}
-    on:clickCorrection={async (event) => {
-      isContentVisible = event.detail.isContentVisible
-      isCorrectionVisible = event.detail.isCorrectionVisible
-
-      if (
-        isLocalStorageAvailable() &&
-        exercise.id !== undefined &&
-        isCorrectionVisible
-      ) {
-        window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
-      }
-      if (isInteractif) {
-        isInteractif = !isInteractif
-        exercise.interactif = isInteractif
-        await updateDisplay()
-      }
-      await adjustMathalea2dFiguresWidth()
-    }}
+    on:clickCorrection={async (event) =>
+      await applyCorrectionVisibility(
+        event.detail.isCorrectionVisible,
+        event.detail.isContentVisible,
+      )}
     on:clickInteractif={async (event) => {
-      isInteractif = event.detail.isInteractif
+      isInteractif = exercise.interactifObligatoire
+        ? true
+        : event.detail.isInteractif
       exercise.interactif = isInteractif
       exercicesParams.update((params) => {
         params[exerciseIndex].interactif = isInteractif ? '1' : '0'
@@ -638,6 +734,7 @@
       await updateDisplay()
     }}
     on:clickNewData={newData}
+    interactifObligatoire={exercise.interactifObligatoire}
     interactifReady={Boolean(
       exercise?.interactifReady &&
       !isCorrectionVisible &&
@@ -647,9 +744,9 @@
   />
 
   {#if isVisible}
-    <div class="flex flex-col-reverse lg:flex-row">
+    <div class="flex flex-col-reverse lg:flex-row w-full">
       <div
-        class="flex flex-col justify-start items-start relative {isSettingsVisible
+        class="flex flex-col justify-start items-stretch relative {isSettingsVisible
           ? 'w-full lg:w-3/4'
           : 'w-full'} duration-500"
         id="exercice{exerciseIndex}"
@@ -687,10 +784,11 @@
           </button>
         </div>
         <article
-          class="lg:text-base relative"
+          class="lg:text-base relative w-full max-w-none"
           style="font-size: {(
             $globalOptions.z || 1
           ).toString()}rem; line-height: calc({$globalOptions.z || 1});"
+          use:ecouteReglagesDeLEnonce
         >
           {#if exercise.tip && exercise.tip.length > 0 && isTipAvailable}
             <div class="ml-2 lg:ml-5 mt-4">
@@ -704,13 +802,16 @@
                 }}
               />
             </div>
-            <BasicClassicModal bind:isDisplayed={isIndiceModalDisplayed} icon="bx-help-circle">
+            <BasicClassicModal
+              bind:isDisplayed={isIndiceModalDisplayed}
+              icon="bx-help-circle"
+            >
               <span slot="header">Indice</span>
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <div slot="content" class="text-left">{@html exercise.tip}</div>
             </BasicClassicModal>
           {/if}
-          <div class="mt-6 mb-4">
+          <div class="mt-6 mb-4 w-full max-w-none">
             {#key exercise.key + '-' + exerciseIndex}
               {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
                 <div>
@@ -736,26 +837,29 @@
           </div>
           <div
             style="columns: {columnsCount.toString()}"
-            class="mt-4 lg:mt-6 mb-5"
+            class="mt-4 lg:mt-6 mb-5 w-full max-w-none"
           >
             <ul
               class="{exercise.listeQuestions.length === 1 ||
               !exercise.listeAvecNumerotation
                 ? 'list-none'
-                : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+                : 'numbered-list'} w-full max-w-none list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercise.listeQuestions as item, i (exercise.key + '-' + exerciseIndex + '-' + i)}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"
-                  class="container w-full grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                  class="w-full max-w-none grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
                 >
                   <li
                     id="exercice{exerciseIndex}Q{i}"
                     style="line-height: {exercise.spacing || 1}"
                   >
                     {#if exercise.questionRefs?.[i]}
-                      <span class="text-xs font-mono text-coopmaths-struct dark:text-coopmathsdark-struct mr-2">{exercise.questionRefs[i]}</span><br>
+                      <span
+                        class="text-xs font-mono text-coopmaths-struct dark:text-coopmathsdark-struct mr-2"
+                        >{exercise.questionRefs[i]}</span
+                      ><br />
                     {/if}
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html mathaleaFormatExercice(item)}
@@ -787,7 +891,7 @@
                         </div>
                       </div>
                       <div
-                        class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1"
+                        class="w-full max-w-none overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1"
                         style="line-height: {exercise.spacingCorr ||
                           1}; break-inside:avoid"
                       >
@@ -827,11 +931,48 @@
           >
         {/if}
         <div bind:this={divScore}></div>
+        {#if isMobileView}
+          <!-- Actions les plus courantes, répétées sous l'exercice pour rester
+               à portée de pouce sans remonter jusqu'à la barre de titre -->
+          <div
+            class="print-hidden flex flex-row flex-wrap items-center gap-2 mt-4 mb-8 ml-6"
+          >
+            <div
+              class={exercise.listeCorrections.length > 0 &&
+              (!isInteractif || isExerciceChecked)
+                ? 'flex'
+                : 'hidden'}
+            >
+              <ButtonTextAction
+                text={isCorrectionVisible
+                  ? 'Masquer la correction'
+                  : 'Afficher la correction'}
+                icon={isCorrectionVisible ? 'bx-hide' : 'bx-check-circle'}
+                inverted={true}
+                class="py-2 px-3 text-xs rounded"
+                on:click={() => applyCorrectionVisibility(!isCorrectionVisible)}
+              />
+            </div>
+            {#if !exercise.pasDeVersionAleatoire}
+              <ButtonTextAction
+                text="Nouvelles données"
+                icon="bx-refresh"
+                inverted={!(isInteractif && isExerciceChecked)}
+                class={isInteractif && isExerciceChecked
+                  ? 'py-2 px-3 text-xs font-medium shadow-md rounded'
+                  : 'py-2 px-3 text-xs rounded'}
+                on:click={newData}
+              />
+            {/if}
+          </div>
+        {/if}
       </div>
       <Settings
         exercice={exercise}
         bind:isVisible={isSettingsVisible}
         exerciceIndex={exerciseIndex}
+        isInteractif={Boolean(isInteractif)}
+        {pointsMax}
         on:settings={handleNewSettings}
       />
     </div>

@@ -11,23 +11,22 @@ import {
 import Exercice from '../Exercice'
 
 import Figure from 'apigeom/src/Figure'
-import handleApigeomFigureElement from '../../lib/apigeom/apigeom-figure'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+import { createApigeomFigureHtml } from '../../lib/apigeom/apigeom-figure'
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleEntiersConsecutifs } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouterAide } from '../../lib/outils/enrichissements'
 import { fraction } from '../../modules/fractions'
 import { representationFraction } from '../../modules/representationsFractions'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/07/2025'
@@ -41,9 +40,9 @@ export const dateDeModifImportante = '21/07/2025'
 export const uuid = '1f5de'
 
 export const refs = {
-  'fr-fr': ['6N3I-1'],
+  'fr-fr': ['6N3I-1', 'auto5N3F-1'],
   'fr-2016': ['6N20-1'],
-  'fr-ch': ['9NO11-1'],
+  'fr-ch': ['9NO3D-2'],
 }
 export default class EncadrerFractionEntre2Entiers extends Exercice {
   lycee: boolean
@@ -85,7 +84,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
       nbQuestions: this.nbQuestions,
       exclus: this.lycee ? [] : [6, 7, 8, 9],
     }).map(Number)
-    if (this.sup3 && context.isHtml) {
+    if (this.sup3 && context.isHtml && this.interactif) {
       const figure = new Figure({
         xMin: -0.5,
         yMin: -2,
@@ -98,8 +97,9 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
         denominator: 2,
         numberOfRectangles: 5,
       })
-      handleApigeomFigureElement()
-      this.introduction = `<apigeom-figure interactive default-action='FILL' x-min=${figure.xMin} y-min=${figure.yMin} width=${figure.width} height=${figure.height} numero-exercice=${this.numeroExercice} index=0 auto-index><script type="application/json">${figure.json}</script></apigeom-figure>`
+      this.introduction = createApigeomFigureHtml(figure, {
+        numeroExercice: this.numeroExercice,
+      })
     } else {
       this.introduction = ''
     }
@@ -225,7 +225,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
               champ1: { value: String(k) },
               champ2: { value: String(k + 1) },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
         }
         // Si la question n'a jamais été posée, on en crée une autre

@@ -7,14 +7,13 @@ import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Calculer un pourcentage restant'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '23/12/2025'
 
 export const uuid = '5b988'
 
 export const refs = {
-  'fr-fr': ['3AutoP07'],
+  'fr-fr': ['3AutoP03-4'],
   'fr-ch': [],
 }
 
@@ -90,7 +89,7 @@ export default class PourcentageComplementaire extends ExerciceSimple {
 
     this.reponse = texNombre(nombreNonParticipants, 0)
 
-    this.question = `Dans ${population.lieu}, $${pourcentage}\\%$ des ${nbIndividus} ${population.nom} participent à ${evenement.nomComplet}.<br>
+    this.question = `Dans ${population.lieu}, $${pourcentage}\\%$ des $${texNombre(nbIndividus)}$ ${population.nom} participent à ${evenement.nomComplet}.<br>
     Combien ${population.déterminant}${population.nom} ne participent pas à ${evenement.abrev} ?`
     this.correction = `Le nombre ${population.déterminant}${population.nom} participant à ${evenement.abrev} est égal à :<br>
     $${texNombre(nbIndividus, 0)} \\times \\dfrac{${texNombre(

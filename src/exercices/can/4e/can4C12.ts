@@ -1,11 +1,10 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la moitié d’une fraction'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '13/09/2022'
@@ -88,14 +87,13 @@ export default class CalculMoitieFraction extends ExerciceSimple {
       [9, 10],
     ]
 
-    const a = choice(listeFractions)
+    const a = this.quotaChoice('a', listeFractions)
     const f = new FractionEtendue(a[0], a[1])
     const reponse = new FractionEtendue(a[0], a[1] * 2)
     this.reponse = reponse.simplifie()
     this.question = `Calculer la moitié de $${f.texFraction}$ et écrire le résultat sous la forme d'une fraction simplifiée.<br>`
     this.correction = `Prendre la moitié revient à diviser par $2$ et cela revient à multiplier par $\\dfrac{1}{2}$.<br>
-    $${f.texFraction}\\div 2=${f.texFraction}\\times \\dfrac{1}{2}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$
-          `
-    this.correction += `<br>La moitié de $${f.texFraction}$ est $${miseEnEvidence(this.reponse.texFraction)}$.`
+    $${f.texFraction}\\div 2=${f.texFraction}\\times \\dfrac{1}{2}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$<br>
+    La moitié de $${f.texFraction}$ est $${miseEnEvidence(this.reponse.texFraction)}$.`
   }
 }

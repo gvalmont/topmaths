@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Volume de pavé droit'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '04/07/2022'
@@ -19,8 +19,8 @@ export const dateDePublication = '04/07/2022'
 export const uuid = 'f8019'
 
 export const refs = {
-  'fr-fr': ['can6M10'],
-  'fr-ch': [],
+  'fr-fr': ['can6M10', 'BP1AUTO098'],
+  'fr-ch': ['9GM2A-4'],
 }
 export default class VolumePaveSimple extends ExerciceSimple {
   constructor() {
@@ -35,8 +35,8 @@ export default class VolumePaveSimple extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const l = randint(2, 3)
-    const L = randint(3, 5)
+    const l = this.quotaRandint('l', 2, 3)
+    const L = this.quotaRandint('L', 3, 5)
     const h = randint(2, 7, [l, L])
     const pav = pave(L, l, h)
     this.question = `Quel est le volume du pavé droit ci-dessous ?<br>

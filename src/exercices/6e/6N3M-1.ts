@@ -14,13 +14,13 @@ import Exercice from '../Exercice'
 
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { bleuMathalea } from '../../lib/colors'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import {
   addMultiMathfield,
   type DataOptionsMultiMathfield,
-} from '../../lib/interactif/MultiMathfield/MultiMathfield'
+} from '../../lib/customElements/MultiMathfield'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions'
 import {
@@ -30,7 +30,7 @@ import {
 
 export const titre = "Calculer la fraction d'une quantité"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDeModifImportante = '01/04/2026'
 
 /**
@@ -43,7 +43,7 @@ export const uuid = 'a6deb'
 export const refs = {
   'fr-fr': ['6N3M-1'],
   'fr-2016': ['6N33-0'],
-  'fr-ch': ['9NO14-2'],
+  'fr-ch': ['9NO3E-2'],
 }
 export default class FractionDuneQuantite extends Exercice {
   constructor() {
@@ -55,8 +55,8 @@ export default class FractionDuneQuantite extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ['Avec dessin', true]
     this.nbQuestions = 5
-    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.spacingCorr = context.isHtml ? 3.5 : 2
+    this.spacing = 2
     this.sup = 1
     this.sup2 = true
   }
@@ -264,7 +264,7 @@ export default class FractionDuneQuantite extends Exercice {
             bareme: toutAUnPoint,
             champ1: { value: reponse },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       } else {
         chaineDataTemplate =
@@ -290,7 +290,7 @@ export default class FractionDuneQuantite extends Exercice {
             champ1: { value: reponse },
             champ2: { value: reponse2 },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       }
       texte = texte.replace(

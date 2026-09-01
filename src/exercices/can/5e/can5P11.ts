@@ -1,11 +1,10 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceSimple from '../../ExerciceSimple'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une partie connaissant le tout'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '21/07/2025' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -18,8 +17,8 @@ export const dateDePublication = '21/07/2025' // La date de publication initiale
 export const uuid = '6a3da'
 
 export const refs = {
-  'fr-fr': ['can5P11'],
-  'fr-ch': [],
+  'fr-fr': ['can5P11', '5P1C-flash4'],
+  'fr-ch': ['9FA2B-13'],
 }
 export default class CalculPartieAvecTout extends ExerciceSimple {
   constructor() {
@@ -33,17 +32,17 @@ export default class CalculPartieAvecTout extends ExerciceSimple {
   nouvelleVersion() {
     let taux, total, matiere
 
-    switch (randint(1, 2)) {
+    switch (this.quotaRandint('typeDeQuestions', 1, 2)) {
       case 1:
         taux = choice([1, 2, 4, 5, 10])
         total = randint(4, 15) * 100
-        matiere = 'le Grec'
+        matiere = 'le grec'
         break
       case 2:
       default:
         taux = choice([20, 25, 50])
         total = randint(4, 15) * 100
-        matiere = "l'Espagnol"
+        matiere = "l'espagnol"
         break
     }
 

@@ -15,15 +15,14 @@ import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Utiliser un graphique pour résoudre un problème de prix'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '4/01/2026'
 
 export const uuid = '5bc82'
 
 export const refs = {
-  'fr-fr': ['3AutoP09-5'],
-  'fr-ch': [],
+  'fr-fr': ['3AutoP04-5'],
+  'fr-ch': ['11FA1C-3'],
 }
 
 const articles = [
@@ -89,7 +88,7 @@ export default class ProblemeDePrix extends ExerciceSimple {
     const objets: NestedObjetMathalea2dArray = [rep, cP]
     const graphique = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: inline-block', pixelsParCm: 20 },
+        { scale: 0.5, display: 'inline-block', pixelsParCm: 20 } as const,
         fixeBordures(objets),
       ),
       objets,
@@ -103,7 +102,7 @@ export default class ProblemeDePrix extends ExerciceSimple {
     ]
     const graphiqueCorrige = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: inline-block', pixelsParCm: 20 },
+        { scale: 0.5, display: 'inline-block', pixelsParCm: 20 } as const,
         fixeBordures(objetsCorr),
       ),
       objetsCorr,

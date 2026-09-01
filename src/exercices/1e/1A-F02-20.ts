@@ -8,11 +8,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
  */
 export const uuid = '421be'
 export const refs = {
-  'fr-fr': ['1A-F02-20'],
+  'fr-fr': ['1A-F02-20', '2A-F2-2'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Déterminer le point n'appartenant pas à une hyperbole"
@@ -83,9 +83,9 @@ export default class Auto1AF2t extends ExerciceQcmA {
 
       // Comparer avec l'ordonnée du point en utilisant isEqual()
       if (y.isEqual(yTheorique)) {
-        this.correction += `On a $y_{${point.nom}}=${yTheorique.texFractionSimplifiee}$ donc $${point.nom}$ appartient à la courbe.<br>`
+        this.correction += `On a $y_{_{${point.nom}}}=${yTheorique.texFractionSimplifiee}$ donc $${point.nom}$ appartient à la courbe.<br>`
       } else {
-        this.correction += `On a $y_{${point.nom}}=${y.texFractionSimplifiee}\\neq ${yTheorique.texFractionSimplifiee}$ donc ${texteEnCouleurEtGras(`$${point.nom}$ n'appartient pas à la courbe`)}.<br>`
+        this.correction += `On a $y_{_{${point.nom}}}=${y.texFractionSimplifiee}\\neq ${yTheorique.texFractionSimplifiee}$ donc ${texteEnCouleurEtGras(`$${point.nom}$ n'appartient pas à la courbe`)}.<br>`
       }
     }
   }
@@ -182,9 +182,9 @@ export default class Auto1AF2t extends ExerciceQcmA {
 
       // Comparer avec l'ordonnée du point en utilisant isEqual()
       if (y.isEqual(yTheorique)) {
-        this.correction += `On a $y_{${point.nom}}=${yTheorique.texFractionSimplifiee}$ donc $${point.nom}$ appartient à la courbe.<br>`
+        this.correction += `On a $y_{_{${point.nom}}}=${yTheorique.texFractionSimplifiee}$ donc $${point.nom}$ appartient à la courbe.<br>`
       } else {
-        this.correction += `On a $y_{${point.nom}}=${y.texFractionSimplifiee}\\neq ${yTheorique.texFractionSimplifiee}$ donc ${texteEnCouleurEtGras(`$${point.nom}$ n'appartient pas à la courbe`)}.<br>`
+        this.correction += `On a $y_{_{${point.nom}}}=${y.texFractionSimplifiee}\\neq ${yTheorique.texFractionSimplifiee}$ donc ${texteEnCouleurEtGras(`$${point.nom}$ n'appartient pas à la courbe`)}.<br>`
       }
     }
   }

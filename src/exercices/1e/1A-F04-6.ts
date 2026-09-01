@@ -1,6 +1,7 @@
 import { repere } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
 import { courbe } from '../../lib/2d/Courbe'
 import { bleuMathalea } from '../../lib/colors'
@@ -15,11 +16,11 @@ export const uuid = '90460'
  * @author Gilles Mora
  */
 export const refs = {
-  'fr-fr': ['1A-F04-6'],
+  'fr-fr': ['1A-F04-6', 'BP1RGEI02'],
   'fr-ch': ['2mIneq-9'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -92,7 +93,7 @@ export default class auto1AF4e extends ExerciceQcmA {
           ymax: 10,
           pixelsParCm: 20,
           scale: 0.45,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         r,
         o,
@@ -225,7 +226,7 @@ export default class auto1AF4e extends ExerciceQcmA {
               ymax: 10,
               pixelsParCm: 20,
               scale: 0.45,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             r,
             o,
@@ -339,7 +340,7 @@ export default class auto1AF4e extends ExerciceQcmA {
               ymax: 5,
               pixelsParCm: 20,
               scale: 0.45,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             r,
             o,
@@ -379,6 +380,5 @@ export default class auto1AF4e extends ExerciceQcmA {
   constructor() {
     super()
     this.versionAleatoire()
-    // this.options = { vertical: true, ordered: false }
   }
 }

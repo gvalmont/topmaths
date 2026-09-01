@@ -4,6 +4,7 @@ import { droiteHorizontaleParPoint } from '../../lib/2d/droites'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -12,11 +13,10 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre = "Résoudre $f(x)=k$ à partir d'un graphique"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '31/01/2026'
 
 /**
@@ -29,8 +29,8 @@ export const dateDePublication = '31/01/2026'
 export const uuid = '8117e'
 
 export const refs = {
-  'fr-fr': ['3F13-2', '1Tec-F13'],
-  'fr-ch': [],
+  'fr-fr': ['3F13-2', '2F12-5', '1Tec-F13'],
+  'fr-ch': ['10FA1B-14', '11FA1A-6'],
 }
 export default class AntecedentGraphique extends Exercice {
   constructor() {
@@ -42,7 +42,7 @@ export default class AntecedentGraphique extends Exercice {
     ]
     this.sup = '0'
 
-    // context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1)
+    // this.spacingCorr = context.isHtml ? 3 : 1
     this.nbQuestions = 1
 
     // this.listeAvecNumerotation = false
@@ -65,7 +65,7 @@ export default class AntecedentGraphique extends Exercice {
     let yMin: number = -10
     let yMax: number = 10
     let yUnite = 1
-    for (let i = 0; i < this.nbQuestions; ) {
+    for (let i = 0; i < this.nbQuestions;) {
       const nbAnt = nbAntecedents[i] || 1
       if (nbAnt === 1) {
         let a: number = 0

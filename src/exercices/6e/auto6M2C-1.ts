@@ -15,7 +15,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Calculer une aire en carreaux'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '24/04/2024'
 export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Éric Elter
@@ -28,7 +27,7 @@ export const uuid = '83be9'
 export const refs = {
   'fr-fr': ['auto6M2C-1'],
   'fr-2016': ['6M10-2'],
-  'fr-ch': ['9GM1-17'],
+  'fr-ch': ['9GM1B-6'],
 }
 export default class AireParComptage extends Exercice {
   constructor() {
@@ -206,7 +205,10 @@ export default class AireParComptage extends Exercice {
       const texFig2 = texteParPosition('Figure 2', a + 1 + a2 / 2, -0.5)
       const uniteAire =
         this.sup3 === 1
-          ? carre(pointAbstrait(xmax - 2, ymax - 2), pointAbstrait(xmax - 1, ymax - 2))
+          ? carre(
+              pointAbstrait(xmax - 2, ymax - 2),
+              pointAbstrait(xmax - 1, ymax - 2),
+            )
           : this.sup3 === 2
             ? polygone(
                 pointAbstrait(xmax - 2, ymax - 2),
@@ -247,8 +249,8 @@ export default class AireParComptage extends Exercice {
       const texte = `${figure}<br><br>
       ${
         this.interactif
-          ? `Quelle est l'aire de la figure 1 ? ${ajouteQuestionMathlive({ exercice: this, question: 2 * i, typeInteractivite: 'mathlive', texteApres: unite, objetReponse: { reponse: { value: aire1 } } })}<br>
-      Quelle est l'aire de la figure 2 ? ${ajouteQuestionMathlive({ exercice: this, question: 2 * i + 1, typeInteractivite: 'mathlive', texteApres: unite, objetReponse: { reponse: { value: aire2 } } })}`
+          ? `Quelle est l'aire de la figure 1 ? ${ajouteQuestionMathlive({ exercice: this, question: 2 * i, typeInteractivite: 'mathlive', texteApres: unite, reponseParams: { formatInteractif: 'mathalea-mathfield' }, objetReponse: { reponse: { value: aire1 } } })}<br>
+      Quelle est l'aire de la figure 2 ? ${ajouteQuestionMathlive({ exercice: this, question: 2 * i + 1, typeInteractivite: 'mathlive', texteApres: unite, reponseParams: { formatInteractif: 'mathalea-mathfield' }, objetReponse: { reponse: { value: aire2 } } })}`
           : "Calculer l'aire de la figure 1 et l'aire de la figure 2 en écrivant les calculs."
       }`
 

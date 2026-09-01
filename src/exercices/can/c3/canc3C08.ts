@@ -7,7 +7,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '24/07/2022'
@@ -66,7 +66,7 @@ export default class PlusOuMoins2 extends ExerciceSimple {
       objets,
       choix2
     switch (
-      choice([1, 2, 3]) // 1, 2
+      this.quotaChoice('typeProbleme', [1, 2, 3]) // 1, 2
     ) {
       case 1:
         choix = choice(['a', 'b', 'c', 'd'])
@@ -83,7 +83,7 @@ export default class PlusOuMoins2 extends ExerciceSimple {
             prenom2 = prenomF()
           }
           if (choice([true, false])) {
-            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € soit $${texPrix(e)}$ € de plus que toi ».<br>
+            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$, € soit $${texPrix(e)}$ € de plus que toi. ».<br>
             
             `
             this.question +=

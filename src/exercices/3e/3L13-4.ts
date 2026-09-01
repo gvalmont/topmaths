@@ -19,14 +19,13 @@ import Exercice from '../Exercice'
 export const titre =
   "Résoudre un problème mêlant équations et périmètre et aire d'un rectangle"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '11/06/2025'
 
 export const uuid = 'cd2f2'
 export const refs = {
   'fr-fr': ['3L13-4', 'BP2RES15'],
-  'fr-ch': ['11FA6-9'],
+  'fr-ch': ['10FA5D-3'],
 }
 /**
  * @author Guillaume Valmont

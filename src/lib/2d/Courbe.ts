@@ -131,7 +131,7 @@ export class Courbe extends ObjetMathalea2D {
       if (x > xmax) x = xmax // normalement x<xmax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xmax+epsilon qui sort de l'intervalle de déf
       const y = Number(f(x))
       if (isFinite(y)) {
-        if (y < ymax + 10 && y > ymin - 10) {
+        if (y <= ymax && y >= ymin) {
           points.push(pointAbstrait(x * xunite, y * yunite))
           lastFiniteX = x
           lastOutOfBoundsX = null // Réinitialiser car on est revenu dans les limites
@@ -233,7 +233,7 @@ export class Courbe extends ObjetMathalea2D {
       let code = ''
       if (this.objets == null) return code
       for (const objet of this.objets) {
-        code += '\n\t' + objet.tikz()
+        code += `\t${objet.tikz()}\n`
       }
       return code
     }
@@ -253,8 +253,8 @@ export class Courbe extends ObjetMathalea2D {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      if (typeof objet.tikzml === 'undefined') code += '\n\t' + objet.tikz()
-      else code += '\n\t' + objet.tikzml(amp)
+      if (typeof objet.tikzml === 'undefined') code += `\t${objet.tikz()}\n`
+      else code += `\t${objet.tikzml(amp)}\n`
     }
     return code
   }

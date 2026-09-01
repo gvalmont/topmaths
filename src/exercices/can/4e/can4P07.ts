@@ -8,12 +8,12 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Retrouver un pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '14/09/2024'
 export const uuid = 'fb552'
 export const refs = {
   'fr-fr': ['can4P07'],
-  'fr-ch': ['9NO14-12'],
+  'fr-ch': ['10FA2B-20'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

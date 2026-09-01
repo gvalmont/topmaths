@@ -16,7 +16,7 @@ import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Trouver la longueur d'un côté de triangle rectangle"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '01/10/2023'
 
 /**
@@ -54,7 +54,7 @@ export default class TripletsPythagoriciens extends ExerciceSimple {
       [12, 16, 20],
       [15, 20, 25],
     ]
-    const triplet = choice(listeTripletsPythagoriciens)
+    const triplet = this.quotaChoice('triplet', listeTripletsPythagoriciens)
     const nom = Array.from(creerNomDePolygone(3, ['QD']))
     const scale = 4 / triplet[1]
     const A = pointAbstrait(0, 0)
@@ -96,7 +96,12 @@ export default class TripletsPythagoriciens extends ExerciceSimple {
       true,
     )
     const objets: NestedObjetMathalea2dArray = [poly, angleDroit]
-    let index = this.sup === 1 ? 0 : this.sup === 2 ? 1 : choice([0, 1]) // on choisit le type de question ou on laisse le hasard (option mélange)
+    let index =
+      this.sup === 1
+        ? 0
+        : this.sup === 2
+          ? 1
+          : this.quotaChoice('index', [0, 1]) // on choisit le type de question ou on laisse le hasard (option mélange)
     this.question = `Dans le triangle $${nom.join('')}$ rectangle en $${nom[1]}$, `
     if (index === 0) {
       // calcul de l'hypoténuse
@@ -128,7 +133,7 @@ export default class TripletsPythagoriciens extends ExerciceSimple {
 
     const figure = mathalea2d(
       Object.assign(
-        { scale: 0.6, style: 'display: inline;' },
+        { scale: 0.6, display: 'inline' } as const,
         fixeBordures(objets),
       ),
       objets,

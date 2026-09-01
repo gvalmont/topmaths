@@ -5,13 +5,14 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { Spline, spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 export const titre =
   "Donner le nombre de solutions de l'équation $f'(x)=0$ à partir de la courbe représentative de $f$"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '3smhm'
 export const refs = {
   'fr-fr': [],
@@ -127,7 +128,7 @@ export default class Can1a2026Q21 extends ExerciceCan {
 
     const graphique = mathalea2d(
       Object.assign(
-        { pixelsParCm: 30, scale: 0.65, style: 'margin: auto' },
+        { pixelsParCm: 30, scale: 0.65, center: !context.isHtml },
         {
           xmin: bornes.xMin - 1,
           ymin: bornes.yMin - 1,

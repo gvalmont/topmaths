@@ -7,11 +7,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '21ea5'
 export const refs = {
-  'fr-fr': ['1A-C01-2'],
+  'fr-fr': ['1A-C01-2', '2A-N1-1'],
   'fr-ch': ['11QCM-10'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Trouver le plus grand ou le plus petit nombre'
@@ -363,7 +363,7 @@ export default class Auto1AC1b extends ExerciceQcmA {
     super()
     this.tip = `
   <p style="margin: 0 0 10px 0;">
-    Pour comparer des nombres, selon les situations, il est souvent plus pratique de tous les écrire  :
+    Pour comparer des nombres, selon les situations, il est souvent plus pratique de tous les écrire :
   </p>
   <ul style="list-style-type: disc; padding-left: 1.5em; margin: 0 0 14px 0; line-height: 2;">
     <li>sous forme de fractions de même dénominateur,</li>

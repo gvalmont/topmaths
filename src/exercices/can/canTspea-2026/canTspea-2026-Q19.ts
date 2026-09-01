@@ -1,7 +1,7 @@
 import type { MathfieldElement } from 'mathlive'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { generateCleaner } from '../../../lib/interactif/cleaners'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { toutPourUnPoint } from '../../../lib/interactif/fonctionsBaremes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -11,7 +11,7 @@ import ExerciceCan from '../../ExerciceCan'
 export const titre =
   "Déterminer les coordonnées d'un vecteur normal à un plan à partir de son équation"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'y75un'
 export const refs = {
   'fr-fr': [],

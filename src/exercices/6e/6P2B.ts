@@ -1,7 +1,7 @@
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { personne } from '../../lib/outils/Personne'
@@ -13,7 +13,6 @@ import Exercice from '../Exercice'
 export const titre =
   'Trouver une probabilité sous forme fractionnaire, décimale et en pourcentage'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 /**
  * @author Éric Elter
@@ -24,7 +23,7 @@ export const uuid = 'b8297'
 export const refs = {
   'fr-fr': ['6P2B'],
   'fr-2016': ['6S12'],
-  'fr-ch': [''],
+  'fr-ch': ['11NO4A-3'],
 }
 export default class Probabilites6e extends Exercice {
   constructor() {
@@ -49,7 +48,7 @@ export default class Probabilites6e extends Exercice {
       [9, 10, 90],
     ]
     const couleur = ['noire', 'blanche', 'rouge', 'bleue', 'verte', 'jaune']
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const frac: [number, number, number] = choice(fracPossible)
       const choix = choice([true, false])
       const choixCouleur = [choice(couleur)]
@@ -65,10 +64,12 @@ export default class Probabilites6e extends Exercice {
         Donner la réponse sous forme d'un nombre décimal : %{champ2}.
         Donner la réponse sous forme d'un pourcentage : %{champ3}$\\%$.`,
         dataOptions: {
-          champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction, ldots: true },
+          champ1: {
+            keyboard: KeyboardType.clavierDeBaseAvecFraction,
+            ldots: true,
+          },
           champ2: { keyboard: KeyboardType.clavierDeBase, ldots: true },
           champ3: { keyboard: KeyboardType.clavierDeBase, ldots: true },
-          
         },
       })
       const reponseFrac = new FractionEtendue(boule1, boule1 + boule2)
@@ -90,7 +91,7 @@ export default class Probabilites6e extends Exercice {
             options: { nombreDecimalSeulement: true },
           },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       const texteCorr = `La probabilité que ${quidam.prenom} pioche une boule ${choixCouleur[choix ? 0 : 1]} est de $${miseEnEvidence(reponseFrac)}$, soit $${miseEnEvidence(texNombre(reponseDecimale))}$, soit encore $${miseEnEvidence(texNombre(frac[2]))}$ %.`

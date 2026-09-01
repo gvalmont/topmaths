@@ -3,10 +3,7 @@
  */
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
   ajouteChampTexte,
   ajouteChampTexteMathLive,
@@ -25,17 +22,15 @@ import {
   randint,
 } from '../../modules/outils'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import DragAndDrop from '../../lib/interactif/DragAndDrop'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '19/09/2021'
@@ -120,7 +115,7 @@ export const uuid = '0688e'
 export const refs = {
   'fr-fr': ['6N0A-6'],
   'fr-2016': ['6N10'],
-  'fr-ch': ['9NO1-1'],
+  'fr-ch': [''], // Primaire anciennement :['9NO1-1'],
 }
 export default class EcrirePetitsNombresEntiers extends Exercice {
   constructor() {
@@ -425,7 +420,7 @@ export default class EcrirePetitsNombresEntiers extends Exercice {
               etiquettes: etiquettesNumeration,
               enonceATrous,
             })
-            this.dragAndDrops.push(leDragAndDrop)
+            this.dragAndDrops[i] = leDragAndDrop
             handleAnswers(
               this,
               i,
@@ -463,19 +458,12 @@ export default class EcrirePetitsNombresEntiers extends Exercice {
           texteCorr = `$${texNombre(NombreAEcrire)}$ : ${nombreEnLettres(NombreAEcrire)}`
         else texteCorr = `${nombreEnLettres(NombreAEcrire)}`
       } else {
-        if (context.isAmc) {
-          setReponse(this, i, NombreAEcrire) // Utile uniquement pour l'AMC
-          this.autoCorrectionAMC[i].enonce =
-            this.consigne + '\\\\' + nombreEnLettres(NombreAEcrire) + '\\\\'
-          this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-        } else {
-          handleAnswers(this, i, {
-            reponse: {
-              value: texNombre(NombreAEcrire),
-              options: { nombreAvecEspace: true },
-            },
-          })
-        }
+        handleAnswers(this, i, {
+          reponse: {
+            value: texNombre(NombreAEcrire),
+            options: { nombreAvecEspace: true },
+          },
+        })
         if (context.vue !== 'diap')
           texte = `${nombreEnLettres(NombreAEcrire)} ${!context.isHtml ? ': $\\pointilles[5cm]$' : !this.interactif ? ' : $\\dotfill$' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
         else texte = `${nombreEnLettres(NombreAEcrire)}`
@@ -493,6 +481,9 @@ export default class EcrirePetitsNombresEntiers extends Exercice {
         this.listeCanEnonces.push(this.canEnonce ?? '')
         this.listeCanReponsesACompleter.push(this.canReponseACompleter ?? '')
         i++
+      } else {
+        if (context.isAmc) this.autoCorrectionAMC.pop()
+        else this.autoCorrection.pop()
       }
       cpt++
     }

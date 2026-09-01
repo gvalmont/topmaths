@@ -1,6 +1,6 @@
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   texteEnCouleurEtGras,
   texteGras,
@@ -18,14 +18,13 @@ import Exercice from '../Exercice'
 
 export const titre = 'Déterminer si deux programmes de calcul sont équivalents'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const dateDeModifImportante = '21/11/2025'
 
 export const uuid = '97deb'
 export const refs = {
   'fr-fr': ['3L13-5'],
-  'fr-ch': [''],
+  'fr-ch': ['11FA4D-1'],
 }
 
 /**
@@ -166,7 +165,7 @@ export default class ProgrammesDeCalculsEquivalent extends Exercice {
             options: { expressionsForcementReduites: false },
           },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       texteCorr = `${texteEnCouleurEtGras('a)')} On choisit le nombre $${x1}$ comme nombre de départ :<br><br>

@@ -1,12 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une fraction de dénominateur un décimal'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '10/01/2023'
@@ -30,8 +28,8 @@ export default class CalculFractionDecimal extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const n = randint(1, 9)
-    const a = choice([2, 4, 8])
+    const n = this.quotaRandint('n', 1, 9)
+    const a = this.quotaChoice('a', [2, 4, 8])
     const d = a / 10
 
     const f = new FractionEtendue(n * 10, d * 10).simplifie()

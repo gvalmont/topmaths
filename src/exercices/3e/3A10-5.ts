@@ -22,7 +22,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Recourir à une décomposition en facteurs premiers dans des cas simples'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '29/08/2022'
@@ -37,7 +37,7 @@ export const uuid = 'eee79'
 
 export const refs = {
   'fr-fr': ['3A10-5'],
-  'fr-ch': ['9NO4-28'],
+  'fr-ch': ['9NO1B-9'],
 }
 
 export function extraitLaDecomposition(expression: string) {

@@ -8,14 +8,14 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
-import { contraindreValeur, randint } from '../../../modules/outils'
+import { contraindreValeur } from '../../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer une aire par comptage'
 export const dateDePublication = '25/04/2024'
 export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Éric Elter
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 
 /**
@@ -24,8 +24,8 @@ export const amcReady = true
 export const uuid = 'a17c6'
 
 export const refs = {
-  'fr-fr': ['can6M14', 'auto6M2C-flash1'],
-  'fr-ch': ['9GM1-14'],
+  'fr-fr': ['can6M14', 'auto6M2C-flash1', '6AutoA1-1'],
+  'fr-ch': ['9GM1B-15'],
 }
 export default class AireParComptageCan extends ExerciceSimple {
   constructor() {
@@ -51,10 +51,10 @@ export default class AireParComptageCan extends ExerciceSimple {
     ]
     const aire =
       this.sup === 1
-        ? randint(5, 9)
+        ? this.quotaRandint('aire1', 5, 9)
         : this.sup === 2
-          ? randint(10, 19)
-          : randint(20, 29)
+          ? this.quotaRandint('aire2', 10, 19)
+          : this.quotaRandint('aire3', 20, 29)
     const tetris = new Polyquad(aire, 0, 0)
     if (tetris.rectangle.xMax < tetris.rectangle.yMax)
       tetris.rotate(choice([true, false]))
@@ -81,7 +81,7 @@ export default class AireParComptageCan extends ExerciceSimple {
     if (this.sup2) objets.push(grid)
     const fig1 = mathalea2d(
       Object.assign(
-        { pixelsParCm: 20, scale: 0.5, style: 'display: inline-block' },
+        { pixelsParCm: 20, scale: 0.5, display: 'inline-block' } as const,
         fixeBordures(objets, {
           rxmin: -0.1,
           rymin: -0.1,

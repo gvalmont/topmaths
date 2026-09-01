@@ -3,7 +3,12 @@ import {
   getExercisesFromExercicesParams,
   mathaleaHandleExerciceSimple,
 } from './mathalea'
-import type { IExercice } from './types'
+import {
+  type IExercice,
+  type InteractivityType,
+  interactivityTypeToCustomElementFormat,
+  isInteractivityType,
+} from './types'
 
 const KUTSUM_API_URL = 'https://app.kutsum.org/api/v1/external-drafts'
 const KUTSUM_IMPORT_URL = 'https://app.kutsum.org/import'
@@ -58,18 +63,55 @@ type KutsumPayload = {
   exercises: KutsumExercise[]
 }
 
-function buildKutsumQuestionsFromAutoCorrection(
+/**
+ * Kutsum éclate les exercices en questions autonomes, affichées une par une :
+ * la consigne générale et l'introduction de l'exercice doivent donc être
+ * répétées dans le texte de chaque question, sinon l'énoncé est incompréhensible
+ * (« $007621661$ » sans « Écrire les nombres en chiffres… »).
+ * C'est ce que fait déjà l'affichage « une question par page » côté élève.
+ */
+function buildKutsumQuestionText(
+  exercise: IExercice,
+  questionText: string,
+): string {
+  return [exercise.consigne, exercise.introduction, questionText]
+    .filter((part) => typeof part === 'string' && part.trim() !== '')
+    .join('<br>')
+}
+
+/**
+ * Les formats d'interactivité ont été renommés vers les noms des custom elements
+ * qui les vérifient : `propositionsQcm()` écrit désormais 'mathalea-qcm' et
+ * `handleAnswers()` retombe sur 'mathalea-mathfield'. Les anciens noms ('qcm',
+ * 'mathlive', 'calcul'…) ne subsistent que dans une poignée d'exercices : sans
+ * cette normalisation, l'export ignore silencieusement presque tout le catalogue.
+ */
+function normaliseFormatInteractif(value: unknown): InteractivityType | null {
+  if (typeof value !== 'string') return null
+  // 'calcul' n'est traité par aucun des deux helpers de types.ts.
+  if (value.toLowerCase() === 'calcul') return 'mathalea-mathfield'
+  return (
+    interactivityTypeToCustomElementFormat(value) ??
+    (isInteractivityType(value) ? value : null)
+  )
+}
+
+export function buildKutsumQuestionsFromAutoCorrection(
   exercise: IExercice,
 ): KutsumQuestion[] {
   const questions: KutsumQuestion[] = []
   for (const [index, autoCorrection] of exercise.autoCorrection.entries()) {
     const autoCorrectionAMC = exercise.autoCorrectionAMC?.[index]
-    const formatInteractif =
-      autoCorrection.formatInteractif ?? exercise.formatInteractif
-    const text = autoCorrection.enonce || exercise.listeQuestions[index] || ''
+    const formatInteractif = normaliseFormatInteractif(
+      autoCorrection.formatInteractif ?? exercise.formatInteractif,
+    )
+    const text = buildKutsumQuestionText(
+      exercise,
+      autoCorrection.enonce || exercise.listeQuestions[index] || '',
+    )
 
     if (
-      formatInteractif === 'qcm' &&
+      formatInteractif === 'mathalea-qcm' &&
       autoCorrection.propositions &&
       autoCorrection.propositions.length >= 2
     ) {
@@ -92,8 +134,8 @@ function buildKutsumQuestionsFromAutoCorrection(
         correctAnswers: choices.map((c) => c.isCorrect),
       })
     } else if (
-      formatInteractif === 'mathlive' ||
-      formatInteractif === 'calcul'
+      formatInteractif === 'mathalea-mathfield' ||
+      formatInteractif === 'mathalea-textfield'
     ) {
       const options = autoCorrection.valeur?.reponse?.options
       const comparisons: string[] = []

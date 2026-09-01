@@ -24,6 +24,7 @@ import {
   pointSurSegment,
 } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -38,13 +39,11 @@ import {
 } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
-import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const dateDePublication = '08/06/2022'
 export const dateDeModifImportante = '22/01/2025'
 export const titre = 'Comparer périmètres et/ou aires de figures'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 /**
  * Comparer aires et/ou périmètres de figures avec ceux d'un rectangle référence
@@ -53,9 +52,9 @@ export const interactifType = 'qcm'
 export const uuid = '95313'
 
 export const refs = {
-  'fr-fr': ['auto6M2A'],
+  'fr-fr': ['auto6M2A', '6AutoA1'],
   'fr-2016': ['6M21'],
-  'fr-ch': ['9GM1-10'],
+  'fr-ch': ['9GM1B-14'],
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
@@ -119,7 +118,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
     else if (this.sup2 === 2) aireOuPerimetre = 'Aire'
 
     let compteurInteractif = 0
-    for (let q = 0, cpt = 0; q < this.nbQuestions && cpt < 50; ) {
+    for (let q = 0, cpt = 0; q < this.nbQuestions && cpt < 50;) {
       compteurInteractif = this.sup2 === 3 ? 2 * q : q
       let choixFigAire2:
         | [PointAbstrait, PointAbstrait][]
@@ -311,12 +310,24 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           {
             // Deux demi-disques alternés qui s'emboîtent
             const E = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
-            const F = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), A.y)
+            const F = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              A.y,
+            )
             const G = pointAbstrait(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
-            const H = pointAbstrait(B.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
-            const I = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), D.y)
+            const H = pointAbstrait(
+              B.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
+            const I = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              D.y,
+            )
             const J = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
-            const K = pointAbstrait(A.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
+            const K = pointAbstrait(
+              A.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
             const L = pointAbstrait(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
             const poly = polygone(A, B, C, D)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
@@ -501,12 +512,24 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           {
             // Deux demi-disques alternés qui ne s'emboîtent pas
             const E = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
-            const F = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), A.y)
+            const F = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              A.y,
+            )
             const G = pointAbstrait(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
-            const H = pointAbstrait(B.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
-            const I = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), D.y)
+            const H = pointAbstrait(
+              B.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
+            const I = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              D.y,
+            )
             const J = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
-            const K = pointAbstrait(A.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
+            const K = pointAbstrait(
+              A.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
             const L = pointAbstrait(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
             const poly = polygone(A, B, C, D)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
@@ -685,12 +708,24 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           {
             // Deux demi-disques en plus
             const E = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
-            const F = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), A.y)
+            const F = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              A.y,
+            )
             const G = pointAbstrait(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
-            const H = pointAbstrait(B.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
-            const I = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), D.y)
+            const H = pointAbstrait(
+              B.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
+            const I = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              D.y,
+            )
             const J = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
-            const K = pointAbstrait(A.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
+            const K = pointAbstrait(
+              A.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
             const L = pointAbstrait(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
             const poly = polygone(A, B, C, D)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
@@ -814,12 +849,24 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           {
             // Deux demi-disques en moins
             const E = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
-            const F = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), A.y)
+            const F = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              A.y,
+            )
             const G = pointAbstrait(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
-            const H = pointAbstrait(B.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
-            const I = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), D.y)
+            const H = pointAbstrait(
+              B.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
+            const I = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              D.y,
+            )
             const J = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
-            const K = pointAbstrait(A.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
+            const K = pointAbstrait(
+              A.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
             const L = pointAbstrait(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
             const poly = polygone(A, B, C, D)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
@@ -1042,12 +1089,24 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           {
             // Deux triangles alternés qui s'emboîtent
             const E = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
-            const F = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), A.y)
+            const F = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              A.y,
+            )
             const G = pointAbstrait(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
-            const H = pointAbstrait(B.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
-            const I = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), D.y)
+            const H = pointAbstrait(
+              B.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
+            const I = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              D.y,
+            )
             const J = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
-            const K = pointAbstrait(A.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
+            const K = pointAbstrait(
+              A.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
             const L = pointAbstrait(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
             const poly = polygone(A, B, C, D)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
@@ -1247,12 +1306,24 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           {
             // Deux triangles alternés qui ne s'emboîtent pas
             const E = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
-            const F = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), A.y)
+            const F = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              A.y,
+            )
             const G = pointAbstrait(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
-            const H = pointAbstrait(B.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
-            const I = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), D.y)
+            const H = pointAbstrait(
+              B.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
+            const I = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              D.y,
+            )
             const J = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
-            const K = pointAbstrait(A.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
+            const K = pointAbstrait(
+              A.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
             const L = pointAbstrait(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
             const poly = polygone(A, B, C, D)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
@@ -1506,12 +1577,24 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           {
             // Deux triangles en plus
             const E = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
-            const F = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), A.y)
+            const F = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              A.y,
+            )
             const G = pointAbstrait(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
-            const H = pointAbstrait(B.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
-            const I = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), D.y)
+            const H = pointAbstrait(
+              B.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
+            const I = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              D.y,
+            )
             const J = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
-            const K = pointAbstrait(A.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
+            const K = pointAbstrait(
+              A.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
             const L = pointAbstrait(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
             const poly = polygone(A, B, C, D)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
@@ -1672,12 +1755,24 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           {
             // Deux triangles en moins
             const E = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
-            const F = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), A.y)
+            const F = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              A.y,
+            )
             const G = pointAbstrait(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
-            const H = pointAbstrait(B.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
-            const I = pointAbstrait(entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3), D.y)
+            const H = pointAbstrait(
+              B.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
+            const I = pointAbstrait(
+              entreDeux(B.x, A.x + (2 * (B.x - A.x)) / 3),
+              D.y,
+            )
             const J = pointAbstrait(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
-            const K = pointAbstrait(A.x, entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3))
+            const K = pointAbstrait(
+              A.x,
+              entreDeux(C.y, B.y + (2 * (C.y - B.y)) / 3),
+            )
             const L = pointAbstrait(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
             const poly = polygone(A, B, C, D)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])

@@ -7,7 +7,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Ajouter des durées'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '20/11/2021'
 
 /**
@@ -17,7 +17,7 @@ export const dateDePublication = '20/11/2021'
 export const uuid = 'e3b7d'
 
 export const refs = {
-  'fr-fr': ['canc3D03', '6M4A-flash2'],
+  'fr-fr': ['canc3D03', '6M4A-flash2', '6AutoT1-2'],
   'fr-ch': [],
 }
 export default class AjouterDesDurees extends ExerciceSimple {
@@ -34,15 +34,15 @@ export default class AjouterDesDurees extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 2)
+    const a = this.quotaRandint('a', 1, 2)
     const b = choice([
       choice([10, 20, 30]),
       randint(1, 5) * 5,
       randint(11, 29, 20),
       30,
     ])
-    const c = randint(1, 3)
-    const variante = choice([true, false])
+    const c = this.quotaRandint('c', 1, 3)
+    const variante = this.quotaChoice('variante', [true, false])
     const d = 60 - b - (variante ? choice([10, 20]) : 0)
     this.question = `Calculer $${a}\\text{ h } ${b}$ min + $${c}\\text{ h } ${d}$ min.`
     this.correction = variante

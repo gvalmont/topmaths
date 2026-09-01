@@ -13,14 +13,14 @@ import {
 import { cube3d } from '../../lib/3d/3dProjectionMathalea2d/Cube3dPerspectiveCavaliere'
 import { paveLPH3d } from '../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 
 export const titre =
   'Recomposer un nombre décimal représenté par des fractions du cube unité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -31,7 +31,7 @@ export const uuid = '63f03'
 export const refs = {
   'fr-fr': ['auto6N2B-2'],
   'fr-2016': ['6N23-7'],
-  'fr-ch': ['9NO10-8'],
+  'fr-ch': ['9NO3A-10'],
 }
 /**
  * Exercice de recomposition décimale avec des solides 3D
@@ -150,7 +150,12 @@ export default class RecompositionDecimale extends Exercice {
         this.listeQuestions[q] = texte
         this.listeCorrections[q] = texteCorr
 
-        setReponse(this, q, reponses[q], { digits: 4, decimals: 3 })
+        handleAnswers(
+          this,
+          q,
+          { reponse: { value: reponses[q] } },
+          { digits: 4, decimals: 3 },
+        )
         q++
       }
       cpt++

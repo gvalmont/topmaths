@@ -1,7 +1,7 @@
 import { bleuMathalea } from '../../lib/colors'
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import {
   ajouteChampTexteMathLive,
   remplisLesBlancs,
@@ -20,7 +20,7 @@ import {
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'mathlive'
+
 export const titre =
   'Convertir $1\\text{ m}^2$ en $\\text{dm}^2$ ou $1\\text{ dm}^2$ en $\\text{cm}^2$ et inversement'
 export const dateDePublication = '30/07/2025'
@@ -31,9 +31,9 @@ export const dateDePublication = '30/07/2025'
  */
 export const uuid = 'a6e80'
 export const refs = {
-  'fr-fr': ['auto6M2E'],
+  'fr-fr': ['auto6M2E', '6AutoA2-1'],
   'fr-2016': ['6M23-2'],
-  'fr-ch': [],
+  'fr-ch': ['9GM1A-8'],
 }
 
 export default class ConvertirM2EnDm2 extends Exercice {
@@ -118,7 +118,7 @@ export default class ConvertirM2EnDm2 extends Exercice {
       texNombre(0.01),
     ]
     let compteurAleatoire = 0
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const element = [listeConversions[cpt], listeQuestionsDisponibles[cpt]]
       const index = tableauDesPossibilites.findIndex(
         ([coords, _]) => coords[0] === element[0] && coords[1] === element[1],
@@ -142,7 +142,7 @@ export default class ConvertirM2EnDm2 extends Exercice {
             texte += ' est égal à '
             texteCorr = texte
             texte += this.interactif
-              ? choixDeroulant(this, i, choixListeDeroulante)
+              ? choixDeroulant(this, i, { choices: choixListeDeroulante })
               : '$\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots$ '
             texte += `de $1~${pairesMetriques[listeConversions[cpt] - 1][1]}^2$.`
             reponse =
@@ -152,7 +152,7 @@ export default class ConvertirM2EnDm2 extends Exercice {
               this,
               i,
               { reponse: { value: reponse } },
-              { formatInteractif: 'listeDeroulante' },
+              { formatInteractif: 'liste-deroulante' },
             )
             break
           case 2:

@@ -9,7 +9,7 @@ export const dateDePublication = '22/07/2025'
 export const uuid = '6201b'
 
 export const refs = {
-  'fr-fr': ['1A-E02-3'],
+  'fr-fr': ['1A-E02-3', '2A-E2-3'],
   'fr-ch': [],
 }
 /**
@@ -18,7 +18,7 @@ export const refs = {
 
  */
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -27,7 +27,7 @@ export const titre =
 export default class AugmentationsSuccessives extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce =
-      "Le prix d'un article est noté $P$. Il connaît deux augmentations de $20\\,\\%$.<br> Le prix après ces augmentations est :"
+      "Le prix d'un article est noté $P$. Il connaît deux augmentations de $20\\,\\%$.<br> Le prix, après ces augmentations, est :"
     this.correction = `Après une augmentation de $20\\,\\%$, le nouveau prix est $P \\times 1,2$.<br>
  Après une deuxième augmentation de $20\\,\\%$, le prix devient : $(P \\times 1,2) \\times 1,2 = P \\times 1,2^2 = ${miseEnEvidence('P \\times 1,44')}$`
 
@@ -61,7 +61,7 @@ export default class AugmentationsSuccessives extends ExerciceQcmA {
       // Texte pour le nombre d'augmentations
       const texteNombre = nombreAugmentations === 2 ? 'deux' : 'trois'
 
-      this.enonce = `Le prix d'un article est noté $P$. Il connaît ${texteNombre} augmentations successives de $${pourcentage}\\,\\%$. <br>Le prix après ces augmentations est :`
+      this.enonce = `Le prix d'un article est noté $P$. Il connaît ${texteNombre} augmentations successives de $${pourcentage}\\,\\%$. <br>Le prix, après ces augmentations, est :`
 
       // Bonne réponse (plusieurs formes possibles)
       const bonnesReponses = [
@@ -84,6 +84,15 @@ export default class AugmentationsSuccessives extends ExerciceQcmA {
       // Sélection d'une bonne réponse
       const bonneReponse = choice(bonnesReponses)
 
+      const indexBonneReponse = bonnesReponses.indexOf(bonneReponse)
+
+      // Les 3 expressions "brutes" (sans les $ et sans miseEnEvidence), dans le même ordre que bonnesReponses
+      const expressions = [
+        `P \\times ${coefficientTexte}^${nombreAugmentations}`,
+        `P \\times \\left(1 + \\dfrac{${pourcentage}}{100}\\right)^${nombreAugmentations}`,
+        `P \\times \\left(1 + ${new FractionEtendue(pourcentage, 100).texFractionSimplifiee}\\right)^${nombreAugmentations}`,
+      ]
+
       // Sélection de 3 distracteurs distincts
       const distracteursFiltres = distracteurs.filter(
         (rep) => rep !== bonneReponse,
@@ -101,21 +110,22 @@ export default class AugmentationsSuccessives extends ExerciceQcmA {
       }
 
       // Construction de la correction selon le nombre d'augmentations
-      let correctionDetail = ''
+      // N'applique miseEnEvidence qu'à l'expression choisie comme bonne réponse
+      const afficher = (i: number) =>
+        i === indexBonneReponse
+          ? miseEnEvidence(expressions[i])
+          : expressions[i]
 
-      correctionDetail = `Après une augmentation de $${pourcentage}\\,\\%$, le nouveau prix est $P \\times ${coefficientTexte}$.<br>
+      const correctionDetail = `Après une augmentation de $${pourcentage}\\,\\%$, le nouveau prix est $P \\times ${coefficientTexte}$.<br>
  Après une deuxième augmentation de $${pourcentage}\\,\\%$, le prix devient : <br>
- $(P \\times ${coefficientTexte}) \\times ${coefficientTexte} = ${miseEnEvidence(`P \\times \\left(1 + \\dfrac{${pourcentage}}{100}\\right)^2`)}=${miseEnEvidence(`P \\times  \\left(1 + ${new FractionEtendue(pourcentage, 100).texFractionSimplifiee}\\right)^${nombreAugmentations}`)} = ${miseEnEvidence(`P \\times ${coefficientTexte}^${nombreAugmentations}`)}$`
+ $(P \\times ${coefficientTexte}) \\times ${coefficientTexte} = ${afficher(1)}=${afficher(2)} = ${afficher(0)}$`
 
       this.correction = correctionDetail
 
       // Construction du tableau final avec exactement 4 réponses
       this.reponses = [bonneReponse, ...troisDistracteurs]
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {})
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {

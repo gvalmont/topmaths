@@ -3,9 +3,9 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu } from '../../modules/outils'
 /**
@@ -19,12 +19,11 @@ export const dateDePublication = '05/10/2024' // fonctions de mise en place des 
 export const dateDeModifImportante = '13/10/2024'
 
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const uuid = 'a33ba'
 export const refs = {
   'fr-fr': ['4C11-1'],
-  'fr-ch': ['9NO9-17'],
+  'fr-ch': ['9NO2C-15'],
 }
 
 export default class resoudreProblemeRelatifs extends Exercice {
@@ -55,7 +54,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
       }
       return solutions
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let Solutions: Array<Array<number>>
       let longueurSolutions: number
       const nombreQuestions = choice([10, 20, 30])
@@ -125,7 +124,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
             ),
           },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       texteCorr =

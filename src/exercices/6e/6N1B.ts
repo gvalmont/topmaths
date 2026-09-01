@@ -23,7 +23,7 @@ export const titre = 'Connaitre les liens entre les unités de numération'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '12/05/2025'
 export const dateDeModifImportante = '05/09/2025'
 
@@ -189,7 +189,13 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
                 texteApres,
               })
           : ' $\\ldots\\ldots\\ldots$ ' + texteApres
-        handleAnswers(this, i, { reponse: { value: reponse } })
+        handleAnswers(
+          this,
+          i,
+          binomesConversion[i][1] > 3
+            ? { champ1: { value: reponse } }
+            : { reponse: { value: reponse } },
+        )
       }
 
       if (this.questionJamaisPosee(i, ...binomesConversion[i])) {

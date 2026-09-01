@@ -6,7 +6,6 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Comprendre la division euclidienne'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '03/07/2025'
 /**
@@ -29,7 +28,7 @@ export default class ComprendreDivisionEuclidienne extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2, 3])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2, 3])) {
       case 1:
         {
           const diviseur = choice([7, 8, 9])

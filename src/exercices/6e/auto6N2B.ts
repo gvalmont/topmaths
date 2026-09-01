@@ -1,14 +1,7 @@
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import {
-  arrondi,
-  nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDe,
-} from '../../lib/outils/nombres'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
@@ -28,7 +21,7 @@ export const titre =
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '25/09/2025'
 /**
  * Donner l\'écriture décimale d\'un nombre à partir de fraction décimale (ou inversement)
@@ -40,9 +33,9 @@ export const dateDePublication = '25/09/2025'
 export const uuid = '47fed'
 
 export const refs = {
-  'fr-fr': ['auto6N2B'],
+  'fr-fr': ['auto6N2B', '6AutoF1-4'],
   'fr-2016': ['6N23-4a'],
-  'fr-ch': ['9NO10-14'],
+  'fr-ch': ['9NO3C-14'],
 }
 export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice {
   constructor() {
@@ -152,28 +145,6 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
             options: { fractionDecimale: true },
           },
         })
-      }
-      if (context.isAmc) {
-        const choixDigit = randint(0, 1)
-        if (this.sup2 === 2) {
-          setReponse(this, i, reponseAMC, {
-            digits:
-              nombreDeChiffresDe(reponseAMC) +
-              randint(choixDigit, choixDigit + 1),
-            decimals:
-              nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
-            signe: false,
-          })
-        } else {
-          setReponse(this, i, fractionDecimale, {
-            digits:
-              nombreDeChiffresDe(reponseAMC) +
-              randint(choixDigit, choixDigit + 1),
-            decimals:
-              nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit + 1,
-            signe: false,
-          })
-        }
       }
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 

@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
@@ -9,7 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre =
   'Donner le résultat de nombres écrits avec des puissances de 10 en écriture décimale'
 export const dateDePublication = '18/01/2022'
@@ -24,7 +24,7 @@ export const uuid = '5d72b'
 
 export const refs = {
   'fr-fr': ['4C32-0', 'BP2AutoE8'],
-  'fr-ch': ['10NO2-5'],
+  'fr-ch': ['10NO3F-3'],
 }
 export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
   constructor() {
@@ -71,7 +71,9 @@ export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
           texte = `$${texNombre(n)} \\times 10^{${p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombre(n.mul(Decimal.pow(10, p)))}$`
-          setReponse(this, i, n.mul(Decimal.pow(10, p)))
+          handleAnswers(this, i, {
+            reponse: { value: n.mul(Decimal.pow(10, p)) },
+          })
           break
         case 'type2':
           n = new Decimal(
@@ -82,7 +84,9 @@ export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
           texte = `$${texNombre(n)} \\times 10^{${-p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombre(n.mul(Decimal.pow(10, -p)), 6)}$`
-          setReponse(this, i, n.mul(Decimal.pow(10, -p)))
+          handleAnswers(this, i, {
+            reponse: { value: n.mul(Decimal.pow(10, -p)) },
+          })
           break
         case 'type3':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
@@ -92,7 +96,9 @@ export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
           texte = `$${texNombre(nb, 3)} \\times 10^{${p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombre(nb.mul(Decimal.pow(10, p)), 3)}$`
-          setReponse(this, i, nb.mul(Decimal.pow(10, p)))
+          handleAnswers(this, i, {
+            reponse: { value: nb.mul(Decimal.pow(10, p)) },
+          })
           break
         case 'type4':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
@@ -102,7 +108,9 @@ export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
           texte = `$${texNombre(nb, 3)} \\times 10^{${-p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombre(nb.mul(Decimal.pow(10, -p)), 10)}$`
-          setReponse(this, i, nb.mul(Decimal.pow(10, -p)))
+          handleAnswers(this, i, {
+            reponse: { value: nb.mul(Decimal.pow(10, -p)) },
+          })
           break
       }
 

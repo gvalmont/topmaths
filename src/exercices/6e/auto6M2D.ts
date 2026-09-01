@@ -1,5 +1,7 @@
-import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import {
+  choixDeroulant,
+  type AllChoicesType,
+} from '../../lib/customElements/ListeDeroulanteElement'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   choice,
@@ -16,7 +18,6 @@ import Exercice from '../Exercice'
 
 export const titre = "Connaître les multiples égalités d'une unité d'aire"
 export const interactifReady = true
-export const interactifType = 'custom'
 export const dateDePublication = '04/08/2025'
 
 /**
@@ -27,9 +28,9 @@ export const dateDePublication = '04/08/2025'
 export const uuid = '61772'
 
 export const refs = {
-  'fr-fr': ['auto6M2D'],
+  'fr-fr': ['auto6M2D', '6AutoA2-2'],
   'fr-2016': ['6M23-3'],
-  'fr-ch': ['9GM2-5'],
+  'fr-ch': ['9GM1A-7'],
 }
 
 export default class EgalitesUnitesAires extends Exercice {
@@ -42,9 +43,9 @@ export default class EgalitesUnitesAires extends Exercice {
       'Unités désirées',
       [
         'Nombres séparés par des tirets  :',
-        '1 : cm³',
-        '2 : dm³',
-        '3 : m³',
+        '1 : cm²',
+        '2 : dm²',
+        '3 : m²',
         '4 : Mélange',
       ].join('\n'),
     ]
@@ -97,7 +98,7 @@ export default class EgalitesUnitesAires extends Exercice {
       '$\\text{dm}$',
       '$\\text{m}$',
     ]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const unite = unitesPossibles[unitesChoisies[cpt]] // cpt choisi ici et dans tous les tableaux comme indice par pas assez de questions sinon.
       const sousUnite = unitesPossibles[unitesChoisies[cpt] - 1]
 
@@ -109,7 +110,9 @@ export default class EgalitesUnitesAires extends Exercice {
       let choix = choice([true, false])
       if (choix) {
         texte += this.interactif
-          ? choixDeroulant(this, 4 * i, choixListeDeroulantePourCoefficient)
+          ? choixDeroulant(this, 4 * i, {
+              choices: choixListeDeroulantePourCoefficient,
+            })
           : '$\\ldots\\ldots\\ldots$'
         texte += ` ${unite} `
         this.listeReponses[i].push('1')
@@ -117,7 +120,9 @@ export default class EgalitesUnitesAires extends Exercice {
       } else {
         texte += ' $1$ '
         texte += this.interactif
-          ? choixDeroulant(this, 4 * i, choixListeDeroulantePourUnite)
+          ? choixDeroulant(this, 4 * i, {
+              choices: choixListeDeroulantePourUnite,
+            })
           : '$\\ldots\\ldots\\ldots$'
         this.listeReponses[i].push(unite)
         texteCorr += `$1$ ${texteEnCouleurEtGras(unite)} `
@@ -130,11 +135,9 @@ export default class EgalitesUnitesAires extends Exercice {
         choix = choice([true, false])
         if (choix) {
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                4 * i + 1,
-                choixListeDeroulantePourCoefficient,
-              )
+            ? choixDeroulant(this, 4 * i + 1, {
+                choices: choixListeDeroulantePourCoefficient,
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += ` ${sousUnite} `
           this.listeReponses[i].push('10')
@@ -142,7 +145,9 @@ export default class EgalitesUnitesAires extends Exercice {
         } else {
           texte += ' 10 '
           texte += this.interactif
-            ? choixDeroulant(this, 4 * i + 1, choixListeDeroulantePourUnite)
+            ? choixDeroulant(this, 4 * i + 1, {
+                choices: choixListeDeroulantePourUnite,
+              })
             : '$\\ldots\\ldots\\ldots$'
           this.listeReponses[i].push(sousUnite)
           texteCorr += `10 ${texteEnCouleurEtGras(sousUnite)} `
@@ -155,11 +160,9 @@ export default class EgalitesUnitesAires extends Exercice {
         choix = choice([true, false])
         if (choix) {
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                4 * i + 1,
-                choixListeDeroulantePourCoefficient,
-              )
+            ? choixDeroulant(this, 4 * i + 1, {
+                choices: choixListeDeroulantePourCoefficient,
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += ` ${sousUnite} `
           this.listeReponses[i].push('10')
@@ -167,7 +170,9 @@ export default class EgalitesUnitesAires extends Exercice {
         } else {
           texte += ' 10 '
           texte += this.interactif
-            ? choixDeroulant(this, 4 * i + 1, choixListeDeroulantePourUnite)
+            ? choixDeroulant(this, 4 * i + 1, {
+                choices: choixListeDeroulantePourUnite,
+              })
             : '$\\ldots\\ldots\\ldots$'
           this.listeReponses[i].push(sousUnite)
           texteCorr += `10 ${texteEnCouleurEtGras(sousUnite)} `
@@ -180,14 +185,18 @@ export default class EgalitesUnitesAires extends Exercice {
       this.listeReponses[i].push('10')
       if (choix) {
         texte += this.interactif
-          ? choixDeroulant(this, 4 * i + 2, choixListeDeroulantePourCoefficient)
+          ? choixDeroulant(this, 4 * i + 2, {
+              choices: choixListeDeroulantePourCoefficient,
+            })
           : '$\\ldots\\ldots\\ldots$'
         texte += '$\\times$ 10 '
         texteCorr += `${texteEnCouleurEtGras('10')} $\\times$ 10`
       } else {
         texte += ' 10 $\\times$ '
         texte += this.interactif
-          ? choixDeroulant(this, 4 * i + 2, choixListeDeroulantePourUnite)
+          ? choixDeroulant(this, 4 * i + 2, {
+              choices: choixListeDeroulantePourUnite,
+            })
           : '$\\ldots\\ldots\\ldots$'
         texteCorr += `10 $\\times$ ${texteEnCouleurEtGras('10')}`
       }
@@ -200,7 +209,9 @@ export default class EgalitesUnitesAires extends Exercice {
         ...shuffle(choixListeDeroulante[0]),
       ]
       texte += this.interactif
-        ? choixDeroulant(this, 4 * i + 3, choixListeDeroulantePourCoefficient)
+        ? choixDeroulant(this, 4 * i + 3, {
+            choices: choixListeDeroulantePourCoefficient,
+          })
         : '$\\ldots\\ldots\\ldots$'
       this.listeReponses[i].push('100')
 
@@ -225,30 +236,32 @@ export default class EgalitesUnitesAires extends Exercice {
 
   correctionInteractive = (i: number) => {
     const select = []
-    select.push(
-      document.querySelector(
-        `#ex${this.numeroExercice}Q${4 * i}`,
-      ) as HTMLSelectElement,
-    )
-    select.push(
-      document.querySelector(
-        `#ex${this.numeroExercice}Q${4 * i + 1}`,
-      ) as HTMLSelectElement,
-    )
-    select.push(
-      document.querySelector(
-        `#ex${this.numeroExercice}Q${4 * i + 2}`,
-      ) as HTMLSelectElement,
-    )
-    select.push(
-      document.querySelector(
-        `#ex${this.numeroExercice}Q${4 * i + 3}`,
-      ) as HTMLSelectElement,
-    )
+    for (let j = 0; j < 4; j++) {
+      const questionIndex = 4 * i + j
+      if (this.answers === undefined) this.answers = {}
+      const liste = document.querySelector(
+        `#liste-deroulanteEx${this.numeroExercice}Q${questionIndex}`,
+      ) as (HTMLElement & { value?: string }) | null
+
+      const value = liste?.value
+      this.answers[
+        `liste-deroulanteEx${this.numeroExercice}Q${questionIndex}`
+      ] = value ?? ''
+      if (value == null) {
+        window.notify(
+          `Liste déroulante introuvable pour la question ${questionIndex} de l'exercice ${this.id}`,
+          { exercice: this.id, questionIndex },
+        )
+        return 'KO'
+      }
+      select.push(value)
+    }
 
     let isOk = true
     for (let j = 0; j < 4; j++) {
-      isOk &&= select[j].value === this.listeReponses[i][j]
+      isOk &&=
+        select[j] ===
+        this.listeReponses[i][j].replace('$\\text{', '').replace('}$', '')
     }
 
     // const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${4 * i + 3}`)

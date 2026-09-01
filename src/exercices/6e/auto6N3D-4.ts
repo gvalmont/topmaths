@@ -1,10 +1,9 @@
 import FabriqueAYohaku from './_Yohaku'
-export const titre = 'Résoudre un Yohaku multiplicatif niveau 1'
+export const titre = 'Résoudre un Yohaku multiplicatif'
 export const dateDePublication = '10/08/2022'
 export const dateDeModifImportante = '16/12/2023'
 
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const uuid = '08680'
@@ -12,7 +11,7 @@ export const uuid = '08680'
 export const refs = {
   'fr-fr': ['auto6N3D-4'],
   'fr-2016': ['6C10-7b'],
-  'fr-ch': ['9NO3-13'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-13'],
 }
 /**
  * @author Jean-claude Lhote

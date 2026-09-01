@@ -1,8 +1,8 @@
 import { bleuMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
@@ -24,7 +24,6 @@ export const titre =
 export const dateDePublication = '19/05/2025'
 export const dateDeModification = '10/04/2026'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 /**
  * Reconnaitre coefficient directeur et ordonnée à l'origine d'une fonction affine
@@ -34,7 +33,7 @@ export const uuid = '63ce9'
 
 export const refs = {
   'fr-fr': ['3F20-4'],
-  'fr-ch': ['1mF2-16', '11FA8-19'],
+  'fr-ch': ['1mF2-16'],
 }
 export default class CoefficientDirecteur extends Exercice {
   constructor() {
@@ -79,7 +78,7 @@ export default class CoefficientDirecteur extends Exercice {
       nbQuestions: this.nbQuestions,
     })
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nomFonction = this.sup2 ? 'f' : choice(['f', 'g', 'h', 'k'])
       const nomVariable = this.sup3 ? 'x' : choice(['x', 'a', 'b', 'c', 't'])
       let a = randint(-9, 9, [-1, 0, 1])
@@ -339,7 +338,7 @@ export default class CoefficientDirecteur extends Exercice {
           champ2: { value: reponse2 },
           bareme: toutAUnPoint,
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
       texteCorr = ` $${nomFonction}_{${i + 1}}(${nomVariable})=${fonctionF}$.<br>`
       texteCorr += texteCorSelonCase

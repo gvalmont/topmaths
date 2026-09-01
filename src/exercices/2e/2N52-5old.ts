@@ -14,20 +14,20 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
-export const interactifType = 'mathlive'
+
 export const dateDePublication = '02/05/2023'
 export const titre = 'Résoudre des équations avec un quotient'
 
 /**
  * Mettre au même dénominateur des expressions littérales
  * @author Gilles Mora
- * 2N41-8
+ * 2L11-8
  */
 export const uuid = 'b5828'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class ResoudreEquationsQuotient extends Exercice {
   constructor() {
@@ -56,7 +56,7 @@ export default class ResoudreEquationsQuotient extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let a: number

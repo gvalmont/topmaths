@@ -12,7 +12,6 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un terme d’une suite explicite'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '14/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -40,7 +39,7 @@ export default class CalculTermeSuiteExp extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, c, k, p, choix, listeFractions1, fraction1
     switch (
-      choice(['a', 'b', 'c', 'd']) //, 'b', 'c', 'd'
+      this.quotaChoice('cas', ['a', 'b', 'c', 'd']) //, 'b', 'c', 'd'
     ) {
       case 'a': // fonction affine
         a = randint(-6, 7, 0)

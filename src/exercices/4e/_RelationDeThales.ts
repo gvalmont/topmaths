@@ -9,6 +9,7 @@ import {
   longueur,
 } from '../../lib/2d/utilitairesGeometriques'
 import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../lib/colors'
 import { texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -21,7 +22,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Écrire une relation de Thalès'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 /**
  * Relation de Thalès
@@ -300,16 +301,17 @@ export default class RelationDeThales extends Exercice {
       }
       const marqueNomC = texteParPoint(nomC, c, 0, 'black', 1, 'milieu', true)
 
-      texte = 'Sur la figure suivante : '
+      texte = 'Sur la figure suivante : <br>'
       if (k > 0) {
         texte += `
-        <br> $\\leadsto ${nomM}$ est sur $${'[' + nomC + nomA + ']'}$,
-        <br> $\\leadsto ${nomN}$ est sur $${'[' + nomC + nomB + ']'}$,`
+         $\\leadsto ${nomM}$ est sur $${'[' + nomC + nomA + ']'}$,<br>
+          $\\leadsto ${nomN}$ est sur $${'[' + nomC + nomB + ']'}$,<br> `
       } else {
-        texte += `<br> $\\leadsto$ les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,`
+        texte += `$\\leadsto$ les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,<br> `
       }
 
-      texte += `<br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles.<br>Écrire la double égalité de Thalès`
+      texte += `$\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles.<br>
+      Écrire la double égalité de Thalès`
       if (this.interactif)
         texte +=
           ' : ' + ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric)
@@ -337,7 +339,7 @@ export default class RelationDeThales extends Exercice {
       const boutonAideMathalea2d = ajouterBoutonMathalea2d(
         `${numeroExercice}_${i}`,
         `if (!document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == 'false')){
-          document.getElementById('M2D_${numeroExercice}_${i}_1').style.stroke = 'blue';
+          document.getElementById('M2D_${numeroExercice}_${i}_1').style.stroke = '${bleuMathalea}';
           document.getElementById('M2D_${numeroExercice}_${i}_2').style.stroke = 'red';
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.opacity = .5;
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.strokeWidth = ${epaisseurTriangle};
@@ -361,14 +363,14 @@ export default class RelationDeThales extends Exercice {
       )
 
       if (k > 0) {
-        texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :
-       <br> $\\leadsto$ $${nomM}\\in${'[' + nomC + nomA + ']'}$,
-       <br> $\\leadsto$ $${nomN}\\in${'[' + nomC + nomB + ']'}$,
-       <br> $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,
-       <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
+        texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :<br>
+         $\\leadsto$ $${nomM}\\in${'[' + nomC + nomA + ']'}$,<br>
+          $\\leadsto$ $${nomN}\\in${'[' + nomC + nomB + ']'}$,<br>
+           $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,<br>
+           donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
       } else {
-        texteCorr = `$\\leadsto$ Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,
-        <br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles,<br>
+        texteCorr = `$\\leadsto$ Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,<br>
+         $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles,<br>
         donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
       }
       texteCorr += '<br><br>'
@@ -379,7 +381,7 @@ export default class RelationDeThales extends Exercice {
       }
 
       texteCorr += context.isHtml ? '<br>' : '\\medskip'
-      texteCorr += `<br>${texteGras('Remarque')}<br>On pourrait aussi écrire : `
+      texteCorr += `${texteGras('Remarque')}<br>On pourrait aussi écrire : `
       if (context.isHtml) {
         texteCorr += `$\\dfrac{\\color{blue}${nomC + nomA}}{\\color{red}${nomC + nomM}}=\\dfrac{\\color{blue}${nomC + nomB}}{\\color{red}${nomC + nomN}}=\\dfrac{\\color{blue}${nomA + nomB}}{\\color{red}${nomM + nomN}}$`
       } else {

@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -21,13 +22,11 @@ import {
   listeQuestionsToContenu,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   'Résoudre des problèmes de prix avec des objets mettant en jeu diverses opérations'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -49,9 +48,9 @@ export const dateDePublication = '02/11/2021'
 export const uuid = '28d56'
 
 export const refs = {
-  'fr-fr': ['6N5-1', 'BP2CCF3'],
+  'fr-fr': ['6N5-1', 'BP2CCF3', '5N1D-4'],
   'fr-2016': ['6C12', 'BP2CCF3'],
-  'fr-ch': ['9FA3-5'],
+  'fr-ch': ['9FA2B-19'],
 }
 export default class QuestionsPrix extends Exercice {
   constructor() {
@@ -64,7 +63,6 @@ export default class QuestionsPrix extends Exercice {
     this.sup3 = false
     this.sup4 = 3
 
-    this.interactifType = 'mathLive'
 
     this.besoinFormulaireTexte = [
       'Choix des questions',
@@ -102,9 +100,11 @@ export default class QuestionsPrix extends Exercice {
         TabPrixUnitaire[kk] = choice(Chiffres, TabPrixUnitaire)
         TabAutrePrix[kk] = choice(Chiffres, TabAutrePrix)
       }
-      typesDeQuestionsDisponibles.length === 1 && this.nbQuestions === 1
-        ? (this.consigne = 'Répondre à la question suivante.')
-        : (this.consigne = 'Répondre aux questions suivantes.')
+
+      this.consigne =
+        typesDeQuestionsDisponibles.length === 1 && this.nbQuestions === 1
+          ? 'Répondre à la question suivante.'
+          : 'Répondre aux questions suivantes.'
       let PrixUnitaire
       let AutrePrix
       let PrixReduction

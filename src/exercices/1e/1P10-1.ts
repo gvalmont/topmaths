@@ -6,14 +6,13 @@ import Exercice from '../Exercice'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { createList } from '../../lib/format/lists'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Écrire ou reconnaitre une probabilité dans un énoncé'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const dateDePublication = '29/04/2025'
 
@@ -24,7 +23,7 @@ export const dateDePublication = '29/04/2025'
 export const uuid = '227f1'
 
 export const refs = {
-  'fr-fr': ['1P10-1'],
+  'fr-fr': ['1P10-1', 'BP1SP11'],
   'fr-ch': ['4mProbStat-13'],
 }
 export default class EcritureProbabilite extends Exercice {
@@ -42,7 +41,7 @@ export default class EcritureProbabilite extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let val1,
@@ -283,16 +282,25 @@ Enfin, ils estiment que $${texNombre(Pev2 * 100, 1)}\\,\\%$ des animaux contract
                 options: { texteAvecCasse: true },
               },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
           texteCorr = ` ${calc1C}${calc2C}${calc3C}`
         } else {
           texte += addMultiMathfield(this, i, {
             dataTemplate: `%{champ1} ${calc4} ${sp(10)} %{champ2} ${calc5}${sp(10)} %{champ3} ${calc6}`,
             dataOptions: {
-              champ1: { keyboard: KeyboardType.clavierProbabilite, minWidth: 100 },
-              champ2: { keyboard: KeyboardType.clavierProbabilite, minWidth: 100 },
-              champ3: { keyboard: KeyboardType.clavierProbabilite, minWidth: 100 },
+              champ1: {
+                keyboard: KeyboardType.clavierProbabilite,
+                minWidth: 100,
+              },
+              champ2: {
+                keyboard: KeyboardType.clavierProbabilite,
+                minWidth: 100,
+              },
+              champ3: {
+                keyboard: KeyboardType.clavierProbabilite,
+                minWidth: 100,
+              },
             },
           })
           handleAnswers(
@@ -320,7 +328,7 @@ Enfin, ils estiment que $${texNombre(Pev2 * 100, 1)}\\,\\%$ des animaux contract
                 options: { texteAvecCasse: true },
               },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
           texteCorr = ` ${calc4C}${calc5C}${calc6C}`
         }
@@ -365,7 +373,7 @@ Enfin, ils estiment que $${texNombre(Pev2 * 100, 1)}\\,\\%$ des animaux contract
                 value: texNombre(Pev2sachantev1b, 3),
               },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
 
           texteCorr = ` ${calc1C}${sp(10)}${calc2C}${sp(10)}${calc3C}`
@@ -393,7 +401,7 @@ Enfin, ils estiment que $${texNombre(Pev2 * 100, 1)}\\,\\%$ des animaux contract
                 value: texNombre(Pev1, 3),
               },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
 
           texteCorr = `${calc4C}${sp(10)}${calc5C}${sp(10)}${calc6C}`

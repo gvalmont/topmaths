@@ -1,9 +1,10 @@
 import Decimal from 'decimal.js'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { Tableau } from '../../lib/2d/tableau'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -18,12 +19,10 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Calculer le coefficient de proportionnalité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '18/03/2023'
@@ -33,7 +32,7 @@ export const uuid = '2d5eb'
 export const refs = {
   'fr-fr': [],
   'fr-2016': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 /**
  * @author jean-claude Lhote
@@ -418,20 +417,23 @@ export default class CalculerCoeffPropo extends Exercice {
               3 * i,
               KeyboardType.clavierDeBaseAvecFraction,
             )
-          setReponse(this, 3 * i, coefficient, {
-            formatInteractif: coefficientRationnel ? 'fractionEgale' : 'calcul',
-          })
+          handleAnswers(
+            this,
+            3 * i,
+            { reponse: { value: coefficient } },
+            { formatInteractif: 'mathlive' },
+          )
           texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse1.lettre} pour la colonne ${reponsesAttendue.reponse1.colonne} :`
           texte += ajouteChampTexteMathLive(
             this,
             3 * i + 1,
             KeyboardType.clavierNumbers,
           )
-          setReponse(
+          handleAnswers(
             this,
             3 * i + 1,
-            reponsesAttendue.reponse1.reponse.valeur,
-            { formatInteractif: 'calcul' },
+            { reponse: { value: reponsesAttendue.reponse1.reponse.valeur } },
+            { formatInteractif: 'mathlive' },
           )
           texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse2.lettre} pour la colonne ${reponsesAttendue.reponse2.colonne} :`
           texte += ajouteChampTexteMathLive(
@@ -439,11 +441,11 @@ export default class CalculerCoeffPropo extends Exercice {
             3 * i + 2,
             KeyboardType.clavierNumbers,
           )
-          setReponse(
+          handleAnswers(
             this,
             3 * i + 2,
-            reponsesAttendue.reponse2.reponse.valeur,
-            { formatInteractif: 'calcul' },
+            { reponse: { value: reponsesAttendue.reponse2.reponse.valeur } },
+            { formatInteractif: 'mathlive' },
           )
         }
       } else {

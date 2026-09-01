@@ -3,11 +3,12 @@ import { polygone } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceCan from '../../ExerciceCan'
 export const titre = 'Ordre de grandeur'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const uuid = '89710'
 export const refs = {
   'fr-fr': [],
@@ -90,7 +91,7 @@ export default class Can2025CE1Q15 extends ExerciceCan {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       ) +
@@ -107,7 +108,7 @@ export default class Can2025CE1Q15 extends ExerciceCan {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       ) + '<br>'

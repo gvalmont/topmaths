@@ -15,7 +15,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Aire (Métropole Juin 2025)'
@@ -62,7 +62,7 @@ export default class MetropoleJ25EX3Q4 extends ExerciceQcmA {
       labelPoint(point1, point2, point3),
     ]
     const figure = mathalea2d(
-      Object.assign({ style: 'display: inline-bloc' }, fixeBordures(objets)),
+      Object.assign({ display: 'inline-block' } as const, fixeBordures(objets)),
       objets,
     )
 

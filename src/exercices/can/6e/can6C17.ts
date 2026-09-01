@@ -5,11 +5,10 @@ import {
 } from '../../../lib/outils/embellissements'
 
 import { bleuMathalea } from '../../../lib/colors'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la fraction d’une quantité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -34,14 +33,13 @@ export default class FractionSimpleDeQuantite extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(2, 6)
-    this.reponse = randint(2, 9) * 10
+    const a = this.quotaRandint('a', 2, 6)
+    this.reponse = this.quotaRandint('reponse', 2, 9) * 10
     const b = this.reponse * a
     this.question = `Calculer $\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L}$.`
     this.correction = `$\\dfrac{1}{${a}}$ de $${b} \\text{ L}$ = $${miseEnEvidence(this.reponse)} \\text{ L}$<br>`
     this.correction += texteEnCouleur(
-      `
-    <br> Mentalement : <br>
+      ` Mentalement : <br>
     Prendre $\\dfrac{1}{${a}}$ d'une quantité revient à la diviser par $${a}$.<br>
     Ainsi, $\\dfrac{1}{${a}}$ de $${b}=${b}\\div ${a}=${b / a}$.
      `,

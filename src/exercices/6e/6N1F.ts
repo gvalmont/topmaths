@@ -22,16 +22,14 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { sp } from '../../lib/outils/outilString'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   "Donner l'écriture (décimale, en fraction décimale ou en pourcentage) d'une somme (ou différence) de nombres avec fractions décimales"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '20/01/2022'
 export const dateDeModifImportante = '14/01/2026'
@@ -48,9 +46,9 @@ export const dateDeModifImportante = '14/01/2026'
 export const uuid = 'c5438'
 
 export const refs = {
-  'fr-fr': ['6N1F'],
+  'fr-fr': ['6N1F', '6AutoN3-5', 'auto5N3K-1'],
   'fr-2016': ['6N10-6'],
-  'fr-ch': ['9NO13-4'],
+  'fr-ch': ['9NO3C-8'],
 }
 export default class SommeFractionsDecimales extends Exercice {
   can: boolean

@@ -6,11 +6,11 @@ export const dateDePublication = '10/08/2025'
 export const uuid = '41fa7'
 /** @author Stéphane Guyon */
 export const refs = {
-  'fr-fr': ['canTEC1-04'],
+  'fr-fr': ['canTEC1-04','TEC1-15'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calculer les puissances de $i$'
@@ -178,9 +178,7 @@ export default class Complexes1 extends ExerciceQcmA {
       }
     } while (
       compteur++ < 100 &&
-      aLeBonNombreDePropsDifferentes(this.reponses, 4, true, {
-        expressionNumerique: true,
-      })
+      aLeBonNombreDePropsDifferentes(this.reponses, 4, true)
     )
   }
 

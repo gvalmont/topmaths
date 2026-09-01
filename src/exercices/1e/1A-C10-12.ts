@@ -7,11 +7,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '459d1'
 export const refs = {
-  'fr-fr': ['1A-C10-12'],
+  'fr-fr': ['1A-C10-12', '2A-C3-5'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Résoudre une équation'
@@ -79,7 +79,7 @@ x&= ${reponse.simplifie().texFSD}
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    // this.options = { vertical: true, ordered: false }
+
     this.versionAleatoire()
     this.spacing = 1.5
   }

@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Diviser avec des décimaux'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '05/01/2026'
@@ -20,7 +20,7 @@ export const dateDeModifImportante = '05/01/2026'
 export const uuid = '4fc0e'
 
 export const refs = {
-  'fr-fr': ['can5C14'],
+  'fr-fr': ['can5C14', '5N1C-flash1'],
   'fr-ch': [],
 }
 export default class DivisionAvecDecimaux extends ExerciceSimple {
@@ -37,7 +37,7 @@ export default class DivisionAvecDecimaux extends ExerciceSimple {
     let b: number
     if (context.isAmc) this.versionQcm = false
     switch (
-      choice(['a', 'b', 'c', 'd', 'e']) //
+      this.quotaChoice('typeDeQuestions', ['a', 'b', 'c', 'd', 'e']) //
     ) {
       case 'a':
         a = randint(3, 9, 5) / 10

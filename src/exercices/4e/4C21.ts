@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -17,14 +18,12 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const titre = 'Additionner ou soustraire deux fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '16/05/2025'
 
 /**
@@ -40,7 +39,7 @@ export const uuid = '5f429'
 
 export const refs = {
   'fr-fr': ['4C21', 'BP2AutoH9'],
-  'fr-ch': ['9NO13-5'],
+  'fr-ch': ['9NO3F-4'],
 }
 export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercice {
   constructor() {
@@ -67,6 +66,7 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 5
+    this.listeAvecNumerotation = false
   }
 
   nouvelleVersion() {
@@ -131,6 +131,8 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
     ) {
       const plusOuMoins = listeDePlusOuMoins[i]
       const plusOuMoinsUn = plusOuMoins === '+' ? 1 : -1
+      const lettre = lettreDepuisChiffre(i + 1)
+      const prefixCorr = this.sup4 ? '' : `${lettre}=`
       let k1 = 0
       let k2 = 0
       let k = 0
@@ -196,8 +198,8 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
           k = d / b
         }
       }
-      texte = `$${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(c, d)}$`
-      texteCorr = `$${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(c, d)}`
+      texte = `$${lettre}=${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(c, d)}$`
+      texteCorr = `$${prefixCorr}${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(c, d)}`
 
       // a/b(+ou-)c/d = num/den (résultat non simplifié)
       if (
@@ -237,8 +239,8 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
           if (!this.sup2 && plusOuMoins === '-' && n < a / b) {
             n = randint(5, 9) // max(a/b)=9/2
           }
-          texteCorr = `$${n}${plusOuMoins}${texFractionFromString(a, b)}`
-          texte = texteCorr + '$'
+          texteCorr = `$${prefixCorr}${n}${plusOuMoins}${texFractionFromString(a, b)}`
+          texte = `$${lettre}=${n}${plusOuMoins}${texFractionFromString(a, b)}$`
           texteCorr += `=${texFractionFromString(n + miseEnEvidence('\\times ' + b, bleuMathalea), miseEnEvidence(b, bleuMathalea))}${plusOuMoins}${texFractionFromString(a, b)}`
           texteCorr += `=${texFractionFromString(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
           num = arrondi(n * b + plusOuMoinsUn * a)
@@ -248,9 +250,8 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
             n = randint(1, 4) //
             a = n * b + randint(1, 9) // (n*b+?)/b-n>0
           }
-          texte = `$${texFractionFromString(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}`
-          texteCorr = texte
-          texte += '$'
+          texteCorr = `$${prefixCorr}${texFractionFromString(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}`
+          texte = `$${lettre}=${texFractionFromString(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}$`
           texteCorr += `=${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(n + miseEnEvidence('\\times ' + b, bleuMathalea), miseEnEvidence(b, bleuMathalea))}`
           texteCorr += `=${texFractionFromString(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
           num = arrondi(a + plusOuMoinsUn * n * b)

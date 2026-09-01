@@ -14,7 +14,7 @@ import Exercice from '../../Exercice'
 export const titre =
   'Convertir des fractions d’heures en minutes et inversement'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '08/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -24,8 +24,8 @@ export const dateDePublication = '08/02/2022' // La date de publication initiale
 export const uuid = '5430f'
 
 export const refs = {
-  'fr-fr': ['can5D03'],
-  'fr-ch': [],
+  'fr-fr': ['can5D03', '6M4C-flash10'],
+  'fr-ch': ['NR'],
 }
 export default class HeuresFractionHeuresMinutes2 extends Exercice {
   constructor() {
@@ -54,7 +54,7 @@ export default class HeuresFractionHeuresMinutes2 extends Exercice {
       [5, 12],
       [11, 12],
     ]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (
         choice([1, 2]) //, 'b'
       ) {

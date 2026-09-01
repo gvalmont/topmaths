@@ -12,17 +12,16 @@ import { fraction } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 /**
  * Calcul du quotient de deux fractions. Paramétrages possibles :
  * * 1 : Nombres positifs exclusivement
@@ -34,7 +33,7 @@ export const uuid = '55354'
 
 export const refs = {
   'fr-fr': ['4C22-2', 'BP2AutoH14'],
-  'fr-ch': ['10NO5-7'],
+  'fr-ch': ['10NO3A-5'],
 }
 export default class ExerciceDiviserFractions extends Exercice {
   constructor() {

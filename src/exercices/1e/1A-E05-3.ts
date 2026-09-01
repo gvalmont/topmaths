@@ -11,7 +11,7 @@ export const refs = {
   'fr-ch': [''],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -73,10 +73,7 @@ export default class TauxReciproqueP extends ExerciceQcmA {
 
       this.appliquerLesValeurs(augmentation, taux)
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, { fractionEgale: true })
-    )
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true))
   }
 
   constructor() {

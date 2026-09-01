@@ -1,13 +1,16 @@
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une moyenne'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,7 +21,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'c9d15'
 
 export const refs = {
-  'fr-fr': ['can3S05'],
+  'fr-fr': ['can3S05', 'BP1AUTO048'],
   'fr-ch': [],
 }
 export default class MoyenneStat extends ExerciceSimple {
@@ -32,7 +35,9 @@ export default class MoyenneStat extends ExerciceSimple {
   nouvelleVersion() {
     let a, b, c, d, e, f, N
     switch (
-      this.versionQcm ? choice([1, 2]) : choice([1, 2, 3, 3]) //
+      this.versionQcm
+        ? this.quotaChoice('cas', [1, 2])
+        : this.quotaChoice('cas', [1, 2, 3, 3]) //
     ) {
       case 1:
         a = randint(2, 6)
@@ -44,7 +49,7 @@ export default class MoyenneStat extends ExerciceSimple {
    
         ${this.versionQcm ? 'La moyenne de cette série est :' : ' Quelle est la moyenne de cette série ?'}`
         this.correction = `La somme des $4$ valeurs est : $${a}+${b}+${c}+${d} =${e}$.<br>
-         La moyenne est donc $\\dfrac{${e}}{4}=${texFractionReduite(e, 4)}$.`
+         La moyenne est donc $\\dfrac{${e}}{4}=${miseEnEvidence(new FractionEtendue(e, 4).texFractionSimplifiee)}$.`
         this.reponse = e / 4
         this.distracteurs = [
           `$${texNombre(e / 4 - 1)}$`,
@@ -76,7 +81,7 @@ export default class MoyenneStat extends ExerciceSimple {
           `$${texNombre(e / 5 + 0.5)}$`,
         ]
         this.correction = `La somme des $5$ valeurs est : $${b}+${a}+${c}+${d}+${f}= ${e}$.<br>
-         La moyenne est donc $\\dfrac{${texNombre(e)}}{5}=${texFractionReduite(e, 5)}$.`
+         La moyenne est donc $\\dfrac{${texNombre(e)}}{5}=${miseEnEvidence(new FractionEtendue(e, 5).texFractionSimplifiee)}$.`
 
         this.reponse = e / 5
         break
@@ -91,15 +96,15 @@ export default class MoyenneStat extends ExerciceSimple {
          
           Quelle est la moyenne de cette série ?`
           this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
-          La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
-          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${miseEnEvidence(texNombre(a))}$.`
+          this.correction += texteEnCouleur(
+            `<br> Mentalement : <br>
           En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$,
                     on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
           On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
-
-          
-          
-          `)
+          `,
+            bleuMathalea,
+          )
           this.reponse = a
         }
         if (N === 'b') {
@@ -111,15 +116,15 @@ export default class MoyenneStat extends ExerciceSimple {
         
           Quelle est la moyenne de cette série ?`
           this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
-          La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
-          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+          La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${miseEnEvidence(texNombre(a))}$.`
+          this.correction += texteEnCouleur(
+            `<br> Mentalement : <br>
           En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$,
                     on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
           On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
-
-          
-          
-          `)
+          `,
+            bleuMathalea,
+          )
           this.reponse = a
         }
         if (N === 'c') {
@@ -132,16 +137,16 @@ export default class MoyenneStat extends ExerciceSimple {
           Quelle est la moyenne de cette série ?`
 
           this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
-                            La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
-          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+                            La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${miseEnEvidence(texNombre(a))}$.`
+          this.correction += texteEnCouleur(
+            `<br> Mentalement : <br>
           On remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$) :
           $\\underbrace{${texNombre(c)}}_{${a}+ ${e}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(b)}}_{${a}- ${e}}$. <br>
                             
                             On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
-                  
-                            
-                            
-                            `)
+                            `,
+            bleuMathalea,
+          )
           this.reponse = a
         }
         if (N === 'd') {
@@ -154,14 +159,15 @@ export default class MoyenneStat extends ExerciceSimple {
           Quelle est la moyenne de cette série ?`
 
           this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
-                            La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
-          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+                            La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${miseEnEvidence(texNombre(a))}$.`
+          this.correction += texteEnCouleur(
+            `<br> Mentalement : <br>
           En écrivant les valeurs dans l'ordre croissant : $\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$,
                     on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
           On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
-                            
-                            
-                            `)
+          `,
+            bleuMathalea,
+          )
           this.reponse = a
         }
         break

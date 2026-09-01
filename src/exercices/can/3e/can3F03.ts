@@ -11,7 +11,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une image par une fonction affine'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '23/07/2025'
@@ -23,7 +23,7 @@ export const dateDeModifImportante = '23/07/2025'
 export const uuid = 'cf55d'
 
 export const refs = {
-  'fr-fr': ['can3F03'],
+  'fr-fr': ['can3F03', 'can2F13-04'],
   'fr-ch': [],
 }
 export default class CalculImageParFonctionAffine extends ExerciceSimple {
@@ -39,7 +39,11 @@ export default class CalculImageParFonctionAffine extends ExerciceSimple {
 
   nouvelleVersion() {
     let nomF, x, n, m, y
-    switch (this.versionQcm ? choice([2, 3]) : choice([1, 2, 3])) {
+    switch (
+      this.versionQcm
+        ? this.quotaChoice('cas', [2, 3])
+        : this.quotaChoice('cas', [1, 2, 3])
+    ) {
       case 1:
         x = randint(-9, 9, [0, 1, -1])
         n = choice([2, 4, 5])

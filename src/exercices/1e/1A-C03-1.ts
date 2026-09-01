@@ -5,11 +5,11 @@ export const dateDePublication = '23/07/2025'
 export const uuid = '6682b'
 
 export const refs = {
-  'fr-fr': ['1A-C03-1'],
-  'fr-ch': [],
+  'fr-fr': ['1A-C03-1', '2A-N3-1'],
+  'fr-ch': ['10NO3D-11'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Transformer un calcul comportant des puissances'
@@ -65,6 +65,16 @@ export default class Auto1AC3a extends ExerciceQcmA {
 
   constructor() {
     super()
+    this.tip = `
+  <p style="margin: 0 0 10px 0;">
+    Il faut chercher à faire apparaître des puissances comparables.
+  </p>
+  <ul style="list-style-type: disc; padding-left: 1.5em; margin: 0 0 14px 0; line-height: 2;">
+    <li>Regarder la base (le nombre élevé à une puissance) au numérateur et la base au dénominateur.</li>
+    <li>Chercher un lien évident entre ces deux bases, utile avec les propriétés des puissances.</li>
+    <li>Réécrire l'expression pour faire apparaître une même base au numérateur et au dénominateur.</li>
+    <li>Simplifier ensuite avec une propriété de cours.</li>
+  </ul>`
     this.versionAleatoire()
   }
 }

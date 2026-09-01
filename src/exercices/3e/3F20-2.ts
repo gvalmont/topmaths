@@ -7,7 +7,7 @@ import FonctionsLineaires from './3F20'
 import FonctionsAffines from './3F20-1'
 
 export const titre = 'Étudier les fonctions affines et/ou linéaires'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -15,7 +15,7 @@ export const dateDePublication = '21/05/2023'
 
 export const refs = {
   'fr-fr': ['3F20-2'],
-  'fr-ch': ['10FA5-14', '11FA8-8'],
+  'fr-ch': ['NR'],
 }
 export const uuid = '17c65'
 /**

@@ -2,9 +2,10 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/unit/6N5-2.test.ts ⚠️
  */
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { texPrix } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, enleveElementNo } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -24,13 +25,11 @@ import {
   listeQuestionsToContenu,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre =
   'Résoudre des problèmes de prix avec des aliments mettant en jeu diverses opérations'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -50,9 +49,9 @@ export const dateDePublication = '02/11/2021'
 export const uuid = '4e2b2'
 
 export const refs = {
-  'fr-fr': ['6N5-2', 'BP2CCF4'],
+  'fr-fr': ['6N5-2', 'BP2CCF4', '5N1D-5'],
   'fr-2016': ['6C12-1', 'BP2CCF4'],
-  'fr-ch': ['9FA3-6'],
+  'fr-ch': ['9FA2B-20'],
 }
 export default class QuestionsMasses extends Exercice {
   constructor() {
@@ -81,6 +80,7 @@ export default class QuestionsMasses extends Exercice {
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
+      let donnees = []
       const typesQuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,
         defaut: 9,
@@ -99,9 +99,11 @@ export default class QuestionsMasses extends Exercice {
         TabPrixUnitaire[kk] = choice(Chiffres, TabPrixUnitaire)
         TabAutrePrix[kk] = choice(Chiffres, TabAutrePrix)
       }
-      typesQuestionsDisponibles.length === 1 && this.nbQuestions === 1
-        ? (this.consigne = 'Répondre à la question suivante.')
-        : (this.consigne = 'Répondre aux questions suivantes.')
+
+      this.consigne =
+        typesQuestionsDisponibles.length === 1 && this.nbQuestions === 1
+          ? 'Répondre à la question suivante.'
+          : 'Répondre aux questions suivantes.'
       let PrixUnitaire
       let AutrePrix
       let PrixReduction
@@ -128,6 +130,8 @@ export default class QuestionsMasses extends Exercice {
           2,
         )
       }
+      donnees = [PrixUnitaire, AutrePrix, PrixReduction]
+
       const quidame = prenomF()
       const FamilleH = [
         'père',
@@ -339,7 +343,9 @@ export default class QuestionsMasses extends Exercice {
               KeyboardType.clavierDeBase,
               { texteApres: ' €' },
             ) + '<br><br>'
-          setReponse(this, nbCas * i + kk, reponseAMC)
+          handleAnswers(this, nbCas * i + kk, {
+            reponse: { value: reponseAMC },
+          })
         }
         if (context.isAmc) {
           if (kk === 0) enonceAMC = enonceAMCInit + enonceAMC
@@ -393,7 +399,7 @@ export default class QuestionsMasses extends Exercice {
           enleveElementNo(propositionsAMC, 2 * kk + 1)
         }
       }
-      if (this.questionJamaisPosee(i, PrixUnitaire)) {
+      if (this.questionJamaisPosee(i, donnees.map(String).join('-'))) {
         if (context.isAmc) {
           this.autoCorrectionAMC[i] = {
             propositions: propositionsAMC,

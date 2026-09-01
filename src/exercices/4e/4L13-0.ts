@@ -6,6 +6,7 @@ import { nommePolygone } from '../../lib/2d/polygones'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygonesParticuliers'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { bleuMathalea } from '../../lib/colors'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -18,12 +19,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 export const titre =
   'Mettre en équation un problème sans objectif de résolution'
 export const dateDeModifImportante = '28/03/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue afin de mettre en équation un problème
@@ -34,7 +33,7 @@ export const uuid = '5a6f2'
 
 export const refs = {
   'fr-fr': ['4L13-0', 'BP2RES1'],
-  'fr-ch': ['10FA3-9'],
+  'fr-ch': ['10FA5A-5'],
 }
 
 const myPolyName = function (n: number) {
@@ -119,7 +118,7 @@ export default class MettreEnEquationSansResoudre extends Exercice {
       '$\\text{km}$',
     ]
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour dire le nom du polygone
 
       // on choisit le nombre de côtés su polygone
@@ -192,6 +191,7 @@ export default class MettreEnEquationSansResoudre extends Exercice {
             exercice: this,
             question: i,
             typeInteractivite: 'mathlive',
+            reponseParams: { formatInteractif: 'mathalea-mathfield' },
             objetReponse: {
               reponse: {
                 value: equation,

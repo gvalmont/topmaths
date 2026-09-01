@@ -1,9 +1,9 @@
-import PerimetreOuAireDeFiguresComposees from '../5e/5M11-5'
+import PerimetreOuAireDeFiguresComposees from '../5e/5G2E-5'
 
 export const titre = 'Calculer périmètre de figures composées'
 export const dateDePublication = '27/07/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -17,7 +17,7 @@ export const uuid = '7433c'
 export const refs = {
   'fr-fr': ['6M1D'],
   'fr-2016': ['6M11-2a'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class PerimetreDeFiguresComposees extends PerimetreOuAireDeFiguresComposees {
   constructor() {

@@ -10,7 +10,6 @@ export const titre = 'Comparer deux nombres entiers'
 export const dateDePublication = '07/08/2022'
 export const dateDeModifImportante = '14/10/2024'
 export const interactifReady = true
-export const interactifType = 'qcm'
 
 /**
  * Comparaison de deux nombres entiers avec deux niveaux de difficulté : avec un nombre de chiffres différents et avec le même nombre de chiffres
@@ -23,7 +22,7 @@ export const uuid = 'a7aa7'
 export const refs = {
   'fr-fr': ['6N0A-11'],
   'fr-2016': ['6N11-5'],
-  'fr-ch': ['9NO2-5'],
+  'fr-ch': [''], // Primaire anciennement :['9NO2-5'],
 }
 export default class ComparerDeuxNombresEntiers extends Exercice {
   constructor() {
@@ -73,7 +72,6 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
     for (
       let i = 0, texte: string, texteCorr: string, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (typesDeQuestions[i]) {
         case 'differentNbDeChiffres': {

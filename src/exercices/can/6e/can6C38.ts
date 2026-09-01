@@ -6,7 +6,7 @@ import Exercice from '../../Exercice'
 
 export const titre = 'Trouver une valeur dans un Yohaku (additif)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '10/08/2022'
 export const dateDeModifImportante = '16/12/2023'
 
@@ -50,8 +50,8 @@ export default class YohakuCan6a extends Exercice {
     ]
     this.listeQuestions[0] =
       'Les nombres en bout de ligne ou de colonne sont les sommes des nombres contenus dans la ligne ou la colonne.<br>'
-    this.listeQuestions[0] += `Donner la valeur de la case vide.
-    <br>${yohaku1.representation({ numeroExercice: this.numeroExercice ?? 0, question: 0, isInteractif: this.interactif, classes: 'college6e' })}`
+    this.listeQuestions[0] += `Donner la valeur de la case vide.<br>
+    ${yohaku1.representation({ numeroExercice: this.numeroExercice ?? 0, question: 0, isInteractif: this.interactif, classes: 'college6e' })}`
     yohaku1.solution = true
     this.listeCorrections[0] = `La valeur de la case vide est : $${miseEnEvidence(this.reponse)}$.<br>`
     // On remet la valeur de la case avant de représenter le tableau pour la correction

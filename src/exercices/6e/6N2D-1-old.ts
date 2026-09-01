@@ -19,7 +19,7 @@ import Exercice from '../Exercice'
 export const dateDePublication = '06/05/2025'
 export const dateDeModifImportante = '25/05/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre =
   'Calculer le produit (en ligne) de deux décimaux connaissant le produit de deux entiers'
 
@@ -52,7 +52,7 @@ function nomUnitePourPuissance(p1: number): string {
   return ''
 }
 
-export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
+export default class ProduitDeDecimauxAPartirProduitConnuOld extends Exercice {
   constructor() {
     super()
     this.sup = 4
@@ -79,8 +79,8 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
     ]
     this.besoinFormulaire3CaseACocher = ['Produit initial donné', false]
     this.besoinFormulaire4CaseACocher = ['Correction avec des mots', true]
-    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
-    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
   }
 
   nouvelleVersion() {

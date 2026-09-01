@@ -6,8 +6,13 @@ import {
     type JSONReferentielEnding,
     type JSONReferentielObject,
     type ResourceAndItsPath,
+    hasTypSource,
+    isBanqueExterneType,
+    isCrpeType,
     isExerciceItemInReferentiel,
     isJSONReferentielEnding,
+    isStaticType,
+    isStaticWithoutPngUrl,
 } from '../types/referentiels'
 import { toMap } from './toMap'
 
@@ -138,6 +143,97 @@ export function findResourcesAndPaths(
   }
   find(referentiel)
   return harvest
+}
+
+/**
+ * Détermine les URLs des images (énoncé et correction) d'une ressource statique
+ * (annales DNB, BAC...). Certaines entrées du référentiel n'ont pas de champ
+ * `png`/`pngCor` : les URLs sont alors reconstruites à partir de l'uuid.
+ * @param foundResource la terminaison de référentiel trouvée pour un uuid
+ * @returns les listes d'URLs png/pngCor, ou `null` si la ressource n'est pas statique
+ */
+export function computeStaticExercicePngUrls(
+  foundResource: JSONReferentielEnding | null,
+): { png: string[]; pngCor: string[] } | null {
+  if (isStaticWithoutPngUrl(foundResource)) {
+    const [examen] = foundResource.uuid.split('_')
+    if (examen === 'eam') {
+      foundResource.png = `https://coopmaths.fr/alea/static/eam/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
+      foundResource.pngCor = `https://coopmaths.fr/alea/static/eam/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
+    } else if (examen === 'STL') {
+      foundResource.png = `https://coopmaths.fr/alea/static/stl/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
+      foundResource.pngCor = `https://coopmaths.fr/alea/static/stl/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
+    } else {
+      foundResource.png = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
+      foundResource.pngCor = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
+    }
+  }
+  if (isStaticType(foundResource) || isCrpeType(foundResource)) {
+    return {
+      png:
+        typeof foundResource.png === 'string'
+          ? [foundResource.png]
+          : foundResource.png,
+      pngCor:
+        typeof foundResource.pngCor === 'string'
+          ? [foundResource.pngCor]
+          : foundResource.pngCor,
+    }
+  }
+  return null
+}
+
+/**
+ * Calcule l'URL locale du fichier source Typst d'une ressource statique
+ * (annales DNB, BAC...), si sa terminaison de référentiel déclare la clé
+ * `typ: true`. Ce fichier, éditable par l'utilisateur, est alors utilisé à
+ * la place du png pour la vue Typst.
+ * @param foundResource la terminaison de référentiel trouvée pour un uuid
+ * @returns l'URL relative du fichier `.typ`, ou `null` si `typ` n'est pas déclarée
+ */
+export function computeStaticExerciceTypUrl(
+  foundResource: JSONReferentielEnding | null,
+): string | null {
+  if (!hasTypSource(foundResource) || foundResource === null) {
+    return null
+  }
+  // banque externe : les fichiers ne sont pas rangés selon l'uuid, l'URL déjà
+  // résolue (`blob:` ou API de la forge) est portée par la ressource elle-même
+  if (isBanqueExterneType(foundResource)) {
+    return foundResource.typUrl ?? null
+  }
+  const resource = foundResource as JSONReferentielEnding & {
+    uuid: string
+    annee: string
+  }
+  const [sujet] = resource.uuid.split('_')
+  return `static/${sujet}/${resource.annee}/typ/${resource.uuid}.typ`
+}
+
+/**
+ * Calcule l'URL locale du fichier source Typst de la **correction** d'une
+ * ressource statique (`<uuid>_cor.typ`, à côté de `<uuid>.typ`), si sa
+ * terminaison de référentiel déclare la clé `typ: true`. Ce fichier est
+ * optionnel : son absence (pas encore rédigé) n'empêche pas d'utiliser le
+ * `.typ` de l'énoncé, la correction reste alors le png scanné.
+ * @param foundResource la terminaison de référentiel trouvée pour un uuid
+ * @returns l'URL relative du fichier `_cor.typ`, ou `null` si `typ` n'est pas déclarée
+ */
+export function computeStaticExerciceCorTypUrl(
+  foundResource: JSONReferentielEnding | null,
+): string | null {
+  if (!hasTypSource(foundResource) || foundResource === null) {
+    return null
+  }
+  if (isBanqueExterneType(foundResource)) {
+    return foundResource.typCorUrl ?? null
+  }
+  const resource = foundResource as JSONReferentielEnding & {
+    uuid: string
+    annee: string
+  }
+  const [sujet] = resource.uuid.split('_')
+  return `static/${sujet}/${resource.annee}/typ/${resource.uuid}_cor.typ`
 }
 
 /**

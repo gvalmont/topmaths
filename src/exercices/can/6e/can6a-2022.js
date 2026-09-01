@@ -12,6 +12,7 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { fraction } from '../../../modules/fractions'
 import Hms from '../../../modules/Hms'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -23,16 +24,13 @@ import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { grille } from '../../../lib/2d/Grille'
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Grandeur from '../../../modules/Grandeur'
 
 export const titre = 'CAN 6e sujet 2022'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '13/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -125,7 +123,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
           texte = `$${a} \\times ${b}=$ `
           texteCorr = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`
           reponse = a * b
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -141,7 +139,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
           texte = `La moitié de $${a}$ est : `
           texteCorr = `La moitié de $${a}$ est $${a}\\div 2=${miseEnEvidence(a / 2)}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -158,7 +156,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
 
           texteCorr = `$100-${a}=${miseEnEvidence(100 - a)}$`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
@@ -176,7 +174,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
           texteCorr = `$${a}$ cahiers coûtent $${b}$ €.<br>
             $${k}\\times${a}=${k * a}$ cahiers coûtent $${k}\\times${b}=${miseEnEvidence(k * b)}$ €.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '    ', {
               texteApres: '€.',
@@ -196,7 +194,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
 
           reponse = b * 60 + a
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '   ', {
               texteApres: 'min',
@@ -236,12 +234,12 @@ export default class SujetCAN2022Sixieme extends Exercice {
                 xmax: 15,
                 ymax: 2,
                 scale: 0.6,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               d,
             )
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -263,7 +261,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
           if (b === 39) {
             texteCorr = `$${a}+${b}=${a}+40-1=${a + 40}-1=${miseEnEvidence(reponse)}$`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -297,7 +295,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
                 Il y a `
             texteCorr = `Le nombre de groupes est donné par $${a}\\div 5=${miseEnEvidence(reponse)}$.`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
               texteApres: 'groupes.',
@@ -328,7 +326,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
             texte = `Le tiers de $${a}$ est :  `
             texteCorr = `Le tiers de $${a}$ est : $${a}\\div 3=${miseEnEvidence(reponse)}$.`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -345,7 +343,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
             $${a}+${b}=\\ldots+${c}$`
           reponse = a + b - c
           texteCorr = `Le nombre cherché est : $${a}+${b}-${c}=${miseEnEvidence(reponse)}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -360,7 +358,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
 
           texteCorr = `$${texNombre(a)}\\times ${k}=${miseEnEvidence(texNombre(a * k))}$ `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -402,7 +400,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
             texte = `Complète :<br>$${a}=$`
 
             texteCorr = `$${a}=\\dfrac{${4 * a}}{4}=${4 * a}\\times \\dfrac{1}{4}$, donc $${miseEnEvidence(4 * a)}$ quarts $=${a}$. `
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: 'quarts',
@@ -416,7 +414,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
             texte = `Complète :<br>$${a}=$`
 
             texteCorr = `$${a}=\\dfrac{${3 * a}}{3}=${3 * a}\\times \\dfrac{1}{3}$, donc $${miseEnEvidence(3 * a)}$ tiers $=${a}$. `
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: 'tiers',
@@ -492,7 +490,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             texteCorr = `$1$ centième $=0,01$, d'où $${texNombre(b, 3)}+0,01 =${miseEnEvidence(texNombre(b + 0.01, 3))}$`
             reponse = arrondi(b + 0.01, 3)
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -518,7 +516,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
                Lou a `
             texteCorr = `Yann a $${b}$ billes de moins que Lou, donc Lou en a $${b}$ de plus, soit $${a}+${b}=${miseEnEvidence(a + b)}$ billes.`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
               texteApres: 'billes.',
@@ -580,12 +578,12 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
               mainlevee: false,
               amplitude: 0.5,
               scale: 0.8,
-              style: 'margin: auto',
+              center: !context.isHtml,
             },
             objets,
           )
           texteCorr = `Puisque le périmètre du rectangle est $${a + b}\\text{ cm}$, alors $\\text{?}=(${a + b}-2\\times ${texNombre(a / 2)})\\div 2=${miseEnEvidence(texNombre(b / 2))}\\text{ cm}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += '<br>$\\text{?}=$'
             texte += ajouteChampTexteMathLive(this, index, ' ', {
@@ -607,7 +605,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
     Comme $1$ kg $=${texNombre(1000)}$ g, alors $1$ g $=0,001$ kg.<br>
     Ainsi pour passer des "g" au "kg", on divise par $${texNombre(1000)}$.<br>
       Comme : $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000, 2)}$, alors $${texNombre(a)}$ g$=${miseEnEvidence(texNombre(reponse, 2))}$ kg.  `
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: 'kg',
@@ -621,7 +619,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             texte = `$${texNombre(a, 1)}$ kg  $=$ `
             texteCorr = ` Comme $1$ kg $=${texNombre(1000)}$ g,  pour passer des "kg" au "g", on multiplie par $${texNombre(1000)}$.<br>
             Comme : $${texNombre(a, 1)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a, 1)}$ kg$=${miseEnEvidence(reponse)}$ g.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: 'g',
@@ -655,7 +653,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000)} + ${texNombre(chiffre[a][1] * 1000)}
                         =${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000))}$. `
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
@@ -667,7 +665,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = 2 * 1000000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000))}$. `
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
@@ -679,7 +677,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = 2 * 1000000 + chiffre2[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} =${miseEnEvidence(texNombre(2 * 1000000 + chiffre2[a][1] * 1000))}$. `
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
@@ -691,7 +689,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = 2 * 1000000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} =${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000))}$. `
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
@@ -738,7 +736,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
                 mainlevee: false,
                 amplitude: 0.5,
                 scale: 0.7,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
@@ -782,14 +780,14 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
                 mainlevee: false,
                 amplitude: 0.5,
                 scale: 1,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
             texteCorr = `Une unité correspond à $5$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{5}=${miseEnEvidence(texNombre(b / 5))}$ unité. `
           }
-          setReponse(this, index, reponse, {
-            formatInteractif: 'fractionEgale',
+          handleAnswers(this, index, {
+            reponse: { value: reponse, options: { fractionEgale: true } },
           })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '', {
@@ -810,7 +808,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           reponse = 24 * a
           texteCorr = `Dans une journée, il y a $24$ heures, donc dans $${a}$ jours, il y a $${a}\\times 24=${miseEnEvidence(a * 24)}$ heures.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
               texteApres: 'h',
@@ -830,7 +828,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           reponse = 60 * a
           texteCorr = `Dans une heure, il y a $60$ minutes, donc dans $${a}$ heures, il y a $${a}\\times 60=${miseEnEvidence(a * 60)}$ minutes.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
               texteApres: 'min',
@@ -873,7 +871,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           Donc pour $${texNombre(a, 2, true)}$ €, il en faut  $${miseEnEvidence(reponse)}$.`
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -895,7 +893,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
                   xmax: 14,
                   ymax: 1.5,
                   scale: 0.8,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 droiteGraduee({
                   Unite: 3,
@@ -928,7 +926,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
                   xmax: 14,
                   ymax: 1.5,
                   scale: 0.8,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 droiteGraduee({
                   Unite: 3,
@@ -950,7 +948,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
               )
             texteCorr = `L'unité est divisée en $4$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{4}=${texNombre(reponse)}$`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -963,7 +961,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           reponse = arrondi(a + b, 2)
           texte = `$${texNombre(a)}+${texNombre(b)}=$`
           texteCorr = ` $${texNombre(a)}+${texNombre(b)}=${miseEnEvidence(texNombre(a + b))}$`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -994,9 +992,19 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           texte = `Choisis parmi les propositions suivantes la taille d'une ${taille1[a][0]} (nombre et unité à recopier).<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}`
           texteCorr = `La taille d'une ${taille1[a][0]} est ${b} ${taille1[a][3]}`
-          setReponse(this, index, new Grandeur(b, taille1[a][3]), {
-            formatInteractif: 'unites',
-          })
+          {
+            const grandeur = new Grandeur(b, taille1[a][3])
+            handleAnswers(this, index, {
+              reponse: {
+                value: grandeur,
+                options: {
+                  unite: true,
+                  precisionUnite:
+                    10 ** (grandeur.puissanceUnite * grandeur.puissancePrefixe),
+                },
+              },
+            })
+          }
           if (this.interactif) {
             texte +=
               '<br>' +
@@ -1011,7 +1019,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           reponse = arrondi(2 * a, 1)
           texte = `Le double de $${texNombre(a, 1)}$ est `
           texteCorr = `Le double de $${texNombre(a, 1)}$ est $2\\times ${texNombre(a, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
               texteApres: '.',
@@ -1035,7 +1043,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             texteCorr = `$ ${miseEnEvidence(b)} \\times ${a}=${c}$`
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -1052,7 +1060,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}\\text{ cm}$, donc $${texNombre(a / 2, 0)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2, 0)}\\text{ cm}$, donc les
           $${texNombre(1.5 * a, 0)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2, 0)}=${miseEnEvidence(reponse)}\\text{ cm}$ `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
               texteApres: '$\\text{ cm}$',
@@ -1073,7 +1081,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           Combien d'heures, ce même bus mettra-t-il pour emmener $${2 * b}$ passagers ?`
             texteCorr = 'Il mettra autant de temps :-). '
             reponse = a
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte +=
                 '<br>' +
@@ -1088,7 +1096,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             Dans les mêmes conditions d'ensoleillement, combien de temps faudra-t-il pour faire sécher $${b * c}$ tee-shirts ?`
             texteCorr = 'Il faudra autant de temps :-). '
             reponse = b
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte +=
                 '<br>' +
@@ -1102,7 +1110,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             texte = `$${a}$ L de lait coûtent $${b}$ €. Combien coûtent $${a * c}$ L de ce même lait ?`
             texteCorr = `$${a * c}$ L coûtent $${c}$ fois plus cher que $${a}$ L, donc $${miseEnEvidence(b * c)}$ €.`
             reponse = c * b
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte +=
                 '<br>' +
@@ -1118,7 +1126,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
               Combien d'heures mettra-t-il pour faire $${b * c}\\text{ km}$ ?`
             texteCorr = `Il mettra $${c}$ fois plus de temps, soit $${c}\\times ${a}=${miseEnEvidence(c * a)}$ heures. `
             reponse = c * a
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte +=
                 '<br>' +

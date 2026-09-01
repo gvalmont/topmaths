@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { creerCouples, shuffle } from '../../lib/outils/arrayOutils'
@@ -16,7 +16,6 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
 
 export const titre =
   'Utiliser tables de multiplication pour effectuer produits avec multiple de 10'
@@ -29,9 +28,9 @@ export const titre =
 export const uuid = '23bc8'
 
 export const refs = {
-  'fr-fr': ['6N0A-4'],
+  'fr-fr': ['6N0A-4', 'auto5N3A-3', 'auto5N4A-3'],
   'fr-2016': ['6C10-2'],
-  'fr-ch': ['9NO3-15'],
+  'fr-ch': [''], // Primaire anciennement :['9NO3-15'],
 }
 export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exercice {
   constructor(tablesParDefaut = '2-3-4-5-6-7-8-9') {
@@ -78,8 +77,6 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
     // Texte, tooltip
     else this.besoinFormulaire2Numerique = false
 
-    this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
-
     const tables = gestionnaireFormulaireTexte({
       min: 2,
       max: 9,
@@ -97,7 +94,6 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
     for (
       let i = 0, cpt = 0, a, b, texte, texteCorr, melange;
       i < this.nbQuestions && cpt < 100;
-
     ) {
       this.autoCorrection[i] = {}
       const [k1, k2] = shuffle(
@@ -164,11 +160,11 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
       }
       const props = propositionsQcm(this, i)
 
-      if (this.interactif && this.interactifType === 'qcm') {
+      if (this.interactif && this.sup2 !== 2) {
         texte += props.texte
       } else {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-        setReponse(this, i, a * b)
+        handleAnswers(this, i, { reponse: { value: a * b } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] = texte

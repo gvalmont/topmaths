@@ -6,11 +6,11 @@ export const dateDePublication = '10/08/2025'
 export const uuid = 'b37ab'
 // @Author Stéphane Guyon
 export const refs = {
-  'fr-fr': ['1A-C03-4'],
-  'fr-ch': [],
+  'fr-fr': ['1A-C03-4', '2A-N3-4'],
+  'fr-ch': ['10NO3D-14'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Appliquer la propriété des produits avec des puissances'
@@ -70,6 +70,16 @@ export default class Auto1AC3d extends ExerciceQcmA {
 
   constructor() {
     super()
+    this.tip = `
+  <p style="margin: 0 0 10px 0;">
+    Il faut transformer un produit de puissances.<br>
+  </p>
+  <ul style="list-style-type: disc; padding-left: 1.5em; margin: 0 0 14px 0; line-height: 2;">
+    <li>Regarder d'abord si les deux exposants sont égaux.</li>
+    <li>Regrouper les bases si les deux puissances ont le même exposant.</li>
+    <li>Décomposer le calcul si les exposants sont différents, pour faire apparaître un produit de deux puissances de même exposant.</li>
+  </ul>
+`
     this.versionAleatoire()
   }
 }

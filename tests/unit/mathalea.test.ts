@@ -1,9 +1,11 @@
 import Decimal from 'decimal.js'
 import { describe, expect, it, vi } from 'vitest'
+import Exercice from '../../src/exercices/Exercice'
 import ExerciceSimple from '../../src/exercices/ExerciceSimple'
 import { mathaleaEnsureAMCCompatibility } from '../../src/lib/amc/amcInference'
 import {
   getDistracteurs,
+  mathaleaHandleParamOfOneExercice,
   mathaleaHandleExerciceSimple,
 } from '../../src/lib/mathalea'
 import FractionEtendue from '../../src/modules/FractionEtendue'
@@ -165,6 +167,29 @@ describe('getDistracteurs', () => {
   })
 })
 
+describe('mathaleaHandleParamOfOneExercice', () => {
+  it("force l'interactivité des exercices obligatoires malgré i=0", () => {
+    const exercice = new Exercice()
+    exercice.interactifObligatoire = true
+    const params = { uuid: 'test', interactif: '0' as const }
+
+    mathaleaHandleParamOfOneExercice(exercice, params)
+
+    expect(exercice.interactif).toBe(true)
+    expect(params.interactif).toBe('1')
+  })
+
+  it('respecte i=0 pour un exercice sans interactivité obligatoire', () => {
+    const exercice = new Exercice()
+    const params = { uuid: 'test', interactif: '0' as const }
+
+    mathaleaHandleParamOfOneExercice(exercice, params)
+
+    expect(exercice.interactif).toBe(false)
+    expect(params.interactif).toBe('0')
+  })
+})
+
 describe('mathaleaHandleExerciceSimple', () => {
   it('aligne la correction versionQcm sur le moteur QCM partage', () => {
     class ExerciceSimpleQcm extends ExerciceSimple {
@@ -200,7 +225,7 @@ describe('mathaleaHandleExerciceSimple', () => {
       constructor() {
         super()
         this.nbQuestions = 1
-        this.interactifType = 'mathlive'
+        this.formatInteractif = 'mathlive'
       }
 
       nouvelleVersion() {
@@ -222,7 +247,7 @@ describe('mathaleaHandleExerciceSimple', () => {
       constructor() {
         super()
         this.nbQuestions = 1
-        this.interactifType = 'texte'
+        this.formatInteractif = 'texte'
       }
 
       nouvelleVersion() {
@@ -236,8 +261,8 @@ describe('mathaleaHandleExerciceSimple', () => {
     mathaleaHandleExerciceSimple(exercice, false, 0, 'seed')
     mathaleaEnsureAMCCompatibility(exercice)
 
-    expect(exercice.autoCorrection[0]).toBeDefined()
-    expect(exercice.autoCorrection[0].propositions?.[0].texte).toContain(
+    expect(exercice.autoCorrectionAMC?.[0]).toBeDefined()
+    expect(exercice.autoCorrectionAMC?.[0].propositions?.[0].texte).toContain(
       'deux et deux',
     )
     expect(exercice.amcType).toBe('AMCOpen')
@@ -261,11 +286,21 @@ describe('mathaleaEnsureAMCCompatibility', () => {
     expect(exercice.amcReady).toBe(true)
     expect(exercice.amcType).toBe('AMCOpen')
     expect(exercice.autoCorrection).toHaveLength(0)
+    expect(exercice.autoCorrectionAMC[0]).toMatchObject({
+      enonce: 'Question sans parametrage AMC',
+      propositions: [
+        {
+          texte: 'Correction par defaut',
+          statut: 3,
+          pointilles: true,
+        },
+      ],
+    })
   })
 
   it('alimente AMCOpen pour un interactif non supporte', () => {
     const exercice = {
-      interactifType: 'texte',
+      formatInteractif: 'texte',
       question: 'Question sans parametrage AMC',
       correction: 'Correction par defaut',
       autoCorrection: [],
@@ -279,15 +314,16 @@ describe('mathaleaEnsureAMCCompatibility', () => {
 
     expect(exercice.amcReady).toBe(true)
     expect(exercice.amcType).toBe('AMCOpen')
-    expect(exercice.autoCorrection[0]).toBeDefined()
-    expect(exercice.autoCorrection[0].propositions?.[0].texte).toContain(
+    expect(exercice.autoCorrection).toHaveLength(0)
+    expect(exercice.autoCorrectionAMC[0]).toBeDefined()
+    expect(exercice.autoCorrectionAMC[0].propositions?.[0].texte).toContain(
       'Correction par defaut',
     )
   })
 
   it('inference qcmMono et qcmMult depuis autoCorrection', () => {
     const mono = {
-      interactifType: 'qcm',
+      formatInteractif: 'qcm',
       autoCorrection: [
         {
           propositions: [
@@ -306,7 +342,7 @@ describe('mathaleaEnsureAMCCompatibility', () => {
     expect(mono.amcType).toBe('qcmMono')
 
     const mult = {
-      interactifType: 'qcm',
+      formatInteractif: 'qcm',
       autoCorrection: [
         {
           propositions: [

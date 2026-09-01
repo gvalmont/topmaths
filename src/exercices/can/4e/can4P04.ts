@@ -1,4 +1,3 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { prenom } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -6,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème avec la proportionnalité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '25/10/2021'
 
 /**
@@ -29,7 +28,7 @@ export default class ProportionnaliteNotes extends ExerciceSimple {
 
   nouvelleVersion() {
     let b, n
-    const a = choice([30, 40, 50, 60, 80, 100])
+    const a = this.quotaChoice('a', [30, 40, 50, 60, 80, 100])
 
     if (a === 30) {
       b = randint(1, 9)

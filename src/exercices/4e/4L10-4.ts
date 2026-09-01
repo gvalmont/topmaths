@@ -1,7 +1,6 @@
 import ExoRose from '../6e/_Roses'
 export const titre = 'Résoudre une Rose additive avec calcul littéral'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '12/08/2022'
@@ -15,7 +14,7 @@ export const uuid = 'a40d6'
 
 export const refs = {
   'fr-fr': ['4L10-4'],
-  'fr-ch': ['10FA1-17'],
+  'fr-ch': ['10FA4E-6'],
 }
 export default class RoseAdditive4L extends ExoRose {
   // c'est l'ExoRose zéro contenu dans _Roses.js

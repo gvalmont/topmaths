@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -10,7 +10,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Calculer des étendues'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '31/08/2022'
 
@@ -23,8 +22,8 @@ export const dateDeModifImportante = '31/08/2022'
 export const uuid = '36e68'
 
 export const refs = {
-  'fr-fr': ['3S14-0'],
-  'fr-ch': ['11NO2-12'],
+  'fr-fr': ['3S14-0', 'BP1AUTO035'],
+  'fr-ch': ['NR'],
 }
 export default class CalculerEtendues extends Exercice {
   constructor() {
@@ -93,7 +92,7 @@ export default class CalculerEtendues extends Exercice {
           break
         }
       }
-      setReponse(this, i, max - min)
+      handleAnswers(this, i, { reponse: { value: max - min } })
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       if (this.questionJamaisPosee(i, min, max)) {
         // Si la question n'a jamais été posée, on en créé une autre

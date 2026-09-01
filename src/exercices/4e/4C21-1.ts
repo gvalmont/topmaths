@@ -12,14 +12,13 @@ import { fraction } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { context } from '../../modules/context'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Additionner deux fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '31/08/2024'
@@ -35,7 +34,7 @@ export const uuid = '5e8fc'
 
 export const refs = {
   'fr-fr': ['4C21-1', 'BP2AutoH10'],
-  'fr-ch': ['9NO13-7'],
+  'fr-ch': ['9NO3F-5'],
 }
 export default class ExerciceAdditionnerDesFractions extends Exercice {
   constructor() {

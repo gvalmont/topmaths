@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Arrondir à l'unité"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -31,8 +31,8 @@ export default class ArrondiUnite extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(1, 20)
-    const b = randint(0, 9, 5)
+    const a = this.quotaRandint('a', 1, 20)
+    const b = this.quotaRandint('b', 0, 9, [5])
     const c = randint(0, 9, b)
     const d = arrondi(a + b * 0.1 + c * 0.01, 2)
     this.question = `Quel est l'arrondi à l'unité de $${texNombre(d, 2)}$ ?`

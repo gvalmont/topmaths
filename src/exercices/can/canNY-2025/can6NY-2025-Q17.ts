@@ -1,13 +1,12 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { sp } from '../../../lib/outils/outilString'
 import { minToHoraire } from '../../../lib/outils/dateEtHoraires'
+import { sp } from '../../../lib/outils/outilString'
 export const titre = "Compléter une suite d'heures/minutes"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'cd8eb'
 export const refs = {
   'fr-fr': [],
@@ -29,7 +28,7 @@ export default class SuiteACompleterHeures extends ExerciceSimple {
 
   nouvelleVersion() {
     const h = 20
-    const k = randint(14, 16)
+    const k = this.quotaRandint('k', 14, 16)
     const minutes1Aff = minToHoraire(20 * 60 + 25, true)
     const minutes2Aff = minToHoraire(20 * 60 + 25 + k, true)
     const minutes3Aff = minToHoraire(20 * 60 + 25 + 2 * k, true)

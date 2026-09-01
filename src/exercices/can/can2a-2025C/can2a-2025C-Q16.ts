@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 export const titre = 'Calculer un angle dans un triangle rectangle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 's64w8'
 export const refs = {
   'fr-fr': [],
@@ -52,15 +52,14 @@ export default class Can2a2025CQ16 extends ExerciceCan {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.reponse = String(angleInconnu)
 
-    this.question = `$${l0}${l1}${l2}$ est un triangle rectangle en $${sommetDroit}$ et $${nomAngleConnu}=${angleConnu}^\\circ$.
-  `
+    this.question = `$${l0}${l1}${l2}$ est un triangle rectangle en $${sommetDroit}$ et $${nomAngleConnu}=${angleConnu}^\\circ$.<br>`
     if (this.interactif) {
       this.optionsChampTexte = {
         texteAvant: `<br>$${nomAngleInconnu}=$`,
         texteApres: '$^\\circ$',
       }
     } else {
-      this.question += `<br>$${nomAngleInconnu}=\\ldots^\\circ$`
+      this.question += `$${nomAngleInconnu}=\\ldots^\\circ$`
     }
 
     this.correction = `Dans un triangle rectangle, les deux angles aigus sont complémentaires (leur somme vaut $90^\\circ$).<br>

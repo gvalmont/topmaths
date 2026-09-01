@@ -12,14 +12,13 @@ import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Utiliser une échelle graphique'
 export const interactifReady = true
-export const interactifType = 'mathlive'
 
 export const dateDePublication = '20/6/2025'
 
 export const uuid = '1651d'
 export const refs = {
   'fr-fr': ['6P3E-1'],
-  'fr-ch': [],
+  'fr-ch': ['10FA2C-2'],
 }
 
 /**
@@ -105,7 +104,7 @@ export default class ExerciceEchelleGraphique extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typeDeQuestion = listeTypeDeQuestions[i]
       const rectangle = choice(rectangles)
       let texte = ''

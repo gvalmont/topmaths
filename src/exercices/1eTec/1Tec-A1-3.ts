@@ -3,7 +3,7 @@ import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'a66ad'
 
 export const refs = {
-  'fr-fr': ['2S10-7', 'BP2SP11'],
+  'fr-fr': ['2I10-7', 'BP2SP11', 'BP1SP15'],
   'fr-ch': [],
 }
 export default class Proportion extends ExerciceSimple {

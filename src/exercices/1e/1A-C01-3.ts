@@ -7,11 +7,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '3e5b1'
 export const refs = {
-  'fr-fr': ['1A-C01-3'],
+  'fr-fr': ['1A-C01-3', '2A-N1-2'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Comparer des grands ou des petits nombres'
@@ -25,7 +25,7 @@ export const dateDePublication = '24/09/2025'
 export default class AutoC1c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce =
-      `Voici quatre planètes et leur masse :<br><br>` +
+      `Voici quatre planètes et leur masse :<br>` +
       tableauColonneLigne(
         ['\\text{Planètes}', '\\text{Masses}'],
         ['\\text{Terre}', '\\text{Mercure}', '\\text{Vénus}', '\\text{Mars}'],
@@ -36,7 +36,7 @@ export default class AutoC1c extends ExerciceQcmA {
           `${texNombre(6.4185)}\\times 10^{23}\\text{ kg}`,
         ],
       ) +
-      `<br><br>La planète dont la masse est la plus importante est :`
+      `<br>La planète dont la masse est la plus importante est :`
 
     this.correction = `On écrit les masses en écriture scientifique pour les comparer :<br><br>
     • Terre : $${texNombre(5973)}\\times 10^{21} = ${texNombre(5.973)}\\times 10^{3}\\times 10^{21} =${texNombre(5.973)}\\times 10^{24}$ kg<br>
@@ -250,7 +250,7 @@ export default class AutoC1c extends ExerciceQcmA {
         : `La cellule dont la taille est la plus importante est :`
 
     this.enonce =
-      `${contexte} :<br><br>` +
+      `${contexte} :<br>` +
       tableauColonneLigne(
         [
           typeExercice === 1 ? '\\text{Planètes}' : '\\text{Cellules}',
@@ -262,7 +262,7 @@ export default class AutoC1c extends ExerciceQcmA {
             `${texNombre(v.coefficient, 4)}\\times 10^{${v.puissance}}${unite}`,
         ),
       ) +
-      `<br><br>${questionText}`
+      `${questionText}`
 
     // Construction de la correction
     let correctionTexte =
@@ -318,7 +318,7 @@ export default class AutoC1c extends ExerciceQcmA {
 
     const propriete = typeExercice === 1 ? 'masse' : 'taille'
 
-    correctionTexte += `<br><br>Donc il s'agit de la ${texteEnCouleurEtGras(valeursTriees[0].nom)} qui a la ${propriete} la plus importante.`
+    correctionTexte += `<br><br> Donc il s'agit de la ${texteEnCouleurEtGras(valeursTriees[0].nom.toLowerCase())} qui a la ${propriete} la plus importante.`
 
     this.correction = correctionTexte
 
@@ -333,7 +333,7 @@ export default class AutoC1c extends ExerciceQcmA {
     super()
     this.tip = `
   <p style="margin: 0 0 10px 0;">
-    Pour comparer des nombres, selon les situations, il est souvent plus pratique de tous les écrire  :
+    Pour comparer des nombres, selon les situations, il est souvent plus pratique de tous les écrire :
   </p>
   <ul style="list-style-type: disc; padding-left: 1.5em; margin: 0 0 14px 0; line-height: 2;">
     <li>sous forme de fractions de même dénominateur,</li>
@@ -345,7 +345,7 @@ export default class AutoC1c extends ExerciceQcmA {
   </p>
  `
     this.versionAleatoire()
-    this.spacing = 1.5
+    this.spacing = 1
     this.spacingCorr = 1.5
   }
 }

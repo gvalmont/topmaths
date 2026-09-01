@@ -23,12 +23,12 @@ import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { bleuMathalea } from '../../lib/colors'
-import { deuxColonnesResp } from '../../lib/format/miseEnPage'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import {
   choixDeroulant,
   listeDeroulanteToQcm,
-} from '../../lib/interactif/questionListeDeroulante'
+} from '../../lib/customElements/ListeDeroulanteElement'
+import { deuxColonnesResp } from '../../lib/format/miseEnPage'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import {
   choice,
@@ -55,7 +55,7 @@ import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
-export const interactifType = 'listeDeroulante' // 'mathLive'
+// 'mathLive'
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'qcmMono'
 
@@ -74,7 +74,7 @@ export const uuid = 'f4b7e'
 
 export const refs = {
   'fr-fr': ['3G24-1'],
-  'fr-ch': ['1mG3-1', '11GM3-0'],
+  'fr-ch': ['11ES1C-2', '11GM1B-1', '1mG3-1'],
 }
 export default class TrianglesSemblables extends Exercice {
   constructor() {
@@ -100,7 +100,7 @@ export default class TrianglesSemblables extends Exercice {
       nbQuestions: this.nbQuestions,
     })
     let indiceChampReponse = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeDeNomsDePolygonesDejaPris: string[] = []
       let nbDeChampsReponse = 0
       let texte = ''
@@ -127,16 +127,10 @@ export default class TrianglesSemblables extends Exercice {
       const angle = randint(60, 300)
       let p2 = similitude(p1, A, angle, coeff)
       let objetsAAfficher1: (
-        | Polygone
-        | MarqueAngle
-        | NommePolygone
-        | Latex2d
+        Polygone | MarqueAngle | NommePolygone | Latex2d
       )[] = []
       let objetsAAfficher2: (
-        | Polygone
-        | MarqueAngle
-        | NommePolygone
-        | Latex2d
+        Polygone | MarqueAngle | NommePolygone | Latex2d
       )[] = []
       switch (
         typeQuestionsDisponibles[i] // Suivant le type de question, le contenu sera différent
@@ -387,63 +381,75 @@ export default class TrianglesSemblables extends Exercice {
           if (this.interactif) {
             texte +=
               `$[${A.nom + B.nom}]$ et ` +
-              choixDeroulant(this, indiceChampReponse, auChoixCote) +
+              choixDeroulant(this, indiceChampReponse, {
+                choices: auChoixCote,
+              }) +
               ' sont homologues.<br>'
             handleAnswers(
               this,
               indiceChampReponse,
               { reponse: { value: repCote[0] } },
-              { formatInteractif: 'listeDeroulante' },
+              { formatInteractif: 'liste-deroulante' },
             )
             texte +=
               `$[${A.nom + C.nom}]$ et ` +
-              choixDeroulant(this, indiceChampReponse + 1, auChoixCote) +
+              choixDeroulant(this, indiceChampReponse + 1, {
+                choices: auChoixCote,
+              }) +
               ' sont homologues.<br>'
             handleAnswers(
               this,
               indiceChampReponse + 1,
               { reponse: { value: repCote[1] } },
-              { formatInteractif: 'listeDeroulante' },
+              { formatInteractif: 'liste-deroulante' },
             )
             texte +=
               `$[${B.nom + C.nom}]$ et ` +
-              choixDeroulant(this, indiceChampReponse + 2, auChoixCote) +
+              choixDeroulant(this, indiceChampReponse + 2, {
+                choices: auChoixCote,
+              }) +
               ' sont homologues.<br>'
             handleAnswers(
               this,
               indiceChampReponse + 2,
               { reponse: { value: repCote[2] } },
-              { formatInteractif: 'listeDeroulante' },
+              { formatInteractif: 'liste-deroulante' },
             )
             texte +=
               `Les sommets $${A.nom}$ et ` +
-              choixDeroulant(this, indiceChampReponse + 3, auChoixSommet) +
+              choixDeroulant(this, indiceChampReponse + 3, {
+                choices: auChoixSommet,
+              }) +
               ' sont homologues.<br>'
             handleAnswers(
               this,
               indiceChampReponse + 3,
               { reponse: { value: repSommet[0] } },
-              { formatInteractif: 'listeDeroulante' },
+              { formatInteractif: 'liste-deroulante' },
             )
             texte +=
               `Les sommets $${B.nom}$ et ` +
-              choixDeroulant(this, indiceChampReponse + 4, auChoixSommet) +
+              choixDeroulant(this, indiceChampReponse + 4, {
+                choices: auChoixSommet,
+              }) +
               ' sont homologues.<br>'
             handleAnswers(
               this,
               indiceChampReponse + 4,
               { reponse: { value: repSommet[1] } },
-              { formatInteractif: 'listeDeroulante' },
+              { formatInteractif: 'liste-deroulante' },
             )
             texte +=
               `Les sommets $${C.nom}$ et ` +
-              choixDeroulant(this, indiceChampReponse + 5, auChoixSommet) +
+              choixDeroulant(this, indiceChampReponse + 5, {
+                choices: auChoixSommet,
+              }) +
               ' sont homologues.<br>'
             handleAnswers(
               this,
               indiceChampReponse + 5,
               { reponse: { value: repSommet[2] } },
-              { formatInteractif: 'listeDeroulante' },
+              { formatInteractif: 'liste-deroulante' },
             )
           } else if (context.isAmc) {
             const options = { ordered: true, vertical: true }
@@ -1048,13 +1054,13 @@ export default class TrianglesSemblables extends Exercice {
           texte +=
             ' ' +
             texteInit +
-            choixDeroulant(this, indiceChampReponse, choices) +
+            choixDeroulant(this, indiceChampReponse, { choices: choices }) +
             '.'
           handleAnswers(
             this,
             indiceChampReponse,
             { reponse: { value: repSemblables } },
-            { formatInteractif: 'listeDeroulante' },
+            { formatInteractif: 'liste-deroulante' },
           )
         } else if (context.isAmc) {
           const options = { ordered: true, vertical: true }

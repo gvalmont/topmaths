@@ -11,12 +11,13 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { abs } from '../../../lib/outils/nombres'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Associer un point à un réel sur un cercle trigonométrique '
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '31/10/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -28,7 +29,7 @@ export const dateDePublication = '31/10/2022'
 export const uuid = 'aa661'
 
 export const refs = {
-  'fr-fr': ['can1G09'],
+  'fr-fr': ['can1G09', 'BP1GEO05'],
   'fr-ch': [],
 }
 export default class AngleSurCercleTrigo extends ExerciceSimple {
@@ -114,7 +115,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
         ymax: r + 1,
         pixelsParCm: 15,
         scale: 0.45,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       c,
       s1,
@@ -129,7 +130,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
       nom,
       o,
     )
-    switch (choice([1, 2, 3, 4, 5])) {
+    switch (this.quotaChoice('type', [1, 2, 3, 4, 5])) {
       case 1: // les 0
         a = choice([
           '0',

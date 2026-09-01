@@ -14,7 +14,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -80,7 +80,7 @@ export default class auto1AP3a extends ExerciceQcmA {
 
     this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
     this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      Object.assign({ display: 'inline' } as const, fixeBordures(objets)),
       objets,
     )
     this.enonce += '<br>$P(A \\cap C)$ est égal à :'
@@ -174,7 +174,7 @@ export default class auto1AP3a extends ExerciceQcmA {
 
       this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
       this.enonce += mathalea2d(
-        Object.assign({ style: 'inline' }, fixeBordures(objets)),
+        Object.assign({ display: 'inline' } as const, fixeBordures(objets)),
         objets,
       )
       this.enonce += '<br>$P(A \\cap C)$ est égal à :'
@@ -194,9 +194,7 @@ export default class auto1AP3a extends ExerciceQcmA {
       compteur++
     } while (
       compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, this.reponses.length, true, {
-        fractionEgale: true,
-      })
+      !aLeBonNombreDePropsDifferentes(this, this.reponses.length, true)
     ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 

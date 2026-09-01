@@ -26,7 +26,7 @@ import Exercice from '../../Exercice'
 export const titre = 'Course aux nombres - 2nde - Mai 2024'
 export const dateDePublication = '7/5/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'can2a-2024-2'
 
 /**
@@ -85,10 +85,9 @@ export default class nomExercice extends Exercice {
 
     i = 5
     this.listeQuestions[i] =
-      '$0{,}2 \\times 0{,}4 = $' +
+      '$0,2 \\times 0,4 = $' +
       ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-    this.listeCorrections[i] =
-      `$0{,}2 \\times 0{,}4 = ${miseEnEvidence('0{,}08')} $`
+    this.listeCorrections[i] = `$0,2 \\times 0,4 = ${miseEnEvidence('0,08')} $`
     handleAnswers(this, i, { reponse: { value: '0.08' } })
 
     i = 6
@@ -96,7 +95,7 @@ export default class nomExercice extends Exercice {
       'Augmenter une quantité de $17~\\%$ revient à la multiplier par ' +
       ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] =
-      `$1 + 17~\\% = \\dfrac{117}{100} = 1{,}17$ <br>  Augmenter une quantité de $17~\\%$ revient à la multiplier par $${miseEnEvidence('1{,}17')}$.`
+      `$1 + 17~\\% = \\dfrac{117}{100} = 1,17$ <br>  Augmenter une quantité de $17~\\%$ revient à la multiplier par $${miseEnEvidence('1,17')}$.`
     handleAnswers(this, i, { reponse: { value: '1.17' } })
 
     i = 7
@@ -109,9 +108,9 @@ export default class nomExercice extends Exercice {
 
     i = 8
     this.listeQuestions[i] =
-      '$\\sqrt{0{,}36} = $' +
+      '$\\sqrt{0,36} = $' +
       ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-    this.listeCorrections[i] = `$\\sqrt{0{,}36} = ${miseEnEvidence('0{,}6')} $`
+    this.listeCorrections[i] = `$\\sqrt{0,36} = ${miseEnEvidence('0,6')} $`
     handleAnswers(this, i, { reponse: { value: '0.6' } })
 
     i = 9
@@ -149,10 +148,10 @@ export default class nomExercice extends Exercice {
 
     i = 10
     this.listeQuestions[i] =
-      'Si je parcours $1{,}5\\text{ km}$ en $10~\\text{min}$, quelle est ma vitesse moyenne en $\\text{km/h}$ ?<br>' +
+      'Si je parcours $1,5\\text{ km}$ en $10~\\text{min}$, quelle est ma vitesse moyenne en $\\text{km/h}$ ?<br>' +
       ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] =
-      `$1{,}5\\text{ km}$ en $10~\\text{min}$ donc $1{,}5\\text{ km} \\times 6 = 9\\text{ km}$ en une heure.<br>Ma vitesse moyenne est donc de $${miseEnEvidence('9')}~\\text{km/h}$.`
+      `$1,5\\text{ km}$ en $10~\\text{min}$ donc $1,5\\text{ km} \\times 6 = 9\\text{ km}$ en une heure.<br>Ma vitesse moyenne est donc de $${miseEnEvidence('9')}~\\text{km/h}$.`
     handleAnswers(this, i, { reponse: { value: '9' } })
 
     i = 11
@@ -170,7 +169,7 @@ export default class nomExercice extends Exercice {
       ajouteChampTexteMathLive(this, i, KeyboardType.clavierCompare + ' ') +
       '$0,7^2$'
     this.listeCorrections[i] =
-      `$0,7 < 1$ donc $0{,}7~${miseEnEvidence('>')}~0{,}7^2 $`
+      `$0,7 < 1$ donc $0,7~${miseEnEvidence('>')}~0,7^2 $`
     handleAnswers(this, i, {
       reponse: { value: '>', options: { texteSansCasse: true } },
     })
@@ -233,14 +232,14 @@ export default class nomExercice extends Exercice {
 
     i = 17
     this.listeQuestions[i] =
-      'Écriture scientifique de $0{,}0314$ :<br>' +
+      'Écriture scientifique de $0,0314$ :<br>' +
       ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations) +
       '.'
     this.listeCorrections[i] =
-      `$0{,}0314 =   ${miseEnEvidence('3{,}14\\times10^{-2}')}$`
+      `$0,0314 =   ${miseEnEvidence('3,14\\times10^{-2}')}$`
     handleAnswers(this, i, {
       reponse: {
-        value: '3{,}14\\times10^{-2}',
+        value: '3,14\\times10^{-2}',
         options: { ecritureScientifique: true },
       },
     })
@@ -333,7 +332,7 @@ export default class nomExercice extends Exercice {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.5,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       ) +
@@ -487,7 +486,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
     this.listeQuestions[i] += mathalea2d(
       Object.assign(
-        { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
+        { pixelsParCm: 30, scale: 0.55, center: !context.isHtml },
         { xmin: -6, ymin: -5, xmax: 6, ymax: 4 },
       ),
       objetsEnonce,
@@ -509,7 +508,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
     this.listeQuestions[i] += mathalea2d(
       Object.assign(
-        { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
+        { pixelsParCm: 30, scale: 0.55, center: !context.isHtml },
         { xmin: -6, ymin: -5, xmax: 6, ymax: 4 },
       ),
       objetsEnonce,
@@ -529,7 +528,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
     this.listeQuestions[i] += mathalea2d(
       Object.assign(
-        { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
+        { pixelsParCm: 30, scale: 0.55, center: !context.isHtml },
         { xmin: -6, ymin: -5, xmax: 6, ymax: 4 },
       ),
       objetsEnonce,

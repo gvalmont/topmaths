@@ -11,13 +11,14 @@ import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer la longueur d'un segment"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '1020d'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -84,7 +85,7 @@ export default class NomExercice extends ExerciceSimple {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )
@@ -101,7 +102,7 @@ export default class NomExercice extends ExerciceSimple {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.6,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       )

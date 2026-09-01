@@ -15,7 +15,8 @@ import {
 import Exercice from '../Exercice'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { createScratchSimulatorElement } from '@scratch2latex/scratch-core/ScratchSimulator'
-import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
+import { bleuMathalea } from '../../lib/colors'
+import { DomReadyActionElement } from '../../lib/customElements/DomReadyAction'
 import {
   allerA,
   angleScratchTo2d,
@@ -28,10 +29,9 @@ import {
   tournerG,
 } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
-import { bleuMathalea } from '../../lib/colors'
 
 export const interactifReady = true
-export const interactifType = 'cliqueFigure'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Programmer la tortue Scratch avec des répétitions'
@@ -46,11 +46,15 @@ export const refs = {
   'fr-fr': ['4I1-2'],
   'fr-ch': [],
 }
+
+const scratchSimulatorButtonAction = '4I1-2:scratch-simulator-button'
+
 export default class AlgoTortue extends Exercice {
   // ça c'est la classe qui permet de créer cet exercice
   indiceBonneFigure: number
   constructor() {
     super() // la classe parente qui définit les attributs commun à tous les exercices
+    registerScratchSimulatorButton()
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = [
@@ -73,7 +77,7 @@ export default class AlgoTortue extends Exercice {
 
   nouvelleVersion(numeroExercice: number) {
     // la méthode qui crée une nouvelle version de l'exercice
-    this.figures = []
+    this.cliqueFiguresArray = []
     const objetsCorrection = []
     this.autoCorrection[0] = {}
     const figuresDisponibles = [
@@ -581,7 +585,7 @@ export default class AlgoTortue extends Exercice {
       ymax: hauteur + 1,
       pixelsParCm: Math.round(200 / largeur),
       scale: 4 / largeur,
-      style: 'display: inline-block',
+      display: 'inline-block' as const,
     }
     const paramsCorrection = {
       xmin: -0.5,
@@ -590,7 +594,7 @@ export default class AlgoTortue extends Exercice {
       ymax: hauteur + 1,
       pixelsParCm: Math.round(200 / largeur),
       scale: 4 / largeur,
-      style: 'display: inline-block',
+      display: 'inline-block' as const,
     }
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
@@ -646,19 +650,26 @@ export default class AlgoTortue extends Exercice {
     this.autoCorrection[0].propositions![
       ordreLutins.indexOf(bonneReponse)
     ].statut = true
-    setCliqueFigure(this.autoCorrection[0])
+    this.autoCorrection[0].formatInteractif = 'clique-figure'
     this.indiceBonneFigure = ordreLutins.indexOf(bonneReponse)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}<br>
     ${
       context.isHtml
-        ? createScratchSimulatorElement(lutins[0].codeScratch, delay, false)
+        ? DomReadyActionElement.create({
+            action: scratchSimulatorButtonAction,
+            payload: {
+              codeScratch: lutins[0].codeScratch,
+              delai: delay,
+              insertProgramme: false,
+            },
+          })
         : ''
     }`
     if (this.interactif && context.isHtml) {
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
     }
-    this.figures[0] = [
+    this.cliqueFiguresArray[0] = [
       {
         id: `cliquefigure0Ex${this.numeroExercice}Q0`,
         solution: ordreLutins.indexOf(bonneReponse) === 0,
@@ -681,4 +692,41 @@ export default class AlgoTortue extends Exercice {
     this.listeCorrections.push(texteCorr) // et la liste des corrections
     listeQuestionsToContenuSansNumero(this) // on envoie tout à la fonction qui va mettre en forme.
   }
+}
+
+let scratchSimulatorButtonRegistered = false
+
+function registerScratchSimulatorButton() {
+  if (scratchSimulatorButtonRegistered) return
+  scratchSimulatorButtonRegistered = true
+  DomReadyActionElement.registerCallback<{
+    codeScratch: string
+    delai: number
+    insertProgramme: boolean
+  }>(scratchSimulatorButtonAction, ({ element, payload }) => {
+    element.innerHTML = ''
+    element.classList.add('my-4', 'block')
+    const button = document.createElement('button')
+    const simulatorContainer = document.createElement('div')
+    button.type = 'button'
+    button.textContent = 'Lancer le simulateur'
+    button.className =
+      'inline-flex items-center px-4 py-2 bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas font-medium text-sm rounded shadow-md hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest focus:bg-coopmaths-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:outline-none transition duration-150 ease-in-out'
+
+    const onClick = () => {
+      simulatorContainer.innerHTML = createScratchSimulatorElement(
+        payload.codeScratch,
+        payload.delai,
+        payload.insertProgramme,
+      )
+    }
+
+    button.addEventListener('click', onClick)
+    element.append(button, simulatorContainer)
+
+    return () => {
+      button.removeEventListener('click', onClick)
+      element.innerHTML = ''
+    }
+  })
 }

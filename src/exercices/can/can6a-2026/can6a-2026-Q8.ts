@@ -15,7 +15,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Déterminer l'abscisse d'un point sur une droite graduée"
 export const interactifReady = true
-export const interactifType = 'MetaInteractif2d'
+
 export const uuid = 'nuwgb'
 export const refs = {
   'fr-fr': [],
@@ -79,7 +79,7 @@ export default class Can20266Q8 extends ExerciceCan {
     const objets = [drGrad, fleche, input, lab1, lab2, origine]
 
     const graphique = mathalea2d(
-      Object.assign({ pixelsParCm: 25, scale: 0.5 }, fixeBordures(objets)),
+      Object.assign({ pixelsParCm: 25, scale: 0.4 }, fixeBordures(objets)),
       objets,
     )
 
@@ -92,8 +92,8 @@ export default class Can20266Q8 extends ExerciceCan {
         ? `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>` +
           ajouteFeedback(this, 0)
         : '')
-    this.canEnonce = 'Complète.' 
-this.canReponseACompleter =  graphique
+    this.canEnonce = 'Complète.'
+    this.canReponseACompleter = graphique
     this.correction = `Les graduations vont de $${texNombre(pas, 0)}$ en $${texNombre(pas, 0)}$, ainsi la flèche repère le nombre $${miseEnEvidence(texNombre(valeur, 0))}$.`
   }
 

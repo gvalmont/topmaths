@@ -1,4 +1,4 @@
-import PerimetreOuAireDeFiguresComposees from '../5e/5M11-5'
+import PerimetreOuAireDeFiguresComposees from '../5e/5G2E-5'
 
 export const titre = 'Décomposer une figure complexe en figures simples'
 export const amcReady = true
@@ -14,7 +14,7 @@ export const uuid = 'ebaff'
 export const refs = {
   'fr-fr': ['6M1D-1'],
   'fr-2016': ['6M11-0'],
-  'fr-ch': ['9GM1-7', '10GM1-5'],
+  'fr-ch': ['9GM1C-2', '10GM1A-3'],
 }
 export default class DecomposerFigureComplexe extends PerimetreOuAireDeFiguresComposees {
   constructor() {

@@ -3,7 +3,7 @@ import PavagesEtTransformations from '../6e/_Pavages_et_transformations'
 export const titre =
   "Trouver l'image d'une figure par une translation dans un pavage"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -16,7 +16,7 @@ export const uuid = '48253'
 
 export const refs = {
   'fr-fr': ['4G11-1'],
-  'fr-ch': ['10ES2-10'],
+  'fr-ch': ['9ES3A-5'],
 }
 export default class PavagesEtTranslation extends PavagesEtTransformations {
   constructor() {

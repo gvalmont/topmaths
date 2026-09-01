@@ -1,5 +1,6 @@
 import Figure from 'apigeom'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -8,22 +9,20 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
-import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { context } from '../../modules/context'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const dateDePublication = '09/07/2025'
 export const titre =
   'Lire une abscisse fractionnaire grâce à des graduations régulièrement espacées'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -39,7 +38,6 @@ export const refs = {
 }
 
 export default class DonnerSensDefinitionQuotient extends Exercice {
-  figuresApiGeom!: Figure[]
   constructor() {
     super()
 
@@ -62,11 +60,14 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
 
     const NbAbscissesAutreQueOrigine = contraindreValeur(1, 20, this.sup, 1)
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.consigne = this.nbQuestions
         ? 'Sur cette droite, '
         : 'Sur chaque droite, '
       this.consigne += 'les graduations sont régulièrement espacées.'
+      this.consigne += this.nbQuestions
+        ? ' Déterminer par quel nombre le point y est repéré.'
+        : ' Dans chaque cas, déterminer par quel nombre le point y est repéré.'
       let texte = ''
       let texteCorr = ''
       const den = randint(2, 7)
@@ -75,13 +76,14 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
       const label = lettreIndiceeDepuisChiffre(i * 3 + 1)
 
       const reponse = new FractionEtendue(num, den).texFraction
-      texte = `Par quel nombre, le point $${label}$, sur cette droite graduée, est-il repéré ?`
-      texte +=
-        ajouteChampTexteMathLive(
-          this,
-          i,
-          KeyboardType.clavierDeBaseAvecFraction,
-        ) + '<br>'
+      texte = this.interactif
+        ? `Nombre par lequel le point $${label}$ est repéré sur cette droite graduée : `
+        : ''
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFraction,
+      )
       handleAnswers(this, i, { reponse: { value: reponse } })
 
       const xMax = NbAbscissesAutreQueOrigine * num
@@ -112,7 +114,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
       figureEnonce.figure.options.labelAutomaticBeginsWith = label
       figureEnonce.figure.options.pointDescriptionWithCoordinates = false
       figureEnonce.figure.options.labelIsVisible = false
-      this.figuresApiGeom[i] = figureEnonce.figure
+      this.figuresApiGeom![i] = figureEnonce.figure
 
       if (this.correctionDetaillee) {
         texteCorr = `Entre l'origine (repérée par $0$) et le point repéré par $${miseEnEvidence(num, bleuMathalea)}$, il y a $${miseEnEvidence(den, bleuMathalea)}$ intervalles de taille identique.<br>`

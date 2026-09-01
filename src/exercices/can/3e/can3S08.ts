@@ -8,7 +8,6 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * @author Jean-claude Lhote
@@ -18,7 +17,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'd86bf'
 
 export const refs = {
-  'fr-fr': ['can3S08', '3AutoP01-1'],
+  'fr-fr': ['can3S08', '3AutoS01-1'],
   'fr-ch': [],
 }
 export default class CalculsProbabilite3 extends ExerciceSimple {
@@ -34,10 +33,10 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
 
   nouvelleVersion() {
     let a: number, b: number
-    const choix = choice([true, false])
+    const choix = this.quotaChoice('choix', [true, false])
 
     // On choisit le "scénario" global : a (noire/blanche, fraction) ou b (bleue/rouge, décimal)
-    const scenario = choice(['a', 'a', 'b'])
+    const scenario = this.quotaChoice('scenario', ['a', 'a', 'b'])
     const formatDecimal = scenario === 'b'
 
     // Pour le scénario b, on peut avoir un total à 10 ou 100 (comme dans l'ancien code)

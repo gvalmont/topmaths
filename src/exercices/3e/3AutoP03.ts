@@ -5,11 +5,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '47e33'
 export const refs = {
-  'fr-fr': ['3AutoP03'],
+  'fr-fr': ['3AutoP03', 'BP1AUTO041'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calculer une moyenne de 4 notes'
@@ -45,7 +45,7 @@ export default class AsieJuin21Exo1Q2 extends ExerciceQcmA {
     const n = 4
     do {
       const notes: number[] = []
-      for (; notes.length < 4; ) {
+      for (; notes.length < 4;) {
         const note = randint(4, 14)
         if (!notes.includes(note)) {
           notes.push(note)

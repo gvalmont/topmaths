@@ -19,13 +19,13 @@ export const uuid = '91875'
 export const titre =
   "Donner une mesure d'angle à l'aide de la bissectrice (tableau)"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '31/09/2025'
 
 export const refs = {
   'fr-fr': ['6G5A-1'],
   'fr-2016': [],
-  'fr-ch': [],
+  'fr-ch': ['9ES1D-8'],
 }
 
 /**
@@ -66,7 +66,7 @@ export default class QuestionBissectrice extends Exercice {
       melange: 4,
       defaut: 4,
     }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       const minuscule = choice(['x', 'y', 'z'])
       const lettres = choisitLettresDifferentes(4, 'XYZ')
       const A = lettres[0]
@@ -241,7 +241,9 @@ export default class QuestionBissectrice extends Exercice {
               ],
         ),
       )
-      handleAnswers(this, i, objetReponse, { formatInteractif: 'mathlive' })
+      handleAnswers(this, i, objetReponse, {
+        formatInteractif: 'tableau-mathlive',
+      })
       const texte =
         'Compléter le tableau.<br>' +
         `$${I}$ est un point de la demi-droite $\\left[${B}${minuscule}\\right)$, bissectrice de l'angle $\\widehat{${A}${B}${C}}$.<br>` +

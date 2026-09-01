@@ -15,7 +15,6 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Déterminer le nombre de solutions d’une équation du second degré'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '1/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -41,7 +40,7 @@ export default class NombreSolutionsSecondDegre extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b, c, d, maFraction
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('cas', [1, 2])) {
       case 1:
         a = randint(1, 4) * choice([-1, 1])
         b = randint(-4, 4, 0)

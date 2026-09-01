@@ -36,8 +36,8 @@ export default class ExercicePolynesie462024 extends ExerciceBrevetA {
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
     this.introduction = texteItalique(
-      "D'après l'exercice 4 du brevet Polynésie Juin 2024.<br>",
-    )
+      "D'après l'exercice 4 du brevet Polynésie Juin 2024.",
+    ) + '<br>'
 
     this.versionAleatoire()
   }
@@ -85,7 +85,7 @@ export default class ExercicePolynesie462024 extends ExerciceBrevetA {
     ]
     const figure = mathalea2d(
       Object.assign(
-        { pixelsParCm: 20, scale: 0.5, style: 'display: inline' },
+        { pixelsParCm: 20, scale: 0.5, display: 'inline' } as const,
         fixeBordures(objets),
       ),
       objets,

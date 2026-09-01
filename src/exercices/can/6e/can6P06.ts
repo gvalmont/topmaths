@@ -1,7 +1,7 @@
 import CalculerUnPourcentage from '../../6e/6N3P'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 export const amcReady = true
 export const titre =
@@ -19,7 +19,7 @@ export const uuid = 'fb422'
 
 export const refs = {
   'fr-fr': ['can6P06', '6N3O-flash1'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class CalculerUnPourcentageCAN extends CalculerUnPourcentage {
   constructor() {

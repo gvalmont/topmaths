@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Augmenter un nombre d'une fraction"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '12/01/2023'
@@ -30,7 +30,7 @@ export default class AugmenterFraction extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2, 3, 4])) {
+    switch (this.quotaChoice('cas', [1, 2, 3, 4])) {
       case 1: // tiers
         {
           const n = randint(1, 25)

@@ -4,11 +4,10 @@ export const titre =
 export const interactifReady = true
 export const dateDePublication = '1/1/2025'
 export const uuid = '79d64'
-export const interactifType = 'custom'
 
 export const refs = {
   'fr-fr': ['6G6A'],
   'fr-2016': ['6G21-6'],
-  'fr-ch': [],
+  'fr-ch': ['9ES1C-6'],
 }
 export default class GeoTriangle extends GeoTriangle1 {}

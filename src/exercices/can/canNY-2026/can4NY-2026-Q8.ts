@@ -4,10 +4,9 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import Decimal from 'decimal.js'
-import { randint } from '../../../modules/outils'
 export const titre = 'Calculer avec des parenthèses'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'cv4yu'
 export const refs = {
   'fr-fr': [],
@@ -27,7 +26,7 @@ export default class CalculParentheses2026 extends ExerciceSimple {
 
   nouvelleVersion() {
     const annee = 2026
-    const a = this.canOfficielle ? 4 : randint(1, 12) * 2
+    const a = this.canOfficielle ? 4 : this.quotaRandint('a', 1, 12) * 2
 
     this.reponse = texNombre(new Decimal(annee).sub(a).div(2), 0)
     this.question = `Calculer, sous forme décimale, $(${texNombre(annee, 0)}-${a})\\times 0,5$.`

@@ -13,7 +13,6 @@ import ExerciceSimple from '../ExerciceSimple'
 export const titre = "Trouver une grandeur en fonction d'une autre"
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '03/01/2026'
 export const dateDeModifImportante = '29/05/2026'
@@ -21,7 +20,7 @@ export const dateDeModifImportante = '29/05/2026'
 export const uuid = '5bc81'
 
 export const refs = {
-  'fr-fr': ['3AutoP09-4'],
+  'fr-fr': ['3AutoP04-4'],
   'fr-ch': [],
 }
 
@@ -81,7 +80,7 @@ export default class HauteurValve extends ExerciceSimple {
     const objets: NestedObjetMathalea2dArray = [rep, cF]
     const graphique = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: inline-block', pixelsParCm: 20 },
+        { scale: 0.5, display: 'inline-block', pixelsParCm: 20 } as const,
         fixeBordures(objets),
       ),
       objets,
@@ -106,7 +105,7 @@ export default class HauteurValve extends ExerciceSimple {
     objetsCorr.push(seg1, seg2)
     const graphiqueCorr = mathalea2d(
       Object.assign(
-        { scale: 0.5, style: 'display: inline-block', pixelsParCm: 20 },
+        { scale: 0.5, display: 'inline-block', pixelsParCm: 20 } as const,
         fixeBordures(objetsCorr),
       ),
       objetsCorr,

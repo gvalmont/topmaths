@@ -1,15 +1,17 @@
 import type Figure from 'apigeom/src/Figure'
 import Decimal from 'decimal.js'
-import type { MathfieldElement } from 'mathlive'
 import {
   isInteractivityType,
+  isQcmValeur,
+  interactivityTypeToCustomElementFormat,
+  VALEUR_NAMES,
   type AnswerValueType,
   type AutoCorrection,
   type ClickFigures,
   type IExercice,
   type LegacyReponse,
   type LegacyReponses,
-  type MathaleaSVG,
+  type QcmValeur,
   type ResultOfExerciceInteractif,
   type Valeur,
   type ValeurNormalized,
@@ -24,26 +26,25 @@ import {
   inferNumericValueForAMC,
 } from '../amc/amcInferenceHelpers'
 import type { AutoCorrectionAMC, ReponseParams } from '../amc/amcTypes'
+import {
+  listOfCustomElements,
+  mathaleaCustomElementsRegistry,
+} from '../customElements/MathaleaCustomElement'
+import { prepareCliqueFigure } from '../customElements/CliqueFigureElement'
 import { addElement, get, setStyles } from '../html/dom'
 import { Complexe } from '../mathFonctions/Complexe'
-import { verifQuestionTableur } from '../tableur/outilsTableur'
 import { afficheScore } from './afficheScore'
-import type { CompareResult } from './checks/types'
-import { fonctionComparaison } from './comparisonFunctions'
-import { verifDragAndDrop } from './DragAndDrop'
-import {
-  toutAUnPoint,
-  toutPourUnPoint,
-  verifQuestionMathLive,
-} from './mathLive'
-import { verifQuestionQcm } from './qcm'
-import { verifQuestionListeDeroulante } from './questionListeDeroulante'
-import { verifQuestionSvgSelection } from './questionSvgSelection/questionSvgSelection'
-
-function scoreFromResult(result: { isOk: boolean }): number {
-  const score = (result as Partial<CompareResult>).score
-  return typeof score === 'number' ? score : result.isOk ? 1 : 0
-}
+import { estUniteManquante, fonctionComparaison } from './comparisonFunctions'
+import { syncQcmAutoCorrectionToAmc } from './qcm'
+import '../customElements/DragAndDropElement'
+import '../customElements/MetaInteractif2dElement'
+import '../customElements/PointsCliquablesElement'
+import '../customElements/ObjetsCliquablesElement'
+import '../customElements/FractionCliquableElement'
+import '../customElements/MathaleaLabyrintheElement'
+import '../customElements/MathaleaBranchingQcm'
+import '../customElements/MetaCustomElement'
+import '../apigeom/apigeom-figure'
 
 export function isClickFiguresArray(
   figures: Figure[] | ClickFigures[],
@@ -58,7 +59,7 @@ export function isClickFiguresArray(
  * @param objetReponse
  */
 export function setCliqueFigure(objetReponse: AutoCorrection) {
-  objetReponse.formatInteractif = 'cliqueFigure'
+  objetReponse.formatInteractif = 'clique-figure'
 }
 /**
  * Pour positionner le formatInteractif d'une question sur 'qcm'
@@ -76,7 +77,7 @@ export function setQcm(objetReponse: AutoCorrection) {
  * @param objetReponse
  */
 export function setListeDeroulante(objetReponse: AutoCorrection) {
-  objetReponse.formatInteractif = 'listeDeroulante'
+  objetReponse.formatInteractif = 'liste-deroulante'
 }
 // Garde structurel pour éviter d'importer MetaExercice et créer un cycle
 const isMetaExercice = (
@@ -87,8 +88,68 @@ const isMetaExercice = (
 } =>
   typeof x === 'object' &&
   x !== null &&
-  Array.isArray((x as any).Exercices) &&
-  Array.isArray((x as any).correctionInteractives)
+  Array.isArray((x as { Exercices: unknown[] }).Exercices) &&
+  Array.isArray(
+    (x as { correctionInteractives: Array<(i: number) => string | string[]> })
+      .correctionInteractives,
+  )
+/**
+ * Lit la saisie brute (LaTeX) d'un champ de réponse mathlive avant toute vérification,
+ * sans déclencher les effets de bord de verifQuestion (verrouillage du champ, écriture du score...).
+ */
+function getSaisieBruteChampAvecUnite(
+  numeroExercice: number,
+  i: number,
+  key: string,
+): string | null {
+  const baseId = `champTexteEx${numeroExercice}Q${i}`
+  const mathaleaMathfield = document.querySelector(
+    `mathalea-mathfield[mathfield-id="${baseId}"]`,
+  ) as
+    | (Element & {
+        value?: string
+        getPromptValue?: (id: string) => string
+      })
+    | null
+  if (key === 'reponse') {
+    if (mathaleaMathfield != null) return mathaleaMathfield.value ?? ''
+    const champTexte = document.getElementById(baseId) as
+      (HTMLElement & { value?: string }) | null
+    return champTexte?.value ?? null
+  }
+  if (/^champ\d+$/.test(key)) {
+    return mathaleaMathfield?.getPromptValue?.(key) ?? null
+  }
+  return null
+}
+
+/**
+ * Indique si l'exercice contient une réponse attendant une unité (options.unite === true)
+ * dont la saisie actuelle en oublie une. Sert à bloquer la toute première vérification
+ * pour inviter l'élève à compléter l'unité avant de corriger.
+ */
+export function exerciceAUneUniteManquante(exercice: IExercice): boolean {
+  if (exercice.numeroExercice == null) return false
+  for (let i = 0; i < exercice.autoCorrection.length; i++) {
+    const valeur = exercice.autoCorrection[i]?.valeur
+    if (valeur == null) continue
+    for (const key of VALEUR_NAMES) {
+      if (key === 'bareme' || key === 'feedback' || key === 'callback') continue
+      const champ = valeur[key]
+      if (champ == null || typeof champ !== 'object' || !('options' in champ))
+        continue
+      if (champ.options?.unite !== true) continue
+      const saisie = getSaisieBruteChampAvecUnite(
+        exercice.numeroExercice,
+        i,
+        key,
+      )
+      if (saisie != null && estUniteManquante(saisie)) return true
+    }
+  }
+  return false
+}
+
 /**
  * Cette fonction vérifie les réponses de chaque question en appelant la fonction associée à son formatInteractif ('mathlive', 'listeDeroulante', 'cliqueFigure', 'qcm')
  * @param {Exercice} exercice
@@ -103,198 +164,67 @@ export function exerciceInteractif(
 ): ResultOfExerciceInteractif {
   let nbQuestionsValidees = 0
   let nbQuestionsNonValidees = 0
+  const perQuestionIsOk: boolean[] = []
   exercice.answers = {}
 
-  if (exercice.interactifType === 'custom') {
-    return verifExerciceCustom(exercice, divScore, buttonScore)
-  }
+  const nbQuestions = exercice.autoCorrection.length
 
-  for (let i = 0; i < exercice.autoCorrection.length; i++) {
-    const format = exercice.autoCorrection[i]?.formatInteractif
-    let resultat: string
-    switch (format) {
-      case 'svgSelection':
-        {
-          const result = verifQuestionSvgSelection(exercice, i)
-          if (result == null) {
-            window.notify('erreur dans la correction de la question', {
-              exercice,
-              i,
-            })
-          } else {
-            result === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-          }
-        }
-        break
-      case 'MetaInteractif2d':
-        {
-          const result = verifQuestionMetaInteractif2d(exercice, i)
-          if (result == null) {
-            window.notify('erreur dans la correction de la question', {
-              exercice,
-              i,
-            })
-          } else {
-            nbQuestionsValidees += result.score.nbBonnesReponses
-            nbQuestionsNonValidees +=
-              result.score.nbReponses - result.score.nbBonnesReponses
-            if (result.feedback && result.feedback !== '') {
-              const divFeedback = document.querySelector(
-                `#feedbackEx${exercice.numeroExercice}Q${i}`,
-              )
-              if (divFeedback != null) {
-                divFeedback.innerHTML = `💡 ${result.feedback}`
-                divFeedback.classList.add(
-                  'py-2',
-                  'italic',
-                  'text-coopmaths-warn-darkest',
-                  'dark:text-coopmathsdark-warn-darkest',
-                )
-                ;(divFeedback as HTMLDivElement).style.display = 'block'
-              }
-            }
-          }
-        }
-        break
+  for (let i = 0; i < nbQuestions; i++) {
+    // Une question sans réponse attendue (question de démonstration, de rédaction...)
+    // au milieu de questions interactives ne doit pas être vérifiée ni comptée.
+    if (exercice.autoCorrection[i] == null) continue
+    const format = exercice.autoCorrection[i]?.formatInteractif ?? 'mathlive'
+    const customElementFormat =
+      interactivityTypeToCustomElementFormat(format) ?? format
+    if (listOfCustomElements.includes(customElementFormat)) {
+      // On traite le cas de tous les MathaleaCustomElement ici
+      const liste = Array.from(mathaleaCustomElementsRegistry)
+      const [tag, elementClasse] =
+        liste.find((custom) => custom[0] === customElementFormat) ?? []
+      if (tag == null || elementClasse == null) {
+        throw Error(
+          "Une classe de listOfCustomElements n'est pas enregistrée dans le registre mathaleaCustomElementsRegistry",
+        )
+      }
+      if (
+        elementClasse.verifQuestion == null ||
+        typeof elementClasse.verifQuestion !== 'function'
+      ) {
+        throw Error(
+          `L'élément '${tag}' n'a pas de méthode verifQuestion ou celle-ci n'est pas une fonction`,
+        )
+      }
+      const result = elementClasse.verifQuestion(exercice, i)
+      if (
+        result == null ||
+        typeof result !== 'object' ||
+        !('isOk' in result) ||
+        !('score' in result)
+      ) {
+        throw Error(
+          `L'élément '${tag}' a une fonction verifQuestion qui n'a pas retourné une valeur conforme.`,
+        )
+      }
 
-      case 'tableur': {
-        const result = verifQuestionTableur(exercice, i)
-        if (result == null) {
-          window.notify('erreur dans la correction de la question', {
-            exercice,
-            i,
-          })
-        } else {
-          nbQuestionsValidees += result.score.nbBonnesReponses
-          nbQuestionsNonValidees +=
-            result.score.nbReponses - result.score.nbBonnesReponses
-          if (result.feedback && result.feedback !== '') {
-            const divFeedback = document.querySelector(
-              `#feedbackEx${exercice.numeroExercice}Q${i}`,
-            )
-            if (divFeedback != null) {
-              divFeedback.innerHTML = `💡 ${result.feedback}`
-              divFeedback.classList.add(
-                'py-2',
-                'italic',
-                'text-coopmaths-warn-darkest',
-                'dark:text-coopmathsdark-warn-darkest',
-              )
-              ;(divFeedback as HTMLDivElement).style.display = 'block'
-            }
-          }
-        }
-        break
-      }
-      case 'custom': {
-        if (isMetaExercice(exercice)) {
-          const result = exercice.correctionInteractives[i](i)
-          result === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-        }
-        break
-      }
-      case 'dnd': {
-        const result = verifDragAndDrop(exercice, i)
-        nbQuestionsValidees += result.score.nbBonnesReponses
-        nbQuestionsNonValidees +=
-          result.score.nbReponses - result.score.nbBonnesReponses
-        if (result.feedback !== '') {
-          const spanFeedback = document.querySelector(
-            `#feedbackEx${exercice.numeroExercice}Q${i}`,
+      nbQuestionsValidees += result.score.nbBonnesReponses
+      nbQuestionsNonValidees +=
+        result.score.nbReponses - result.score.nbBonnesReponses
+      perQuestionIsOk[i] = result.isOk
+      if (result.feedback && result.feedback !== '') {
+        const divFeedback = document.querySelector(
+          `#feedbackEx${exercice.numeroExercice}Q${i}`,
+        )
+        if (divFeedback != null) {
+          divFeedback.innerHTML = `💡 ${result.feedback}`
+          divFeedback.classList.add(
+            'py-2',
+            'italic',
+            'text-coopmaths-warn-darkest',
+            'dark:text-coopmathsdark-warn-darkest',
           )
-          if (spanFeedback != null) {
-            spanFeedback.innerHTML = `💡 ${result.feedback}`
-            spanFeedback.classList.add(
-              'py-2',
-              'italic',
-              'text-coopmaths-warn-darkest',
-              'dark:text-coopmathsdark-warn-darkest',
-            )
-          }
+          ;(divFeedback as HTMLDivElement).style.display = 'block'
         }
-        break
       }
-      case 'qcm':
-        resultat = verifQuestionQcm(exercice, i)
-        resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-        break
-      case 'listeDeroulante': {
-        resultat = verifQuestionListeDeroulante(exercice, i)
-        resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-        break
-      }
-      case 'cliqueFigure':
-        if ('callback' in exercice && typeof exercice.callback === 'function') {
-          resultat = verifQuestionCliqueFigure(
-            exercice,
-            i,
-            exercice.callback as (exercice: IExercice, i: number) => void,
-          )
-        } else {
-          resultat = verifQuestionCliqueFigure(exercice, i)
-        }
-        resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-        break
-      case 'multiMathfield':
-        {
-          const result = verifQuestionMultiMathfield(exercice, i)
-          if (result == null) {
-            window.notify('erreur dans la correction de la question', {
-              exercice,
-              i,
-            })
-          } else {
-            nbQuestionsValidees += result.score.nbBonnesReponses
-            nbQuestionsNonValidees +=
-              result.score.nbReponses - result.score.nbBonnesReponses
-            if (result.feedback && result.feedback !== '') {
-              const divFeedback = document.querySelector(
-                `#feedbackEx${exercice.numeroExercice}Q${i}`,
-              )
-              if (divFeedback != null) {
-                divFeedback.innerHTML = `💡 ${result.feedback}`
-                divFeedback.classList.add(
-                  'py-2',
-                  'italic',
-                  'text-coopmaths-warn-darkest',
-                  'dark:text-coopmathsdark-warn-darkest',
-                )
-                ;(divFeedback as HTMLDivElement).style.display = 'block'
-              }
-            }
-          }
-        }
-        break
-      default:
-        {
-          const result = verifQuestionMathLive(exercice, i)
-          if (result == null) {
-            window.notify('erreur dans la correction de la question', {
-              exercice,
-              i,
-            })
-          } else {
-            nbQuestionsValidees += result.score.nbBonnesReponses
-            nbQuestionsNonValidees +=
-              result.score.nbReponses - result.score.nbBonnesReponses
-            if (result.feedback && result.feedback !== '') {
-              const divFeedback = document.querySelector(
-                `#feedbackEx${exercice.numeroExercice}Q${i}`,
-              )
-              if (divFeedback != null) {
-                divFeedback.innerHTML = `💡 ${result.feedback}`
-                divFeedback.classList.add(
-                  'py-2',
-                  'italic',
-                  'text-coopmaths-warn-darkest',
-                  'dark:text-coopmathsdark-warn-darkest',
-                )
-                ;(divFeedback as HTMLDivElement).style.display = 'block'
-              }
-            }
-          }
-        }
-        break
     }
   }
   return afficheScore(
@@ -303,23 +233,11 @@ export function exerciceInteractif(
     nbQuestionsNonValidees,
     divScore,
     buttonScore,
+    perQuestionIsOk,
   )
 }
 
-/**
- * Le cas à part : un exercice custom fournit une fonction correctionInteractive qui doit corriger toutes les questions et s'occuper du feedback
- * @param exercice
- * @param divScore
- * @param buttonScore
- * @return {{numberOfPoints, numberOfQuestions: *}}
- */
-function verifExerciceCustom(
-  exercice: IExercice,
-  divScore: HTMLDivElement,
-  buttonScore: HTMLButtonElement,
-) {
-  let nbBonnesReponses = 0
-  let nbMauvaisesReponses = 0
+function ensureCustomFeedbackElement(exercice: IExercice): void {
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
   let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
   // On ajoute le div pour le feedback
@@ -338,167 +256,73 @@ function verifExerciceCustom(
   }
   setStyles(eltFeedback, 'marginBottom: 20px')
   if (eltFeedback) eltFeedback.innerHTML = ''
-  // On utilise la correction définie dans l'exercice
-  if (exercice.exoCustomResultat) {
-    for (let i = 0; i < exercice.nbQuestions; i++) {
-      if (exercice.correctionInteractive != null) {
-        const correction = exercice.correctionInteractive(i)
-        if (Array.isArray(correction)) {
-          for (const result of correction) {
-            if (result === 'OK') nbBonnesReponses++
-            else nbMauvaisesReponses++
-          }
-        } else {
-          correction === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
-        }
-      }
-    }
-  } else {
-    for (let i = 0; i < exercice.nbQuestions; i++) {
-      if (exercice.correctionInteractive != null) {
-        exercice.correctionInteractive(i) === 'OK'
-          ? nbBonnesReponses++
-          : nbMauvaisesReponses++
-      }
+}
+
+function verifQuestionCustom(
+  exercice: IExercice,
+  questionIndex: number,
+): {
+  isOk: boolean
+  feedback: string
+  score: { nbBonnesReponses: number; nbReponses: number }
+} {
+  const correction = exercice.correctionInteractive?.(questionIndex)
+  if (correction == null) {
+    return {
+      isOk: false,
+      feedback: '',
+      score: { nbBonnesReponses: 0, nbReponses: 1 },
     }
   }
-  return afficheScore(
-    exercice,
-    nbBonnesReponses,
-    nbMauvaisesReponses,
-    divScore,
-    buttonScore,
-  )
+  if (Array.isArray(correction) && exercice.exoCustomResultat) {
+    const nbBonnesReponses = correction.filter(
+      (result) => result === 'OK',
+    ).length
+    return {
+      isOk: nbBonnesReponses === correction.length,
+      feedback: '',
+      score: {
+        nbBonnesReponses,
+        nbReponses: correction.length,
+      },
+    }
+  }
+  const isOk = correction === 'OK'
+  return {
+    isOk,
+    feedback: '',
+    score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 },
+  }
 }
 
 export function prepareExerciceCliqueFigure(exercice: IExercice) {
-  // Dès que l'exercice est affiché, on rajoute des listenners sur chaque éléments de this.figures.
-  for (let i = 0; i < exercice.nbQuestions; i++) {
-    if (
-      exercice.figures != null &&
-      exercice.figures[i] != null &&
-      isClickFiguresArray(exercice.figures)
-    ) {
-      const figures = exercice.figures[i]
-      for (const objetFigure of figures) {
-        const figSvg: unknown = document.getElementById(objetFigure.id)
-        if (figSvg != null) {
-          const fig = figSvg as MathaleaSVG
-          if (!fig.hasMathaleaListener) {
-            fig.addEventListener('mouseenter', mouseOverSvgEffect)
-            fig.addEventListener('mouseleave', mouseOutSvgEffect)
-            fig.addEventListener('click', mouseSvgClick)
-            if (fig.etat === true) {
-              // MGu : si l'état est true, c'est que ca a été coché par capytale
-              // il faudrait revoir le système de figure cliquable avec un customelement
-            } else {
-              fig.etat = false
-            }
-            // modification le 6/04/2026 suite à un signalement :
-            // ces marges et ce border décallent tous les divLatex.
-            // Un gros soucis pour les repères !
-            // fig.style.margin = '10px'
-            //   fig.style.border = '3px solid transparent'
-            fig.hasMathaleaListener = true
-            // On enregistre que l'élément a déjà un listenner pour ne pas lui remettre le même à l'appui sur "Nouvelles Données"
-          }
-        }
-      }
-    }
-  }
+  prepareCliqueFigure(exercice)
 }
 
-// callback est une fonction facultative qui sera appelée avant de vérifier la question
-// elle permet de faire des actions avant la vérification, comme par exemple mettre à jour la correction affichée (voir 6G45)
-function verifQuestionCliqueFigure(
-  exercice: IExercice,
-  i: number,
-  callback?: (exercice: IExercice, i: number) => void,
-): string {
-  // si il y a une callback, on l'appelle
-  if (callback != null) {
-    callback(exercice, i)
-  }
-  // suite du code habituel de verifQuestionCliqueFigure
-  // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
-  let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
-  // On ajoute le div pour le feedback
-  if (!eltFeedback) {
-    const eltExercice = get(
-      `exercice${exercice.numeroExercice}`,
-    ) as HTMLDivElement
-    eltFeedback = addElement(
-      eltExercice,
-      'div',
-      {
-        id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,
-      },
-      '',
-    )
-  }
-  setStyles(eltFeedback, 'marginBottom: 20px')
-  if (eltFeedback) eltFeedback.innerHTML = ''
-  const figures = []
-  let erreur = false // Aucune erreur détectée
-  let nbFiguresCliquees = 0
+export function exerciceContientCliqueFigure(exercice: IExercice): boolean {
+  return (
+    exercice.autoCorrection?.some((autoCorrection) => {
+      const format = autoCorrection?.formatInteractif
+      return (
+        (interactivityTypeToCustomElementFormat(format) ?? format) ===
+        'clique-figure'
+      )
+    }) ?? false
+  )
+}
+
+export function normalizeLegacySetReponseValueForAMC(
+  value: LegacyReponse,
+  formatInteractif: ReponseParams['formatInteractif'],
+): LegacyReponse {
   if (
-    exercice.figures != null &&
-    exercice.figures[i] != null &&
-    Array.isArray(exercice.figures[i])
-  ) {
-    for (const objetFigure of exercice.figures[i]) {
-      const eltFigure: unknown = document.getElementById(objetFigure.id)
-      if (eltFigure != null) {
-        figures.push(eltFigure)
-        const fig = eltFigure as MathaleaSVG
-        fig.removeEventListener('mouseenter', mouseOverSvgEffect)
-        fig.removeEventListener('mouseleave', mouseOutSvgEffect)
-        fig.removeEventListener('click', mouseSvgClick)
-        fig.hasMathaleaListener = false
-        if (fig.etat) {
-          nbFiguresCliquees++
-          // Sauvegarde des reponses
-          if (exercice.answers) exercice.answers[objetFigure.id] = '1'
-        }
-        if (fig.etat !== objetFigure.solution) erreur = true
-      }
-    }
-  }
+    formatInteractif !== 'fractionEgale' ||
+    !(value instanceof FractionEtendue)
+  )
+    return value
 
-  if (nbFiguresCliquees > 0 && !erreur) {
-    eltFeedback.innerHTML = '😎'
-    return 'OK'
-  }
-  eltFeedback.innerHTML = '☹️'
-  return 'KO'
-}
-
-function mouseOverSvgEffect(event: MouseEvent) {
-  const elt = event.currentTarget as MathaleaSVG
-  elt.style.border = '3px solid #1DA962'
-}
-
-function mouseOutSvgEffect(event: MouseEvent) {
-  const elt = event.currentTarget as MathaleaSVG
-  elt.style.border = '3px solid transparent'
-}
-
-function mouseSvgClick(event: MouseEvent) {
-  const elt = event.currentTarget as MathaleaSVG
-  if (elt.etat) {
-    // Déja choisi, donc on le réinitialise
-    elt.style.border = '3px solid transparent'
-    elt.addEventListener('mouseenter', mouseOverSvgEffect)
-    elt.addEventListener('mouseleave', mouseOutSvgEffect)
-    elt.addEventListener('click', mouseSvgClick)
-    elt.etat = false
-  } else {
-    // Passe à l'état choisi donc on désactive les listenners pour over et pour out
-    elt.removeEventListener('mouseenter', mouseOverSvgEffect)
-    elt.removeEventListener('mouseleave', mouseOutSvgEffect)
-    elt.style.border = '3px solid #f15929'
-    elt.etat = true
-  }
+  const simplified = value.simplifie()
+  return simplified.den === 1 ? simplified.num : simplified
 }
 
 /**
@@ -658,13 +482,21 @@ export function setReponse(
     }
 
     const valeur = Array.isArray(valeurs) ? valeurs[0] : valeurs
+    // `setReponse` conserve les anciens formats de comparaison, qui ne sont
+    // pas les `formatInteractif` normalisés de `handleAnswers`. Pour AMC, une
+    // fractionEgale doit être réduite avant d'en déduire le nombre de cases ;
+    // une fraction entière devient un entier (par exemple 100/25 -> 4).
+    const valeurAmc = normalizeLegacySetReponseValueForAMC(
+      valeur,
+      formatInteractif,
+    )
     const autoCorrectioAMC: AutoCorrectionAMC = exercice.autoCorrectionAMC[
       i
     ] as AutoCorrectionAMC
     const rep = autoCorrectioAMC ? (autoCorrectioAMC.reponse ?? {}) : {}
     if (params.digits == null && params.decimals == null) {
       const paramsAMCFromAnswerType = inferAmcOptionsFromAnswerType({
-        reponse: { value: valeur },
+        reponse: { value: valeurAmc },
       })
       params = {
         ...params,
@@ -674,7 +506,7 @@ export function setReponse(
     if (rep != null) {
       rep.param = params
       // @ts-expect-error Pour AMC on ne change pas le format de réponse
-      rep.valeur = valeur
+      rep.valeur = valeurAmc
     }
     exercice.autoCorrectionAMC[i].reponse = rep
     return // La réponse est prête pour AMC
@@ -685,12 +517,12 @@ export function setReponse(
   if (exercice != null) {
     params.formatInteractif = 'mathlive'
     switch (formatInteractif) {
-      case 'listeDeroulante': {
+      case 'liste-deroulante': {
         if (exercice.autoCorrection == null) exercice.autoCorrection = []
         if (exercice.autoCorrection[i] == null) exercice.autoCorrection[i] = {}
 
         const questionAutoCorrection = exercice.autoCorrection[i]
-        questionAutoCorrection.formatInteractif = 'listeDeroulante'
+        questionAutoCorrection.formatInteractif = 'liste-deroulante'
         questionAutoCorrection.options = undefined
         questionAutoCorrection.valeur = {
           reponse: {
@@ -964,10 +796,10 @@ export function setReponse(
 }
 
 // La solution est-elle un nombre ? Si oui, on force l'option nombreDecimalSeulement.
-function isValidNumber(value: any): boolean {
-  // Convertir la valeur en chaîne et remplacer les séparateurs de milliers (par exemple, '{,}')
+function isValidNumber(value: unknown): boolean {
+  // Convertir la valeur en chaîne et remplacer les séparateurs de milliers (par exemple, ',')
   const cleanedValue = String(value)
-    .replace(/{,}/g, '') // Enlève les caractères '{,}' (séparateurs de milliers comme dans "1{,}5")
+    .replace(/,/g, '') // Enlève les caractères ',' (séparateurs de milliers comme dans "1,5")
     .replace(',', '.') // Remplace la virgule par un point pour les décimales
   // Vérifier que la chaîne ne contient que des chiffres et un seul séparateur décimal (point ou virgule)
   // Ou un nombre javascript écrit dans tous les formats supportés
@@ -1058,17 +890,49 @@ function handleDefaultValeur(reponse: Valeur): ValeurNormalized {
 export function handleAnswers(
   exercice: IExercice,
   question: number,
-  reponses: Valeur,
+  reponses: Valeur | QcmValeur,
   params: ReponseParams | undefined = {},
 ) {
+  if (params?.formatInteractif === 'mathalea-qcm') {
+    if (!isQcmValeur(reponses)) {
+      window.notify(
+        "handleAnswers() attend une valeur QCM pour le format 'mathalea-qcm'",
+        { reponses, exercice: exercice.uuid, question },
+      )
+      return
+    }
+    exercice.autoCorrection ??= []
+    const qcm = reponses.qcm
+    exercice.autoCorrection[question] = {
+      enonce: qcm.enonce,
+      formatInteractif: 'mathalea-qcm',
+      options: { ...(qcm.options ?? {}) },
+      propositions: qcm.propositions.map((proposition) => ({
+        texte: proposition.texte,
+        statut: proposition.statut,
+        feedback: proposition.feedback,
+      })),
+    }
+    syncQcmAutoCorrectionToAmc(exercice, question, qcm.correction)
+    return
+  }
+  if (isQcmValeur(reponses)) {
+    window.notify(
+      "Une valeur QCM doit utiliser formatInteractif: 'mathalea-qcm'",
+      { reponses, exercice: exercice.uuid, question },
+    )
+    return
+  }
   let formatInteractif =
     params?.formatInteractif ??
+    exercice.autoCorrection[question]?.formatInteractif ??
+    exercice.formatInteractif ??
     ('champ1' in reponses
-      ? 'fillInTheBlank'
+      ? 'fill-in-the-blank'
       : typeof reponses === 'object' &&
           Object.keys(reponses).some((key) => key.match(/^L\d+C\d+$/))
-        ? 'tableauMathlive'
-        : (exercice.autoCorrection[question]?.formatInteractif ?? 'mathlive'))
+        ? 'tableau-mathlive'
+        : 'mathalea-mathfield')
   if (context.isAmc) {
     if (exercice.autoCorrectionAMC == null) exercice.autoCorrectionAMC = []
     if (exercice.autoCorrectionAMC[question] === undefined) {
@@ -1092,7 +956,10 @@ export function handleAnswers(
       }
       return val
     }
-    if (formatInteractif === 'mathlive') {
+    if (
+      String(formatInteractif).toLowerCase() === 'mathlive' ||
+      formatInteractif === 'mathalea-mathfield'
+    ) {
       const reponseValue =
         'reponse' in reponses
           ? reponses.reponse!.value
@@ -1138,7 +1005,7 @@ export function handleAnswers(
     exercice.autoCorrection[question] = {}
   }
 
-  if (formatInteractif === undefined) formatInteractif = 'mathlive'
+  if (formatInteractif === undefined) formatInteractif = 'mathalea-mathfield'
 
   const questionAutoCorrection = exercice.autoCorrection[question]
   const param = { ...(params ?? {}) }
@@ -1161,320 +1028,6 @@ export function handleAnswers(
       `Réponses de l'exercice ${(exercice.numeroExercice ?? 0) + 1} - question ${question + 1} : `,
       questionAutoCorrection.valeur,
     )
-  }
-}
-
-export function verifQuestionMetaInteractif2d(
-  exercice: IExercice,
-  i: number,
-): {
-  isOk: boolean
-  feedback: string
-  score: { nbBonnesReponses: number; nbReponses: number }
-} {
-  let eltFeedback = document.querySelector(
-    `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
-  ) as HTMLSpanElement
-  if (!eltFeedback) {
-    const firstField = document.querySelector(
-      `#MetaInteractif2dEx${exercice.numeroExercice}Q${i}field0`,
-    )
-    const svgContainer = firstField?.closest('div[style*="position: relative"]')
-    const insertAfter = svgContainer ?? document.querySelector(`#exercice${exercice.numeroExercice}`)
-    if (insertAfter) {
-      eltFeedback = document.createElement('span')
-      eltFeedback.id = `resultatCheckEx${exercice.numeroExercice}Q${i}`
-      eltFeedback.style.display = 'block'
-      eltFeedback.style.marginTop = '4px'
-      eltFeedback.style.marginBottom = '16px'
-      insertAfter.insertAdjacentElement('afterend', eltFeedback)
-    }
-  }
-  if (eltFeedback) {
-    setStyles(eltFeedback, 'marginBottom: 20px')
-    eltFeedback.innerHTML = ''
-  }
-  if (exercice.autoCorrection[i]?.valeur == null) {
-    throw Error(
-      `verifQuestionMetaInteractif2d appelé sur une question sans réponse: ${JSON.stringify(
-        {
-          exercice,
-          question: i,
-          autoCorrection: exercice.autoCorrection[i],
-        },
-      )}`,
-    )
-  }
-  const reponses = exercice.autoCorrection[i].valeur
-  if (reponses == null) {
-    window.notify(
-      `verifQuestionMetaInteractif2d: reponses est null pour la question ${i} de l'exercice ${exercice.id}`,
-      { exercice, i },
-    )
-    return {
-      isOk: false,
-      feedback: 'erreur dans le programme',
-      score: { nbBonnesReponses: 0, nbReponses: 1 },
-    }
-  }
-  const bareme: (arg: number[]) => [number, number] =
-    reponses.bareme ?? toutPourUnPoint
-  const variables = Object.entries(reponses).filter(
-    ([key]) => key !== 'bareme' && key !== 'feedback',
-  )
-  const points = []
-  const saisies: Record<string, string> = {}
-  let feedback = ''
-  let compteurSaisiesVides = 0
-  let compteurBonnesReponses = 0
-  let noFeedback = false
-  for (const [field, reponse] of variables) {
-    const options = reponse.options
-    noFeedback = noFeedback || Boolean(options?.noFeedback)
-    const compareFunction = reponse.compare ?? fonctionComparaison
-    const index = parseInt(field.replace('field', ''), 10)
-    const mf = document.querySelector(
-      `#MetaInteractif2dEx${exercice.numeroExercice}Q${i}field${index}`,
-    ) as MathfieldElement
-    const saisie = mf.getPromptValue('champ1')
-    if (saisie === '') {
-      compteurSaisiesVides++
-      mf.classList.add('corrected')
-      points.push(0)
-      continue
-    }
-    saisies[`MetaInteractif2dEx${exercice.numeroExercice}Q${i}${field}`] =
-      saisie
-    let result
-    if (Array.isArray(reponse.value)) {
-      let ii = 0
-      while (!result?.isOk && ii < reponse.value.length) {
-        result = compareFunction(saisie, reponse.value[ii], options)
-        ii++
-      }
-    } else {
-      result = compareFunction(saisie, reponse.value, options)
-    }
-    if (result.isOk) {
-      compteurBonnesReponses++
-      points.push(scoreFromResult(result))
-      mf.setPromptState('champ1', 'default', true)
-      mf.classList.add('correct')
-    } else {
-      points.push(scoreFromResult(result))
-      mf.setPromptState('champ1', 'default', true)
-      mf.classList.add('incorrect')
-      if (result.feedback === 'saisieVide') result.feedback = null
-      else {
-        result = {
-          isOk: false,
-          feedback: '',
-        }
-      }
-    }
-    mf.classList.add('corrected')
-    if (result.feedback != null) feedback += result.feedback
-  }
-
-  if (compteurBonnesReponses === variables.length) {
-    feedback = ''
-  } else {
-    if (compteurSaisiesVides > 0) {
-      feedback = `Il manque ${compteurSaisiesVides} réponse${compteurSaisiesVides > 1 ? 's' : ''}.`
-    } else {
-      feedback = `Certaines réponses sont incorrectes.`
-    }
-  }
-
-  const [nbBonnesReponses, nbReponses] = bareme(points)
-  const spanReponseLigne = document.querySelector(
-    `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
-  ) as HTMLSpanElement
-  if (spanReponseLigne != null) {
-    spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
-  }
-  if (typeof exercice.answers === 'object' && exercice.answers !== null) {
-    exercice.answers[`MetaInteractif2dEx${exercice.numeroExercice}Q${i}`] =
-      JSON.stringify(saisies)
-  }
-
-  // le feedback est déjà assuré par la fonction feedback(), donc on le met à ''
-  return {
-    isOk: nbBonnesReponses === nbReponses,
-    feedback: noFeedback ? '' : feedback,
-    score: { nbBonnesReponses, nbReponses },
-  }
-}
-
-export function verifQuestionMultiMathfield(
-  exercice: IExercice,
-  i: number,
-): {
-  isOk: boolean
-  feedback: string
-  score: { nbBonnesReponses: number; nbReponses: number }
-} {
-  if (exercice.autoCorrection[i]?.valeur == null) {
-    throw Error(
-      `verifQuestionMultiMathfield appelé sur une question sans réponse: ${JSON.stringify(
-        {
-          exercice,
-          question: i,
-          autoCorrection: exercice.autoCorrection[i],
-        },
-      )}`,
-    )
-  }
-  const multi = document.getElementById(
-    `multiMathfieldEx${exercice.numeroExercice}Q${i}`,
-  ) as HTMLElement
-  const template = multi?.getAttribute('data-template')
-  const reponses = exercice.autoCorrection[i].valeur
-  if (reponses == null) {
-    window.notify(
-      `verifQuestionMultiMathfield: reponses est null pour la question ${i} de l'exercice ${exercice.id}`,
-      { exercice, i },
-    )
-    return {
-      isOk: false,
-      feedback: 'erreur dans le programme',
-      score: { nbBonnesReponses: 0, nbReponses: 1 },
-    }
-  } else if (typeof reponses !== 'object') {
-    window.notify(
-      `verifQuestionMultiMathfield: reponses n'est pas un objet pour la question ${i} de l'exercice ${exercice.id}`,
-      { exercice, i, reponses },
-    )
-    return {
-      isOk: false,
-      feedback: 'erreur dans le programme',
-      score: { nbBonnesReponses: 0, nbReponses: 1 },
-    }
-  }
-  const bareme: (arg: number[]) => [number, number] =
-    reponses.bareme ?? toutAUnPoint
-  const feedbackFunction = reponses.feedback ?? undefined
-  const variables = Object.entries(reponses).filter(
-    ([key]) => key !== 'bareme' && key !== 'feedback',
-  )
-  const points = []
-  const saisies: Record<string, string> = {}
-  let compteurSaisiesVides = 0
-  let compteurBonnesReponses = 0
-  let noFeedback = false
-  let feedback = ''
-  const feedbackMessages = new Set<string>()
-  for (const [field, reponse] of variables) {
-    const options = reponse.options
-    noFeedback = noFeedback || Boolean(options?.noFeedback)
-    const compareFunction = reponse.compare ?? fonctionComparaison
-    // Récupère le composant MultiMathfield puis le Mathfield dans son shadowRoot
-
-    const mf = multi?.shadowRoot?.querySelector(
-      `#multiMathfieldEx${exercice.numeroExercice}Q${i}-${field}`,
-    ) as MathfieldElement
-    const saisie = mf.getValue()
-    mf.readOnly = true
-    mf.classList.add('corrected')
-    if (saisie === '') {
-      compteurSaisiesVides++
-      points.push(0)
-      continue
-    }
-    const eltFeedback = multi?.shadowRoot?.querySelector(
-      `#check-multiMathfieldEx${exercice.numeroExercice}Q${i}-${field}`,
-    ) as HTMLSpanElement
-    if (eltFeedback) {
-      setStyles(eltFeedback, 'marginBottom: 20px')
-      eltFeedback.innerHTML = ''
-    }
-    saisies[`${field}`] = saisie
-    let result
-    if (Array.isArray(reponse.value)) {
-      if (options.estDansIntervalle) {
-        // Si c'est un intervalle, on s'assure que les bornes sont des nombres valides
-        result = compareFunction(saisie, reponse.value, options)
-      } else {
-        let ii = 0
-        while (!result?.isOk && ii < reponse.value.length) {
-          result = compareFunction(saisie, reponse.value[ii], options)
-          ii++
-        }
-      }
-    } else {
-      result = compareFunction(saisie, reponse.value, options)
-    }
-
-    if (result.isOk) {
-      compteurBonnesReponses++
-      points.push(scoreFromResult(result))
-      eltFeedback.innerHTML = '😎'
-    } else {
-      points.push(scoreFromResult(result))
-      eltFeedback.innerHTML = '☹️'
-      if (result.feedback === 'saisieVide') result.feedback = ''
-      else {
-        result = {
-          isOk: false,
-          feedback: result.feedback ?? '',
-        }
-      }
-    }
-    mf.classList.add('corrected')
-
-    if (result.feedback != null && result.feedback !== '') {
-      for (const message of result.feedback.split('\n')) {
-        if (message !== '') feedbackMessages.add(message)
-      }
-    }
-  }
-
-  feedback = Array.from(feedbackMessages)
-    .map((message) => `${message}<br>`)
-    .join('')
-
-  if (compteurBonnesReponses === variables.length) {
-    feedback = feedback ?? ''
-  } else {
-    if (compteurSaisiesVides > 0) {
-      feedback = `Il manque ${compteurSaisiesVides} réponse${compteurSaisiesVides > 1 ? 's' : ''}.`
-    } else {
-      feedback = feedback ?? `Certaines réponses sont incorrectes.`
-    }
-  }
-  if (feedbackFunction != null) {
-    const feedbackFunctionResult = feedbackFunction(saisies)
-    if (typeof feedbackFunctionResult === 'string') {
-      feedback += feedbackFunctionResult
-    }
-  }
-  const [nbBonnesReponses, nbReponses] = bareme(points)
-  const spanReponseLigne = document.querySelector(
-    `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
-  ) as HTMLSpanElement
-  if (spanReponseLigne != null) {
-    spanReponseLigne.innerHTML =
-      compteurBonnesReponses === variables.length ? '😎' : '☹️'
-  }
-  if (typeof exercice.answers === 'object' && exercice.answers !== null) {
-    let filledTemplate = template ?? ''
-    Object.entries(saisies).forEach(([champ, valeur]) => {
-      // Remplace toutes les occurrences de %{champ} par %{champ:"valeur"}
-      const regex = new RegExp(`%\\{${champ}\\}`, 'g')
-      filledTemplate = filledTemplate.replace(regex, `%{${champ}:"${valeur}"}`)
-    })
-    exercice.answers[`multiMathfieldEx${exercice.numeroExercice}Q${i}`] =
-      filledTemplate
-  }
-
-  // le feedback est déjà assuré par la fonction feedback(), donc on le met à ''
-  return {
-    isOk: compteurBonnesReponses === variables.length,
-    feedback: noFeedback ? '' : feedback !== '' ? feedback : '',
-    score: {
-      nbBonnesReponses,
-      nbReponses,
-    },
   }
 }
 

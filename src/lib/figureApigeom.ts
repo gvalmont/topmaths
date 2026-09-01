@@ -1,12 +1,19 @@
 import Figure from 'apigeom'
 import { get } from 'svelte/store'
+import {
+  ApigeomFigureElement,
+  apigeomFigureToSvg,
+} from './apigeom/apigeom-figure'
 import { canOptions } from '../../src/lib/stores/canStore'
+import { DomReadyActionElement } from './customElements/DomReadyAction'
 import type { IExercice } from '../lib/types'
 import { context } from '../modules/context'
 import { exercicesParams } from './stores/generalStore'
 import { globalOptions } from './stores/globalOptions'
 
-export function isFigureArray(figs: IExercice['figures']): figs is Figure[] {
+export function isFigureArray(
+  figs: IExercice['figuresApiGeom'],
+): figs is Figure[] {
   return Array.isArray(figs) && figs.length > 0 && figs[0] instanceof Figure
 }
 
@@ -45,6 +52,11 @@ export default function figureApigeom({
   hasFeedback?: boolean
 }): string {
   if (!context.isHtml) return ''
+  // Export Typst : le montage DOM différé (DomReadyActionElement) ci-dessous
+  // ne s'exécute jamais dans le pipeline Typst (chaîne de caractères, sans
+  // DOM), donc la figure resterait un simple <div> vide. `apigeomFigureToSvg`
+  // fournit directement le SVG (texte intégré) à embarquer comme image.
+  if (context.isTypst) return apigeomFigureToSvg(figure)
   // Styles par défaut
   figure.isDynamic = isDynamic !== undefined ? isDynamic : !!exercice.interactif
   figure.divButtons.style.display = figure.isDynamic ? 'grid' : 'none'
@@ -55,8 +67,70 @@ export default function figureApigeom({
   if (!exercice.interactif) {
     figure.divUserMessage.style.display = 'none'
   }
-  const idApigeom = `apigeomEx${exercice.numeroExercice}F${i}${idAddendum}`
+  // Quand l'exercice est réhébergé comme une question d'un méta-exercice, ses
+  // questions sont décalées : c'est l'index dans l'exercice affiché qui doit
+  // servir aux identifiants DOM, sinon deux sous-exercices produisent les mêmes
+  // (`...F0`) et les clés de `answers` ne correspondent plus à la question.
+  const indexQuestionAffichee = i + (exercice.indexQuestionHote ?? 0)
+  const idApigeom = `apigeomEx${exercice.numeroExercice}F${indexQuestionAffichee}${idAddendum}`
   figure.id = idApigeom
+
+  const isEvaluatedFigure =
+    hasFeedback &&
+    exercice.interactif === true &&
+    typeof exercice.correctionInteractive === 'function' &&
+    exercice.autoCorrection[i]?.formatInteractif !==
+      ApigeomFigureElement.elementTag
+  const verifyCallbackName = `${idApigeom}-verification`
+  const verificationCallback = (
+    displayedExercice: IExercice,
+    questionIndex: number,
+  ) => {
+    const result = exercice.correctionInteractive!(questionIndex)
+    if (exercice.answers != null) {
+      displayedExercice.answers = {
+        ...displayedExercice.answers,
+        ...exercice.answers,
+      }
+    }
+    return result
+  }
+  if (isEvaluatedFigure) {
+    const goodAnswers = (exercice as IExercice & { goodAnswers?: unknown[] })
+      .goodAnswers
+    // `goodAnswers` est indexé par question ; `goodAnswers[i]` contient les
+    // réponses attendues de CETTE question (un tableau de points à placer, ou
+    // une réponse unique). Le barème de la question est donc le nombre de
+    // points qu'elle demande, pas le nombre de questions de l'exercice.
+    const goodAnswersQuestion = Array.isArray(goodAnswers)
+      ? goodAnswers[i]
+      : undefined
+    const pointsMax = Array.isArray(goodAnswersQuestion)
+      ? Math.max(goodAnswersQuestion.length, 1)
+      : 1
+    ApigeomFigureElement.registerVerificationCallback(
+      verifyCallbackName,
+      verificationCallback,
+      pointsMax,
+    )
+    exercice.autoCorrection[i] = {
+      ...(exercice.autoCorrection[i] ?? {}),
+      formatInteractif: ApigeomFigureElement.elementTag,
+    }
+  }
+
+  // Auto-enregistrement de la figure dans le champ dédié figuresApiGeom pour
+  // qu'elle soit détruite par reinit() (cf. exportedReinit), indépendamment de
+  // l'endroit où l'exercice la range par ailleurs (this.figure, variable
+  // locale…). Sans cela, les figures apigeom non suivies ne sont jamais
+  // détruites → fuite mémoire (listeners DOM + références circulaires).
+  // NB : on n'utilise PAS exercice.figures qui est surchargé (Figure[] pour
+  // apigeom OU ClickFigures[] pour cliqueFigure).
+  if (!Array.isArray(exercice.figuresApiGeom)) exercice.figuresApiGeom = []
+  if (!exercice.figuresApiGeom.includes(figure)) {
+    exercice.figuresApiGeom.push(figure)
+  }
+  const setupAction = `figureApigeom:setup:${idApigeom}`
 
   // Pour revoir la copie de l'élève dans Capytale
   // Attention, la clé de answers[] doit contenir apigeom, c'est pourquoi l'id est généré par cette fonction
@@ -185,7 +259,21 @@ export default function figureApigeom({
       })
     }
   }
-  document.addEventListener('exercicesAffiches', updateAffichage)
+  // `setupAction` est identique d'une génération à l'autre (il ne dépend que
+  // des numéros d'exercice et de question) : on garde une référence sur le
+  // callback pour ne jamais désinscrire l'inscription d'une figure plus récente
+  // (cf. DomReadyActionElement.unregisterCallback).
+  const setupCallback = () => {
+    updateAffichage()
+    return () => {
+      if (retryTimeout !== null) {
+        window.clearTimeout(retryTimeout)
+        retryTimeout = null
+      }
+      DomReadyActionElement.unregisterCallback(setupAction, setupCallback)
+    }
+  }
+  DomReadyActionElement.registerCallback(setupAction, setupCallback)
 
   // --------------------------
   // CLEANUP
@@ -195,9 +283,19 @@ export default function figureApigeom({
   const destroy = () => {
     if (destroyed) return
     destroyed = true
+    if (retryTimeout !== null) {
+      window.clearTimeout(retryTimeout)
+      retryTimeout = null
+    }
+    DomReadyActionElement.unregisterCallback(setupAction, setupCallback)
+    if (isEvaluatedFigure) {
+      ApigeomFigureElement.unregisterVerificationCallback(
+        verifyCallbackName,
+        verificationCallback,
+      )
+    }
     document.removeEventListener(idApigeom, idApigeomFunct)
     document.removeEventListener('zoomChanged', updateZoom)
-    document.removeEventListener('exercicesAffiches', updateAffichage)
   }
 
   // On surcharge la méthode clearHtml de la figure pour faire le cleanup des listeners
@@ -212,7 +310,20 @@ export default function figureApigeom({
   }
 
   if (hasFeedback) {
-    return `<div class="m-6 leading-none" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+    const content = `<div class="m-6 leading-none" id="${idApigeom}"></div>${DomReadyActionElement.create(
+      {
+        id: `${idApigeom}-setup`,
+        action: setupAction,
+      },
+    )}<span id="resultatCheckEx${exercice.numeroExercice}Q${indexQuestionAffichee}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${indexQuestionAffichee}"></div>`
+    return isEvaluatedFigure
+      ? `<${ApigeomFigureElement.elementTag} legacy-mount numero-exercice="${exercice.numeroExercice ?? 0}" index="${indexQuestionAffichee}" verify-callback-name="${verifyCallbackName}">${content}</${ApigeomFigureElement.elementTag}>`
+      : content
   }
-  return `<div class="m-6 leading-none" id="${idApigeom}"></div>`
+  return `<div class="m-6 leading-none" id="${idApigeom}"></div>${DomReadyActionElement.create(
+    {
+      id: `${idApigeom}-setup`,
+      action: setupAction,
+    },
+  )}`
 }

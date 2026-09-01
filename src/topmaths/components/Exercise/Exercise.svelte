@@ -1,8 +1,7 @@
 <script lang="ts">
   import seedrandom from 'seedrandom'
-  import { onMount } from 'svelte'
+  import { onMount, type Component } from 'svelte'
   import Exercice from '../../../exercices/Exercice'
-  import referentielStatic from '../../../json/referentielStaticFR.json'
   import uuidToUrl from '../../../json/uuidsToUrlFR.json'
   import {
     mathaleaGenerateSeed,
@@ -36,6 +35,7 @@
     lastExerciseIndex: number
     exerciseType: string
     exercise: Exercice | undefined
+    component: Component | undefined
     isCorrectionVisible: boolean
     nbCols: number
     zoom: number
@@ -100,20 +100,19 @@
   ): Promise<ExerciseWithMeta> {
     let exerciseType: string
     let exercise: Exercice | undefined
+    let component: Component | undefined
     if (isStatic(paramsExercice.uuid)) {
       exerciseType = 'static'
-      exercise =
-        getExerciceByUuid(referentielStatic, paramsExercice.uuid) ??
-        new Exercice()
     } else if (isSvelte(paramsExercice.uuid)) {
       exerciseType = 'svelte'
-      exercise = await getSvelteComponent(paramsExercice)
+      component = await getSvelteComponent(paramsExercice)
     } else {
       exercise = await getExercise(paramsExercice, exerciseIndex)
       exerciseType = await getExerciseType(exercise)
       console.log(exercise)
     }
     return {
+      component,
       exercise,
       exerciseIndex,
       exerciseType,
@@ -135,28 +134,6 @@
       uuid.startsWith('2nd_')
     )
   }
-  function getExerciceByUuid(
-    root: object,
-    targetUUID: string,
-  ): Exercice | null {
-    if ('uuid' in root) {
-      if (root.uuid === targetUUID) {
-        return root
-      }
-    }
-    for (const child in root) {
-      if (child in root) {
-        if (typeof root[child] !== 'object') continue
-        const foundObject = getExerciceByUuid(root[child], targetUUID)
-        if (foundObject) {
-          return foundObject
-        }
-      }
-    }
-
-    return null
-  }
-
   function isSvelte(uuid: string): boolean {
     const urlExercice = uuidToUrl[uuid as keyof typeof uuidToUrl]
     return !!urlExercice && urlExercice.includes('.svelte')
@@ -164,7 +141,7 @@
 
   async function getSvelteComponent(
     paramsExercice: InterfaceParamsWithMeta,
-  ): Promise<any> {
+  ): Promise<Component> {
     const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
     // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
     return (
@@ -184,7 +161,7 @@
     exercise.numeroExercice = indiceExercice
     mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
     if (paramsExercice.duration) exercise.duree = paramsExercice.duration
-    return exercise
+    return exercise as Exercice
   }
 
   async function getExerciseType(exercise: Exercice): Promise<ExerciseType> {
@@ -454,7 +431,7 @@
   <title>
     {exercisesWithMeta
       .map((exerciseWithMeta) =>
-        premiereLettreEnMajuscule(exerciseWithMeta.exercise?.titre),
+        premiereLettreEnMajuscule(exerciseWithMeta.exercise?.titre ?? ''),
       )
       .join(' - ')}
   </title>
@@ -509,7 +486,7 @@
         />
       {:else if exerciseWithMeta.exerciseType === 'svelte'}
         <svelte:component
-          this={exerciseWithMeta.exercise}
+          this={exerciseWithMeta.component}
           indiceExercice={exerciseWithMeta.exerciseIndex}
           indiceLastExercice={exerciseWithMeta.lastExerciseIndex}
         />

@@ -43,7 +43,6 @@ import Exercice from '../Exercice'
 
 export const titre = "Identifier la structure d'un motif itératif"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '23/07/2025'
 export const dateDeModifImportante = '03/06/2026'
@@ -58,12 +57,10 @@ export const uuid = '8e5d3'
 export const refs = {
   'fr-fr': ['6N4B'],
   'fr-2016': ['6I13-1'],
-  'fr-ch': [],
+  'fr-ch': ['10FA1A-6'],
 }
 
-export default class PatternIteratif extends Exercice {
-  destroyers: (() => void)[] = []
-
+export default class PatternIteratif6e extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 3
@@ -124,17 +121,7 @@ Grâce au cinquième paramètre, on peut imposer l'ordre des motifs choisis au q
     this.listePackages = ['twemojis'] // this.listePackages est inutile mais la présence du mot "twemojis" est indispensable pour la sortie LaTeX.
   }
 
-  destroy() {
-    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-  }
-
   nouvelleVersion(): void {
-    // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-
     const ordreAleatoireDesQuestions = this.sup5
     // on ne conserve que les linéaires et les affines sans ratio, ni fraction, ni multiple shape
     const listePatternReference = listePatternsSansRatioNiFraction
@@ -292,8 +279,7 @@ Grâce au cinquième paramètre, on peut imposer l'ordre des motifs choisis au q
         if ('iterate3d' in pattern) {
           pattern.shape = shapeCubeIso('cubeIso')
           if (context.isHtml) {
-            const listeners = updateCubeIso({ pattern, i, j, angle })
-            if (listeners) this.destroyers.push(listeners)
+            updateCubeIso({ pattern, i, j, angle })
             pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
             const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
             // Ajouter les SVG générés par svg() de chaque objet
@@ -351,7 +337,7 @@ Grâce au cinquième paramètre, on peut imposer l'ordre des motifs choisis au q
                 yMax,
                 yMin,
                 scale: 0.4,
-                style: 'display: inline-block',
+                display: 'inline-block' as const,
                 optionsTikz: 'transform shape',
               },
             ),
@@ -429,6 +415,7 @@ Grâce au cinquième paramètre, on peut imposer l'ordre des motifs choisis au q
               {
                 exercice: this,
                 question: indexInteractif++,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: { reponse: { value: nbTex } },
                 typeInteractivite: 'mathlive',
               },

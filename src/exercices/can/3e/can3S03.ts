@@ -9,17 +9,15 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  */
 export const uuid = 'd86be'
 export const dateDeModificationImportante = '12/10/2025' // ajout de versionQcmDisponible Jean-claude Lhote
 
 export const refs = {
-  'fr-fr': ['can3S03', 'BP2FLUC17', '3AutoP01'],
+  'fr-fr': ['can3S03', 'BP2FLUC17', '3AutoS01-5', 'BP1AUTO014'],
   'fr-ch': [],
 }
 export default class CalculsProbabilite2 extends ExerciceSimple {
@@ -35,10 +33,10 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
 
   nouvelleVersion() {
     let a: number, b: number
-    const choix = choice([true, false])
+    const choix = this.quotaChoice('choix', [true, false])
 
     // On choisit le "scénario" global : a (noire/blanche, fraction) ou b (bleue/rouge, décimal)
-    const scenario = choice(['a', 'a', 'b'])
+    const scenario = this.quotaChoice('scenario', ['a', 'a', 'b'])
     const formatDecimal = scenario === 'b'
 
     // Pour le scénario b, on peut avoir un total à 10 ou 100 (comme dans l'ancien code)
@@ -132,6 +130,7 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
       const picked = shuffle(uniq).slice(0, 3)
       // formatage pour QCM : mettre entre $...$
       this.distracteurs = picked.map((n) => `$${n}$`)
+      this.reponse = `$${correctTex}$`
     }
   }
 }

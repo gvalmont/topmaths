@@ -1,13 +1,12 @@
-import EquationDroite from '../can/2e/can2G20'
-export const titre = 'Déterminer une équation de droite (graphique)'
+import EquationDroite from '../can/2e/can2G31-03'
+export const titre = "Lire graphiquement l'équation réduite d’une droite"
 export const dateDePublication = '22/07/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
- * Clone de can2G20 pour les auto 1er
+ * Clone de can2G31-03 pour les auto 1er
  * @author Gilles Mora
  */
 

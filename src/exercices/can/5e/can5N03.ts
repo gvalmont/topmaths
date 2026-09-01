@@ -1,10 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un multiple'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '17/04/2023'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -15,8 +13,8 @@ export const dateDePublication = '17/04/2023'
 export const uuid = 'ed8da'
 
 export const refs = {
-  'fr-fr': ['can5N03'],
-  'fr-ch': [],
+  'fr-fr': ['can5N03', '5N1I-flash1'],
+  'fr-ch': ['9NO1A-9'],
 }
 export default class PlusGrandMultiple extends ExerciceSimple {
   constructor() {
@@ -26,10 +24,10 @@ export default class PlusGrandMultiple extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(2, 16)
-    const b = randint(2, 9)
-    const c = randint(31, 91)
-    switch (choice([1, 2, 3])) {
+    const a = this.quotaRandint('a', 2, 16)
+    const b = this.quotaRandint('b', 2, 9)
+    const c = this.quotaRandint('c', 31, 91)
+    switch (this.quotaChoice('typeDeQuestions', [1, 2, 3])) {
       case 1:
         this.question = `Quel est le plus grand entier  à deux chiffres divisible par $${a}$ ?`
         this.correction = `Cela revient à chercher le plus grand multiple de $${a}$  inférieur à $100$.<br>`

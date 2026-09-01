@@ -6,7 +6,8 @@ import Figure from 'apigeom'
 import checkCircle from 'apigeom/src/check/checkCircleRadius'
 import type Point from 'apigeom/src/elements/points/Point'
 import Decimal from 'decimal.js'
-import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
+import figureApigeom from '../../lib/figureApigeom'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/outils/embellissements'
@@ -20,21 +21,21 @@ export const titre = 'Utiliser la définition du cercle et du disque'
 
 export const dateDePublication = '15/01/2025'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 export const uuid = 'f8dee'
 export const refs = {
   'fr-fr': ['6G2B'],
   'fr-2016': ['6G10-8'],
-  'fr-ch': ['9ES1-10'],
+  'fr-ch': ['9ES1F-2'],
 }
 /**
  * Utiliser la définition du cercle et du disque
  * @author Éric Elter
  */
 export default class defCercleDisque extends Exercice {
-  figuresApiGeom!: Figure[]
-  figuresApiGeomCorr!: Figure[]
+  // declare : typage seul (champ hérité de Exercice), sans réémettre le champ.
+  // Sans cette redéclaration, le champ de base étant optionnel, il serait
+  // typé possiblement undefined (accès this.figuresApiGeom[i] en erreur).
   lesPoints!: Point[][]
   lesPointsCorr!: Point[][]
   choixRayon!: number[][]
@@ -63,7 +64,6 @@ export default class defCercleDisque extends Exercice {
   nouvelleVersion() {
     this.figuresApiGeom = []
     this.figuresApiGeomCorr = []
-    this.figures = []
     this.lesPoints = []
     this.lesPointsCorr = []
     this.choixRayon = []
@@ -81,7 +81,7 @@ export default class defCercleDisque extends Exercice {
         typeDeQuestions = [true, false]
         break
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.lesPoints[i] = []
       this.lesPointsCorr[i] = []
       this.choixRayon[i] = []
@@ -113,7 +113,6 @@ export default class defCercleDisque extends Exercice {
         height: 330,
         border: true,
       })
-      if (isFigureArray(this.figures)) this.figures.push(this.figuresApiGeom[i])
       this.figuresApiGeomCorr[i] = new Figure({
         xMin: -5.5,
         yMin: -5.5,
@@ -121,8 +120,6 @@ export default class defCercleDisque extends Exercice {
         height: 330,
         border: true,
       })
-      if (isFigureArray(this.figures))
-        this.figures.push(this.figuresApiGeomCorr[i])
       let isDuplicate = true // Pour ne pas créer deux points l'un sur l'autre
       let newElement: number[] = []
       for (let ee = 0; ee < this.sup2; ee++) {
@@ -227,9 +224,12 @@ export default class defCercleDisque extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
+    if (i === undefined || this.figuresApiGeom === undefined) return ['KO']
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom[i].id] = figureAnswerJson(
+      this.figuresApiGeom[i],
+    )
     const resultat = []
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,

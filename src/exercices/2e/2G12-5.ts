@@ -6,6 +6,7 @@ import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
 import { texteGras } from '../../lib/format/style'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -24,10 +25,9 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre =
   "Calculer les coordonnées du 4e sommet d'un parallélogramme"
 export const dateDePublication = '06/12/2023'
@@ -40,7 +40,7 @@ export const uuid = 'b77cc'
 
 export const refs = {
   'fr-fr': ['2G12-5'],
-  'fr-ch': ['11GM1-8', '3G90-7'],
+  'fr-ch': ['3G90-7'],
 }
 export default class ParallélogrammeSommet extends Exercice {
   constructor() {
@@ -78,7 +78,7 @@ export default class ParallélogrammeSommet extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const objets: NestedObjetMathalea2dArray = []
       let texte = ''
@@ -230,10 +230,11 @@ export default class ParallélogrammeSommet extends Exercice {
                 ymax: YMAX,
                 pixelsParCm: 25,
                 scale: 0.6,
+                display: 'block',
               },
               objets,
             )
-            texteCorr += `<br>Pour déterminer les coordonnées du point $${D.nom}$, on utilise la propriété suivante  :  <br>
+            texteCorr += `Pour déterminer les coordonnées du point $${D.nom}$, on utilise la propriété suivante  :  <br>
           « Un parallélogramme a ses diagonales qui se coupent en leur milieu ». <br>
             Autrement dit,  le milieu $M$ de $[${A.nom}${C.nom}]$ est aussi le milieu de $[${B.nom}${D.nom}]$ ;<br><br>
             ainsi : <br>
@@ -407,10 +408,11 @@ export default class ParallélogrammeSommet extends Exercice {
                 ymax: YMAX,
                 pixelsParCm: 25,
                 scale: 0.6,
+                display: 'block',
               },
               objets,
             )
-            texteCorr += `<br>Pour déterminer les coordonnées du point $${nom[3]}$, on utilise la propriété suivante  :  <br>
+            texteCorr += `Pour déterminer les coordonnées du point $${nom[3]}$, on utilise la propriété suivante  :  <br>
           « Un parallélogramme a ses diagonales qui se coupent en leur milieu ». <br>
         Autrement dit,  le milieu $M$ de $[${nom[0]}${nom[2]}]$ est aussi le milieu de $[${nom[1]}${nom[3]}]$ ;<br><br>
         ainsi : <br>
@@ -604,6 +606,7 @@ export default class ParallélogrammeSommet extends Exercice {
                 ymax: YMAX,
                 pixelsParCm: 25,
                 scale: 0.6,
+                display: 'block',
               },
               objets,
               E,
@@ -611,13 +614,11 @@ export default class ParallélogrammeSommet extends Exercice {
               M,
             )
             if (this.interactif) {
-              texte +=
-                '<br>' +
-                remplisLesBlancs(
-                  this,
-                  i,
-                  `${D.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
-                )
+              texte += remplisLesBlancs(
+                this,
+                i,
+                `${D.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
+              )
             }
 
             texteCorr = `Pour déterminer les coordonnées du point $T$, on utilise la propriété suivante  :  <br>

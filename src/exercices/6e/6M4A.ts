@@ -18,7 +18,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Additionner des durées'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '20/03/2026'
 
 /**
@@ -35,7 +35,7 @@ export const uuid = '5f315'
 export const refs = {
   'fr-fr': ['6M4A'],
   'fr-2016': ['6D11'],
-  'fr-ch': ['10GM3-3'],
+  'fr-ch': ['9GM3A-1'],
 }
 export default class SommeDeDurees extends Exercice {
   constructor() {

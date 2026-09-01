@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import {
   fraction,
   obtenirListeFractionsIrreductibles,
@@ -7,7 +6,7 @@ import {
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver l’opposé ou l’inverse d’une fraction'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '05/12/2021'
@@ -31,12 +30,12 @@ export default class OpposeDeFraction extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = choice(obtenirListeFractionsIrreductibles())
+    const a = this.quotaChoice('a', obtenirListeFractionsIrreductibles())
     const c = a.d
     let b, d, e
 
     switch (
-      choice(['a', 'b', 'c', 'd', 'e']) //
+      this.quotaChoice('cas', ['a', 'b', 'c', 'd', 'e']) //
     ) {
       case 'a':
         b = a.n

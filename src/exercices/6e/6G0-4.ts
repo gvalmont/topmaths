@@ -8,7 +8,6 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { vide2d } from '../../lib/2d/Vide2d'
-import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import {
   combinaisonListes,
   enleveElement,
@@ -23,7 +22,6 @@ export const titre = 'Choisir la bonne figure'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'cliqueFigure'
 
 /**
  * Plusieurs éléments sont proposés, il faut choisir le bon (par clic si interactif, par case à cocher par AMC)
@@ -33,9 +31,9 @@ export const interactifType = 'cliqueFigure'
 export const uuid = '83763'
 
 export const refs = {
-  'fr-fr': ['6G0-4'],
+  'fr-fr': ['6G0-4', '6AutoG1-1'],
   'fr-2016': ['6G10-3'],
-  'fr-ch': ['9ES1-8'],
+  'fr-ch': ['9ES1A-16'],
 }
 export default class CliqueFigure extends Exercice {
   constructor() {
@@ -44,7 +42,7 @@ export default class CliqueFigure extends Exercice {
   }
 
   nouvelleVersion() {
-    this.figures = [[], [], [], []]
+    this.cliqueFiguresArray = [[], [], [], []]
     this.consigne = this.interactif
       ? 'Cliquer sur la bonne figure.'
       : context.vue !== 'diap' && !context.isAmc
@@ -66,7 +64,7 @@ export default class CliqueFigure extends Exercice {
       // context.pixelsParCm = 10
       context.pixelsParCm = 20
       const labels = labelPoint(A, B)
-      this.figures[i] = [
+      this.cliqueFiguresArray[i] = [
         { id: `cliquefigure0Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `cliquefigure1Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `cliquefigure2Ex${this.numeroExercice}Q${i}`, solution: false },
@@ -74,7 +72,7 @@ export default class CliqueFigure extends Exercice {
       ]
       const figSegment = mathalea2d(
         {
-          style: 'display: inline-block',
+          display: 'inline-block',
           xmin: -2,
           xmax: 6,
           ymin: -2,
@@ -86,7 +84,7 @@ export default class CliqueFigure extends Exercice {
       )
       const figDroite = mathalea2d(
         {
-          style: 'display: inline-block',
+          display: 'inline-block',
           xmin: -2,
           xmax: 6,
           ymin: -2,
@@ -99,7 +97,7 @@ export default class CliqueFigure extends Exercice {
       )
       const figDemiDroite = mathalea2d(
         {
-          style: 'display: inline-block',
+          display: 'inline-block',
           xmin: -2,
           xmax: 6,
           ymin: -2,
@@ -112,7 +110,7 @@ export default class CliqueFigure extends Exercice {
       )
       const figDemiDroite2 = mathalea2d(
         {
-          style: 'display: inline-block',
+          display: 'inline-block',
           xmin: -2,
           xmax: 6,
           ymin: -2,
@@ -125,7 +123,7 @@ export default class CliqueFigure extends Exercice {
       )
       const figSegmentAMC = mathalea2d(
         {
-          style: 'display: inline-block',
+          display: 'inline-block',
           xmin: -2,
           xmax: 6,
           ymin: -2,
@@ -137,7 +135,7 @@ export default class CliqueFigure extends Exercice {
       )
       const figDroiteAMC = mathalea2d(
         {
-          style: 'display: inline-block',
+          display: 'inline-block',
           xmin: -2,
           xmax: 6,
           ymin: -2,
@@ -150,7 +148,7 @@ export default class CliqueFigure extends Exercice {
       )
       const figDemiDroiteAMC = mathalea2d(
         {
-          style: 'display: inline-block',
+          display: 'inline-block',
           xmin: -2,
           xmax: 6,
           ymin: -2,
@@ -163,7 +161,7 @@ export default class CliqueFigure extends Exercice {
       )
       const figDemiDroite2AMC = mathalea2d(
         {
-          style: 'display: inline-block',
+          display: 'inline-block',
           xmin: -2,
           xmax: 6,
           ymin: -2,
@@ -185,26 +183,26 @@ export default class CliqueFigure extends Exercice {
       switch (typesDeQuestions[i]) {
         case 'segment':
           texte = `Le segment d'extrémités $${A.nom}$ et $${B.nom}$.`
-          this.figures[i][0].solution = true
+          this.cliqueFiguresArray[i][0].solution = true
           figCorr = vide2d()
           figCorrecteAMC = figSegmentAMC
           break
         case 'droite':
           texte = `La droite passant par les points $${A.nom}$ et $${B.nom}$.`
-          this.figures[i][1].solution = true
+          this.cliqueFiguresArray[i][1].solution = true
           figCorr = droite(A, B)
           figCorrecteAMC = figDroiteAMC
           break
         case 'demidroite':
           texte = `La demi-droite d'origine $${A.nom}$ passant par $${B.nom}$.`
-          this.figures[i][2].solution = true
+          this.cliqueFiguresArray[i][2].solution = true
           figCorr = demiDroite(A, B)
           figCorrecteAMC = figDemiDroiteAMC
           break
         case 'demidroite2':
         default:
           texte = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$.`
-          this.figures[i][3].solution = true
+          this.cliqueFiguresArray[i][3].solution = true
           figCorr = demiDroite(B, A)
           figCorrecteAMC = figDemiDroite2AMC
           break
@@ -213,7 +211,7 @@ export default class CliqueFigure extends Exercice {
       // PROPRE A AMC
       enleveElement(figIncorrectAMC, figCorrecteAMC)
       this.autoCorrection[i] = {}
-      setCliqueFigure(this.autoCorrection[i])
+      this.autoCorrection[i].formatInteractif = 'clique-figure'
       this.autoCorrection[i].enonce = this.consigne + texte
       this.autoCorrection[i].propositions = [
         {
@@ -248,7 +246,7 @@ export default class CliqueFigure extends Exercice {
               xmin: -4,
               xmax: 6,
               ymin: -2,
-              style: '',
+              display: 'inline-block',
               scale: 0.4,
               id: `figure3Ex${this.numeroExercice}Q${i}`,
             },

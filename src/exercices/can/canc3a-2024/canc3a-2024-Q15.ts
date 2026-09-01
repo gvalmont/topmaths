@@ -11,7 +11,7 @@ import { latexParCoordonnees } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = "Calculer le périmètre d'un rectangle"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'f828d'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -128,9 +128,9 @@ export default class PerimetreRectangleCM2 extends ExerciceSimple {
       Object.assign(
         {
           scale: grandeBase > 5 ? 0.75 : 1,
-          style: 'display: block',
+          display: 'block',
           pixelsParCm: grandeBase > 5 ? 20 : 25,
-        },
+        } as const,
         fixeBordures(objets),
       ),
       objets,

@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de proportionnalité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '28/10/2021'
@@ -20,8 +20,8 @@ export const dateDePublication = '28/10/2021'
 export const uuid = '57777'
 
 export const refs = {
-  'fr-fr': ['can5P03'],
-  'fr-ch': ['11FA11-5'],
+  'fr-fr': ['can5P03', 'auto5P1B-flash1'],
+  'fr-ch': ['9FA2B-25'],
 }
 export default class PoucentageP2 extends ExerciceSimple {
   constructor() {
@@ -50,7 +50,7 @@ export default class PoucentageP2 extends ExerciceSimple {
       ['beignets'],
     ]
     switch (
-      choice([1, 2, 3, 4, 5]) //
+      this.quotaChoice('typeDeQuestions', [1, 2, 3, 4, 5]) //
     ) {
       case 1: // proportionnalité avec fruits
         a = randint(0, 7) // index du fruit
@@ -155,9 +155,9 @@ export default class PoucentageP2 extends ExerciceSimple {
           ['une voiture électrique', 'elle'],
           ['un manège', 'il'],
         ])
-        this.question = `En ${a * b} minutes, ${d[0]} fait ${a * c} tours.<br>        
-        En ${b} minutes ${d[1]} fait ${this.interactif ? '' : '$\\ldots \\ldots$ tours.'}`
-        this.correction = `En ${a} fois moins de temps, ${d[1]} fait ${a} fois moins de tours, soit : $${a * c} \\div ${a}=${c}$ tours.`
+        this.question = `En $${a * b}$ minutes, ${d[0]} fait $${a * c}$ tours.<br>        
+        En $${b}$ minutes, ${d[1]} fait ${this.interactif ? '' : '$\\ldots\\ldots$ tours.'}`
+        this.correction = `En $${a}$ fois moins de temps, ${d[1]} fait $${a}$ fois moins de tours, soit : $${a * c} \\div ${a}=${c}$ tours.`
         this.optionsChampTexte = { texteApres: ' tours.' }
         this.reponse = c
         this.canEnonce = 'Compléter.'

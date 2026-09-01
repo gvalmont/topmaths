@@ -2,15 +2,16 @@ import { repere } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
 import { courbe } from '../../lib/2d/Courbe'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { bleuMathalea } from '../../lib/colors'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { spline } from '../../lib/mathFonctions/Spline'
 import { mathalea2d } from '../../modules/mathalea2d'
 import ExerciceQcmA from '../ExerciceQcmA'
-import { bleuMathalea } from '../../lib/colors'
 export const dateDePublication = '24/07/2025'
 export const uuid = '7f5f6'
 /**
@@ -29,7 +30,7 @@ type Noeud = {
   isVisible: boolean
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -114,7 +115,7 @@ export default class auto1AF2 extends ExerciceQcmA {
  `,
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 20, scale: 0.6, style: 'margin: auto' },
+          { pixelsParCm: 20, scale: 0.6, center: !context.isHtml },
           {
             xmin: -5,
             ymin: -5,
@@ -349,7 +350,7 @@ Leurs abscisses sont notées respectivement $${formaterListe(nomsPoints.map((nom
  `,
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 22, scale: 0.6, style: 'margin: auto' },
+          { pixelsParCm: 22, scale: 0.6, center: !context.isHtml },
           {
             xmin: bornes.xMin - 1,
             ymin: bornes.yMin - 1,

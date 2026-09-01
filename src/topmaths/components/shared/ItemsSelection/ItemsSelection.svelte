@@ -1,7 +1,11 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
-  import type { Unsubscriber } from 'svelte/motion'
-  import { derived, writable, type Writable } from 'svelte/store'
+  import {
+    derived,
+    writable,
+    type Unsubscriber,
+    type Writable,
+  } from 'svelte/store'
   import { goToView } from '../../../services/navigation'
   import { isReferenceIgnored } from '../../../services/reference'
   import {

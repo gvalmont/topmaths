@@ -1,6 +1,7 @@
 import type Figure from 'apigeom/src/Figure'
 import type Decimal from 'decimal.js'
 import type { AutoCorrectionAMC, QuestionAMC } from '../lib/amc/amcTypes'
+import type { FormulaireComplexe } from '../lib/formulaireComplexe'
 import {
   KeyboardType,
   type PartialKbType,
@@ -46,6 +47,14 @@ export default class Exercice implements IExercice {
   duree?: number
   seed?: string
   numeroExercice?: number
+  /**
+   * Index de la question dans l'exercice affiché quand cet exercice est
+   * réhébergé comme une question d'un méta-exercice (`MetaExerciceCan`) :
+   * la question locale 0 devient la question `indexQuestionHote` de l'hôte.
+   * Sert à générer directement des identifiants DOM uniques plutôt qu'à les
+   * réécrire après coup. Vaut 0 hors méta-exercice.
+   */
+  indexQuestionHote?: number
   typeExercice?: string
   duration?: number
   // boutonAide: boolean | HTMLButtonElement
@@ -64,7 +73,7 @@ export default class Exercice implements IExercice {
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple ??? NON ! NOTE de Jena-claude Lhote du 2/02/2025 : et pourquoi ça ???
   tip: string = ''
-  tipAvailable?: boolean // L'élève a-t-il le bouton indice ?
+  tipAvailable: boolean = false // L'élève a-t-il le bouton indice ?
   // On peut être amené à utiliser un Exercice non simple à une seule question dans une can, parce qu'il a 3 champs et une correction custom.
   // Et vouloir un this.canEnonce sur cet exercice, pour le document CAN !
   canReponseACompleter: string = '' // Seulement pour les exercices de type simple
@@ -85,13 +94,18 @@ export default class Exercice implements IExercice {
   autoCorrection: AutoCorrection[]
   autoCorrectionAMC: AutoCorrectionAMC[]
   questionsAMC: QuestionAMC[]
-  figures?: Figure[] | ClickFigures[]
+  cliqueFiguresArray?: ClickFigures[]
+  /** Figures apigeom de l'exercice. Renseigné automatiquement par figureApigeom()
+   * et détruit par reinit() pour éviter les fuites mémoire. */
+  figuresApiGeom?: Figure[]
+  figuresApiGeomCorr?: Figure[]
   amcReady?: boolean
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number
   spacingCorr: number
   pasDeVersionLatex: boolean
+  pasDeVersionAleatoire?: boolean // booléen qui indique que l'exercice n'a pas de version aléatoire (le bouton « Nouvel énoncé » est alors masqué).
   listePackages?: string[]
   consigneModifiable: boolean
   nbQuestionsModifiable: boolean
@@ -105,6 +119,7 @@ export default class Exercice implements IExercice {
   beamer: boolean
   nbQuestions: number
   pointsParQuestions: number
+  coeffBareme: number
   correctionDetailleeDisponible: boolean
   correctionDetaillee: boolean
   correctionIsCachee: boolean
@@ -112,7 +127,6 @@ export default class Exercice implements IExercice {
   interactif: boolean // l'exercice est affiché en mode interactif si `true`
   interactifObligatoire: boolean
   interactifReady: boolean // flag pour indiquer si l'exercice est dispo en interactif ou pas
-  interactifType?: string
   besoinFormulaireNumerique:
     | boolean
     | [titre: string, max: number, tooltip: string]
@@ -156,6 +170,8 @@ export default class Exercice implements IExercice {
         defaut: number[]
       }
 
+  besoinFormulaireComplexe: false | FormulaireComplexe
+
   questionRefs?: string[] // Affiche la référence de l'exercice en en-tête de la question (utile pour MetaExerciceCan)
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   lastCallback: string // La dernière signature de listeArguments afin de comparaison : permet d'éviter un nouvelleVersionWrapper inutile
@@ -170,6 +186,7 @@ export default class Exercice implements IExercice {
   answers?: { [key: string]: string } // Réponses de l'élève
   dragAndDrops?: IDragAndDrop[]
   isDone?: boolean
+  nbTentativesVerification?: number
   private _html: HTMLElement = document.createElement('div')
   score?: number
   vspace?: number // Ajoute un \vspace{[number]cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
@@ -207,6 +224,7 @@ export default class Exercice implements IExercice {
     // Gestion de la sortie LateX
     // ////////////////////////////////////////////
     this.pasDeVersionLatex = false // booléen qui indique qu'une sortie LateX est impossible.
+    this.pasDeVersionAleatoire = false // booléen qui indique que l'exercice n'a pas de version aléatoire (le bouton « Nouvel énoncé » est alors masqué).
     this.consigneModifiable = true // booléen pour déterminer si la consigne est modifiable en ligne dans la sortie LaTeX.
     this.nbQuestionsModifiable = true // booléen pour déterminer si le nombre de questions est modifiable en ligne.
     this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX des questions (environnement multicols).
@@ -226,6 +244,7 @@ export default class Exercice implements IExercice {
     // ////////////////////////////////////////////
     this.nbQuestions = 10 // Nombre de questions par défaut (récupéré dans l'url avec le paramètre `,n=`)
     this.pointsParQuestions = 1 // Pour définir la note par défaut d'un exercice dans sa sortie Moodle
+    this.coeffBareme = 1 // Coefficient multiplicateur du barème en interactif (récupéré dans l'url avec le paramètre `,coef=`), voir src/lib/interactif/baremeExercice.ts
     this.correctionDetailleeDisponible = false // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = true // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
     this.correctionIsCachee = false // pour cacher une correction
@@ -255,6 +274,8 @@ export default class Exercice implements IExercice {
     this.besoinFormulaire5Texte = false // Sinon this.besoinFormulaire5Texte = [texte, tooltip]
     this.besoinFormulaire5CaseACocher = false // Sinon this.besoinFormulaire5CaseACocher = [texte]
     this.besoinFormulaireNombresCategories = false // Sinon { titre, categories: [{label, max}], defaut: [] }
+    // Formulaire multi-champs stocké dans le seul `this.sup` (voir src/lib/formulaireComplexe.ts)
+    this.besoinFormulaireComplexe = false // Sinon { titre, champs: [{ type: 'case' | 'selection' | 'listePonderee', ... }] }
 
     // ///////////////////////////////////////////////
     // Exercice avec des dépendances particulières

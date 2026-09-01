@@ -1,4 +1,3 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import {
   ecritureParentheseSiNegatif,
@@ -6,11 +5,10 @@ import {
 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { abs } from '../../../lib/outils/nombres'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le coefficient d’une fonction affine'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '25/10/2021'
 export const dateDeModifImportante = '29/03/2026'
 
@@ -24,7 +22,7 @@ export const uuid = '17987'
 
 export const refs = {
   'fr-fr': ['can3F06'],
-  'fr-ch': ['11FA8-27', '1mF2-1b'],
+  'fr-ch': ['11FA1B-27', '1mF2-1b'],
 }
 export default class CoefficientFonctionAffine extends ExerciceSimple {
   constructor() {
@@ -35,9 +33,9 @@ export default class CoefficientFonctionAffine extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const b = randint(-3, 3, 0)
-    const c = randint(1, 5)
-    const n = choice([-4, -3, -2, 2, 3, 4])
+    const b = this.quotaRandint('b', -3, 3, [0])
+    const c = this.quotaRandint('c', 1, 5)
+    const n = this.quotaChoice('n', [-4, -3, -2, 2, 3, 4])
     const d = b + n * c
     if (b > 0) {
       this.question = `$f$ est une fonction affine telle que $f(x)=ax+${b}$ et $f(${c})=${d}$.<br>

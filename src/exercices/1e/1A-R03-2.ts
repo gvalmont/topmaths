@@ -8,10 +8,10 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const uuid = '3292c'
 export const refs = {
   'fr-fr': ['1A-R03-2'],
-  'fr-ch': ['10NO5-18'],
+  'fr-ch': ['10NO3C-7'],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calculer une proportion de proportion (2)'
@@ -160,7 +160,7 @@ export default class ProportionDeProportion2 extends ExerciceQcmA {
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    // this.options = { vertical: true, ordered: false }
+
     this.versionAleatoire()
   }
 }

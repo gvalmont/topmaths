@@ -4,6 +4,7 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -14,7 +15,6 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
 
 /**
  * Calcule le cosinus d'un angle en degrés
@@ -36,7 +36,6 @@ export const titre = 'Programmer des déplacements relatifs (Scratch)'
 export const dateDePublication = '05/02/2023'
 export const dateDeModifImportante = '09/06/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * * Colorier le déplacement d'un lutin
@@ -62,7 +61,7 @@ export default class ColorierDeplacementV2Old extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ['Avec une boucle']
     this.besoinFormulaire3CaseACocher = ['Inclure la possibilité de reculer']
-    this.typeExercice = 'Scratch'
+
     this.sup = 1 // nombre de commandes = this.sup + 2
     this.sup2 = false // 1 : sans boucle ; true : avec boucle
     this.nbQuestions = 1
@@ -71,8 +70,8 @@ export default class ColorierDeplacementV2Old extends Exercice {
     this.consigne = 'Dans le quadrillage, effectuer le programme.<br>'
 
     this.nbQuestionsModifiable = false
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
   }
 
   nouvelleVersion() {
@@ -389,7 +388,9 @@ export default class ColorierDeplacementV2Old extends Exercice {
       this.autoCorrectionAMC = [
         { propositions: [{ texte: '', statut: 3, sanscadre: true }] },
       ]
-      this.questionsAMC = this.autoCorrectionAMC.map((questionAMC) => amcConvert(questionAMC))
+      this.questionsAMC = this.autoCorrectionAMC.map((questionAMC) =>
+        amcConvert(questionAMC),
+      )
     }
 
     texte +=

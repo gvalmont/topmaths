@@ -4,9 +4,10 @@
 
 import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { enleveElement } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
@@ -20,14 +21,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const dateDeModifImportante = '15/02/2025'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre =
   'Poser additions, soustractions et multiplications de nombres entiers'
@@ -48,14 +46,14 @@ export const uuid = 'cfa6a'
 export const refs = {
   'fr-fr': ['6N2A-1'],
   'fr-2016': ['6C10'],
-  'fr-ch': ['9NO3-1'],
+  'fr-ch': [''], // Primaire anciennement : ['9NO3-1'],
 }
 export default class AdditionsSoustractionsMultiplicationsPosees extends Exercice {
   version: string
   constructor() {
     super()
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
+    this.spacingCorr = context.isHtml ? 2 : 1 // Important sinon les opérations posées ne sont pas jolies
     this.nbQuestions = 5
 
     this.besoinFormulaireTexte = [
@@ -336,7 +334,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
         } // espacement entre les questions
         this.listeCorrections[i] = texteCorr
         if (!context.isAmc) {
-          setReponse(this, i, reponse, { digits: 0 }) // fonction qui va renseigner this.autocorrection[i]
+          handleAnswers(this, i, { reponse: { value: reponse } }, { digits: 0 })
         } else {
           this.autoCorrectionAMC[i] = {
             enonce: '',

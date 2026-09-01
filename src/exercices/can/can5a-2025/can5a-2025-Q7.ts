@@ -1,13 +1,11 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Conversion en minutes décimales'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'a343m'
 export const refs = {
   'fr-fr': [],
@@ -21,8 +19,8 @@ export const refs = {
 export default class Can2025N5Q7 extends ExerciceCan {
   enonce(a?: number, b?: number) {
     if (a == null || b == null) {
-      a = randint(2, 9)
-      b = choice([15, 30, 45])
+      a = this.quotaRandint('a', 2, 9)
+      b = this.quotaChoice('b', [15, 30, 45])
     }
     this.reponse = a + b / 60
     this.question = `$${a}$ min $${b}$ s`

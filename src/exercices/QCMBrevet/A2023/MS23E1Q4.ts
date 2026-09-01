@@ -1,15 +1,15 @@
-import ExerciceQcmA from '../../ExerciceQcmA'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { nombreElementsDifferents } from '../../ExerciceQcm'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { nombreElementsDifferents } from '../../ExerciceQcm'
+import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = '80f6g'
 export const refs = {
-  'fr-fr': ['3S2QCM-7', 'BP2FLUC8'],
+  'fr-fr': ['3S2QCM-7', 'BP2FLUC8', 'BP1AUTO008'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Probabilités (septembre 2023 Métropole)'

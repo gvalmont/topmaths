@@ -4,7 +4,7 @@ export const titre =
 
 export const dateDeModifImportante = '03/03/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 /**
  *
  * @author Stéphane Guyon  + Jean-claude Lhote (interactif) + Gilles Mora
@@ -14,7 +14,7 @@ export const uuid = 'd1dae'
 
 export const refs = {
   'fr-fr': ['2G32-3'],
-  'fr-ch': ['11FA9-6', '1mF2-5'],
+  'fr-ch': ['11FA1B-19', '1mF2-5'],
 }
 class EqCart1pointVectDir extends EqCartDroite {
   constructor() {

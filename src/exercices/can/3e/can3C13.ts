@@ -6,7 +6,7 @@ import Pyramide from '../../../modules/pyramide'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer dans une pyramide additive de fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '09/05/2022'
@@ -19,7 +19,7 @@ export const uuid = '140ad'
 
 export const refs = {
   'fr-fr': ['can3C13'],
-  'fr-ch': ['10NO5-17'],
+  'fr-ch': ['10NO3B-9'],
 }
 export default class Pyramide3EtagesAdditionFractions extends ExerciceSimple {
   constructor() {

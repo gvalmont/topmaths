@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -12,7 +12,7 @@ import Exercice from '../Exercice'
 export const titre = 'Résoudre une équation trigonométrique'
 export const dateDePublication = '20/11/2023'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '20/02/2024'
@@ -62,7 +62,7 @@ class EquationTrigo extends Exercice {
       typeFormuleTrigo,
       this.nbQuestions,
     ) as Trigo[]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Lettre entre A et X
       const indicFirstLetter = 65 + Math.floor(Math.random() * 24)
       const nomA = String.fromCharCode(indicFirstLetter)
@@ -210,7 +210,12 @@ class EquationTrigo extends Exercice {
           $\\widehat{${nomA}${nomB}${nomC}} \\approx ${miseEnEvidence(stringNombre(reponse, 0))}^\\circ$`
           break
       }
-      setReponse(this, i, reponse)
+      handleAnswers(
+        this,
+        i,
+        { reponse: { value: reponse } },
+        { formatInteractif: 'mathlive' },
+      )
       if (this.questionJamaisPosee(i, cosSinTan, angle, lAB.toFixed(1))) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

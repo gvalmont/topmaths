@@ -1,24 +1,21 @@
 import { orangeMathalea } from '../../lib/colors'
-import { cercleTrigo } from '../../lib/2d/cercleTrigo'
 import {
-  selectionCercleTrigo,
+  addTrigoCircleSelection,
   trigoCircleSelectionValue,
-} from '../../lib/interactif/trigoCircleSelection/selectionCercleTrigo'
+} from '../../lib/customElements/TrigoCircleSelectionElement'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
   exactSquaredTrigoValues,
   exactTrigoValues,
+  texTrigoFunction,
   TrigoExact,
   type ExactSquaredTrigValueKey,
   type ExactTrigoValueKey,
   type SinCosTrigoFunctionName,
   type TrigoCircleAngle,
-  texTrigoFunction,
 } from '../../lib/mathFonctions/trigo'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context'
-import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -28,7 +25,6 @@ import Exercice from '../Exercice'
 export const titre =
   'Placer les solutions d’une équation trigonométrique sur le cercle'
 export const interactifReady = true
-export const interactifType = 'svgSelection'
 export const dateDePublication = '08/05/2026'
 export const uuid = 'd9a41'
 export const refs = {
@@ -103,71 +99,50 @@ function buildQuestion(type: number): PlacementQuestion {
 }
 
 function renderCircleQuestion(exercice: Exercice, questionIndex: number) {
-  if (context.isHtml && exercice.interactif) {
-    return selectionCercleTrigo(exercice, questionIndex, {
-      showAngleLabels: true,
-      showCoordinateLabels: Boolean(exercice.sup2),
-      style: 'display:block; max-width: 46rem;',
-    })
-  }
-  return mathalea2d(
-    {
-      xmin: -3.6,
-      ymin: -3.7,
-      xmax: 3.6,
-      ymax: 3.7,
-      pixelsParCm: 90,
-      scale: 1,
-      style: 'display: block',
-    },
-    cercleTrigo({ radius: 2, showCoordinates: Boolean(exercice.sup2) }),
-  )
+  return addTrigoCircleSelection(exercice, questionIndex, {
+    showAngleLabels: true,
+    showCoordinateLabels: Boolean(exercice.sup2),
+    style: 'display:block; max-width: 46rem;',
+    interactivityOn: exercice.interactif,
+  })
 }
 
-function renderCorrectionCircle(branches: CorrectionBranch[]) {
-  return mathalea2d(
-    {
-      xmin: -3.6,
-      ymin: -3.7,
-      xmax: 3.6,
-      ymax: 3.7,
-      pixelsParCm: 90,
-      scale: 1,
-      style: 'display: block',
-    },
-    cercleTrigo({
-      radius: 2,
-      showCoordinates: true,
-      markedPoints: branches.flatMap((branch) =>
-        branch.solutions.map((solution) => ({
-          angle: solution.angle.angleRad,
-          color: solution.color,
-        })),
-      ),
-    }),
-  )
-}
-
-function renderFinalAnswerCircle(solutions: TrigoCircleAngle[]) {
-  return mathalea2d(
-    {
-      xmin: -3.6,
-      ymin: -3.7,
-      xmax: 3.6,
-      ymax: 3.7,
-      pixelsParCm: 90,
-      scale: 1,
-      style: 'display: block',
-    },
-    cercleTrigo({
-      radius: 2,
-      showCoordinates: true,
-      markedPoints: solutions.map((solution) => ({
-        angle: solution.angleRad,
-        color: orangeMathalea,
+function renderCorrectionCircle(
+  exercice: Exercice,
+  questionIndex: number,
+  branches: CorrectionBranch[],
+) {
+  return addTrigoCircleSelection(exercice, questionIndex, {
+    id: `trigo-circle-selection-correctionEx${exercice.numeroExercice}Q${questionIndex}`,
+    showAngleLabels: true,
+    showCoordinateLabels: true,
+    style: 'display:block; max-width: 46rem;',
+    interactivityOn: false,
+    markedPoints: branches.flatMap((branch) =>
+      branch.solutions.map((solution) => ({
+        angle: solution.angle.angleRad,
+        color: solution.color,
       })),
-    }),
-  )
+    ),
+  })
+}
+
+function renderFinalAnswerCircle(
+  solutions: TrigoCircleAngle[],
+  exercice: Exercice,
+  questionIndex: number,
+) {
+  return addTrigoCircleSelection(exercice, questionIndex, {
+    id: `trigo-circle-selection-finalEx${exercice.numeroExercice}Q${questionIndex}`,
+    showAngleLabels: true,
+    showCoordinateLabels: true,
+    style: 'display:block; max-width: 46rem;',
+    interactivityOn: false,
+    markedPoints: solutions.map((solution) => ({
+      angle: solution.angleRad,
+      color: orangeMathalea,
+    })),
+  })
 }
 
 function texEquation(fn: SinCosTrigoFunctionName, valueTex: string) {
@@ -280,7 +255,7 @@ export default class PlacerSolutionsEquationTrigoCercle extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const question = buildQuestion(Number(types[i]))
       const equation =
         question.kind === 'direct'
@@ -289,13 +264,18 @@ export default class PlacerSolutionsEquationTrigoCercle extends Exercice {
 
       let texte = `Résoudre graphiquement dans $[0;2\\pi[$ l'équation $${equation}$ en plaçant les points correspondants sur le cercle trigonométrique.<br>`
 
-      handleAnswers(this, i, {
-        reponse: {
-          value: trigoCircleSelectionValue(
-            question.solutions.map((solution) => solution.angleRad),
-          ),
+      handleAnswers(
+        this,
+        i,
+        {
+          reponse: {
+            value: trigoCircleSelectionValue(
+              question.solutions.map((solution) => solution.angleRad),
+            ),
+          },
         },
-      })
+        { formatInteractif: 'trigo-circle-selection' },
+      )
       texte += renderCircleQuestion(this, i)
 
       const branches = getCorrectionBranches(question)
@@ -310,9 +290,9 @@ export default class PlacerSolutionsEquationTrigoCercle extends Exercice {
             : `${texColoredBranches(branches)}.<br>`
       }
       texteCorr += `${renderBranchDetails(branches)}<br>`
-      texteCorr += renderCorrectionCircle(branches)
+      texteCorr += renderCorrectionCircle(this, i, branches)
       texteCorr += `Sur $[0;2\\pi[$, on obtient donc $S=${miseEnEvidence(texSolutionList(question.solutions))}$.<br>`
-      texteCorr += renderFinalAnswerCircle(question.solutions)
+      texteCorr += renderFinalAnswerCircle(question.solutions, this, i)
 
       if (this.questionJamaisPosee(i, equation)) {
         this.listeQuestions[i] = texte

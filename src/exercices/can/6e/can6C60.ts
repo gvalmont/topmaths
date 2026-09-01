@@ -9,7 +9,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Calculer la somme ou la différence d'un entier et d'une fraction"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '06/07/2025'
@@ -22,7 +22,7 @@ export const uuid = 'dd7d1'
 
 export const refs = {
   'fr-fr': ['can6C60', '6N3K-flash5'],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 export default class SommeDiffEntierFraction extends ExerciceSimple {
   constructor() {
@@ -37,7 +37,7 @@ export default class SommeDiffEntierFraction extends ExerciceSimple {
   nouvelleVersion() {
     let resultat: FractionEtendue
 
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2])) {
       case 1: // addition
         {
           const frac = choice(obtenirListeFractionsIrreductibles())

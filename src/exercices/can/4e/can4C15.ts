@@ -1,11 +1,9 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une fraction de dénominateur 0,25 ou 0,1 ...'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '30/03/2023'
@@ -30,9 +28,9 @@ export default class CalculFractionDecimal extends ExerciceSimple {
 
   nouvelleVersion() {
     let d, reponse
-    const n = randint(1, 9)
+    const n = this.quotaRandint('n', 1, 9)
 
-    switch (choice([1, 2, 3, 4])) {
+    switch (this.quotaChoice('cas', [1, 2, 3, 4])) {
       case 1:
         d = 0.25
         reponse = n / d

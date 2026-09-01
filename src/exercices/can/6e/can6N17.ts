@@ -1,17 +1,17 @@
 import Decimal from 'decimal.js'
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { latex2d } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 export const titre =
   'Lire une abscisse sur une droite graduée avec des décimaux'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '29/08/2022'
 export const dateDeModifImportante = '12/10/2024'
 /**
@@ -34,7 +34,7 @@ export default class AbscisseDroiteDecimaux extends ExerciceSimple {
   nouvelleVersion() {
     let d, abs0, abs1, abs2, x1, partieDec1, partieDec2, partieDec3
 
-    const choix1 = choice(['a', 'b']) //, 'b'
+    const choix1 = this.quotaChoice('choix1', ['a', 'b']) //, 'b'
     if (choix1 === 'a') {
       // graduation de 0,02 en 0,02
       partieDec1 = new Decimal(randint(1, 9)).div(choice([10, 100]))

@@ -1,4 +1,4 @@
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -11,7 +11,6 @@ import {
 
 export const titre = 'Connaitre les préfixes utilisés dans les unités'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
 
 export const dateDePublication = '17/09/2022'
 
@@ -23,9 +22,9 @@ export const dateDePublication = '17/09/2022'
 export const uuid = '5d1e2'
 
 export const refs = {
-  'fr-fr': ['auto6M1A-1', 'BP2AutoT1'],
+  'fr-fr': ['auto6M1A-1', 'BP2AutoT1', '6AutoL1'],
   'fr-2016': ['6N13-0', 'BP2AutoT1'],
-  'fr-ch': ['9GM2-4'],
+  'fr-ch': ['9GM1A-2'],
 }
 export default class sensDesPrefixes extends Exercice {
   constructor() {
@@ -95,7 +94,6 @@ export default class sensDesPrefixes extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       const prefixe = listePrefixes[i][0]
@@ -108,18 +106,20 @@ export default class sensDesPrefixes extends Exercice {
             this,
             i,
             { reponse: { value: prefixe } },
-            { formatInteractif: 'listeDeroulante' },
+            { formatInteractif: 'liste-deroulante' },
           )
           if (this.interactif) {
             texte =
               `${prefixe} : ` +
-              choixDeroulant(this, i, [
-                { label: 'Choisit le bon calcul', value: '' },
-                ...listeDePrefixesDisponibles.map((item) => ({
-                  latex: item[1],
-                  value: item[0],
-                })),
-              ])
+              choixDeroulant(this, i, {
+                choices: [
+                  { label: 'Choisit le bon calcul', value: '' },
+                  ...listeDePrefixesDisponibles.map((item) => ({
+                    latex: item[1],
+                    value: item[0],
+                  })),
+                ],
+              })
           }
           break
         case 'OnPartDuCalcul':
@@ -130,18 +130,20 @@ export default class sensDesPrefixes extends Exercice {
             this,
             i,
             { reponse: { value: prefixe } },
-            { formatInteractif: 'listeDeroulante' },
+            { formatInteractif: 'liste-deroulante' },
           )
           if (this.interactif) {
             texte =
               `$${calcul}$ : ` +
-              choixDeroulant(this, i, [
-                { label: 'Choisit le bon préfixe', value: '' },
-                ...listeDePrefixesDisponibles.map((item) => ({
-                  label: item[0],
-                  value: item[0],
-                })),
-              ])
+              choixDeroulant(this, i, {
+                choices: [
+                  { label: 'Choisit le bon préfixe', value: '' },
+                  ...listeDePrefixesDisponibles.map((item) => ({
+                    label: item[0],
+                    value: item[0],
+                  })),
+                ],
+              })
           }
           break
       }

@@ -25,9 +25,19 @@ function excludeFromBuild(foldersToExclude: string[]) {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
+  optimizeDeps: {
+    include: [
+      '@scratch2latex/scratch-core/ScratchSimulator',
+      'blockly/blocks',
+      'blockly/core',
+      'blockly/javascript',
+      'blockly/msg/en',
+    ],
+    exclude: ['scratch-blocks'],
+  },
   build: {
     target: ['es2020', 'edge88', 'firefox78', 'chrome87', 'safari14'],
-    sourcemap: true,
+    sourcemap: false,
     // Évite de calculer la taille gzip de chaque chunk (coûteux, purement cosmétique)
     reportCompressedSize: false,
     // À partir du 16/11/24 le build est devenu impossible sans options de chunking
@@ -77,7 +87,25 @@ export default defineConfig({
       },
     },
   },
-  server: process.env.CI ? { port: 80, watch: null } : { port: 5173 },
+  server: process.env.CI
+    ? { port: 80, watch: null }
+    : {
+        port: 5173,
+        proxy: {
+          // Sert les images des exercices statiques (annales scannées) en
+          // développement : coopmaths.fr n'envoie pas d'en-têtes CORS, un
+          // fetch direct depuis localhost échouerait sinon (vue Typst).
+          '/alea/static': {
+            target: 'https://coopmaths.fr',
+            changeOrigin: true,
+          },
+        },
+      },
+  // Le worker OMR importe pdf.js, qui est découpé en chunks : le format `iife`
+  // par défaut de Vite interdit ce code-splitting, il faut passer en modules ES.
+  worker: {
+    format: 'es',
+  },
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
     // Injecte dans le bundle final

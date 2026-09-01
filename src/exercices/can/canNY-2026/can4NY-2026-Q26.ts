@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -7,7 +6,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
 export const titre = "Prendre 10 \\% d'une quantité"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'zv53r'
 export const refs = {
   'fr-fr': [],
@@ -29,7 +28,7 @@ export default class CalculsPourcentages2026 extends ExerciceSimple {
   nouvelleVersion() {
     const annee = 2026
     const a = new Decimal(annee).div(
-      this.canOfficielle ? 10 : choice([10, 100, 1000]),
+      this.canOfficielle ? 10 : this.quotaChoice('diviseur', [10, 100, 1000]),
     )
     this.reponse = texNombre(new Decimal(a).div(10), 5)
     this.question = `$10\\,\\%$ de $${texNombre(a, 4)}$`

@@ -16,7 +16,7 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const titre =
   'Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ...'
 
@@ -31,9 +31,9 @@ export const dateDePublication = '04/11/2021'
 export const uuid = '85989'
 
 export const refs = {
-  'fr-fr': ['6N2C-2'],
+  'fr-fr': ['6N2C-2', '6AutoN4-4'],
   'fr-2016': ['6C30-7'],
-  'fr-ch': ['9NO8-13'],
+  'fr-ch': ['PR-23'],
 }
 export default class DiviserUnNombreParPuissanceDeDix extends Exercice {
   constructor() {

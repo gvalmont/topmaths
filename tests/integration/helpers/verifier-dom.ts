@@ -1,15 +1,16 @@
-import { verifQuestionCliqueFigure } from '../../../src/lib/interactif/cliqueFigure'
-import { verifDragAndDrop } from '../../../src/lib/interactif/DragAndDrop'
+import ListeDeroulanteElement from '../../../src/lib/customElements/ListeDeroulanteElement'
 import {
-  verifQuestionMetaInteractif2d,
-  verifQuestionMultiMathfield,
-} from '../../../src/lib/interactif/gestionInteractif'
-import { verifQuestionMathLive } from '../../../src/lib/interactif/mathLive'
-import { verifQuestionQcm } from '../../../src/lib/interactif/qcm'
-import { verifQuestionListeDeroulante } from '../../../src/lib/interactif/questionListeDeroulante'
-import { verifQuestionSvgSelection } from '../../../src/lib/interactif/questionSvgSelection/questionSvgSelection'
-import { verifQuestionTableur } from '../../../src/lib/tableur/outilsTableur'
+  listOfCustomElements,
+  mathaleaCustomElementsRegistry,
+} from '../../../src/lib/customElements/MathaleaCustomElement'
+import { MultiMathfieldElement } from '../../../src/lib/customElements/MultiMathfield'
+import { MySpreadsheetElement } from '../../../src/lib/customElements/MySpreadSheet'
+import { SvgSelectionElement } from '../../../src/lib/customElements/SvgSelectionElement'
+import { verifQuestionCliqueFigure } from '../../../src/lib/customElements/CliqueFigureElement'
+import { DragAndDropElement } from '../../../src/lib/customElements/DragAndDropElement'
+import { MetaInteractif2dElement } from '../../../src/lib/customElements/MetaInteractif2dElement'
 import type { AutoCorrection, IExercice } from '../../../src/lib/types'
+import { interactivityTypeToCustomElementFormat } from '../../../src/lib/types'
 import {
   injectCliqueFigureDOM,
   injectCustomMathPromptDOM,
@@ -128,7 +129,7 @@ function verifyCustomQuestion(
 
   const clockValues = extractClockValuesForCustom(ac)
   const questionText = exercice.listeQuestions[questionIndex] ?? ''
-  if (clockValues != null && questionText.includes('clockEx')) {
+  if (clockValues != null && questionText.includes('interactive-clockEx')) {
     const rawHour = Number.parseInt(clockValues.hour, 10)
     const domHour = Number.isNaN(rawHour)
       ? clockValues.hour
@@ -165,6 +166,31 @@ function verifyCustomQuestion(
   }
 }
 
+function verifyCustomElementQuestion(
+  exercice: IExercice,
+  questionIndex: number,
+  format: string,
+) {
+  const customElementFormat =
+    interactivityTypeToCustomElementFormat(format) ?? format
+  if (!listOfCustomElements.includes(customElementFormat)) {
+    throw Error(`Format custom element inconnu: ${format}`)
+  }
+  const [, elementClasse] =
+    Array.from(mathaleaCustomElementsRegistry).find(
+      (custom) => custom[0] === customElementFormat,
+    ) ?? []
+  if (elementClasse == null) {
+    throw Error(
+      `Classe de custom element non enregistrée pour le format ${customElementFormat}`,
+    )
+  }
+  return {
+    name: `${elementClasse.name}.verifQuestion`,
+    result: elementClasse.verifQuestion(exercice, questionIndex),
+  }
+}
+
 /**
  * Verifies all questions of an exercise by:
  * 1. Reading autoCorrection to get expected answers
@@ -198,7 +224,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
               results.push({
                 questionIndex: i,
                 format,
-                verificationFunctionName: 'verifQuestionMathLive',
+                verificationFunctionName: 'MathaleaCustomElement.verifQuestion',
                 simulatedInput: '',
                 goodAnswer: '',
                 isOk: true,
@@ -209,11 +235,15 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
               break
             }
             injectCustomMathPromptDOM(exIdx, i, promptValues)
-            const result = verifQuestionMathLive(exercice, i)
+            const { name, result } = verifyCustomElementQuestion(
+              exercice,
+              i,
+              format,
+            )
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMathLive',
+              verificationFunctionName: name,
               simulatedInput: stringifyRecord(promptValues),
               goodAnswer: stringifyRecord(promptValues),
               isOk: result?.isOk === true,
@@ -227,7 +257,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMathLive',
+              verificationFunctionName: 'MathaleaCustomElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -243,11 +273,15 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
           const options = valeur?.reponse?.options ?? {}
           const answerStr = toCompareInput(rawAnswer, options)
           injectMathLiveDOM(exIdx, i, answerStr)
-          const result = verifQuestionMathLive(exercice, i)
+          const { name, result } = verifyCustomElementQuestion(
+            exercice,
+            i,
+            format,
+          )
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionMathLive',
+            verificationFunctionName: name,
             simulatedInput: answerStr,
             goodAnswer: rawAnswer,
             isOk: result?.isOk === true,
@@ -262,7 +296,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMathLive',
+              verificationFunctionName: 'MathaleaCustomElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -285,7 +319,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMathLive',
+              verificationFunctionName: 'MathaleaCustomElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -296,11 +330,15 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             break
           }
           injectFillInTheBlankDOM(exIdx, i, champValues)
-          const result = verifQuestionMathLive(exercice, i)
+          const { name, result } = verifyCustomElementQuestion(
+            exercice,
+            i,
+            format,
+          )
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionMathLive',
+            verificationFunctionName: name,
             simulatedInput: stringifyRecord(champValues),
             goodAnswer: stringifyRecord(champValues),
             isOk: result?.isOk === true,
@@ -315,7 +353,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMathLive',
+              verificationFunctionName: 'MathaleaCustomElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -338,7 +376,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMathLive',
+              verificationFunctionName: 'MathaleaCustomElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -349,11 +387,15 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             break
           }
           injectTableauMathliveDOM(exIdx, i, cellValues)
-          const result = verifQuestionMathLive(exercice, i)
+          const { name, result } = verifyCustomElementQuestion(
+            exercice,
+            i,
+            format,
+          )
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionMathLive',
+            verificationFunctionName: name,
             simulatedInput: stringifyRecord(cellValues),
             goodAnswer: stringifyRecord(cellValues),
             isOk: result?.isOk === true,
@@ -380,28 +422,32 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             break
           }
           injectQcmDOM(exIdx, i, propositions)
-          const result = verifQuestionQcm(exercice, i)
+          const { name, result } = verifyCustomElementQuestion(
+            exercice,
+            i,
+            format,
+          )
           const qcmSelections = stringifyQcmSelections(propositions)
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionQcm',
+            verificationFunctionName: name,
             simulatedInput: qcmSelections,
             goodAnswer: qcmSelections,
-            isOk: result === 'OK',
+            isOk: result.isOk,
             feedback: '',
             skipped: false,
           })
           break
         }
 
-        case 'listeDeroulante': {
+        case 'liste-deroulante': {
           const dropdownAnswer = valeur?.reponse?.value
           if (dropdownAnswer == null) {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionListeDeroulante',
+              verificationFunctionName: 'ListeDeroulanteElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -415,33 +461,33 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             ? String(dropdownAnswer[0])
             : String(dropdownAnswer)
           injectListeDeroulanteDOM(exIdx, i, answerStr)
-          const result = verifQuestionListeDeroulante(exercice, i)
+          const result = ListeDeroulanteElement.verifQuestion(exercice, i)
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionListeDeroulante',
+            verificationFunctionName: 'ListeDeroulanteElement.verifQuestion',
             simulatedInput: answerStr,
             goodAnswer: answerStr,
-            isOk: result === 'OK',
+            isOk: result.isOk,
             feedback: '',
             skipped: false,
           })
           break
         }
 
-        case 'svgSelection': {
+        case 'svg-selection': {
           const selectionValue = valeur?.reponse?.value
           if (selectionValue == null) {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionSvgSelection',
+              verificationFunctionName: 'SvgSelectionElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
-              feedback: 'No svgSelection value',
+              feedback: 'No svg-selection value',
               skipped: true,
-              skipReason: 'no-svgSelection-value',
+              skipReason: 'no-svg-selection-value',
             })
             break
           }
@@ -449,14 +495,14 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             ? String(selectionValue[0])
             : String(selectionValue)
           injectSvgSelectionDOM(exIdx, i, answerStr)
-          const result = verifQuestionSvgSelection(exercice, i)
+          const result = SvgSelectionElement.verifQuestion(exercice, i)
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionSvgSelection',
+            verificationFunctionName: 'SvgSelectionElement.verifQuestion',
             simulatedInput: answerStr,
             goodAnswer: answerStr,
-            isOk: result === 'OK',
+            isOk: result.isOk,
             feedback: '',
             skipped: false,
           })
@@ -468,7 +514,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMetaInteractif2d',
+              verificationFunctionName: 'MetaInteractif2dElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -491,7 +537,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMetaInteractif2d',
+              verificationFunctionName: 'MetaInteractif2dElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -502,11 +548,11 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             break
           }
           injectMetaInteractif2dDOM(exIdx, i, fieldValues)
-          const result = verifQuestionMetaInteractif2d(exercice, i)
+          const result = MetaInteractif2dElement.verifQuestion(exercice, i)
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionMetaInteractif2d',
+            verificationFunctionName: 'MetaInteractif2dElement.verifQuestion',
             simulatedInput: stringifyRecord(fieldValues),
             goodAnswer: stringifyRecord(fieldValues),
             isOk: result?.isOk === true,
@@ -516,12 +562,12 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
           break
         }
 
-        case 'multiMathfield': {
+        case 'multi-mathfield': {
           if (!valeur) {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMultiMathfield',
+              verificationFunctionName: 'MultiMathfieldElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -533,11 +579,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
           }
           const fieldValues: Record<string, string> = {}
           for (const [key, answer] of Object.entries(valeur)) {
-            if (
-              key === 'bareme' ||
-              key === 'feedback' ||
-              answer?.value == null
-            ) {
+            if (key === 'bareme' || key === 'feedback' || !answer?.value) {
               continue
             }
             const val = answer.value
@@ -553,7 +595,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionMultiMathfield',
+              verificationFunctionName: 'MultiMathfieldElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -564,11 +606,11 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             break
           }
           injectMultiMathfieldDOM(exIdx, i, fieldValues)
-          const result = verifQuestionMultiMathfield(exercice, i)
+          const result = MultiMathfieldElement.verifQuestion(exercice, i)
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionMultiMathfield',
+            verificationFunctionName: 'MultiMathfieldElement.verifQuestion',
             simulatedInput: stringifyRecord(fieldValues),
             goodAnswer: stringifyRecord(fieldValues),
             isOk: result?.isOk === true,
@@ -579,7 +621,10 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
         }
 
         case 'cliqueFigure': {
-          if (exercice.figures == null || !Array.isArray(exercice.figures[i])) {
+          if (
+            exercice.cliqueFiguresArray == null ||
+            !Array.isArray(exercice.cliqueFiguresArray[i])
+          ) {
             results.push({
               questionIndex: i,
               format,
@@ -595,7 +640,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
           }
 
           const figures: CliqueFigureItem[] = []
-          for (const candidate of exercice.figures[i] as unknown[]) {
+          for (const candidate of exercice.cliqueFiguresArray[i] as unknown[]) {
             if (isCliqueFigureItem(candidate)) {
               figures.push(candidate)
             }
@@ -657,12 +702,12 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
           const dndValeur = toDndValeur(valeur)
           injectDndDOM(exIdx, i, dndValeur)
           ensureDragAndDropQuestion(exercice, i)
-          const result = verifDragAndDrop(exercice, i)
+          const result = DragAndDropElement.verifQuestion(exercice, i)
           const dndAnswer = stringifyDndValeur(dndValeur)
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifDragAndDrop',
+            verificationFunctionName: 'DragAndDropElement.verifQuestion',
             simulatedInput: dndAnswer,
             goodAnswer: dndAnswer,
             isOk: result?.isOk === true,
@@ -672,13 +717,13 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
           break
         }
 
-        case 'tableur': {
+        case 'my-spreadsheet': {
           const sheetAnswer = valeur?.sheetAnswer
           if (!sheetAnswer) {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionTableur',
+              verificationFunctionName: 'MySpreadsheetElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -694,7 +739,7 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             results.push({
               questionIndex: i,
               format,
-              verificationFunctionName: 'verifQuestionTableur',
+              verificationFunctionName: 'MySpreadsheetElement.verifQuestion',
               simulatedInput: '',
               goodAnswer: '',
               isOk: false,
@@ -706,11 +751,11 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
           }
 
           injectTableurDOM(exIdx, i, goodAnswers, testDatas)
-          const result = verifQuestionTableur(exercice, i)
+          const result = MySpreadsheetElement.verifQuestion(exercice, i)
           results.push({
             questionIndex: i,
             format,
-            verificationFunctionName: 'verifQuestionTableur',
+            verificationFunctionName: 'MySpreadsheetElement.verifQuestion',
             simulatedInput: JSON.stringify(goodAnswers),
             goodAnswer: JSON.stringify(goodAnswers),
             isOk: result?.isOk === true,

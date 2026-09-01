@@ -1,4 +1,3 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -6,7 +5,7 @@ import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Ecriture décimale'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'a343q'
 export const refs = {
   'fr-fr': [],
@@ -22,10 +21,14 @@ export default class Can2025N5Q11 extends ExerciceCan {
     let aa = 100
     let bb = 0.1
     if (a == null || b == null || categA == null || categB == null) {
-      a = randint(2, 9)
+      a = this.quotaRandint('a', 2, 9)
       b = randint(2, 9, a)
-      categA = choice(['dizaines', 'centaines', 'milliers'])
-      categB = choice(['dixièmes', 'centièmes', 'millièmes'])
+      categA = this.quotaChoice('categA', ['dizaines', 'centaines', 'milliers'])
+      categB = this.quotaChoice('categB', [
+        'dixièmes',
+        'centièmes',
+        'millièmes',
+      ])
       aa = categA === 'dizaines' ? 10 : categA === 'centaines' ? 100 : 1000
       bb = categB === 'dixièmes' ? 0.1 : categB === 'centièmes' ? 0.01 : 0.001
     }

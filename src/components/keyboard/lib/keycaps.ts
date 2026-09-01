@@ -1,3 +1,4 @@
+import type { KeyCap } from '../types/keycap'
 import {
   areaMetricUnits,
   areaOtherUnits,
@@ -123,7 +124,7 @@ const basicKeys = {
   // ================== symbols
   COMMA: {
     display: ',',
-    insert: '{,}',
+    insert: ',',
   },
   POINT: {
     display: '.',
@@ -591,6 +592,51 @@ const basicKeys = {
     display: '$\\tiny\\text{cent}$',
     insert: '\\text{cent}',
   },
+  // =================== algo
+  AVANCE: {
+    display: '$\\rhd$',
+    insert: '\\rhd',
+  },
+  RECULE: {
+    display: '$\\lhd$',
+    insert: '\\lhd',
+  },
+  TOURNE_DROITE: {
+    display: '$\\rightcirclearrow$',
+    insert: '\\rightcirclearrow',
+  },
+  TOURNE_GAUCHE: {
+    display: '$\\leftcirclearrow$',
+    insert: '\\leftcirclearrow',
+  },
+  DEMITOUR: {
+    display: '$\\leftrightarrows$',
+    insert: '\\leftrightarrows',
+  },
+  NORD: {
+    display: '$\\uparrow$',
+    insert: '\\uparrow',
+  },
+  SUD: {
+    display: '$\\downarrow$',
+    insert: '\\downarrow',
+  },
+  EST: {
+    display: '$\\rightarrow$',
+    insert: '\\rightarrow',
+  },
+  OUEST: {
+    display: '$\\leftarrow$',
+    insert: '\\leftarrow',
+  },
+  REPETE: {
+    display: '$\\looparrowright$',
+    insert: '\\looparrowright',
+  },
+  FIN_REPETE: {
+    display: '$\\looparrowleft$',
+    insert: '\\looparrowleft',
+  },
 }
 
 const massUnitsKeys: Record<string, { display: string; insert: string }> = {}
@@ -622,7 +668,7 @@ for (const unit of [...areaMetricUnits.units, ...areaOtherUnits.units]) {
 
 const volumeUnitsKeys: Record<string, { display: string; insert: string }> = {}
 for (const unit of volumeMetricUnits.units) {
-  const k = `VOLUME' ${unit.symbol}`
+  const k = `VOLUME ${unit.symbol}`
   volumeUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert,
@@ -639,6 +685,45 @@ for (const unit of volumeOtherUnits.units) {
   }
 }
 
+const algoKeys: Record<string, { display: string; insert: string }> = {
+  AVANCE: {
+    display: '$\\rhd$',
+    insert: '\\rhd',
+  },
+  RECULE: {
+    display: '$\\lhd$',
+    insert: '\\lhd',
+  },
+  TOURNE_DROITE: {
+    display: '$\\circlearrowright$',
+    insert: '\\circlearrowright',
+  },
+  TOURNE_GAUCHE: {
+    display: '$\\circlearrowleft$',
+    insert: '\\circlearrowleft',
+  },
+  DEMITOUR: {
+    display: '$\\leftrightarrows$',
+    insert: '\\leftrightarrows',
+  },
+  NORD: {
+    display: '$\\uparrow$',
+    insert: '\\uparrow',
+  },
+  SUD: {
+    display: '$\\downarrow$',
+    insert: '\\downarrow',
+  },
+  EST: {
+    display: '$\\rightarrow$',
+    insert: '\\rightarrow',
+  },
+  OUEST: {
+    display: '$\\leftarrow$',
+    insert: '\\leftarrow',
+  },
+}
+
 export const keys = {
   ...basicKeys,
   ...lengthUnitsKeys,
@@ -646,4 +731,15 @@ export const keys = {
   ...areaUnitsKeys,
   ...volumeUnitsKeys,
   ...capacityUnitsKeys,
+  ...algoKeys,
+}
+
+/**
+ * Ajoute une touche définie à la volée, question par question, par un exercice
+ * (voir `touchesPersonnalisees.ts`). `keys` reste ainsi l'unique table
+ * consultée par les composants du clavier : pas de second chemin de résolution
+ * à maintenir dans `BlockOfKeycaps` ou `Alphanumeric`.
+ */
+export function ajouteTouche(nom: string, touche: KeyCap): void {
+  Object.assign(keys, { [nom]: touche })
 }

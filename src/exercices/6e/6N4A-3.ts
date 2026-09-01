@@ -3,10 +3,10 @@ import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import { latex2d } from '../../lib/2d/textes'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -22,7 +22,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes algébriques avec des balances'
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 export const dateDePublication = '3/06/2025'
 
@@ -113,7 +112,7 @@ export default class ResoudreDesProblemes extends Exercice {
       melange: 5,
       defaut: 5,
     }).map(Number)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = 'On a effectué deux pesées :<br>'
       let texteCorr = ''
       const [fruit1, fruit2] = combinaisonListes(items, 2)
@@ -189,12 +188,10 @@ export default class ResoudreDesProblemes extends Exercice {
         mathalea2d(
           Object.assign(
             {
-              style: context.isHtml
-                ? 'display: block'
-                : 'display: inline-block',
+              display: context.isHtml ? 'block' : 'inline-block',
               pixelsParCm: 30,
               scale: 1,
-            },
+            } as const,
             fixeBordures(objetsA, {
               rxmin: 0,
               rymin: 0,
@@ -208,12 +205,10 @@ export default class ResoudreDesProblemes extends Exercice {
         mathalea2d(
           Object.assign(
             {
-              style: context.isHtml
-                ? 'display: block'
-                : 'display: inline-block',
+              display: context.isHtml ? 'block' : 'inline-block',
               pixelsParCm: 30,
               scale: 1,
-            },
+            } as const,
             fixeBordures(objetsB, {
               rxmin: 0,
               rymin: 0,
@@ -232,7 +227,7 @@ export default class ResoudreDesProblemes extends Exercice {
             rxmax: 0,
             rymax: 0,
           }),
-          { style: 'display: inline-block', pixelsParCm: 23, scale: 0.5 },
+          { display: 'inline-block' as const, pixelsParCm: 23, scale: 0.5 },
         ),
         [shape1.shapeDef, shape1.shape2D],
       )
@@ -245,7 +240,7 @@ export default class ResoudreDesProblemes extends Exercice {
             rxmax: 0,
             rymax: 0,
           }),
-          { style: 'display: inline-block', pixelsParCm: 23, scale: 0.5 },
+          { display: 'inline-block' as const, pixelsParCm: 23, scale: 0.5 },
         ),
         [shape2.shapeDef, shape2.shape2D],
       )
@@ -254,8 +249,14 @@ export default class ResoudreDesProblemes extends Exercice {
         dataTemplate: `Quelle est la masse  d'${shape1.articleSingulier} ${shape1.nomSingulier} ? %{champ1}<br>
         Quelle est la masse d'${shape2.articleSingulier} ${shape2.nomSingulier} ? %{champ2}`,
         dataOptions: {
-          champ1: { keyboard: KeyboardType.masse, texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' },
-          champ2: { keyboard: KeyboardType.masse, texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' },
+          champ1: {
+            keyboard: KeyboardType.masse,
+            texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
+          },
+          champ2: {
+            keyboard: KeyboardType.masse,
+            texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
+          },
         },
       }).replaceAll(': $\\ldots\\ldots$', '')
 
@@ -273,7 +274,7 @@ export default class ResoudreDesProblemes extends Exercice {
             options: { unite: true },
           },
         },
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       switch (niveaux[i]) {

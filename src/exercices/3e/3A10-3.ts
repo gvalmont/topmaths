@@ -1,6 +1,7 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { warnMessage } from '../../lib/format/message'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
@@ -16,11 +17,9 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const titre = 'Décomposer un entier en produit de facteurs premiers'
@@ -37,7 +36,7 @@ export const uuid = '32f33'
 
 export const refs = {
   'fr-fr': ['3A10-3'],
-  'fr-ch': ['9NO4-17', '1mCN-2'],
+  'fr-ch': ['10NO1A-4', '1mCN-2'],
 }
 export default class DecompositionFacteursPremiers extends Exercice {
   constructor() {
@@ -46,8 +45,8 @@ export default class DecompositionFacteursPremiers extends Exercice {
     // pas de différence entre la version html et la version latex pour la consigne
     // mais une différence selon que l'exo est affiché en interactif ou non
 
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = 2
+    this.spacingCorr = context.isHtml ? 2 : 1
     this.nbQuestions = 3
     // this.correctionDetailleeDisponible = true;
 
@@ -90,7 +89,7 @@ export default class DecompositionFacteursPremiers extends Exercice {
     })
     // Fin du rajout EE
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeDesProblemes[i]
       let nombre = 0
       let reponse = ''
@@ -199,7 +198,7 @@ export default class DecompositionFacteursPremiers extends Exercice {
 
             texteCorr += '$.'
             nombre = nombreTodecompose
-            setReponse(this, i, reponse)
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
         case 2: // deux premiers compris entre 30 et 100 de multiplicité 1
@@ -239,7 +238,7 @@ export default class DecompositionFacteursPremiers extends Exercice {
             texteCorr += ` D'où $${texNombre(premier1 * premier2)} = ${texNombre(premier1)}\\times${texNombre(premier2)}$.`
             reponse = `${premier1}\\times${premier2}`
             nombre = premier1 * premier2
-            setReponse(this, i, reponse)
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
         case 3: // un gros premier entre 1000 et 2000
@@ -262,7 +261,7 @@ export default class DecompositionFacteursPremiers extends Exercice {
 
             reponse = `${premier}`
             nombre = premier
-            setReponse(this, i, reponse)
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
       }

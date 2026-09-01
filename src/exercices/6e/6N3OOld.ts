@@ -18,7 +18,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Comprendre le sens d'un pourcentage"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '22/07/2025'
 
 /** Comprendre le sens d'un pourcentage
@@ -29,7 +29,7 @@ export const uuid = '44e23'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 export default class ComprendreSensPourcentage extends Exercice {
@@ -125,7 +125,7 @@ export default class ComprendreSensPourcentage extends Exercice {
     }).map(Number)
 
     let pourcentage = 0
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texteCorr = ''
       const texteAvant = []
       let texteApres = ''
@@ -286,7 +286,7 @@ export default class ComprendreSensPourcentage extends Exercice {
         case 12:
           unites = 'kWh'
           pourcentage = randint(3, 29, [10, 20])
-          texteAvant[0] = `Si un appareil utilise $${pourcentage}\\ \\%$ de l'énergie d'un foyer, alors pour $100$ kilowattheures (kWh), cet appareil consomme`
+          texteAvant[0] = `Si un appareil utilise $${pourcentage}\\ \\%$ de l'énergie d'un foyer, alors pour $100$ kilowatt-heures (kWh), cet appareil consomme`
           texteApres = `${unites}.<br>`
 
           texteAvant[1] = `On peut en déduire que pour $${multiplePour100[i] * 100}$ kWh, cet appareil consomme`

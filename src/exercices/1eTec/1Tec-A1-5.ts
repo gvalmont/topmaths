@@ -4,7 +4,7 @@ import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Travailler sur les proportions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
@@ -16,7 +16,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'c7270'
 
 export const refs = {
-  'fr-fr': ['2S10-9'],
+  'fr-fr': ['2I10-9'],
   'fr-ch': [],
 }
 export default class Proportion extends ExerciceSimple {

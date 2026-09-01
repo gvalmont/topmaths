@@ -1,8 +1,8 @@
 import FabriqueAYohaku from '../6e/_Yohaku'
 export const titre =
-  'Résoudre un Yohaku multiplicatif expressions littérales niveau 1'
+  'Résoudre un Yohaku multiplicatif avec des expressions littérales'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -13,7 +13,7 @@ export const uuid = '1f9b4'
 
 export const refs = {
   'fr-fr': ['3L11-8'],
-  'fr-ch': ['11FA2-14'],
+  'fr-ch': ['10FA4F-7'],
 }
 /**
  * @author Jean-claude Lhote

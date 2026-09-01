@@ -1,16 +1,17 @@
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
+import { choixDeroulant } from '../../../lib/customElements/ListeDeroulanteElement'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../../lib/interactif/questionListeDeroulante'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
 import { spline, type NoeudSpline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { bleuMathalea } from '../../../lib/colors'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
+
 export const titre =
   "Dresser le tableau de signes d'une fonction dérivée à partir d'un graphique"
 export const dateDePublication = '18/11/2023'
@@ -161,7 +162,7 @@ export default class SignesTabGSpline extends Exercice {
     Dresser le tableau de signes de sa fonction dérivée $f^\\prime$.<br>` +
         mathalea2d(
           Object.assign(
-            { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
+            { pixelsParCm: 30, scale: 0.55, center: !context.isHtml },
             { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 },
           ),
           objetsEnonce,
@@ -171,7 +172,7 @@ export default class SignesTabGSpline extends Exercice {
         texte = "Voici la représentation graphique d'une fonction $f$ :<br>"
         texte += mathalea2d(
           Object.assign(
-            { pixelsParCm: 30, scale: 0.55, style: 'margin: auto' },
+            { pixelsParCm: 30, scale: 0.55, center: !context.isHtml },
             { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 },
           ),
           objetsEnonce,
@@ -182,11 +183,13 @@ export default class SignesTabGSpline extends Exercice {
         texte += choixInteractif
         texte +=
           '<br> Réponse : ' +
-          choixDeroulant(this, i, [
-            { label: 'Choisir la réponse', value: '' },
-            { label: 'Vrai', value: 'Vrai' },
-            { label: 'Faux', value: 'Faux' },
-          ])
+          choixDeroulant(this, i, {
+            choices: [
+              { label: 'Choisir la réponse', value: '' },
+              { label: 'Vrai', value: 'Vrai' },
+              { label: 'Faux', value: 'Faux' },
+            ],
+          })
         handleAnswers(this, i, {
           reponse: {
             value: choixInteractif === tableauD ? 'Vrai' : 'Faux',

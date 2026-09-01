@@ -2,6 +2,7 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.calcul.test.ts ⚠️
  */
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -23,13 +24,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Utiliser la simple distributivité'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCHybride'
 export const amcReady = true
 export const dateDeModifImportante = '10/06/2024'
@@ -57,8 +56,8 @@ export const dateDeModifImportante = '10/06/2024'
 export const uuid = 'db2e0'
 
 export const refs = {
-  'fr-fr': ['3L11', '3AutoN13-1'],
-  'fr-ch': ['10FA2-2', '11FA2-2'],
+  'fr-fr': ['3L11', '3AutoL03-1'],
+  'fr-ch': ['10FA4D-3'],
 }
 export default class ExerciceDevelopper extends Exercice {
   constructor() {

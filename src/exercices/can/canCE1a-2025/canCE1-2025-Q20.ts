@@ -6,11 +6,10 @@ import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 
 export const titre = 'Déterminer une abscisse sur une droite graduée'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '76dc1'
 export const refs = {
   'fr-fr': [],
@@ -58,7 +57,7 @@ export default class Can2025CE1Q20 extends ExerciceSimple {
         xmax: 12,
         ymax: 1.5,
         scale: 0.6,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
     )
@@ -76,7 +75,7 @@ export default class Can2025CE1Q20 extends ExerciceSimple {
         xmax: 12.2,
         ymax: 1.5,
         scale: 0.38,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       d,
     )

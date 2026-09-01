@@ -1,11 +1,10 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-import { sp } from '../../../lib/outils/outilString'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import { sp } from '../../../lib/outils/outilString'
+import { texNombre } from '../../../lib/outils/texNombre'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un multiple'
-export const interactifType = 'qcm'
+
 export const uuid = '82a2f'
 export const refs = {
   'fr-fr': [],
@@ -25,7 +24,7 @@ export default class diviseur extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = choice([9, 27, 25, 75, 6, 13, 17, 7, 11, 15])
+    const a = this.quotaChoice('a', [9, 27, 25, 75, 6, 13, 17, 7, 11, 15])
 
     const correctionOui = `${texteEnCouleurEtGras('Oui')}, $${a}$ est un diviseur de $${texNombre(2025, 0)}$ car `
     this.question = `$${a}$ est-il un diviseur de $${texNombre(2025, 0)}$ ? <br>

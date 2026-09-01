@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -10,7 +10,7 @@ import Exercice from '../Exercice'
 export const titre = 'Effectuer la somme de deux nombres mariés et un entier'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCNum'
 
 /**
@@ -62,7 +62,7 @@ export default class SommeDeDeuxNombresMariesEtUnEntier extends Exercice {
           texteCorr = `$${a}+${c}+${b}=${miseEnEvidence(texNombre(a + b + c))}$`
           break
       }
-      setReponse(this, i, a + b + c)
+      handleAnswers(this, i, { reponse: { value: a + b + c } })
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       } else {

@@ -11,15 +11,15 @@ import {
 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { abs } from '../../../lib/outils/nombres'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 
+import { bleuMathalea } from '../../../lib/colors'
 import { egal, randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
@@ -30,7 +30,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const uuid = 'f554f'
 
 export const refs = {
-  'fr-fr': ['can3F08'],
+  'fr-fr': ['can3F08', 'can2F21-08', '2F21-flash2'],
   'fr-ch': [],
 }
 export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
@@ -44,8 +44,8 @@ export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
   nouvelleVersion() {
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1, 'milieu', true)
     let s1, s2
-    const a = randint(-5, 5, [0, 4]) // numérateut coefficient directeur non nul
-    const b = randint(-2, 2) // ordonnée à l'origine
+    const a = this.quotaRandint('a', -5, 5, [0, 4]) // numérateut coefficient directeur non nul
+    const b = this.quotaRandint('b', -2, 2) // ordonnée à l'origine
     const d = randint(2, 5, [-a, a, 2 * a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
     const r = repere({ xMin: -5, yMin: -5, xMax: 6, yMax: 5 })
     const c = droite(a / d, -1, b)
@@ -62,7 +62,7 @@ export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
         ymax: 5,
         pixelsParCm: 20,
         scale: 0.7,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       r,
       c,
@@ -106,7 +106,7 @@ export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
           ymax: 5,
           pixelsParCm: 20,
           scale: 0.7,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         r,
         s1,
@@ -127,7 +127,7 @@ export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
         ymax: 5,
         pixelsParCm: 20,
         scale: 0.7,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       r,
       c,

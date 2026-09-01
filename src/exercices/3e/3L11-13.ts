@@ -1,10 +1,10 @@
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   all,
   isEqual,
-  onlyIrreducibleFractions,
   isReduced,
+  onlyIrreducibleFractions,
 } from '../../lib/interactif/checks'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
@@ -22,7 +22,6 @@ import Exercice from '../Exercice'
 export const titre = 'Additionner et soustraire des polynômes'
 export const dateDePublication = '19/08/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Réduire une expression littérale
@@ -32,7 +31,7 @@ export const interactifType = 'mathLive'
 export const uuid = '4b495'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['11FA1-9', '1mCL1-12'],
+  'fr-ch': ['10FA4E-4', '1mCL1-12'],
 }
 
 export default class nomExercice extends Exercice {
@@ -95,7 +94,7 @@ export default class nomExercice extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte, texteCorr: string
       const degMax = Math.max(this.sup3, 1)
       const variables = ['x', 'y', 'z', 'r', 's', 't']

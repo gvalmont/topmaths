@@ -1,13 +1,12 @@
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de reste*'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '01/08/2022'
 export const dateDeModifImportante = '03/07/2025'
 /**
@@ -16,7 +15,7 @@ export const dateDeModifImportante = '03/07/2025'
 export const uuid = '6e1de'
 
 export const refs = {
-  'fr-fr': ['can6C36', '6N2A-flash7'],
+  'fr-fr': ['can6C36', '6N2A-flash7', '5N1D-flash1'],
   'fr-ch': [],
 }
 export default class PetitsProblemeReste2 extends ExerciceSimple {
@@ -29,7 +28,7 @@ export default class PetitsProblemeReste2 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    switch (choice([1, 2])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2])) {
       case 1:
         {
           const a = randint(6, 10) * 10

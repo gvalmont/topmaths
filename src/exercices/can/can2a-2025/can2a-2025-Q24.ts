@@ -5,12 +5,13 @@ import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Déterminer un coefficient de colinéarité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '02332'
 export const refs = {
   'fr-fr': [],
@@ -61,7 +62,7 @@ export default class CoefficientDeColinearite extends ExerciceSimple {
           mainlevee: false,
           amplitude: 0.5,
           scale: 0.5,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         objets,
       ) + '<br>Compléter :'
@@ -80,7 +81,7 @@ export default class CoefficientDeColinearite extends ExerciceSimple {
         mainlevee: false,
         amplitude: 0.5,
         scale: 0.5,
-        style: 'margin: auto',
+        center: !context.isHtml,
       },
       objets,
     )

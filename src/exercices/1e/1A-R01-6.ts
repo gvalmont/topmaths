@@ -6,11 +6,11 @@ export const dateDePublication = '31/01/2026'
 export const uuid = '56f8a'
 // @Author Gilles Mora
 export const refs = {
-  'fr-fr': ['1A-R01-6'],
+  'fr-fr': ['1A-R01-6', '2A-R1-6'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Calculer un effectif à partir d'une proportion"
@@ -29,7 +29,7 @@ export default class EffectifProportion extends ExerciceQcmA {
     const bonneReponse = total * proportion
 
     this.enonce =
-      `Une boîte contient $${total}$ billes. <br>Dans cette boîte la proportion de billes vertes est égale à $${proportion}$.<br> ` +
+      `Une boîte contient $${total}$ billes. <br>Dans cette boîte, la proportion de billes vertes est égale à $${proportion}$.<br> ` +
       `Le nombre de billes vertes dans la boîte est égal à :`
 
     this.correction =
@@ -138,7 +138,7 @@ export default class EffectifProportion extends ExerciceQcmA {
     }
 
     this.enonce =
-      `${conteneur} contient $${total}$ ${contexte.pluriel}. <br>${contexte.dans.charAt(0).toUpperCase() + contexte.dans.slice(1)} ` +
+      `${conteneur} contient $${total}$ ${contexte.pluriel}. <br>${contexte.dans.charAt(0).toUpperCase() + contexte.dans.slice(1)}, ` +
       `la proportion de ${contexte.pluriel} ${contexte.attribut} est égale à $${texNombre(proportion, 1)}$.<br> ` +
       `Le nombre de ${contexte.pluriel} ${contexte.attribut} ${contexte.dans} est égal à :`
 

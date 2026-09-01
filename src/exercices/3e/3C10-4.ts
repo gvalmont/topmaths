@@ -7,12 +7,11 @@ import Exercice from '../Exercice'
 
 export const titre = 'Lire une puissance'
 export const interactifReady = true
-export const interactifType = 'dnd'
 export const dateDePublication = '12/11/2024'
 export const uuid = 'a9001'
 export const refs = {
   'fr-fr': ['3C10-4'],
-  'fr-ch': ['9NO5-0'],
+  'fr-ch': ['NR'],
 }
 /**
  * @Author Jean-Claude LHOTE
@@ -51,7 +50,7 @@ export default class LireUnePuissance extends Exercice {
         { id: '15', contenu: 'puissance' },
       ],
     ]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const mantisse = randint(2, 9) * (this.sup ? choice([1, -1]) : 1)
       const mantisseEnLettres = `${mantisse < 0 ? 'moins ' : ''}${nombreEnLettres(Math.abs(mantisse))}`
       const mantisseEtiquette = etiquettes[0].find(
@@ -80,7 +79,7 @@ export default class LireUnePuissance extends Exercice {
       const value = `"${mantisseEnLettres} exposant ${exposantEnLettres}" ou "${mantisseEnLettres} à la puissance ${exposantEnLettres}"`
       const texteCorr = `$${mantisse < 0 ? `(${String(mantisse)})` : String(mantisse)}^{${exposant}}$ se lit : ${value}.`
       if (this.questionJamaisPosee(i, mantisse, exposant)) {
-        this.dragAndDrops.push(leDragAndDrop)
+        this.dragAndDrops[i] = leDragAndDrop
         this.listeQuestions[i] =
           `${texte} ${this.interactif ? leDragAndDrop.ajouteDragAndDrop({ melange: false, duplicable: true }) : ''}`
         const values: string[] = []

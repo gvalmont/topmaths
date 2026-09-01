@@ -24,7 +24,8 @@ import { TracePoint } from '../../lib/2d/TracePoint'
 import { projectionOrtho, symetrieAxiale } from '../../lib/2d/transformations'
 import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import type { Vide2d } from '../../lib/2d/Vide2d'
-import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
+import { bleuMathalea } from '../../lib/colors'
+import figureApigeom from '../../lib/figureApigeom'
 import {
   choice,
   combinaisonListes,
@@ -36,20 +37,19 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { egal, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
+import { figureAnswerJson } from '../../lib/apigeom/figureAnswer'
 
 export const titre = 'Construire des symétriques de points'
 export const dateDePublication = '07/01/2024'
 export const dateDeModifImportante = '15/04/2025'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 export const uuid = '26ea4'
 
 export const refs = {
   'fr-fr': ['6G7A'],
   'fr-2016': ['6G24-0'],
-  'fr-ch': ['9ES6-11'],
+  'fr-ch': ['9ES3B-1'],
 }
 
 /**
@@ -347,14 +347,15 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         this.figuresApiGeom[i] = new Figure({
           xMin: -10,
           yMin: -10,
-          width: 300,
-          height: 300,
+          // `width`/`height` sont exprimées à l'échelle 1 : `scale` les réduit
+          // ensuite, d'où un SVG de 300×300 px pour une fenêtre de 20×20
+          // unités ([-10;10]²).
+          width: 600,
+          height: 600,
           border: true,
           scale: 0.5,
           snapGrid: this.sup2 === 1,
         })
-        if (isFigureArray(this.figures))
-          this.figures.push(this.figuresApiGeom[i])
         this.figuresApiGeom[i].options.labelAutomaticForPoints = true
         this.figuresApiGeom[i].options.labelAutomaticBeginsWith =
           this.labels[i][0] + "'"
@@ -495,9 +496,12 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
+    if (i === undefined || this.figuresApiGeom === undefined) return ['KO']
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom[i].id] = figureAnswerJson(
+      this.figuresApiGeom[i],
+    )
     const resultat = []
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,

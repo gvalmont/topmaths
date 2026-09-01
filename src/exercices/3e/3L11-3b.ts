@@ -10,19 +10,18 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   doubleDeveloppement,
   reduirePolynomeDegre3,
 } from '../../lib/outils/ecritures'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = 'Additionner des expressions à développer'
 export const dateDePublication = '03/02/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcType = 'AMCHybride'
 export const amcReady = true
 
@@ -33,8 +32,8 @@ export const amcReady = true
 export const uuid = 'd28ff'
 
 export const refs = {
-  'fr-fr': ['3L11-3b', 'BP2AutoI6'],
-  'fr-ch': [''], // déjà référencé dans un autre exercice
+  'fr-fr': ['3L11-3b', 'BP2AutoI6', 'BP1AUTO080'],
+  'fr-ch': ['10FA4F-6', '11FA4A-10'], // déjà référencé dans un autre exercice
 }
 
 export default class MultipleDistributivite extends Exercice {

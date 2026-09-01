@@ -10,14 +10,13 @@ import Exercice from '../Exercice'
 export const titre =
   "Déterminer la moyenne et la médiane d'une série statistique"
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const dateDePublication = '6/1/2022'
 
 export const uuid = '9a574'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': [],
+  'fr-ch': ['NR'],
 }
 
 /**

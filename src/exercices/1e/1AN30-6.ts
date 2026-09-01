@@ -1,11 +1,11 @@
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { createList } from '../../lib/format/lists'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -14,7 +14,6 @@ export const titre =
   'Résoudre des inéquations produit avec la fonction exponentielle'
 export const dateDePublication = '23/05/2026'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Résoudre des inéquations produit avec des exponentielles, sans logarithme.
@@ -24,7 +23,7 @@ export const interactifType = 'mathLive'
 export const uuid = '61ed3'
 
 export const refs = {
-  'fr-fr': ['1AN30-6'],
+  'fr-fr': ['1AN30-6', 'TSA3-24', 'TCA7-24'],
   'fr-ch': [''],
 }
 
@@ -100,18 +99,14 @@ function facteurAffine(a: number, b: number): FacteurInequation {
   const expression = reduireAxPlusB(a, b)
   const zero = resolutionAffine(a, b)
   const signeApresDivision = a > 0 ? '>' : signeInverse('>')
-  const etapeCoefficient =
-    a === 1
-      ? ''
-      : `\\\\
-    &\\iff ${rienSi1(a)}x>${-b}`
+  const etapeCoefficient = a === 1 ? '' : `&\\iff ${rienSi1(a)}x>${-b}\\\\`
   return {
     nom: expression,
     fonction: (x: number) => a * x + b,
     zero,
     resolution: `On résout :<br>$\\begin{aligned}
-    ${expression}>0
-    ${etapeCoefficient}\\\\
+    ${expression}>0\\\\
+    ${etapeCoefficient}
     &\\iff x${signeTex(signeApresDivision)}${zero.texFractionSimplifiee}
     \\end{aligned}$`,
   }
@@ -126,10 +121,7 @@ function facteurExponentiel(
   const zero = resolutionExponentielle(a, b, cible)
   const signeApresDivision = a > 0 ? '>' : signeInverse('>')
   const etapeCoefficient =
-    a === 1
-      ? ''
-      : `\\\\
-    \\iff& ${rienSi1(a)}x>${cible.exposant - b}\\\\`
+    a === 1 ? '' : `\\iff& ${rienSi1(a)}x>${cible.exposant - b}\\\\`
   return {
     nom: `\\mathrm{e}^{${expression}}-${cible.tex}`,
     fonction: (x: number) => Math.exp(a * x + b) - Math.exp(cible.exposant),
@@ -138,7 +130,7 @@ function facteurExponentiel(
     \\phantom{\\iff}&\\mathrm{e}^{${expression}}-${cible.tex}>0\\\\
     \\iff &\\mathrm{e}^{${expression}}>${cible.tex}\\\\
     \\iff &\\mathrm{e}^{${expression}}>\\mathrm{e}^{${cible.exposant}}\\\\
-    \\iff &${expression}>${cible.exposant}${proprieteCroissanceExponentielle('>')}
+    \\iff &${expression}>${cible.exposant}${proprieteCroissanceExponentielle('>')}\\\\
    ${etapeCoefficient}
     \\iff &x${signeTex(signeApresDivision)}${zero.texFractionSimplifiee}
     \\end{aligned}$`,
@@ -345,7 +337,7 @@ export default class InequationsProduitExponentielles extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(-8, 8, 0)
       const b = randint(-6, 6)
       const c = randint(-8, 8, 0)

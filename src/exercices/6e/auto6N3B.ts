@@ -12,10 +12,10 @@ export const titre =
   'Connaître, de façon automatique, les liens entre 1/4, 1/2 et 3/4'
 export const dateDePublication = '10/07/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'e32d0'
 export const refs = {
-  'fr-fr': ['auto6N3B'],
+  'fr-fr': ['auto6N3B', '6AutoF3'],
   'fr-2016': ['6N22-4'],
   'fr-ch': [],
 }
@@ -52,7 +52,7 @@ export default class ConnaitreQuart extends Exercice {
           ? shuffle(rangeMinMax(9, 22))
           : shuffle(range1(22))
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let reponse = ''

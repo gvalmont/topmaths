@@ -4,13 +4,12 @@ import Pyramide from '../../../modules/pyramide'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer dans une pyramide additive avec des fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '28/03/2026'
@@ -20,7 +19,7 @@ export const dateDePublication = '28/03/2026'
 export const uuid = '109ad'
 
 export const refs = {
-  'fr-fr': ['can5C35'],
+  'fr-fr': ['can5C35', 'auto5N3H-flash1'],
   'fr-ch': [],
 }
 export default class Pyramide3Etages extends ExerciceSimple {
@@ -37,7 +36,7 @@ export default class Pyramide3Etages extends ExerciceSimple {
       nombreEtages: 3,
       rangeData: [
         [1, 10],
-        choice([
+        this.quotaChoice('range', [
           [5, 10],
           [2, 6],
           [4, 8],

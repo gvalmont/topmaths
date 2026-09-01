@@ -15,6 +15,7 @@ import {
 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -22,18 +23,15 @@ import Exercice from '../../Exercice'
 
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 
-export const titre = 'CAN seconde sujet 2022'
+export const titre = 'S’entraîner avec le sujet CAN Seconde 2022'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '13/07/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -102,7 +100,7 @@ export default class SujetCAN2022Seconde extends Exercice {
       [5, 8],
     ]
 
-    for (let i = 0, index = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, index = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a = 0
       let b = 0
       let c = 0
@@ -126,7 +124,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           }
           texteCorr = `$${a} \\times ${texNombre(b, 1)}=${a}\\times ${texNombre(b * 10, 0)}\\times 0,1=${texNombre(a * b, 1)}$`
           reponse = arrondi(a * b)
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -191,7 +189,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           texteCorr = `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}=${reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d)}$`
           reponse = [`${a * c}x^2+${b * c + a * d}x+${b * d}`]
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -218,7 +216,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texte = `Donner l'écriture décimale de :  $${a}+${b}\\times10^{${c}}$`
             texteCorr = `$${a}+${b}\\times10^{${c}}=${a}+${texNombre(b * 10 ** c, 3)}=${texNombre(reponse, 3)}$`
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
 
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
@@ -318,7 +316,7 @@ export default class SujetCAN2022Seconde extends Exercice {
                                                                                              $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`
             }
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte +=
               ajouteChampTexteMathLive(
@@ -362,7 +360,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           texteCorr = `
             Pour $x=${a}$, on obtient : $${reduirePolynomeDegre3(0, 1, 0, c)}=(${a})^2${ecritureAlgebrique(c)}=${reponse}$.
                       `
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -394,7 +392,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             $${a}${sp(3)}; ${sp(3)}${b}${sp(3)}; ${sp(3)}${c}${sp(3)}; ${sp(3)}${d}$.`
           texteCorr = `La moyenne est donnée par : $\\dfrac{${a}+${b}+${c}+${d}}{4}=\\dfrac{${reponse * 4}}{4}=${reponse}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -416,7 +414,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             $${p}$ $\\%$ de $${a}=${texNombre(p / 10, 0)}\\times ${texNombre(a / 10, 0)}=${texNombre(reponse, 0)}$.
            `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -477,7 +475,7 @@ export default class SujetCAN2022Seconde extends Exercice {
   Ici : $${texNombre(a, 3)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-2}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 2}}$.
 `
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -542,7 +540,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             }
           }
           if (this.interactif) {
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             texte += ajouteChampTexteMathLive(
               this,
               index,
@@ -571,7 +569,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texte += ' $\\ldots$'
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           nbChamps = 1
 
           break
@@ -581,7 +579,9 @@ export default class SujetCAN2022Seconde extends Exercice {
           if (choix === 'a') {
             texte = `Vrai ou faux<br>
          Le volume d'un cube est proportionnel à la longueur de son arête.`
-            setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
+            handleAnswers(this, index, {
+              reponse: { value: ['F', 'f'], options: { texteAvecCasse: true } },
+            })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
@@ -592,7 +592,9 @@ export default class SujetCAN2022Seconde extends Exercice {
           } else if (choix === 'b') {
             texte = `Vrai ou faux<br>
          L'aire d'un disque est proportionnelle à son rayon.`
-            setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
+            handleAnswers(this, index, {
+              reponse: { value: ['F', 'f'], options: { texteAvecCasse: true } },
+            })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
@@ -603,7 +605,9 @@ export default class SujetCAN2022Seconde extends Exercice {
           } else if (choix === 'c') {
             texte = `Vrai ou faux<br>
          L'aire d'un rectangle de largeur constante est proportionnelle à sa longueur.`
-            setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
+            handleAnswers(this, index, {
+              reponse: { value: ['V', 'v'], options: { texteAvecCasse: true } },
+            })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
@@ -618,7 +622,9 @@ export default class SujetCAN2022Seconde extends Exercice {
          Je suis allé $${n}$ fois à la piscine. Le prix de l'entrée est $${a}$ euros.<br>
          Pour obtenir le prix total payé, le calcul est : $${n}\\times ${a}$.<br>
          Le prix et le nombre d'entrées à la piscine sont proportionnels.`
-            setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
+            handleAnswers(this, index, {
+              reponse: { value: ['V', 'v'], options: { texteAvecCasse: true } },
+            })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
@@ -633,7 +639,9 @@ export default class SujetCAN2022Seconde extends Exercice {
          Je suis allé $${n}$ fois à la piscine. Le prix de l'entrée est $${a}$ euros et l'abonnement est $${b}$ euros.<br>
          Pour obtenir le prix total payé, le calcul est : $${n}\\times ${a}+${b}$.<br>
          Le prix et le nombre d'entrées à la piscine sont proportionnels.`
-            setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
+            handleAnswers(this, index, {
+              reponse: { value: ['F', 'f'], options: { texteAvecCasse: true } },
+            })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
@@ -643,7 +651,9 @@ export default class SujetCAN2022Seconde extends Exercice {
           } else if (choix === 'f') {
             texte = `Vrai ou faux<br>
          Le périmètre d'un rectangle est proportionnel à la longueur de de ce rectangle.`
-            setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
+            handleAnswers(this, index, {
+              reponse: { value: ['F', 'f'], options: { texteAvecCasse: true } },
+            })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
@@ -654,7 +664,9 @@ export default class SujetCAN2022Seconde extends Exercice {
           } else {
             texte = `Vrai ou faux<br>
          Le périmètre d'un carré  est proportionnel à la longueur de son côté.`
-            setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
+            handleAnswers(this, index, {
+              reponse: { value: ['V', 'v'], options: { texteAvecCasse: true } },
+            })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
@@ -675,7 +687,7 @@ export default class SujetCAN2022Seconde extends Exercice {
              `
           texteCorr = `$1-${f.texFraction}=1-${texNombre(a / 100, 2)}=${texNombre(reponse, 2)}$`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -706,7 +718,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texteCorr = `$1\\text{ m}^3 = 1000$ L, donc  $${texNombre(a, 2)}\\text{ m}^3=${texNombre(a, 2)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 2)}$ L`
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -736,7 +748,7 @@ export default class SujetCAN2022Seconde extends Exercice {
                               x&=${x}
          \\end{aligned}$<br>
           $${reduireAxPlusB(m, p)}=${m * x + p}$ a pour solution $${x}$ donc l'antécédent de $${m * x + p}$ par $f$ est $${x}$.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
                 this,
@@ -777,7 +789,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la distance parcourue est $${a}\\div 3=${a / 3}\\text{ km}$.<br>
             Donc en $${h}$ h $20$ min, la distance parcourue est $(${a * h}+${a / 3})\\text{ km}$, soit $${a * h + a / 3}\\text{ km}$.       `
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -801,7 +813,7 @@ export default class SujetCAN2022Seconde extends Exercice {
           texteCorr = ` $${b}$ $\\%$ de $${a}=${texNombre(d, 1)}\\times ${a}= ${texNombre(a * d, 0)}$.<br>
           Le prix du manteau après la réduction est donc : $${a}-${texNombre(a * d, 0)}=${texNombre(reponse, 0)}$ €. `
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte +=
               ajouteChampTexteMathLive(
@@ -933,14 +945,14 @@ export default class SujetCAN2022Seconde extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1,
-                  style: 'margin: auto',
+                  center: !context.isHtml,
                 },
                 fixeBordures(objets),
               ),
               objets,
             )
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += `<br>$${longueurATrouver}=$`
               texte += ajouteChampTexteMathLive(
@@ -1007,7 +1019,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             Il y a dans cette classe ${c ? `$${4 * k}$ filles` : `$${g * k}$ garçons`}. Calculer le nombre de ${c ? 'garçons ' : 'filles'}.`
             texteCorr = `Le ratio $4$ : $${g}$ signifie qu'il y a dans cette classe $4$ filles pour $${g}$ garçons.<br>
             Comme il y a ${c ? `$4\\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `4\\times ${k} `} =${reponse}$.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
                 this,
@@ -1024,7 +1036,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             Il y a dans cette classe ${c ? `$${2 * k}$ filles` : `$${g * k}$ garçons`}. Calculer le nombre de ${c ? 'garçons ' : 'filles'}.`
             texteCorr = `Le ratio $2$ : $${g}$ signifie qu'il y a dans cette classe $2$ filles pour $${g}$ garçons.<br>
             Comme il y a ${c ? `$2\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `2\\times ${k} `} =${reponse}$.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
                 this,
@@ -1043,7 +1055,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texteCorr = `Le ratio $2$ : $${g}$ signifie qu'il y a dans cette classe $2$ filles pour $${g}$ garçons.<br>
             Comme il y a ${c ? `$2\\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `2\\times ${k} `} =${reponse1}$.<br>
             Il y a donc dans cette classe $${reponse}$ élèves au total.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
                 this,
@@ -1062,7 +1074,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texteCorr = `Le ratio $4$ : $${g}$ signifie qu'il y a dans cette classe $4$ filles pour $${g}$ garçons.<br>
             Comme il y a ${c ? `$4\\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `4\\times ${k} `} =${reponse1}$.<br>
             Il y a donc dans cette classe $${reponse}$ élèves au total.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
                 this,
@@ -1136,7 +1148,7 @@ export default class SujetCAN2022Seconde extends Exercice {
 
             texteCorr = `Le carré de $${a}x$ est $(${a}x)^2=${a ** 2}x^2$. On en déduit que le produit du carré de $${a}x$ et de $${b}$ s'écrit $${a ** 2}x^2\\times ${b}=${a ** 2 * b}x^2$. `
           }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
@@ -1164,7 +1176,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             texte += ' $\\ldots$'
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           nbChamps = 1
           break
 
@@ -1188,7 +1200,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             )
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: reponse } })
           nbChamps = 1
           break
 
@@ -1245,14 +1257,14 @@ export default class SujetCAN2022Seconde extends Exercice {
                 mainlevee: false,
                 amplitude: 0.5,
                 scale: 0.8,
-                style: 'margin: auto',
+                center: !context.isHtml,
               },
               objets,
             )
             texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $EC$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $EB$.
           On en déduit que la longueur $DE$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $AE$.<br>
           Ainsi, $DE=${texNombre(k, 1)}\\times ${a}=${texNombre(reponse, 1)}$.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>$DE=$'
               texte += ajouteChampTexteMathLive(
@@ -1324,17 +1336,19 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = 0
             b = randint(50, 300)
             const q = randint(2, 5)
-            texte = 'On considère le script python : <br>$\\begin{array}{|l|}\n'
-            texte += '\\hline\n'
-            texte += '\\\n \\texttt{def fin(b):}  \\\n '
-            texte += `\\\\\n ${sp(6)} \\texttt{a=0}\\\n `
-            texte += `\\\\\n ${sp(6)} \\texttt{while a$<$b:}\\\n `
-            texte += `\\\\\n ${sp(12)} \\texttt{a=a+${q}}\\\n `
-            texte += `\\\\\n ${sp(6)} \\texttt{return a}\\\\\n `
-            texte += '\\hline\n'
-            texte += '\\end{array}\n$<br>'
+            texte = `On considère le script python : <br>
+            $\\begin{array}{|l|}
+\\hline\\\\
+\\texttt{def fin(b):}\\\\
+${sp(6)} \\texttt{a=0}\\\\
+${sp(6)} \\texttt{while a < b:}\\\\
+${sp(12)} \\texttt{a=a+${q}}\\\\
+${sp(6)} \\texttt{return a}\\\\
+\\hline
+\\end{array}$
+<br>`
             texte += `Que renvoie l'instruction $\\texttt{fin(${b})}$ ?`
-            texteCorr = ` L'instruction $\\texttt{while a<${b}}$ signifie : tant que a<$${b}$.<br>
+            texteCorr = ` L'instruction $\\texttt{while a < ${b}}$ signifie : tant que a$<${b}$.<br>
           On a au départ, a=0 et l'algorithme s'arrête lorsque a dépasse $${b}$. La valeur retournée est donc le plus petit multiple de $${q}$ supérieur ou égal à $${b}$.`
 
             while (a < b) {
@@ -1342,7 +1356,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             }
             texteCorr += ` Donc l'algorithme retourne $${a}$ `
             reponse = a
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
                 this,

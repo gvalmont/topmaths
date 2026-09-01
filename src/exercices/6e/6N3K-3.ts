@@ -1,10 +1,11 @@
 import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { bleuMathalea } from '../../lib/colors'
 import {
-  selectionSvg,
+  addSvgSelection,
   type SvgWithValue,
-} from '../../lib/interactif/questionSvgSelection/questionSvgSelection'
+} from '../../lib/customElements/SvgSelectionElement'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
@@ -12,15 +13,13 @@ import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Ajouter des barres fractionnaires'
 export const interactifReady = true
-export const interactifType = 'svgSelection'
 export const uuid = '1574f'
 export const refs = {
-  'fr-fr': [],
-  'fr-ch': [],
+  'fr-fr': ['6AutoF3-3'],
+  'fr-ch': ['PR-20'],
 }
 
 const fractionsPourCase1 = [
@@ -100,7 +99,7 @@ export default class AjouterDesLegosFractions extends Exercice {
         .render()
       return mathalea2d(
         Object.assign(
-          { scale: 0.5, style: 'display:inline-block;' },
+          { scale: 0.5, display: 'inline-block' } as const,
           fixeBordures([boite], { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 }),
         ),
         boite,
@@ -170,7 +169,7 @@ Dans ${this.nbQuestions > 1 ? 'les questions suivantes' : 'la question suivante'
 
       return result
     }
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let frac: FractionEtendue
       let figureLatex = ''
@@ -182,13 +181,13 @@ Dans ${this.nbQuestions > 1 ? 'les questions suivantes' : 'la question suivante'
         case 1:
           frac = choice(fractionsPourCase1)
           handleAnswers(this, i, { reponse: { value: frac.num / frac.den } })
-          texte += `$${frac.texFraction}$ :<br><br> ${context.isHtml ? selectionSvg(this, i, [[...svgItems1], [...svgItems1]]) : figureLatex}`
+          texte += `$${frac.texFraction}$ :<br><br> ${context.isHtml ? addSvgSelection(this, i, { svgs: [[...svgItems1], [...svgItems1]] }) : figureLatex}`
           break
         case 2:
         default:
           frac = choice(fractionsPourCase2)
           handleAnswers(this, i, { reponse: { value: frac.num / frac.den } })
-          texte += `$${frac.texFraction}$ :<br><br> ${context.isHtml ? selectionSvg(this, i, [[...svgItems1], [...svgItems1], [...svgItems1]]) : figureLatex}`
+          texte += `$${frac.texFraction}$ :<br><br> ${context.isHtml ? addSvgSelection(this, i, { svgs: [[...svgItems1], [...svgItems1], [...svgItems1]] }) : figureLatex}`
           break
       }
 

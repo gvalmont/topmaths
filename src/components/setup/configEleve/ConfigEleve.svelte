@@ -32,12 +32,7 @@
   ]
 
   function handleTabChange(e: CustomEvent<string>) {
-    if (e.detail === 'classic') {
-      $canOptions.isChoosen = false
-    } else {
-      $canOptions.isChoosen = true
-      toggleCan()
-    }
+    $canOptions.isChoosen = e.detail !== 'classic'
   }
 
   onMount(() => {
@@ -64,7 +59,10 @@
       isEncrypted: true,
     },
   }
-  $: $canOptions.isInteractive = $globalOptions.setInteractive === '1'
+  // L'interactivité de la Course aux nombres (`canOptions.isInteractive`) est
+  // réglée dans son propre onglet : elle ne doit pas être liée au réglage
+  // « Interactivité » de la présentation classique
+  // (`globalOptions.setInteractive`), qui ne concerne que la page Élève.
   type LinkFormat = keyof typeof availableLinkFormats
   let currentLinkFormat: LinkFormat = 'clear'
   let setInteractive: string = $globalOptions.setInteractive ?? '2'
@@ -101,11 +99,16 @@
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
-  function toggleCan() {
-    if ($canOptions.isChoosen) {
-      $globalOptions.setInteractive = '1'
-    }
-  }
+  // `buildMathAleaURL` lit `globalOptions` via `get()`, ce qui n'est pas
+  // détecté par le compilateur Svelte comme une dépendance réactive : on
+  // référence explicitement `$globalOptions.presMode` pour forcer le
+  // recalcul à chaque changement des réglages (interactivité, etc.)
+  $: eleveUrl = buildMathAleaURL({
+    view: $canOptions.isChoosen ? 'can' : 'eleve',
+    isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
+    removeSeed: isDataRandom,
+    mode: $globalOptions.presMode,
+  }).toString()
 </script>
 
 <main
@@ -277,6 +280,58 @@
                   ]}
                 />
               </div>
+              <div class="flex flex-row justify-start items-center px-4 pt-2">
+                <ButtonToggleAlt
+                  title={"N'afficher la correction que si la réponse est fausse"}
+                  isDisabled={!$globalOptions.isSolutionAccessible}
+                  bind:value={$globalOptions.isCorrectionOnlyOnError}
+                  id={'config-eleve-correction-si-erreur-toggle'}
+                  explanations={[
+                    'Sous une bonne réponse, seul le smiley sera affiché ; la correction ne sera affichée que sous les mauvaises réponses.',
+                    'La correction sera affichée sous toutes les questions, bonnes ou mauvaises.',
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+          <div class="pt-2 px-4 grid grid-flow-row md:grid-cols-2 gap-4">
+            <div class="pb-2">
+              <div
+                class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+              >
+                Affichage du titre de l'exercice
+              </div>
+              <div class="flex flex-row justify-start items-center px-4">
+                <ButtonToggleAlt
+                  title={"Titre de l'exercice"}
+                  bind:value={$globalOptions.isTitleDisplayed}
+                  id={'config-eleve-title-displayed-toggle'}
+                  explanations={[
+                    'Les titres sont affichés',
+                    'Les titres sont masqués.',
+                  ]}
+                  on:toggle={handleSeed}
+                />
+              </div>
+            </div>
+            <div class="pb-2">
+              <div
+                class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+              >
+                Affichage de la référence de l'exercice
+              </div>
+              <div class="flex flex-row justify-start items-center px-4">
+                <ButtonToggleAlt
+                  title={"Référence de l'exercice"}
+                  bind:value={$globalOptions.isReferenceDisplayed}
+                  id={'config-eleve-reference-displayed-toggle'}
+                  explanations={[
+                    'Les références sont affichées',
+                    'Les références sont masquées.',
+                  ]}
+                  on:toggle={handleSeed}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -295,7 +350,9 @@
             limité.
           </div>
           <div class="pt-2 px-4 grid grid-flow-row md:grid-cols-2 gap-4">
-            <div class="pb-2 w-full flex flex-col">
+            <div
+              class="pb-2 w-full flex flex-col md:col-start-1 md:row-start-1"
+            >
               <div
                 class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
               >
@@ -316,10 +373,12 @@
                       min={1}
                       max={60}
                       bind:value={$canOptions.durationInMinutes}
-                      isDisabled={!$canOptions.isChoosen}
+                      isDisabled={!$canOptions.isChoosen ||
+                        $canOptions.isTimerDisabled}
                     />
                     <div
-                      class="text-sm font-light {$canOptions.isChoosen
+                      class="text-sm font-light {$canOptions.isChoosen &&
+                      !$canOptions.isTimerDisabled
                         ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
                         : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
                     >
@@ -330,6 +389,16 @@
                     </div>
                   </div>
                 </div>
+                <ButtonToggleAlt
+                  title={'Désactiver le chronomètre'}
+                  id={'config-eleve-can-no-timer-toggle'}
+                  bind:value={$canOptions.isTimerDisabled}
+                  isDisabled={!$canOptions.isChoosen}
+                  explanations={[
+                    'La course se déroule sans limite de temps : les élèves la terminent en rendant leur copie.',
+                    'La course est chronométrée et se termine automatiquement au bout de la durée indiquée.',
+                  ]}
+                />
                 <div class="flex flex-row items-center">
                   <div
                     class="w-24 shrink-0 whitespace-nowrap text-sm font-light {$canOptions.isChoosen
@@ -364,7 +433,28 @@
                 </div>
               </div>
             </div>
-            <div class="pb-2">
+            <div class="pb-2 md:col-start-1 md:row-start-2">
+              <div
+                class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+              >
+                Interactivité
+              </div>
+              <div
+                class="flex flex-col items-start justify-start space-y-2 px-4"
+              >
+                <ButtonToggleAlt
+                  title={'Questions interactives'}
+                  id={'config-eleve-can-interactif-toggle'}
+                  bind:value={$canOptions.isInteractive}
+                  isDisabled={!$canOptions.isChoosen}
+                  explanations={[
+                    'Les élèves saisissent leurs réponses et obtiennent un score à la fin de la course.',
+                    'Les questions sont affichées sans champ de saisie : les élèves répondent sur une autre feuille.',
+                  ]}
+                />
+              </div>
+            </div>
+            <div class="pb-2 md:col-start-2 md:row-start-2">
               <div
                 class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
               >
@@ -408,44 +498,6 @@
       <div
         class="pt-2 pl-2 grid grid-flow-row md:grid-cols-2 gap-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
-        <div class="pb-2">
-          <div
-            class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Affichage du titre de l'exercice
-          </div>
-          <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggleAlt
-              title={"Titre de l'exercice"}
-              bind:value={$globalOptions.isTitleDisplayed}
-              id={'config-eleve-title-displayed-toggle'}
-              explanations={[
-                'Les titres sont affichés',
-                'Les titres sont masqués.',
-              ]}
-              on:toggle={handleSeed}
-            />
-          </div>
-        </div>
-        <div class="pb-2">
-          <div
-            class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Affichage de la référence de l'exercice
-          </div>
-          <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggleAlt
-              title={"Référence de l'exercice"}
-              bind:value={$globalOptions.isReferenceDisplayed}
-              id={'config-eleve-reference-displayed-toggle'}
-              explanations={[
-                'Les références sont affichées',
-                'Les références sont masquées.',
-              ]}
-              on:toggle={handleSeed}
-            />
-          </div>
-        </div>
         <div class="pb-2">
           <div
             class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
@@ -517,12 +569,7 @@
             <div class="my-1">
               <ButtonActionInfo
                 action="copy"
-                textToCopy={buildMathAleaURL({
-                  view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted:
-                    availableLinkFormats[currentLinkFormat].isEncrypted,
-                  removeSeed: isDataRandom,
-                }).toString()}
+                textToCopy={eleveUrl}
                 tooltip={'Lien ' +
                   availableLinkFormats[currentLinkFormat].toolTipsMessage}
                 icon={'bx-link text-2xl'}
@@ -544,12 +591,7 @@
                 tooltip={'QR-code (lien ' +
                   availableLinkFormats[currentLinkFormat].toolTipsMessage +
                   ')'}
-                customUrl={buildMathAleaURL({
-                  view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted:
-                    availableLinkFormats[currentLinkFormat].isEncrypted,
-                  removeSeed: isDataRandom,
-                }).toString()}
+                customUrl={eleveUrl}
                 cornerIcon={availableLinkFormats[currentLinkFormat].icon}
               />
             </div>
@@ -563,12 +605,7 @@
             <div class="my-1">
               <ButtonActionInfo
                 action="copy"
-                textToCopy={`<iframe src="${buildMathAleaURL({
-                  view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted:
-                    availableLinkFormats[currentLinkFormat].isEncrypted,
-                  removeSeed: isDataRandom,
-                }).toString()}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`}
+                textToCopy={`<iframe src="${eleveUrl}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`}
                 tooltip={'Code (lien ' +
                   availableLinkFormats[currentLinkFormat].toolTipsMessage +
                   ')'}
@@ -588,12 +625,7 @@
             <div class="my-1">
               <ButtonActionInfo
                 action="download"
-                urlToDownload={buildMathAleaURL({
-                  view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted:
-                    availableLinkFormats[currentLinkFormat].isEncrypted,
-                  removeSeed: isDataRandom,
-                }).toString()}
+                urlToDownload={eleveUrl}
                 fileName={$globalOptions.title
                   ? $globalOptions.title
                   : 'mathAlea'}

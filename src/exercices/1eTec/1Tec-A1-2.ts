@@ -4,7 +4,6 @@ export const dateDePublication = '19/06/2022'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de 6N33-1 pour les 1er
@@ -14,7 +13,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'eb1e8'
 
 export const refs = {
-  'fr-fr': ['2S10-6', 'BP2SP10'],
+  'fr-fr': ['2I10-6', 'BP2SP10', 'BP1SP14'],
   'fr-ch': [],
 }
 export default class AppliquerPourcentage1 extends AppliquerPourcentage {

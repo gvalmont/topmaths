@@ -1,15 +1,15 @@
 import { bleuMathalea } from '../../lib/colors'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { all, isEqual, isReduced } from '../../lib/interactif/checks'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   texPiCoefficientFraction,
   texSignedPiTerm,
   type FractionData,
 } from '../../lib/mathFonctions/trigo'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
@@ -22,7 +22,6 @@ export const titre = "Déterminer des paramètres d'une fonction trigonométriqu
 export const dateDePublication = '06/05/2026'
 export const uuid = 'f9e41'
 export const interactifReady = true
-export const interactifType = 'custom'
 export const refs = {
   'fr-fr': [],
   'fr-ch': ['2mTrigoFct-4'],
@@ -291,7 +290,7 @@ export default class PeriodeFrequenceFonctionTrigonometrique extends Exercice {
             },
           ]),
         ),
-        { formatInteractif: 'multiMathfield' },
+        { formatInteractif: 'multi-mathfield' },
       )
 
       const correction: string[] = []

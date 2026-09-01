@@ -58,6 +58,12 @@
   --scale-175: 1.75;
   --scale-200: 2;
 
+  /* Quizz answer colors (palette daltonienne Okabe-Ito, reprise de Razzia) */
+  --color-quizz-1: #e69f00;
+  --color-quizz-2: #56b4e9;
+  --color-quizz-3: #3dbfa0;
+  --color-quizz-4: #cc79a7;
+
   /* Fonts */
   --font-sans:
     'Source Sans Pro', ui-sans-serif, system-ui, sans-serif,
@@ -256,7 +262,7 @@ dialog.modal.modal-top:has(#code-display) > .modal-box {
 /* scratch-simulator-only:end */
 
 @media print {
-  * {
+  body {
     font-size: 10pt !important;
   }
   nav,
@@ -264,9 +270,6 @@ dialog.modal.modal-top:has(#code-display) > .modal-box {
   footer,
   .print-hidden {
     display: none !important;
-  }
-  .print-only {
-    display: block;
   }
 
   div {
@@ -415,6 +418,19 @@ input[type='radio']:checked {
 
 input[type='radio']:disabled {
   @apply opacity-30;
+}
+
+/* Certains navigateurs (Safari notamment) perdent le rendu ":checked" d'un input
+   radio à l'appearance personnalisée une fois qu'il est verrouillé après correction.
+   Cette classe, posée par verifQuestionQcm, force le même rendu indépendamment de
+   :checked et de tout état natif désactivé. */
+input[type='radio'].qcm-locked-checked {
+  background-color: #f15929 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3'/%3E%3C/svg%3E") !important;
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-color: transparent !important;
 }
 
 input[type='radio']:focus {
@@ -729,6 +745,32 @@ input[type='radio']:focus {
       url('/fonts/source-code-pro-900-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+/* OpenDyslexic : police pour élèves dyslexiques (vue Impression A4) */
+@font-face {
+  font-family: 'OpenDyslexic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/OpenDyslexic-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'OpenDyslexic';
+  font-style: italic;
+  font-weight: 400;
+  src: url('/fonts/OpenDyslexic-Italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'OpenDyslexic';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/OpenDyslexic-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'OpenDyslexic';
+  font-style: italic;
+  font-weight: 700;
+  src: url('/fonts/OpenDyslexic-Bold-Italic.woff2') format('woff2');
+}
+
 /* 
 888b     d888                                                                
 8888b   d8888                                                                
@@ -778,6 +820,38 @@ div[id^='title-lampeMessage'] {
   @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark;
 }
 
+/* feedback de fin de question QCM (verifQuestionQcm) */
+.qcm-feedback-face {
+  @apply flex items-center h-6 leading-none;
+}
+.qcm-feedback-msg {
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-l-4 pl-4 pr-2 py-2 mt-2 font-light;
+}
+.qcm-feedback-msg--error {
+  @apply border-l-coopmaths-action-dark dark:border-l-coopmathsdark-action-dark;
+}
+.qcm-feedback-msg--positive {
+  @apply border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark;
+}
+.qcm-feedback-detail {
+  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus;
+}
+.qcm-feedback-chips {
+  @apply flex flex-wrap gap-2 mt-2 pt-2 border-t border-t-coopmaths-backdark dark:border-t-coopmathsdark-canvas-darkest;
+}
+.qcm-feedback-chips-standalone {
+  @apply flex flex-wrap gap-2 mt-2;
+}
+.qcm-feedback-chip {
+  @apply inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium;
+}
+.qcm-feedback-chip--error {
+  @apply bg-coopmaths-action-200 text-coopmaths-action-darkest dark:bg-coopmathsdark-action dark:text-coopmathsdark-canvas;
+}
+.qcm-feedback-chip--positive {
+  @apply bg-coopmaths-warn-100 text-coopmaths-warn-darkest dark:bg-coopmathsdark-warn dark:text-coopmathsdark-canvas;
+}
+
 .katex {
   font-size: 1em !important;
 }
@@ -804,6 +878,23 @@ button[id^='html-insert-button-'] {
 
 input[id^='html-insert-text-input-'] {
   @apply text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 px-2 py-1 w-3/5 lg:w-2/5;
+}
+
+input[id^='champTexteEx'] {
+  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-corpus dark:border-coopmathsdark-corpus;
+  /* Override MathLive highlight colors to match our class-based dark mode (not prefers-color-scheme) */
+  display: inline-block;
+  flex: 1;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 1em;
+  line-height: 1em;
+  min-width: 50px;
+  width: auto;
+  padding: 4px;
+  white-space: normal;
+  background-color: transparent;
+  overflow-x: visible;
 }
 
 i[id^='html-insert-info-'] {
@@ -960,7 +1051,7 @@ table.tableauMathlive {
     }
     @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus p-2 m-0.75 text-center;
   }
-  @apply mx-auto mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus;
+  @apply mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus;
 }
 
 /* Cache le menu toggle de MathLive */
@@ -1094,9 +1185,7 @@ math-field.metaInteractif2d.corrected::part(prompt) {
 math-field.fillInTheBlanks::part(prompt) {
   font-size: 1em;
   line-height: 1;
-  min-height: 1em;
   min-width: 0px;
-  height: auto;
   border: none;
   outline: solid;
   outline-width: thin;
@@ -1107,19 +1196,13 @@ math-field.fillInTheBlanks::part(container) {
   border: none;
   border-radius: 4px;
 }
-math-field.ml-1:focus-within::part(container) {
+math-field.ml-1:not(.fillInTheBlanks):focus-within::part(container) {
   outline: solid;
   outline-width: 2px;
   outline-color: var(--color-coopmaths-struct);
 }
 math-field.fillInTheBlanks:not(:focus-within)::part(container) {
   border: none;
-}
-
-.dark math-field.fillInTheBlanks:focus-within::part(container) {
-  outline: solid;
-  outline-width: 2px;
-  outline-color: var(--color-coopmathsdark-corpus-light);
 }
 
 math-field.schemaEnBoite {
@@ -1246,7 +1329,8 @@ div.etiquettes {
 }
 
 /* Fixes issue where Blockly toolbox scrollbar doesn't hide - https://github.com/google/blockly/issues/5840*/
-svg[display='none'] {
+.blocklyScrollbarVertical svg[display='none'],
+.blocklyScrollbarHorizontal svg[display='none'] {
   display: none;
 }
 
@@ -1256,6 +1340,317 @@ svg[display='none'] {
     transform: translate(-50%, -50%) scale(4);
     opacity: 0;
   }
+}
+
+/* Vue quizz : typographie fluide par container queries.
+   Le <main> de la vue est le conteneur (classe .quizz-container) ; les
+   tailles en cqw s'adaptent à sa largeur pour rester lisibles aussi bien
+   sur un écran d'élève que projetées au fond de la classe. */
+.quizz-container {
+  container-type: inline-size;
+}
+.quizz-text-title {
+  font-size: clamp(2rem, 7cqw, 5.5rem);
+  line-height: 1.1;
+}
+.quizz-text-question {
+  font-size: clamp(1.3rem, 3.8cqw, 3.2rem);
+  line-height: 1.25;
+}
+.quizz-text-answer {
+  font-size: clamp(1.1rem, 2.6cqw, 2.2rem);
+  line-height: 1.3;
+}
+.quizz-text-result {
+  font-size: clamp(1.5rem, 4.2cqw, 3.4rem);
+  line-height: 1.2;
+}
+.quizz-text-correction {
+  font-size: clamp(1.05rem, 2.2cqw, 1.9rem);
+  line-height: 1.4;
+}
+
+/* Vue quizz : les figures (SVG mathalea2d) sont centrées sous le texte. */
+.quizz-container .svgContainer {
+  margin-inline: auto;
+}
+
+/* Custom element « Relier les étiquettes » (relier-etiquettes) */
+relier-etiquettes {
+  display: block;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.relier-etiquettes {
+  --relier-fond: var(--color-coopmaths-canvas);
+  --relier-bordure: var(--color-coopmaths-canvas-moredark);
+  --relier-texte: var(--color-coopmaths-corpus);
+  --relier-accent: var(--color-coopmaths-struct);
+  /* Étiquettes 16/9 : plus lisibles pour les textes longs. */
+  --relier-largeur: clamp(7rem, 32vw, 11rem);
+  /* Couloir vide entre les deux colonnes, où se tracent les traits. */
+  --relier-couloir: clamp(2.25rem, 12vw, 5rem);
+  max-width: 100%;
+}
+
+.dark .relier-etiquettes {
+  --relier-fond: var(--color-coopmathsdark-canvas);
+  --relier-bordure: var(--color-coopmathsdark-canvas-moredark);
+  --relier-texte: var(--color-coopmathsdark-corpus);
+  --relier-accent: var(--color-coopmathsdark-struct);
+}
+
+.relier-etiquettes__board {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--relier-largeur) var(--relier-largeur);
+  column-gap: var(--relier-couloir);
+  justify-content: center;
+}
+
+.relier-etiquettes__colonne {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.relier-etiquettes__etiquette {
+  position: relative;
+  width: var(--relier-largeur);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  border: 2px solid var(--relier-bordure);
+  border-radius: 0.75rem;
+  background-color: var(--relier-fond);
+  color: var(--relier-texte);
+  font-size: clamp(0.7rem, 2.6vw, 0.95rem);
+  line-height: 1.25;
+  text-align: center;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Le glisser horizontal sert à relier, le défilement vertical reste possible. */
+  touch-action: pan-y;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    transform 150ms ease;
+}
+
+.relier-etiquettes__etiquette:disabled {
+  color: var(--relier-texte);
+  cursor: default;
+}
+
+.relier-etiquettes__etiquette:not(:disabled):hover {
+  border-color: var(--relier-accent);
+  transform: translateY(-1px);
+}
+
+.relier-etiquettes__etiquette:focus-visible {
+  outline: 2px solid var(--relier-accent);
+  outline-offset: 3px;
+}
+
+.relier-etiquettes__etiquette.is-selected {
+  border-color: var(--relier-accent);
+  background-color: color-mix(
+    in srgb,
+    var(--relier-accent) 14%,
+    var(--relier-fond)
+  );
+}
+
+.relier-etiquettes__etiquette.is-cible:not(:disabled):not(.is-selected) {
+  border-style: dashed;
+  border-color: var(--relier-accent);
+  animation: relier-pulse 1.6s ease-in-out infinite;
+}
+
+.relier-etiquettes__etiquette.is-survolee {
+  border-style: solid;
+  transform: scale(1.04);
+  background-color: color-mix(
+    in srgb,
+    var(--relier-accent) 18%,
+    var(--relier-fond)
+  );
+}
+
+.relier-etiquettes__etiquette.is-flash {
+  animation: relier-flash 600ms ease-out;
+}
+
+.relier-etiquettes__contenu {
+  display: block;
+}
+
+.relier-etiquettes__prise {
+  position: absolute;
+  top: 50%;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background-color: var(--relier-bordure);
+  transform: translateY(-50%);
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease;
+}
+
+.relier-etiquettes__colonne--gauche .relier-etiquettes__prise {
+  right: -0.3125rem;
+}
+
+.relier-etiquettes__colonne--droite .relier-etiquettes__prise {
+  left: -0.3125rem;
+}
+
+.relier-etiquettes__etiquette.is-selected .relier-etiquettes__prise,
+.relier-etiquettes__etiquette.is-reliee .relier-etiquettes__prise {
+  background-color: var(--relier-accent);
+  transform: translateY(-50%) scale(1.3);
+}
+
+.relier-etiquettes__traits {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.relier-etiquettes__trait {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.relier-etiquettes__trait--provisoire {
+  stroke: var(--relier-accent);
+  stroke-dasharray: 6 7;
+  opacity: 0.85;
+}
+
+.relier-etiquettes__trait.is-nouveau {
+  stroke-dasharray: var(--relier-longueur);
+  stroke-dashoffset: var(--relier-longueur);
+  animation: relier-trace 320ms ease-out forwards;
+}
+
+.relier-etiquettes__trait.is-manquant {
+  stroke-dasharray: 7 6;
+  opacity: 0.8;
+}
+
+.relier-etiquettes__zone-trait {
+  stroke: transparent;
+  stroke-width: 18;
+  stroke-linecap: round;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.relier-etiquettes__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.relier-etiquettes__effacer {
+  padding: 0.15rem 0.75rem;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  background-color: transparent;
+  color: var(--color-coopmaths-struct);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.dark .relier-etiquettes__effacer {
+  color: var(--color-coopmathsdark-struct);
+}
+
+.relier-etiquettes__effacer[hidden] {
+  display: none;
+}
+
+@keyframes relier-trace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes relier-pulse {
+  0%,
+  100% {
+    border-color: color-mix(
+      in srgb,
+      var(--relier-accent) 40%,
+      var(--relier-bordure)
+    );
+  }
+  50% {
+    border-color: var(--relier-accent);
+  }
+}
+
+@keyframes relier-flash {
+  from {
+    box-shadow: 0 0 0 0
+      color-mix(in srgb, var(--relier-accent) 55%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 16px
+      color-mix(in srgb, var(--relier-accent) 0%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .relier-etiquettes__etiquette,
+  .relier-etiquettes__prise {
+    transition: none;
+  }
+  .relier-etiquettes__trait.is-nouveau,
+  .relier-etiquettes__etiquette.is-flash,
+  .relier-etiquettes__etiquette.is-cible {
+    animation: none;
+  }
+}
+
+/* Vue quizz : typographie fluide par container queries.
+   Le <main> de la vue est le conteneur (classe .quizz-container) ; les
+   tailles en cqw s'adaptent à sa largeur pour rester lisibles aussi bien
+   sur un écran d'élève que projetées au fond de la classe. */
+.quizz-container {
+  container-type: inline-size;
+}
+.quizz-text-title {
+  font-size: clamp(2rem, 7cqw, 5.5rem);
+  line-height: 1.1;
+}
+.quizz-text-question {
+  font-size: clamp(1.3rem, 3.8cqw, 3.2rem);
+  line-height: 1.25;
+}
+.quizz-text-answer {
+  font-size: clamp(1.1rem, 2.6cqw, 2.2rem);
+  line-height: 1.3;
+}
+.quizz-text-result {
+  font-size: clamp(1.5rem, 4.2cqw, 3.4rem);
+  line-height: 1.2;
+}
+.quizz-text-correction {
+  font-size: clamp(1.05rem, 2.2cqw, 1.9rem);
+  line-height: 1.4;
 }
 
 @theme {

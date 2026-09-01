@@ -1,23 +1,32 @@
-import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
+import type MathaleaLabyrintheElement from './customElements/MathaleaLabyrintheElement'
 import type { MathfieldElement } from 'mathlive'
 import { get } from 'svelte/store'
 import { type MathaleaSVG } from '../lib/types'
-import type ListeDeroulanteElement from './interactif/listeDeroulante/ListeDeroulanteElement'
-import { MultiMathfieldElement } from './interactif/MultiMathfield/MultiMathfield'
+import MathaleaCustomElement, {
+  listOfCustomElements,
+} from './customElements/MathaleaCustomElement'
 import { previousView } from './stores/generalStore'
 import { globalOptions } from './stores/globalOptions'
-import type { MySpreadsheetElement } from './tableur/MySpreadSheet'
 import type { VueType } from './VueType'
 
 export function mathaleaGoToView(destinationView: '' | VueType) {
   const originView = get(globalOptions).v ?? ''
   const prevView = get(previousView)
 
-  // Si on retourne à l'accueil et qu'on venait d'une vue spécifique, on y retourne
-  if (destinationView === '' && prevView) {
-    destinationView = prevView as '' | VueType
+  if (destinationView === '') {
+    // Retour à l'accueil : si une vue « parente » a été mémorisée
+    // explicitement (ex. la vue Outils qui a lancé un export), on y
+    // retourne plutôt que d'aller à l'accueil. Dans tous les cas on purge
+    // `previousView` : sans ça, quitter une vue d'export (Typst, LaTeX…)
+    // réarmerait ce retour et le clic « accueil » suivant (croix, logo
+    // MathALÉA…) ramènerait dans la vue qu'on vient de quitter.
     previousView.set(undefined)
+    if (prevView) {
+      destinationView = prevView as '' | VueType
+    }
   } else {
+    // On mémorise la vue d'origine pour pouvoir y revenir depuis la
+    // destination.
     previousView.set(originView)
   }
 
@@ -108,23 +117,22 @@ const waitForElement = async (
 
 export function mathaleaWriteStudentPreviousAnswers(answers?: {
   [key: string]: string
-}): Promise<Boolean>[] {
-  const promiseAnswers: Promise<Boolean>[] = []
+}): Promise<boolean>[] {
+  const promiseAnswers: Promise<boolean>[] = []
   const starttime = window.performance.now()
   for (const answer in answers) {
-    if (answer.includes('svgSelection')) {
-      const p = new Promise<Boolean>((resolve) => {
-        waitForElement(`[id$='${answer}']`)
-          .then((eles) => {
-            eles.forEach((ele) => {
-              if (ele.tagName === 'SVG-SELECTION') {
-                // La réponse correspond à un svgSelection
-                ;(ele as any).value = Number(answers[answer])
-                const time = window.performance.now()
-                log(`duration ${answer}: ${time - starttime}`)
-                resolve(true)
-              }
-            })
+    if (listOfCustomElements.includes(answer.split('Ex')[0])) {
+      const p = new Promise<boolean>((resolve) => {
+        waitForElement('#' + answer)
+          .then(() => {
+            // La réponse correspond à un customElement quel qu'il soit
+            const element = document.querySelector(
+              `#${answer}`,
+            ) as MathaleaCustomElement
+            if (element !== null) {
+              element.value = answers[answer]
+              resolve(true)
+            }
           })
           .catch((reason) => {
             console.error(reason)
@@ -134,7 +142,7 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
       })
       promiseAnswers.push(p)
     } else if (answer.includes('MetaInteractif2d')) {
-      const p = new Promise<Boolean>((resolve) => {
+      const p = new Promise<boolean>((resolve) => {
         const saisies = JSON.parse(answers[answer])
         const selectors = Object.keys(saisies).map((field) => `#${field}`)
 
@@ -161,33 +169,11 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
           })
       })
       promiseAnswers.push(p)
-    } else if (answer.includes('sheet')) {
-      const p = new Promise<Boolean>((resolve) => {
-        waitForElement('#' + answer)
-          .then(() => {
-            // La réponse correspond à une feuille de calcul jspreadsheet
-            const sheetElement = document.getElementById(
-              answer,
-            ) as MySpreadsheetElement
-            if (sheetElement != null) {
-              sheetElement.setData(JSON.parse(answers[answer]))
-            }
-            const time = window.performance.now()
-            log(`duration ${answer}: ${time - starttime}`)
-            resolve(true)
-          })
-          .catch((reason) => {
-            console.error(reason)
-            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
-            resolve(true)
-          })
-      })
-      promiseAnswers.push(p)
     } else if (
       answer.includes('apigeom') ||
       answers[answer].includes('apiGeomVersion')
     ) {
-      const p = new Promise<Boolean>((resolve) => {
+      const p = new Promise<boolean>((resolve) => {
         waitForElement('#' + answer)
           .then(() => {
             // La réponse correspond à une figure apigeom
@@ -216,7 +202,7 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
       })
       promiseAnswers.push(p)
     } else if (answer.includes('cliquefigure')) {
-      const p = new Promise<Boolean>((resolve) => {
+      const p = new Promise<boolean>((resolve) => {
         waitForElement('#' + answer)
           .then(() => {
             // La réponse correspond à une figure cliquefigures
@@ -239,7 +225,7 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
     } else if (answer.includes('cliquePoint')) {
       // "answers": {"cliquePointfigEx7Q0P60" : "svg[id$='Ex7Q0'] g:nth-of-type(61)"}
       // On active le point 60 (61ème enfant) par exemple ici...
-      const p = new Promise<Boolean>((resolve) => {
+      const p = new Promise<boolean>((resolve) => {
         waitForElement(answers[answer])
           .then(() => {
             // La réponse correspond à un cliquePoint
@@ -265,12 +251,12 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
       promiseAnswers.push(p)
     } else if (answer.includes('texteDND')) {
       // on ignore ce champ, il est juste pour le debug et il ne sert pas!
-      const p = new Promise<Boolean>((resolve) => {
+      const p = new Promise<boolean>((resolve) => {
         resolve(true)
       })
       promiseAnswers.push(p)
     } else if (answer.includes('rectangleDND')) {
-      const p = new Promise<Boolean>((resolve) => {
+      const p = new Promise<boolean>((resolve) => {
         waitForElement(`div#${answer.replace('DND', '')}`)
           .then(() => {
             const rectangle = document.querySelector(
@@ -314,72 +300,13 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
           })
       })
       promiseAnswers.push(p)
-    } else if (answer.includes('clockEx')) {
-      const p = new Promise<Boolean>((resolve) => {
-        waitForElement('#' + answer)
-          .then(() => {
-            // La réponse correspond à une horloge
-            const clock = document.querySelector(`#${answer}`)
-            if (clock !== null) {
-              const [hour, minute] = answers[answer].split('h')
-              clock.setAttribute('hour', hour)
-              clock.setAttribute('minute', minute)
-              if (
-                'updateHandHour' in clock &&
-                typeof clock.updateHandHour === 'function'
-              ) {
-                clock.updateHandHour()
-              }
-              if (
-                'updateHandMinute' in clock &&
-                typeof clock.updateHandMinute === 'function'
-              ) {
-                clock.updateHandMinute()
-              }
-              const time = window.performance.now()
-              log(`duration ${answer}: ${time - starttime}`)
-              resolve(true)
-            }
-          })
-          .catch((reason) => {
-            console.error(reason)
-            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
-            resolve(true)
-          })
-      })
-      promiseAnswers.push(p)
-    } else if (answer.includes('sheet-')) {
-      const p = new Promise<Boolean>((resolve) => {
-        waitForElement('#' + answer)
-          .then(() => {
-            // La réponse correspond à une feuille de calcul univer
-            const ele = document.querySelector(
-              `#${answer}`,
-            ) as MySpreadsheetElement
-            if (ele) {
-              const actions = answers[answer].split('&')
-              for (const action of actions) {
-                const [cell, formula] = action.split('->')
-                console.info(cell, formula)
-              }
-              ele.style.pointerEvents = 'none' // Plus possible de modifier la feuille
-              resolve(true)
-            }
-          })
-          .catch((reason) => {
-            console.error(reason)
-            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
-            resolve(true)
-          })
-      })
-      promiseAnswers.push(p)
     } else if (answer.startsWith('labyrintheEx')) {
-      const p = new Promise<Boolean>((resolve) => {
+      const p = new Promise<boolean>((resolve) => {
         waitForElement('#' + answer)
           .then(() => {
             const labyrinthe = document.querySelector(
               `#${answer}`,
-            ) as LabyrintheElement
+            ) as MathaleaLabyrintheElement
             if (labyrinthe !== null) {
               labyrinthe.state = answers[answer]
               const time = window.performance.now()
@@ -394,46 +321,17 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
           })
       })
       promiseAnswers.push(p)
-    } else if (answer.startsWith('multiMathfieldEx')) {
-      const p = new Promise<Boolean>((resolve) => {
-        waitForElement('#' + answer)
-          .then(() => {
-            const multiMathfield = document.querySelector(
-              `#${answer}`,
-            ) as any as MultiMathfieldElement
-
-            const answersMulti =
-              MultiMathfieldElement.answersFromFilledTemplate(answers[answer])
-            if (multiMathfield !== null) {
-              multiMathfield.setAnswers(answersMulti)
-            }
-            resolve(true)
-          })
-          .catch((reason) => {
-            console.error(reason)
-            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
-            resolve(true)
-          })
-      })
-      promiseAnswers.push(p)
     } else {
-      const p = new Promise<Boolean>((resolve) => {
+      const p = new Promise<boolean>((resolve) => {
         waitForElement(`[id$='${answer}']`)
           .then((eles) => {
             eles.forEach((ele) => {
-              if (ele.tagName === 'LISTE-DEROULANTE') {
-                // La réponse correspond à un select
-                ;(ele as ListeDeroulanteElement).value = answers[answer]
-                const time = window.performance.now()
-                log(`duration ${answer}: ${time - starttime}`)
-                resolve(true)
-              } else if (ele.id.includes('check')) {
+              if (ele.id.includes('check')) {
                 // La réponse correspond à une case à cocher qui doit être cochée
                 if (answers[answer] === '1') {
                   ;(ele as HTMLInputElement).checked = true
                 }
-                const time = window.performance.now()
-                log(`duration ${answer}: ${time - starttime}`)
+
                 resolve(true)
               } else if (
                 ele.tagName === 'MATH-FIELD' &&
@@ -442,13 +340,11 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
               ) {
                 // La réponse correspond à un champs texte
                 ;(ele as any).setValue(answers[answer])
-                const time = window.performance.now()
-                log(`duration ${answer}: ${time - starttime}`)
+
                 resolve(true)
               } else if (ele.tagName === 'INPUT') {
                 ;(ele as HTMLInputElement).value = answers[answer]
-                const time = window.performance.now()
-                log(`duration ${answer}: ${time - starttime}`)
+
                 resolve(true)
               }
             })

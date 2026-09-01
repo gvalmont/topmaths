@@ -10,11 +10,11 @@ export const dateDePublication = '23/07/2025'
 export const uuid = 'e1e6d'
 
 export const refs = {
-  'fr-fr': ['1A-C10-1'],
+  'fr-fr': ['1A-C10-1', '2A-C3-1'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Résoudre une équation du type $x^2=a$'
@@ -44,7 +44,7 @@ export default class Puissances extends ExerciceQcmA {
       const CorrCarre = `On isole le carré pour se ramener à une équation du type $x^2=k$.<br>
         Résoudre l'équation revient à résoudre `
 
-      const CorrNegatif = ` est strictement négatif, l'équation n'a pas de solution.<br>
+      const CorrNegatif = ` est strictement négatif, l'équation n'a pas de solution sur $\\mathbb{R}$.<br>
           Ainsi, $S=${miseEnEvidence('\\emptyset')}$.`
 
       const CorrPositif =
@@ -147,12 +147,7 @@ export default class Puissances extends ExerciceQcmA {
           break
       }
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {
-        ensembleDeNombres: true,
-      })
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {

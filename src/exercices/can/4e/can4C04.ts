@@ -1,11 +1,11 @@
 import { shuffle } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Utiliser la règle des signes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -28,15 +28,15 @@ export default class RegleDesSignes extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    let a = randint(-5, 5, [-1, 0, 1])
+    let a = this.quotaRandint('a', -5, 5, [-1, 0, 1])
     const b = randint(-4, 4, [-1, 0, 1, a])
-    const c = randint(2, 3)
+    const c = this.quotaRandint('c', 2, 3)
     if (a > 0 && b > 0) {
       a = -a
     }
     const d = a * b * c
     const f = shuffle([a, b, c]) // on brasse les facteurs
-    switch (randint(0, 2)) {
+    switch (this.quotaRandint('cas', 0, 2)) {
       case 0:
         this.question = `$${f[0]}\\times ${ecritureParentheseSiNegatif(f[1])}\\times$ ? $=${d}$.<br>
 

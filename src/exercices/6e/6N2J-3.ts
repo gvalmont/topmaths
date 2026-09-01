@@ -1,4 +1,4 @@
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -11,7 +11,6 @@ import Exercice from '../Exercice'
 export const titre =
   'Trouver des phrases avec les mots : divisible, diviseur et multiple'
 export const interactifReady = true
-export const interactifType = 'custom'
 
 /**
  * Compléter des phrases avec les mots divisible, divieur et multiple
@@ -21,9 +20,9 @@ export const interactifType = 'custom'
 export const uuid = 'f894a'
 
 export const refs = {
-  'fr-fr': ['6N2J-3'],
+  'fr-fr': ['6N2J-3,5N1I'],
   'fr-2016': ['6N43-4'],
-  'fr-ch': ['9NO4-3'],
+  'fr-ch': ['9NO1A-1'],
 }
 type ReponseType = [string, string]
 type ReponseTypeArray = ReponseType[]
@@ -37,12 +36,14 @@ export default class DivisibleDiviseurMultiple extends Exercice {
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.listeReponses = []
+    // Chaque question comporte deux listes déroulantes et rapporte donc 2 points,
+    // corrigées par correctionInteractive() qui renvoie un tableau de résultats.
+    this.exoCustomResultat = true
 
     this.setReponse = function (
       i: number,
       listeBonnesReponses: ReponseTypeArray,
     ) {
-      this.autoCorrection[i] = {}
       this.listeReponses[i] = listeBonnesReponses
     }
   }
@@ -98,21 +99,25 @@ export default class DivisibleDiviseurMultiple extends Exercice {
         texte = '... est divisible par ...'
         if (this.interactif) {
           texte =
-            choixDeroulant(this, 2 * i, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ]) +
+            choixDeroulant(this, 2 * i, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            }) +
             'est divisible par' +
-            choixDeroulant(this, 2 * i + 1, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ])
+            choixDeroulant(this, 2 * i + 1, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            })
         }
         texteCorr = `$${miseEnEvidence(texNombre(a, 0))}$ est divisible par $${miseEnEvidence(texNombre(b, 0))}$ ou $${miseEnEvidence(texNombre(a, 0))}$ est divisible par $${miseEnEvidence(texNombre(q, 0))}$
         car le reste de la division euclidienne de ${texNombre(a, 0)} par $${texNombre(b, 0)}$ est $0$ et le quotient est $${texNombre(q, 0)}$.`
@@ -124,21 +129,25 @@ export default class DivisibleDiviseurMultiple extends Exercice {
         texte = '... est un diviseur de ...'
         if (this.interactif) {
           texte =
-            choixDeroulant(this, 2 * i, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ]) +
+            choixDeroulant(this, 2 * i, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            }) +
             'est un diviseur de' +
-            choixDeroulant(this, 2 * i + 1, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ])
+            choixDeroulant(this, 2 * i + 1, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            })
         }
         texteCorr = `$${miseEnEvidence(texNombre(b, 0))}$ est un diviseur de $${miseEnEvidence(texNombre(a, 0))}$ ou $${miseEnEvidence(texNombre(q, 0))}$ est un diviseur de $${miseEnEvidence(texNombre(a, 0))}$
         car le reste de la division euclidienne de ${texNombre(a, 0)} par $${texNombre(b, 0)}$ est $0$ et le quotient est $${texNombre(q, 0)}$.`
@@ -150,21 +159,25 @@ export default class DivisibleDiviseurMultiple extends Exercice {
         texte = '... est un multiple de ...'
         if (this.interactif) {
           texte =
-            choixDeroulant(this, 2 * i, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ]) +
+            choixDeroulant(this, 2 * i, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            }) +
             'est un multiple de' +
-            choixDeroulant(this, 2 * i + 1, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ])
+            choixDeroulant(this, 2 * i + 1, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            })
         }
         texteCorr = `$${miseEnEvidence(texNombre(a, 0))}$ est un multiple de $${miseEnEvidence(texNombre(b, 0))}$ ou $${miseEnEvidence(texNombre(a, 0))}$ est un multiple de $${miseEnEvidence(texNombre(q, 0))}$
         car le reste de la division euclidienne de ${texNombre(a, 0)} par $${texNombre(b, 0)}$ est $0$ et le quotient est $${texNombre(q, 0)}$.`
@@ -176,21 +189,25 @@ export default class DivisibleDiviseurMultiple extends Exercice {
         texte = "... n'est pas divisible par ..."
         if (this.interactif) {
           texte =
-            choixDeroulant(this, 2 * i, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ]) +
+            choixDeroulant(this, 2 * i, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            }) +
             "n'est pas divisible par" +
-            choixDeroulant(this, 2 * i + 1, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ])
+            choixDeroulant(this, 2 * i + 1, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            })
         }
         texteCorr = `$${miseEnEvidence(texNombre(a1, 0))}$ n'est pas divisible par $${miseEnEvidence(texNombre(b, 0))}$ ou $${miseEnEvidence(texNombre(a1, 0))}$ n'est pas divisible par $${miseEnEvidence(texNombre(q, 0))}$
         car le reste de la division euclidienne de ${texNombre(a1, 0)} par $${texNombre(b, 0)}$ n'est pas $0$.`
@@ -206,21 +223,25 @@ export default class DivisibleDiviseurMultiple extends Exercice {
         texte = "... n'est pas un diviseur de ..."
         if (this.interactif) {
           texte =
-            choixDeroulant(this, 2 * i, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ]) +
+            choixDeroulant(this, 2 * i, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            }) +
             "n'est pas un diviseur de" +
-            choixDeroulant(this, 2 * i + 1, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ])
+            choixDeroulant(this, 2 * i + 1, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            })
         }
         texteCorr = `$${miseEnEvidence(texNombre(b, 0))}$ n'est pas un diviseur de $${miseEnEvidence(texNombre(a1, 0))}$ ou $${miseEnEvidence(texNombre(q, 0))}$ n'est pas un diviseur de $${miseEnEvidence(texNombre(a1, 0))}$
         car le reste de la division euclidienne de ${texNombre(a1, 0)} par $${texNombre(b, 0)}$ n'est pas $0$.`
@@ -236,21 +257,25 @@ export default class DivisibleDiviseurMultiple extends Exercice {
         texte = "... n'est pas un multiple de ..."
         if (this.interactif) {
           texte =
-            choixDeroulant(this, 2 * i, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ]) +
+            choixDeroulant(this, 2 * i, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            }) +
             "n'est pas un multiple de" +
-            choixDeroulant(this, 2 * i + 1, [
-              { label: 'Choisir un nombre', value: '' },
-              { latex: texNombre(a1, 0), value: String(a1) },
-              { latex: texNombre(a, 0), value: String(a) },
-              { latex: texNombre(b, 0), value: String(b) },
-              { latex: texNombre(q, 0), value: String(q) },
-            ])
+            choixDeroulant(this, 2 * i + 1, {
+              choices: [
+                { label: 'Choisir un nombre', value: '' },
+                { latex: texNombre(a1, 0), value: String(a1) },
+                { latex: texNombre(a, 0), value: String(a) },
+                { latex: texNombre(b, 0), value: String(b) },
+                { latex: texNombre(q, 0), value: String(q) },
+              ],
+            })
         }
         texteCorr = `$${miseEnEvidence(texNombre(a1, 0))}$ n'est pas un multiple de $${miseEnEvidence(texNombre(b, 0))}$ ou $${miseEnEvidence(texNombre(a1, 0))}$ est n'est pas un multiple de $${miseEnEvidence(texNombre(q, 0))}$
         car le reste de la division euclidienne de ${texNombre(a1, 0)} par $${texNombre(b, 0)}$ n'est pas $0$.`
@@ -269,15 +294,24 @@ export default class DivisibleDiviseurMultiple extends Exercice {
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
+    // choixDeroulant() a renseigné autoCorrection aux indices 2i et 2i+1 pour
+    // chaque liste déroulante. La correction est en réalité entièrement gérée
+    // question par question par correctionInteractive() : on repart donc d'un
+    // autoCorrection vierge, une entrée vide par question, que
+    // attachExerciseCustomCallbacks() branchera sur correctionInteractive().
+    // Sans ça, les listes déroulantes des indices nbQuestions à 2*nbQuestions-1
+    // étaient comptées comme des questions toujours fausses (score plafonné à
+    // la moitié des points).
+    this.autoCorrection = Array.from({ length: this.nbQuestions }, () => ({}))
     listeQuestionsToContenu(this)
   }
 
-  correctionInteractive = (i: number) => {
+  correctionInteractive = (i: number): string[] => {
     const select1 = document.querySelector(
-      `#ex${this.numeroExercice}Q${2 * i}`,
+      `#liste-deroulanteEx${this.numeroExercice}Q${2 * i}`,
     ) as HTMLSelectElement
     const select2 = document.querySelector(
-      `#ex${this.numeroExercice}Q${2 * i + 1}`,
+      `#liste-deroulanteEx${this.numeroExercice}Q${2 * i + 1}`,
     ) as HTMLSelectElement
     if (this.answers === undefined) {
       this.answers = {}
@@ -288,51 +322,41 @@ export default class DivisibleDiviseurMultiple extends Exercice {
     if (select2) {
       this.answers[select2.id] = select2.value
     }
-    let isOk = false
+    const choix1 = select1?.value ?? ''
+    const choix2 = select2?.value ?? ''
+
+    // Les deux premières paires de listeReponses sont les phrases correctes
+    // construites à partir des divisions posées. Comme elles forment le produit
+    // cartésien des choix acceptés pour chaque liste, on peut corriger chaque
+    // liste indépendamment : une phrase juste = les deux listes justes.
+    const paires = this.listeReponses[i]
+    const pairesCorrectes = paires.slice(0, 2)
+    const choix1Corrects = pairesCorrectes.map((paire) => paire[0])
+    const choix2Corrects = pairesCorrectes.map((paire) => paire[1])
+    const ok1 = choix1 !== '' && choix1Corrects.includes(choix1)
+    const ok2 = choix2 !== '' && choix2Corrects.includes(choix2)
+    const isOk = ok1 && ok2
+
     let feedback = ''
-    if (select1?.value != null && select2.value != null) {
-      const choix1 = select1.value
-      const choix2 = select2.value
-      for (let possibilites = 0; possibilites < 2; possibilites++) {
-        if (
-          choix1 === this.listeReponses[i][possibilites][0] &&
-          choix2 === this.listeReponses[i][possibilites][1]
-        ) {
-          isOk = true
-          break
-        }
-      }
-      if (!isOk && this.listeReponses[i].length > 2) {
-        for (
-          let possibilites = 2;
-          possibilites < this.listeReponses[i].length;
-          possibilites++
-        ) {
-          if (
-            choix1 === this.listeReponses[i][possibilites][0] &&
-            choix2 === this.listeReponses[i][possibilites][1]
-          ) {
-            isOk = false
-            feedback =
-              "C'est vrai, mais c'est sans rapport avec une des divisions posées."
-            break
-          }
-        }
-      }
-    } else {
-      isOk = false
+    if (
+      !isOk &&
+      paires
+        .slice(2)
+        .some((paire) => choix1 === paire[0] && choix2 === paire[1])
+    ) {
+      // Réponses vraies (paires « absurdes mais vraies » de setReponse) mais
+      // sans lien avec les divisions posées : comptées comme fausses.
+      feedback =
+        "C'est vrai, mais c'est sans rapport avec une des divisions posées."
     }
+
     const spanReponseLigne = document.querySelector(
       `#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`,
     )
     if (spanReponseLigne == null)
       window.notify('Pas trouvé le spanReponseLigne dans 6N43-4', {})
     if (spanReponseLigne) {
-      if (isOk) {
-        spanReponseLigne.innerHTML = '😎'
-      } else {
-        spanReponseLigne.innerHTML = '☹️'
-      }
+      spanReponseLigne.innerHTML = isOk ? '😎' : '☹️'
     }
 
     if (feedback !== '') {
@@ -342,6 +366,6 @@ export default class DivisibleDiviseurMultiple extends Exercice {
       divFeedback.innerHTML = feedback
       divFeedback.style.display = 'block'
     }
-    return isOk ? 'OK' : 'KO'
+    return [ok1 ? 'OK' : 'KO', ok2 ? 'OK' : 'KO']
   }
 }

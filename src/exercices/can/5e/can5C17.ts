@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Écrire la valeur décimale d'une somme de fractions"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '31/03/2023'
@@ -15,8 +15,8 @@ export const dateDeModifImportante = '31/03/2023'
 export const uuid = 'b1881'
 
 export const refs = {
-  'fr-fr': ['can5C17', 'auto6N2B-flash5'],
-  'fr-ch': [],
+  'fr-fr': ['can5C17', 'auto6N2B-flash5', 'auto5N3B-flash1'],
+  'fr-ch': ['NR'],
 }
 export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
   constructor() {
@@ -29,7 +29,7 @@ export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
     let a, b, c, maFraction, maFraction2
     let resultat
 
-    switch (choice([1, 2, 3, 4])) {
+    switch (this.quotaChoice('typeDeQuestions', [1, 2, 3, 4])) {
       case 1: // fraction addition avec un entier
         c = choice([2, 4, 5])
         b = randint(1, c - 1)

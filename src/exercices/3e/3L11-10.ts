@@ -1,7 +1,7 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutPourUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutPourUnPoint } from '../../lib/interactif/mathLive'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -20,7 +20,7 @@ export const titre = 'Compléter une table de double distributivité'
 export const dateDePublication = '23/02/2023'
 export const dateDeModifImportante = '29/12/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 /**
  * Développer des expressions de double distributivité à l'aide d'un tableau de  multiplication
  * @author Sébastien LOZANO ; Olivier Mimeau (passage TS - factorisation)
@@ -30,7 +30,7 @@ export const uuid = 'c8403'
 
 export const refs = {
   'fr-fr': ['3L11-10'],
-  'fr-ch': ['11FA2-6'],
+  'fr-ch': ['10FA4F-9'],
 }
 export default class TableDoubleDistributivite extends Exercice {
   constructor() {

@@ -18,7 +18,6 @@ import {
 export const titre = 'Calculer des probabilités dans des cas simples'
 export const dateDeModifImportante = '02/06/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  *
@@ -27,7 +26,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0cf54'
 
 export const refs = {
-  'fr-fr': ['2S30-3', 'BP2FLUC2'],
+  'fr-fr': ['2S30-3', 'BP2FLUC2', 'BP1AUTO002'],
   'fr-ch': ['4mProbStat-5'],
 }
 export default class ProbaUnionInter extends Exercice {
@@ -63,7 +62,7 @@ export default class ProbaUnionInter extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 20)
       let reponse
       let texte = ''

@@ -3,9 +3,9 @@ import { pointAbstrait, type PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
@@ -25,7 +25,6 @@ export const refs = {
   'fr-ch': ['3G91-10'],
 }
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
 
 // 8 cube vertices in base frame [x,y,z], all coords in {0,1}
 // Correspondence with TSG2-10 labels: V0=A, V1=B, V2=C, V3=D(hidden), V4=E, V5=F, V6=G, V7=H
@@ -240,7 +239,7 @@ export default class VecteursRepCube extends Exercice {
 
   nouvelleVersion() {
     const lang = getLang()
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const sommets = this.sup === true
       const fr = FRAMES[randint(0, 3)]
 
@@ -343,7 +342,10 @@ export default class VecteursRepCube extends Exercice {
         '$(O,\\overrightarrow{OI},\\overrightarrow{OJ},\\overrightarrow{OK})$'
 
       const fig = mathalea2d(
-        Object.assign({ scale: 0.6, style: 'inline' }, fixeBordures(objets)),
+        Object.assign(
+          { scale: 0.6, display: 'inline' } as const,
+          fixeBordures(objets),
+        ),
         objets,
         tracePoint(pO),
         tracePoint(pI),
@@ -409,7 +411,7 @@ export default class VecteursRepCube extends Exercice {
             field7: { value: frac(AD[1]) },
             field8: { value: frac(AD[2]) },
           },
-          { formatInteractif: 'multiMathfield' },
+          { formatInteractif: 'multi-mathfield' },
         )
       }
 

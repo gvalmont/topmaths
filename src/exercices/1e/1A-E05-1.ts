@@ -8,11 +8,11 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '406b1'
 export const refs = {
-  'fr-fr': ['1A-E05-1'],
+  'fr-fr': ['1A-E05-1', 'BP1CF04'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calculer un taux réciproque'
@@ -39,9 +39,9 @@ export default class TauxReciproque extends ExerciceQcmA {
 
     this.reponses = [
       `$${bonneReponseRetenue}$`,
-      '$\\dfrac{1}{1{,}27}$',
-      '$1-\\dfrac{1}{1{,}27}$',
-      '$\\dfrac{0,27}{1{,}27}$',
+      '$\\dfrac{1}{1,27}$',
+      '$1-\\dfrac{1}{1,27}$',
+      '$\\dfrac{0,27}{1,27}$',
     ]
   }
 
@@ -59,7 +59,7 @@ export default class TauxReciproque extends ExerciceQcmA {
   Le taux à appliquer pour que cet article retrouve son prix initial est donné par  :`
             this.correction = `Le coefficient multiplicateur associé à une augmentation de $${taux}\\,\\%$ est $1+${texNombre(taux / 100, 2)}=${texNombre(1 + taux / 100, 4)}$.<br>
       Le coefficient multiplicateur réciproque est donc  $\\dfrac{1}{${texNombre(1 + taux / 100, 4)}}$.<br>
-      On en déduit que le taux réciproque  est  $\\dfrac{1}{${texNombre(1 + taux / 100, 4)}}-1$ ou $\\dfrac{-${texNombre(taux / 100, 4)}}{${texNombre(1 + taux / 100, 4)}}$.<br>
+      On en déduit que le taux réciproque  est  $\\dfrac{1}{${texNombre(1 + taux / 100, 4)}}-1$ ou $-\\dfrac{${texNombre(taux / 100, 4)}}{${texNombre(1 + taux / 100, 4)}}$.<br>
       Le taux réciproque est donc $${miseEnEvidence(bonneReponseRetenue)}$.`
 
             this.reponses = [
@@ -89,22 +89,19 @@ export default class TauxReciproque extends ExerciceQcmA {
               `$${bonneReponseRetenue}$`,
               `$\\dfrac{1}{${texNombre(taux / 100, 4)}}$`,
               `$1-\\dfrac{1}{${texNombre(1 - taux / 100, 4)}}$`,
-              `$\\dfrac{${texNombre(-taux / 100, 4)}}{${texNombre(1 - taux / 100, 4)}}$`,
+              `$-\\dfrac{${texNombre(taux / 100, 4)}}{${texNombre(1 - taux / 100, 4)}}$`,
             ]
           }
           break
       }
       compteur++
-    } while (
-      compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 4, true, {})
-    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
+    } while (compteur < 100 && !aLeBonNombreDePropsDifferentes(this, 4, true)) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
-    // this.options = { vertical: true, ordered: false }
+
     this.versionAleatoire()
   }
 }

@@ -13,7 +13,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer une dérivée'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = '4a964'
 export const refs = {
   'fr-fr': [],
@@ -34,7 +34,7 @@ export default class calcDerivee extends ExerciceSimple {
 
   nouvelleVersion() {
     let a, b, c, pol
-    if (choice([true, false])) {
+    if (this.quotaChoice('branche', [true, false])) {
       this.question = 'Soit $f$ la fonction définie sur $\\mathbb{R}$ par : '
       this.correction = "$f'(x)="
 

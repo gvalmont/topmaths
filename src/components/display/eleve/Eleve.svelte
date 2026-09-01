@@ -7,6 +7,7 @@
     remToPixels,
   } from '../../../lib/components/measures'
   import { resizeContent } from '../../../lib/components/sizeTools'
+  import { handleFullscreenEscape } from '../../../lib/fullscreen'
   import { handleFlowmath } from '../../../lib/handleFlowmath'
   import {
     mathaleaFormatExercice,
@@ -26,6 +27,7 @@
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
   import Exercice from '../../shared/exercice/Exercice.svelte'
+  import BtnFullscreen from '../../shared/ui/BtnFullscreen.svelte'
   import BtnZoom from '../../shared/ui/btnZoom.svelte'
   import Banner from '../../shared/vendors/Banner.svelte'
   import FlipCard from './FlipCard.svelte'
@@ -175,11 +177,6 @@
   afterUpdate(() => {
     log('Eleve.svelte afterUpdate')
     const starttime = window.performance.now()
-    // Evènement indispensable pour pointCliquable par exemple
-    const exercicesAffiches = new window.Event('exercicesAffiches', {
-      bubbles: true,
-    })
-    document.dispatchEvent(exercicesAffiches)
     if (eleveSection) {
       const params = $globalOptions
       const zoom = Number(params.z) ?? 1
@@ -239,6 +236,12 @@
       Ce code est nécessaire seulement si coopmaths est intégré dans un autre site pour permettre de redimensionner la fenêtre
       */
       resizeObserver = new ResizeObserver((x) => {
+        // En plein écran natif, l'iframe occupe tout l'écran : `min-h-screen`
+        // fait alors gonfler la hauteur mesurée bien au-delà de celle du
+        // contenu. La transmettre à la page hôte figerait l'iframe à cette
+        // hauteur une fois le plein écran quitté (voir `mathalea:fullscreen`
+        // dans fullscreen.ts et `moodle.js`).
+        if (document.fullscreenElement != null) return
         const url = new URL(window.location.href)
         const iframe = url.searchParams.get('iframe')
         window.parent.postMessage(
@@ -306,7 +309,10 @@
   }
 </script>
 
-<svelte:window bind:innerWidth={currentWindowWidth} />
+<svelte:window
+  bind:innerWidth={currentWindowWidth}
+  on:keydown={handleFullscreenEscape}
+/>
 <section
   bind:this={eleveSection}
   class="relative flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
@@ -317,7 +323,7 @@
     <Banner {brandImagePath} {productImagePath} />
   {/if}
   <div
-    class="fixed z-20 h-16 bottom-4 right-2 pointer-events-none {(typeof $globalOptions.title ===
+    class="fixed z-20 bottom-4 right-2 pointer-events-none {(typeof $globalOptions.title ===
       'string' &&
       $globalOptions.title.length === 0 &&
       $globalOptions.presMode === 'liste_exos') ||
@@ -327,7 +333,9 @@
   >
     <div
       class="flex flex-col-reverse lg:flex-row space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 scale-75 lg:scale-100 pointer-events-auto
-      {$globalOptions.v === 'myriade' || $globalOptions.v === 'indices' || $globalOptions.v === 'indice'
+      {$globalOptions.v === 'myriade' ||
+      $globalOptions.v === 'indices' ||
+      $globalOptions.v === 'indice'
         ? 'translate-y-16'
         : ''}"
     >
@@ -336,6 +344,14 @@
         isBorderTransparent={typeof $globalOptions.title === 'string' &&
           $globalOptions.title.length > 0}
       />
+      <!-- Dans Moodle, l'iframe est à l'étroit dans la page du cours -->
+      {#if $globalOptions.recorder === 'moodle'}
+        <BtnFullscreen
+          size="bx-sm md:bx-md"
+          isBorderTransparent={typeof $globalOptions.title === 'string' &&
+            $globalOptions.title.length > 0}
+        />
+      {/if}
     </div>
   </div>
   <div class="mb-auto">
@@ -500,7 +516,14 @@
             : ''}"
         >
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-            <div class="break-inside-avoid-column">
+            <!-- `inline-block` rend l'exercice monolithique : sans lui,
+                 Firefox le fragmente entre les colonnes malgré
+                 `break-inside`, ce qui décale l'énoncé et fait déborder la
+                 figure sur l'exercice suivant (au chargement comme après un
+                 redimensionnement de la fenêtre). -->
+            <div
+              class="inline-block w-full align-top break-inside-avoid-column"
+            >
               <Exercice
                 {paramsExercice}
                 indiceExercice={i}
@@ -519,7 +542,14 @@
             : ''}"
         >
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-            <div class="break-inside-avoid-column">
+            <!-- `inline-block` rend l'exercice monolithique : sans lui,
+                 Firefox le fragmente entre les colonnes malgré
+                 `break-inside`, ce qui décale l'énoncé et fait déborder la
+                 figure sur l'exercice suivant (au chargement comme après un
+                 redimensionnement de la fenêtre). -->
+            <div
+              class="inline-block w-full align-top break-inside-avoid-column"
+            >
               <Exercice
                 {paramsExercice}
                 indiceExercice={i}

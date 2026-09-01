@@ -27,6 +27,7 @@ export type BlockForKeyboard =
   | 'lengths'
   | 'clavierFonctionsTerminales'
   | 'lectureLimites'
+  | 'limitesSimple'
   | 'majuscules'
   | 'minuscules'
   | 'masses'
@@ -50,6 +51,7 @@ export type BlockForKeyboard =
   | 'uppercaseQToW'
   | 'uppercaseXToZ'
   | 'estOuestSudNord'
+  | 'algo'
 
 export interface CompleteKeysList {
   inline: KeysList

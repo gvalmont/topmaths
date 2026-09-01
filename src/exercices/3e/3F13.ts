@@ -1,9 +1,9 @@
 // import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/Courbe'
 import { repere } from '../../lib/2d/reperes'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { resolutionSystemeLineaire2x2 } from '../../lib/mathFonctions/outilsMaths'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -17,7 +17,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Lire les antécédents d'un nombre à partir d'un graphique"
 export const interactifReady = true
-export const interactifType = 'multiMathfield'
+
 export const dateDeModifImportante = '23/09/2023'
 
 /**
@@ -30,8 +30,8 @@ export const dateDeModifImportante = '23/09/2023'
 export const uuid = '8117f'
 
 export const refs = {
-  'fr-fr': ['3F13', 'BP2AutoO8'],
-  'fr-ch': ['11FA7-4'],
+  'fr-fr': ['3F13', '2F12-3', 'BP2AutoO8'],
+  'fr-ch': ['10FA1B-12', '11FA1A-4'],
 }
 export default class AntecedentGraphique extends Exercice {
   constructor() {
@@ -44,7 +44,7 @@ export default class AntecedentGraphique extends Exercice {
 
     this.sup = 2
 
-    // context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1)
+    // this.spacingCorr = context.isHtml ? 3 : 1
     this.nbQuestions = 1
 
     // this.listeAvecNumerotation = false
@@ -63,7 +63,7 @@ export default class AntecedentGraphique extends Exercice {
     let texte: string, texteCorr: string, f: (x: number) => number
     f = (x) => 0
     this.sup = Number(this.sup)
-    for (let i = 0; i < this.nbQuestions; ) {
+    for (let i = 0; i < this.nbQuestions;) {
       const initialiseVariables = function () {
         if (context.isHtml) {
           // repère -10 || 10
@@ -121,7 +121,7 @@ export default class AntecedentGraphique extends Exercice {
               champ1: { value: x1, options: { suiteDeNombres: true } },
               champ2: { value: x2, options: { suiteDeNombres: true } },
             },
-            { formatInteractif: 'multiMathfield' },
+            { formatInteractif: 'multi-mathfield' },
           )
         }
 

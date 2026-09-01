@@ -9,8 +9,8 @@ import Exercice from '../Exercice'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
-import { fraction } from '../../modules/fractions'
 import { bleuMathalea } from '../../lib/colors'
+import { fraction } from '../../modules/fractions'
 export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
 export const dateDeModificationImportante = '19/10/2025' // Mettre tous les segments à la même longueur pour éviter les sorties Latex problématiques. Jean-claude Lhote
 
@@ -90,7 +90,7 @@ export const uuid = '7781a'
 export const refs = {
   'fr-fr': ['6N3M-2'],
   'fr-2016': ['6N22-1'],
-  'fr-ch': ['9NO10-6'],
+  'fr-ch': ['9NO3A-9'],
 }
 export default class RapportsSurUnSegment extends Exercice {
   constructor() {
@@ -98,8 +98,8 @@ export default class RapportsSurUnSegment extends Exercice {
 
     this.nbQuestions = 2
     this.consigne = 'Sur tous les axes, les graduations sont régulières.'
-    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
-    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
   }
 
   nouvelleVersion() {
@@ -113,7 +113,6 @@ export default class RapportsSurUnSegment extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const entierMax = 9
       const max = randint(1, entierMax)
@@ -189,19 +188,17 @@ export default class RapportsSurUnSegment extends Exercice {
         enonces.push({
           enonce: `
           Exprimer les rapports suivants $${situations[k].rapport}$ et $${situations[k].rapport_inverse}$.<br>
-          ${situations[k].fig}
-`,
+          ${situations[k].fig}`,
           question: '',
           correction: `
           Les graduations étant régulières, comptons le nombre d'espaces entre deux graduations pour chaque segment :<br>
-          ${situations[k].fig_corr1}<br>
+          ${situations[k].fig_corr1}
           Le segment $${situations[k].segment_corr1}$ compte $${situations[k].m_color_corr}$ ${singPlur(situations[k].m, 'espace', 'espaces')}.<br>
-          ${situations[k].fig_corr2}<br>
+          ${situations[k].fig_corr2}
           Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${singPlur(situations[k].n, 'espace', 'espaces')}.<br><br>
           $\\textbf{Donc}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr2}}{${situations[k].longueur_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}}$
           $\\textbf{et}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}}$<br><br>
-          ${Remarque(situations[k].rapport, situations[k].rapport_inverse, situations[k].n, situations[k].m)}
-`,
+          ${Remarque(situations[k].rapport, situations[k].rapport_inverse, situations[k].n, situations[k].m)}`,
         })
       }
 

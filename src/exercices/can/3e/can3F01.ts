@@ -1,15 +1,17 @@
+import { lectureImage, lectureImageAnimee } from '../../../lib/2d/LectureImage'
 import { repere } from '../../../lib/2d/reperes'
 import { latex2d } from '../../../lib/2d/textes'
+import { bleuMathalea, orangeMathalea } from '../../../lib/colors'
 import { Spline, spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 export const dateDeModifImportante = '26/10/2023'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const titre = 'Lire une image graphiquement'
 /**
  * @author Gilles Mora
@@ -19,7 +21,7 @@ export const titre = 'Lire une image graphiquement'
 export const uuid = '966a6'
 
 export const refs = {
-  'fr-fr': ['can3F01'],
+  'fr-fr': ['can3F01', 'can2F12-01', '2F12-flash1'],
   'fr-ch': [],
 }
 type Noeud = {
@@ -30,6 +32,7 @@ type Noeud = {
   isVisible: boolean
 }
 export default class ImageSpline extends ExerciceSimple {
+  compteur = 0
   spline!: Spline
   constructor() {
     super()
@@ -79,11 +82,26 @@ export default class ImageSpline extends ExerciceSimple {
       )
     }
     let bornes = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
-    const antecedent = randint(0, 8)
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const nuage = aleatoiriseCourbe(mesFonctions)
     const theSpline = spline(nuage)
     this.spline = theSpline
+    // Le distracteur "piège de l'antécédent" propose l'abscisse à la place de l'image
+    // (erreur classique de lecture). Si les deux coïncident pour un nœud, ce piège devient
+    // la bonne réponse : on évite donc ces nœuds, sauf si aucun ne convient.
+    const indicesAvecPiegeInvalide = theSpline.x
+      .map((x, i) => (x === theSpline.y[i] ? i : -1))
+      .filter((i) => i !== -1)
+    const indicesAEviter =
+      indicesAvecPiegeInvalide.length === theSpline.x.length
+        ? []
+        : indicesAvecPiegeInvalide
+    const antecedent = this.quotaRandint(
+      'antecedent',
+      0,
+      theSpline.x.length - 1,
+      indicesAEviter,
+    )
     bornes = theSpline.trouveMaxes()
     const repere1 = repere({
       xMin: bornes.xMin - 1,
@@ -114,56 +132,77 @@ export default class ImageSpline extends ExerciceSimple {
     const courbe1 = theSpline.courbe({
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: bleuMathalea, taille: 2, style: 'x', epaisseur: 2 },
+      optionsNoeuds: {
+        color: bleuMathalea,
+        taille: 2,
+        style: 'x',
+        epaisseur: 2,
+      },
       color: bleuMathalea,
     })
     const objetsEnonce = [repere1, courbe1]
+    const figureOptions = Object.assign(
+      { pixelsParCm: 30, scale: 0.7, center: !context.isHtml },
+      {
+        xmin: bornes.xMin - 1,
+        ymin: bornes.yMin - 1,
+        xmax: bornes.xMax + 1,
+        ymax: bornes.yMax + 1,
+      },
+    )
 
-    this.reponse = theSpline.y[antecedent]
+    this.reponse = this.versionQcm
+      ? `est $${theSpline.y[antecedent]}$`
+      : theSpline.y[antecedent]
     this.distracteurs = [
-      `$${theSpline.x[antecedent]}$`,
-      `L'image de $${theSpline.x[antecedent]}$ n'existe pas`,
-      `$${theSpline.y[0]}$`,
-      `$${antecedent}$`,
-      `$${theSpline.x[antecedent]}$`,
+      `est $${theSpline.x[antecedent]}$`,
+      `n'existe pas`,
+      `est $${theSpline.y[0]}$`,
+      `est $${antecedent}$`,
+      `est $${theSpline.x[antecedent]}$`,
     ]
     if (this.versionQcm) {
       this.question =
-        mathalea2d(
-          Object.assign(
-            { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
-            {
-              xmin: bornes.xMin - 1,
-              ymin: bornes.yMin - 1,
-              xmax: bornes.xMax + 1,
-              ymax: bornes.yMax + 1,
-            },
-          ),
-          objetsEnonce,
-          o,
-        ) +
+        mathalea2d(figureOptions, objetsEnonce, o) +
         '<br>' +
-        `L'image de $${theSpline.x[antecedent]}$ est : `
-    } // fixeBordures(objetsEnonce))
-    else {
+        `L'image de $${theSpline.x[antecedent]}$ : `
+    } else {
       this.question =
         `Quelle est l'image de $${theSpline.x[antecedent]}$ ?
-    ` +
-        mathalea2d(
-          Object.assign(
-            { pixelsParCm: 30, scale: 0.7, style: 'margin: auto' },
-            {
-              xmin: bornes.xMin - 1,
-              ymin: bornes.yMin - 1,
-              xmax: bornes.xMax + 1,
-              ymax: bornes.yMax + 1,
-            },
-          ),
-          objetsEnonce,
-          o,
-        )
+    ` + mathalea2d(figureOptions, objetsEnonce, o)
     }
+    const questionId = this.compteur++
+    const correctionFigureId = `can3F01CorrectionEx${this.numeroExercice ?? 0}Q${questionId}`
+    const objetsCorrection = [
+      repere1,
+      courbe1,
+      lectureImage(
+        theSpline.x[antecedent],
+        theSpline.y[antecedent],
+        1,
+        1,
+        orangeMathalea,
+        '',
+        `${theSpline.y[antecedent]}`,
+      ),
+    ]
+    const correctionFigure =
+      !context.isHtml || context.isTypst
+        ? mathalea2d(figureOptions, objetsCorrection, o)
+        : `<div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">${mathalea2d(
+            Object.assign({ id: correctionFigureId }, figureOptions, {
+              center: false,
+            }),
+            objetsEnonce,
+            o,
+          )}${lectureImageAnimee({
+            figureId: correctionFigureId,
+            x: theSpline.x[antecedent],
+            y: theSpline.y[antecedent],
+            pixelsParCm: figureOptions.pixelsParCm,
+            couleurHorizontale: orangeMathalea,
+          })}</div>`
     this.correction = `Pour lire l'image de $${theSpline.x[antecedent]}$, on place la valeur de $${theSpline.x[antecedent]}$ sur l'axe des abscisses (axe de lecture  des antécédents) et on lit
-    son image  sur l'axe des ordonnées (axe de lecture des images). On obtient :  $f(${theSpline.x[antecedent]})=${miseEnEvidence(theSpline.y[antecedent])}$`
+    son image  sur l'axe des ordonnées (axe de lecture des images). On obtient :  $f(${theSpline.x[antecedent]})=${miseEnEvidence(theSpline.y[antecedent])}$.<br>${correctionFigure}`
   }
 }

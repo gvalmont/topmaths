@@ -1,8 +1,9 @@
 import { engrenages } from '../../lib/2d/engrenage'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { bleuMathalea } from '../../lib/colors'
+import { DomReadyActionElement } from '../../lib/customElements/DomReadyAction'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -17,7 +18,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -33,8 +34,11 @@ export const uuid = '6b370'
 
 export const refs = {
   'fr-fr': ['3A12-0'],
-  'fr-ch': [],
+  'fr-ch': ['10NO1A-13'],
 }
+
+const replayAnimationAction = '3A12-0:replay-animation'
+let replayAnimationRegistered = false
 
 export default class EngrenagesAnimes extends Exercice {
   constructor() {
@@ -194,7 +198,7 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `Soit $n$ le nombre de dents de la roue de droite qui effectue $${nbToursB}$ tours, on a alors : $n\\times${nbToursB} = ${nbDentsRoueA}\\times ${nbToursA} = ${nbDentsRoueA * nbToursA}$.<br>`
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$.<br>`
           texteCorr += `La roue de droite a donc $${miseEnEvidence(nbDentsRoueB)}$ dents.<br>`
-          setReponse(this, i, nbDentsRoueB)
+          handleAnswers(this, i, { reponse: { value: nbDentsRoueB } })
           roues = engrenages(
             { dureeTourBase: 0, module: 0.4 },
             nbDentsRoueA,
@@ -233,7 +237,7 @@ export default class EngrenagesAnimes extends Exercice {
             KeyboardType.clavierNumbers,
           )
           texte += '<br>'
-          setReponse(this, i, nbDentsRoueB)
+          handleAnswers(this, i, { reponse: { value: nbDentsRoueB } })
           texteCorr +=
             'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
           texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents en $${nbToursA}$ tours.<br>`
@@ -275,7 +279,7 @@ export default class EngrenagesAnimes extends Exercice {
             KeyboardType.clavierNumbers,
           )
           texte += '<br>'
-          setReponse(this, i, nbToursB)
+          handleAnswers(this, i, { reponse: { value: nbToursB } })
           texteCorr += `Lorsque la roue de gauche effectue $n$ tours, cela fait $${nbDentsRoueA}n$ dents.<br>`
           texteCorr += `Lorsque la roue de droite effectue $m$ tours, cela fait $${nbDentsRoueB}m$ dents.<br>`
           texteCorr += `Nous cherchons donc le plus petit multiple commun à $${nbDentsRoueA}$ et à $${nbDentsRoueB}$.<br>`
@@ -320,7 +324,7 @@ export default class EngrenagesAnimes extends Exercice {
             KeyboardType.clavierNumbers,
           )
           texte += '<br>'
-          setReponse(this, i, nbToursB)
+          handleAnswers(this, i, { reponse: { value: nbToursB } })
           texteCorr +=
             'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
           texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents.<br>`
@@ -392,7 +396,7 @@ export default class EngrenagesAnimes extends Exercice {
             KeyboardType.clavierNumbers,
           )
           texte += '<br>'
-          setReponse(this, i, nbToursAbc)
+          handleAnswers(this, i, { reponse: { value: nbToursAbc } })
           texteCorr += `${numAlpha(0)}Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>`
           texteCorr += `Nous cherchons donc le plus petit multiple commun à $${nbDentsRoueA}$ et à $${nbDentsRoueB}$.<br>`
           texteCorr += listePremiersMultiples(nbDentsRoueA, nbDentsRoueB)
@@ -478,35 +482,16 @@ export default class EngrenagesAnimes extends Exercice {
         )
         button.setAttribute('id', `b_AnimRoue${numeroExercice}_${i}`)
         texteCorr += '<br>' + button.outerHTML
-
-        const questNbr = i
-        const listener = function () {
-          const btn = document.getElementById(
-            `b_AnimRoue${numeroExercice}_${questNbr}`,
-          )
-          if (btn) {
-            const intervallesId = {}
-            btn.onclick = function () {
-              remiseAZeroT(
-                `${numeroExercice}_${questNbr}`,
-                nbToursA,
-                oneCycle,
-                intervallesId,
-              )
-            }
-
-            // on arrete toutes les roues et on remet en position initiale
-            setTimeout(function () {
-              document
-                .querySelector(
-                  `#containerAnimRoues${numeroExercice}_${questNbr}`,
-                )
-                ?.querySelectorAll('[id^=animRoue]')
-                .forEach((e) => e.endElement())
-            })
-          }
-        }
-        document.addEventListener('exercicesAffiches', listener)
+        registerReplayAnimation(remiseAZeroT)
+        texteCorr += DomReadyActionElement.create({
+          action: replayAnimationAction,
+          payload: {
+            numeroExercice,
+            question: i,
+            nbToursPremiereRoue: nbToursA,
+            oneCycle,
+          },
+        })
       }
 
       if (
@@ -528,4 +513,38 @@ export default class EngrenagesAnimes extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
+}
+
+function registerReplayAnimation(remiseAZeroT) {
+  if (replayAnimationRegistered) return
+  replayAnimationRegistered = true
+  DomReadyActionElement.registerCallback(
+    replayAnimationAction,
+    ({ payload }) => {
+      const { numeroExercice, question, nbToursPremiereRoue, oneCycle } =
+        payload
+      const idSuffix = `${numeroExercice}_${question}`
+      const btn = document.getElementById(`b_AnimRoue${idSuffix}`)
+      if (!btn) return
+
+      const intervallesId = {}
+      const handleClick = function () {
+        remiseAZeroT(idSuffix, nbToursPremiereRoue, oneCycle, intervallesId)
+      }
+      btn.addEventListener('click', handleClick)
+
+      setTimeout(function () {
+        document
+          .querySelector(`#containerAnimRoues${idSuffix}`)
+          ?.querySelectorAll('[id^=animRoue]')
+          .forEach((e) => e.endElement())
+      })
+
+      return () => {
+        btn.removeEventListener('click', handleClick)
+        intervallesId[idSuffix]?.forEach((e) => clearInterval(e))
+        intervallesId[idSuffix] = []
+      }
+    },
+  )
 }

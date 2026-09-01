@@ -1,4 +1,4 @@
-import { orangeMathalea, bleuMathalea } from '../../lib/colors'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -25,21 +25,21 @@ import Exercice from '../Exercice'
 
 export const titre =
   'Effectuer somme, différence, produit ou quotient de fractions'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 export const dateDePublication = '15/09/2021'
 export const dateDeModifImportante = '06/10/2024'
 
 /**
- * Effectuer somme, différence ou produit de fractions
+ * Effectuer somme, différence, produit, ou quotient de fractions
  * @author Mireille Gain
  */
 
 export const uuid = '374b6'
 
 export const refs = {
-  'fr-fr': ['4C23', 'BP2AutoH17', '3AutoN03-2'],
-  'fr-ch': ['10NO5-4'],
+  'fr-fr': ['4C23', 'BP2AutoH17', '3AutoN03'],
+  'fr-ch': ['10NO3A-1'],
 }
 export default class SommeOuProduitFractions extends Exercice {
   constructor() {

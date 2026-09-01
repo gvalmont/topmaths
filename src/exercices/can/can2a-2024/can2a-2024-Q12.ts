@@ -1,9 +1,11 @@
+import { context } from '../../../modules/context'
 /**
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/viewcan.2024.2e.test.ts ⚠️
  */
 
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -11,11 +13,10 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
-import { bleuMathalea } from '../../../lib/colors'
 
 export const titre = 'Déterminer une abscisse'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'd734a'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -43,7 +44,7 @@ export default class NomExercice extends ExerciceSimple {
           xmax: 15,
           ymax: 1.5,
           scale: 0.7,
-          style: 'margin: auto',
+          center: !context.isHtml,
         },
         texteParPosition('A', 5.5, 0.9, 0, bleuMathalea, 1.5),
         droiteGraduee({
@@ -78,7 +79,7 @@ export default class NomExercice extends ExerciceSimple {
             xmax: 14,
             ymax: 1.5,
             scale: 0.6,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           texteParPosition('A', (3 * a) / 4, 0.9, 0, bleuMathalea, 2),
           droiteGraduee({
@@ -112,7 +113,7 @@ export default class NomExercice extends ExerciceSimple {
             xmax: 14,
             ymax: 1.5,
             scale: 0.6,
-            style: 'margin: auto',
+            center: !context.isHtml,
           },
           texteParPosition('A', (3 * a) / 5, 0.9, 0, bleuMathalea, 2),
           droiteGraduee({

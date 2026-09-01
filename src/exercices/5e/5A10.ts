@@ -13,14 +13,13 @@ import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { amcConvert } from '../../lib/amc/amcBuilders'
-
 
 export const titre = "Écrire la liste de tous les diviseurs d'un entier - V2"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDeModifImportante = '03/10/2023'
 
 export const amcReady = true
@@ -34,8 +33,8 @@ export const amcType = 'AMCOpen'
 export const uuid = '4828d'
 
 export const refs = {
-  'fr-fr': ['5A10'],
-  'fr-ch': ['9NO4-6'],
+  'fr-fr': [],
+  'fr-ch': ['9NO1A-16'],
 }
 export default class ListeDesDiviseurs5e extends Exercice {
   constructor() {
@@ -58,8 +57,9 @@ export default class ListeDesDiviseurs5e extends Exercice {
       ].join('\n'),
     ]
 
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 1
+
     this.nbQuestions = 3
 
     this.sup = 2

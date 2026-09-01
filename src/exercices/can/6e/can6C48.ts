@@ -4,15 +4,14 @@ import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 export const titre = "Résoudre un problème d'économie"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '06/04/2024'
 export const uuid = 'b40d5'
 export const refs = {
   'fr-fr': ['can6C48', '6N2G-flash1'],
-  'fr-ch': ['9NO8-18'],
+  'fr-ch': ['PR-33'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -29,8 +28,8 @@ export default class problemeEconomie extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const nbreL = randint(2, 5) * 10
-    const eco = new Decimal(randint(2, 9))
+    const nbreL = this.quotaRandint('nbreL', 2, 5) * 10
+    const eco = new Decimal(this.quotaRandint('eco', 2, 9))
     const ecoEuro = eco.div(100)
     this.reponse = eco.mul(nbreL).div(100).toFixed(2)
     this.question = `Dans la station A, le prix du litre d'essence est $${eco}$ centimes moins cher que dans la station B.<br>

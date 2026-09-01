@@ -6,11 +6,11 @@ export const dateDePublication = '20/02/2026'
 export const uuid = 'f69e5'
 // @Author Gilles Mora
 export const refs = {
-  'fr-fr': ['1A-C07-5'],
+  'fr-fr': ['1A-C07-5', '2A-N7-5'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = "Calculer l'aire d'un carré avec une conversion d'unité"

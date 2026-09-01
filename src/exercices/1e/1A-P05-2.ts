@@ -13,7 +13,7 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'qcm'
+
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
@@ -80,7 +80,7 @@ export default class auto1AP3b extends ExerciceQcmA {
 
     this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
     this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      Object.assign({ display: 'inline' } as const, fixeBordures(objets)),
       objets,
     )
     this.enonce += '<br>On sait que $P(A \\cap C)=\\dfrac{9}{50}$.'
@@ -186,7 +186,7 @@ export default class auto1AP3b extends ExerciceQcmA {
 
     this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
     this.enonce += mathalea2d(
-      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      Object.assign({ display: 'inline' } as const, fixeBordures(objets)),
       objets,
     )
     this.enonce += `<br>On sait que $P(A \\cap C)=${pC1.texFractionSimplifiee}$.<br>`
@@ -195,7 +195,7 @@ export default class auto1AP3b extends ExerciceQcmA {
     this.correction = `On déduit de l'énoncé : <br>$\\begin{aligned}
         P(A)&=1-P(\\overline{A})\\\\
         &=1-${pA.entierMoinsFraction(1).texFractionSimplifiee}\\\\
-        &=${pA.texFractionSimplifiee}.\\end{aligned}$<br>
+        &=${pA.texFractionSimplifiee}\\end{aligned}$<br>
         Avec la donnée de $P(A \\cap C)=${pC1.texFractionSimplifiee}$ dans l'énoncé, on peut alors calculer : <br>$\\begin{aligned}
         P_A(C)&=\\dfrac{P(A \\cap C)}{P(A)}\\\\
         &=\\dfrac{ ${pC1.texFractionSimplifiee}}{ ${pA.texFractionSimplifiee}} \\\\

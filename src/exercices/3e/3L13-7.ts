@@ -2,7 +2,6 @@ import PaternNum04eme from '../4e/4L13-3'
 export const titre = 'Résoudre une équation dans le thème des motifs itératifs'
 export const dateDePublication = '25/05/2026'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * @author Éric Elter
@@ -12,7 +11,7 @@ export const uuid = '11569'
 
 export const refs = {
   'fr-fr': ['3L13-7'],
-  'fr-ch': [],
+  'fr-ch': ['10FA1A-5'],
 }
 export default class PaternNum03eme extends PaternNum04eme {
   constructor() {

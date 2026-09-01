@@ -15,7 +15,7 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Calculer la dérivée de $\\lambda u$'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const uuid = 'ebd89'
 export const refs = {
   'fr-fr': [], //  exercice déréférencé et remplacé par 1AN14-1
@@ -61,7 +61,7 @@ class DerivationFonctionsUsuelles extends Exercice {
         'inverse2',
       ],
     })
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let laFonction: string = ''
       let laDerivee: string = ''
       let df: string = ''
@@ -154,7 +154,7 @@ class DerivationFonctionsUsuelles extends Exercice {
               ),
               `${texNombre(new Decimal(randint(-1000, 1000, 0)).div(100), 2)}${ecritureAlgebriqueSauf1(new Decimal(randint(-1000, 1000, 0)).div(100))}x`,
             ])
-            laDerivee = laFonction.replaceAll('{,}', '.')
+            laDerivee = laFonction.replaceAll(',', '.')
             const derivee1 = laDerivee.match(/-?\d*\.?\d*(-?\+?\d*.?\d*)x/)
             const derivee2 = laDerivee.match(/(-?\d*\.?\d*)x/)
             if (laFonction.charAt(laFonction.length - 1) === 'x') {
@@ -173,7 +173,7 @@ class DerivationFonctionsUsuelles extends Exercice {
             laDerivee = laDerivee.startsWith('+')
               ? laDerivee.substring(1)
               : laDerivee
-            laDerivee = laDerivee.replaceAll('.', '{,}')
+            laDerivee = laDerivee.replaceAll('.', ',')
             correctionDetaillee = `La fonction $${nameF}$ est une fonction affine de la forme $f(x)=ax+b$, sa dérivée est le coefficient $a$.<br>`
           }
           break

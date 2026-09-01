@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
@@ -6,7 +5,7 @@ import { texteParPositionEchelle } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { texteGras } from '../../../lib/format/style'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ajouterLien } from '../../../lib/outils/enrichissements'
@@ -42,7 +41,7 @@ import Exercice from '../../Exercice'
 
 export const dateDePublication = '11/04/2021'
 export const titre = 'Noter la couleur (scratch)'
-export const interactifType = 'mathLive'
+
 export const interactifReady = true
 export type NoteLaCouleurParams = {
   x: number
@@ -78,7 +77,7 @@ export default class CanNoteLaCouleur6 extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Graduations', true]
     // this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
     this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
-    this.typeExercice = 'Scratch'
+
     this.sup = 1
     this.sup2 = true
     this.sup3 = 1
@@ -137,7 +136,7 @@ export default class CanNoteLaCouleur6 extends Exercice {
       pas: 20,
       plateau: damier,
     })
-    for (let q = 0; q < this.nbQuestions; ) {
+    for (let q = 0; q < this.nbQuestions;) {
       const objetsCorrection: NestedObjetMathalea2dArray = []
       const objetsEnonce: NestedObjetMathalea2dArray = []
       objetsEnonce.push(lePlateau.objets ?? [])
@@ -300,13 +299,12 @@ export default class CanNoteLaCouleur6 extends Exercice {
       }
       pion.codeScratch += '\\end{scratch}'
       if (context.isHtml && context.vue !== 'diap') {
-        texte = `Cet exercice est tiré de l'excellente activité débranchée ${ajouterLien('https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur')} de Jean-Yves Labouche.<br>`
-        texte +=
-          'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
-        texte += `N'hésitez pas à vous rendre sur le site ${ajouterLien('https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
-        texte += `Pour jouer, regarder les ${ajouterLien('https://coopmaths.fr/alea/assets/pdf/reglesnlc.pdf', 'Règles du jeu')} .<br>`
+        this.consigne = `Cet exercice est tiré de l'excellente activité débranchée ${ajouterLien('https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur')} de Jean-Yves Labouche.<br>
+        Il a été conçu pour étendre les possibilités de fiches proposées.<br>
+    N'hésitez pas à vous rendre sur le site ${ajouterLien('https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr')} de Jean-Yves pour y découvrir les nombreuses ressources qu'il propose.<br>
+    Pour jouer, regarder les ${ajouterLien('https://coopmaths.fr/alea/assets/pdf/reglesnlc.pdf', 'Règles du jeu')} .<br>`
       } else {
-        texte = ''
+        this.consigne = ''
       }
       texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexteMathLive(this, q, KeyboardType.alphanumeric)}<br><br>`
       if (context.isHtml) {
@@ -345,8 +343,11 @@ export default class CanNoteLaCouleur6 extends Exercice {
       }
       texteCorr = 'On obtient la couleur suivante :<br> '
       texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + traducNum(couleurs[0] as 'Blanc' | 'Noir' | 'Jaune' | 'Bleu' | 'Vert' | 'Orange' | 'Rouge' | 'Gris' | 'Rose') + ')' + couleurs[0] : couleurs[0])} `
-      setReponse(this, q, [couleurs[0], couleurs[0].toLowerCase()], {
-        formatInteractif: 'texte',
+      handleAnswers(this, q, {
+        reponse: {
+          value: [couleurs[0], couleurs[0].toLowerCase()],
+          options: { texteAvecCasse: true },
+        },
       })
       lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>

@@ -107,13 +107,13 @@ describe('mathaleaUpdateExercicesParamsFromUrl', () => {
     const expectedParams = [
       {
         uuid: 'edb61',
-        id: '5P13',
+        id: '5P1A-2',
         interactif: '0',
         alea: 'Wm22',
       },
       {
         uuid: '4623e',
-        id: '5L12-1',
+        id: '5N5F-1',
         interactif: '0',
         nbQuestions: 6,
         duration: 10,
@@ -183,6 +183,41 @@ describe('mathaleaUpdateExercicesParamsFromUrl', () => {
       iframe: '',
       answers: '',
     })
+  })
+
+  it('should preserve the chosen id when several ids share the same uuid', async () => {
+    // uuid 21518 est partagé par deux références : '1Gen-A102' et '1Tec-S104'
+    // On choisit explicitement la seconde : elle ne doit pas être remplacée
+    // par la première (comportement par défaut) lors du parsing de l'URL.
+    const url = 'https://coopmaths.fr/alea/?uuid=21518&id=1Tec-S104&alea=ABCD'
+    const { mathaleaUpdateExercicesParamsFromUrl } =
+      await import('../../src/lib/mathalea')
+    mathaleaUpdateExercicesParamsFromUrl(url)
+
+    expect(get(exercicesParams)).toEqual([
+      {
+        uuid: '21518',
+        id: '1Tec-S104',
+        interactif: '0',
+        alea: 'ABCD',
+      },
+    ])
+  })
+
+  it('should fall back to a default id when no id is given for a uuid with several references', async () => {
+    const url = 'https://coopmaths.fr/alea/?uuid=21518&alea=ABCD'
+    const { mathaleaUpdateExercicesParamsFromUrl } =
+      await import('../../src/lib/mathalea')
+    mathaleaUpdateExercicesParamsFromUrl(url)
+
+    expect(get(exercicesParams)).toEqual([
+      {
+        uuid: '21518',
+        id: '1Gen-A102',
+        interactif: '0',
+        alea: 'ABCD',
+      },
+    ])
   })
 
   it('should preserve es parameter from imported URL', async () => {
@@ -260,5 +295,42 @@ describe('mathaleaUpdateExercicesParamsFromUrl', () => {
     // globalOptions.update((current) => {
     //   return { ...current, ...options, recorder: tempRecorder, presMode: 'un_exo_par_page' }
     // })
+  })
+
+  describe('paramètre beta (phase de test du quizz)', () => {
+    it('parse beta=1 depuis l’URL', async () => {
+      const { mathaleaUpdateExercicesParamsFromUrl } =
+        await import('../../src/lib/mathalea')
+      const result = mathaleaUpdateExercicesParamsFromUrl(
+        'https://coopmaths.fr/alea/?v=quizzconf&beta=1',
+      )
+      expect(result.beta).toBe(true)
+    })
+
+    it('beta est faux sans le paramètre', async () => {
+      const { mathaleaUpdateExercicesParamsFromUrl } =
+        await import('../../src/lib/mathalea')
+      const result = mathaleaUpdateExercicesParamsFromUrl(
+        'https://coopmaths.fr/alea/?v=quizzconf',
+      )
+      expect(result.beta).toBe(false)
+    })
+
+    it('persiste beta dans l’URL reconstruite (updateGlobalOptionsInURL)', async () => {
+      const { updateGlobalOptionsInURL } =
+        await import('../../src/lib/stores/generalStore')
+      const { globalOptions } =
+        await import('../../src/lib/stores/globalOptions')
+      const previous = get(globalOptions)
+      globalOptions.set({ ...previous, beta: true, v: 'quizzconf' })
+      try {
+        const url = new URL('https://coopmaths.fr/alea/')
+        updateGlobalOptionsInURL(url)
+        expect(url.searchParams.get('beta')).toBe('1')
+        expect(url.searchParams.get('v')).toBe('quizzconf')
+      } finally {
+        globalOptions.set(previous)
+      }
+    })
   })
 })
