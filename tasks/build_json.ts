@@ -1,12 +1,12 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
-import curriculumJson from '../src/topmaths/json/curriculum.json' assert { type: 'json' }
-import definitionsJson from '../src/topmaths/json/glossary/definitions.json' assert { type: 'json' }
-import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
-import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
-import specialUnitsJson from '../src/topmaths/json/special_units.json' assert { type: 'json' }
-import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
+import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' with { type: 'json' }
+import curriculumJson from '../src/topmaths/json/curriculum.json' with { type: 'json' }
+import definitionsJson from '../src/topmaths/json/glossary/definitions.json' with { type: 'json' }
+import propertiesJson from '../src/topmaths/json/glossary/properties.json' with { type: 'json' }
+import objectivesMasterJson from '../src/topmaths/json/objectives.json' with { type: 'json' }
+import specialUnitsJson from '../src/topmaths/json/special_units.json' with { type: 'json' }
+import unitsMasterJson from '../src/topmaths/json/units.json' with { type: 'json' }
 import {
   isMathalea,
   REGULAR_VIEW_ADDENDUM,

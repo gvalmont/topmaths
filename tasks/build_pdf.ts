@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import * as fs from 'fs'
 import * as path from 'path'
-import units from '../src/topmaths/json/built_units.json' assert { type: 'json' }
+import units from '../src/topmaths/json/built_units.json' with { type: 'json' }
 import {
   buildGradeFromObjectiveReference,
   isReferenceIgnored,

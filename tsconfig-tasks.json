@@ -1,6 +1,10 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/topmaths/types/shared.js", "tasks/**/*.ts"],
+  "include": [
+    "src/topmaths/types/shared.js",
+    "tasks/build_json.ts",
+    "tasks/build_pdf.ts"
+  ],
   "compilerOptions": {
     "rootDir": ".",
     "resolveJsonModule": true,
