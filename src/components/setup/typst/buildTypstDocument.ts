@@ -634,6 +634,41 @@ export interface TypstCarryOver {
   >
 }
 
+/**
+ * Stabilise les sauts structurels de la palette avant de construire le
+ * document. Un saut de page/colonne est un interrupteur, pas une insertion
+ * libre : il ne doit apparaître qu'une fois par gap. Après le dernier
+ * exercice, il n'a aucun contenu suivant à déplacer et peut être écarté.
+ * Les textes et sections restent, eux, inchangés et peuvent être dupliqués
+ * volontairement.
+ */
+function stabilizeStructuralInsertions(
+  carryOver: TypstCarryOver,
+  exerciseCount: number,
+): TypstCarryOver {
+  if (carryOver.insertions == null) return carryOver
+
+  const insertions: Record<number, string[]> = {}
+  for (const [key, lines] of Object.entries(carryOver.insertions)) {
+    const gap = Number(key)
+    const structuralInsertions = new Set<string>()
+    const stabilized = lines.filter((line) => {
+      const isStructural =
+        line === PAGE_BREAK_SNIPPET || line === COLUMN_BREAK_SNIPPET
+      if (!isStructural) return true
+      if (gap >= exerciseCount || structuralInsertions.has(line)) return false
+      structuralInsertions.add(line)
+      return true
+    })
+    if (stabilized.length > 0) insertions[gap] = stabilized
+  }
+
+  return {
+    ...carryOver,
+    insertions: Object.keys(insertions).length > 0 ? insertions : undefined,
+  }
+}
+
 /** Repère de début d'une surcharge de code (voir `codeOverrides`) */
 const CODE_OVERRIDE_START = /^([ \t]*)\/\/ mathalea:override\((\d+)\)\s*$/
 /** Repère de fin d'une surcharge de code */
@@ -2262,12 +2297,14 @@ function buildVersionContent(
   /** Insertions de la palette à réémettre après l'exercice `num` */
   const insertionLines = (num: number, indent: string): string[] =>
     (carryOver.insertions?.[num] ?? []).map((line) =>
-      exportMode ? `${indent}${line}` : `${indent}${line} ${INSERTION_TAG}`,
+      exportMode || !emitAnchors
+        ? `${indent}${line}`
+        : `${indent}${line} ${INSERTION_TAG}`,
     )
   /** Insertions de la palette à réémettre juste avant la correction de l'exercice `num` */
   const insertionCorrectionLines = (num: number, indent: string): string[] =>
     (carryOver.insertionsCorrection?.[num] ?? []).map((line) =>
-      exportMode
+      exportMode || !emitAnchors
         ? `${indent}${line}`
         : `${indent}${line} ${INSERTION_CORRECTION_TAG}`,
     )
@@ -2588,6 +2625,10 @@ export function buildTypstDocument(
   extraVersions: TypstExerciseInput[][] = [],
   { exportMode = false, sourceUrl, extraPreamble }: TypstBuildOptions = {},
 ): string {
+  const stableCarryOver = stabilizeStructuralInsertions(
+    carryOver,
+    exercises.length,
+  )
   // Les corps sont convertis d'abord : les figures SVG rencontrées sont
   // collectées pour être déclarées (`#let fig-N = image(...)`) en tête
   // de document, ce qui garde le corps du code lisible. Partagée entre
@@ -2597,7 +2638,7 @@ export function buildTypstDocument(
   const primary = buildVersionContent(
     exercises,
     options,
-    carryOver,
+    stableCarryOver,
     figures,
     '',
     !exportMode,
@@ -2607,7 +2648,7 @@ export function buildTypstDocument(
     buildVersionContent(
       versionExercises,
       options,
-      carryOver,
+      stableCarryOver,
       figures,
       `v${i + 1}`,
       false,
@@ -2796,7 +2837,7 @@ export function buildTypstDocument(
       '// remplacez interligne-questions par une valeur pour en dévier.',
     )
     for (const prefix of tasksPrefixes) {
-      const layout = carryOver.tasksLayout?.[prefix]
+      const layout = stableCarryOver.tasksLayout?.[prefix]
       lines.push(
         `#let ${prefix}-colonnes = ${layout?.columns ?? DEFAULT_TASKS_COLUMNS}`,
       )
@@ -2920,10 +2961,10 @@ export function buildTypstDocument(
       const figNum = index + 1
       lines.push(`#let fig-${figNum} = ${figure}`)
       lines.push(
-        `#let fig-${figNum}-zoom = ${carryOver.figureZoom?.[figNum] ?? 1}`,
+        `#let fig-${figNum}-zoom = ${stableCarryOver.figureZoom?.[figNum] ?? 1}`,
       )
       lines.push(
-        `#let fig-${figNum}-align = ${carryOver.figureAlign?.[figNum] ?? 'center'}`,
+        `#let fig-${figNum}-align = ${stableCarryOver.figureAlign?.[figNum] ?? 'center'}`,
       )
     }
     lines.push('')
@@ -2944,11 +2985,13 @@ export function buildTypstDocument(
   ) {
     lines.push('// ----- Zoom des exercices statiques (image seule) -----')
     for (const num of staticImageExerciseNums) {
-      lines.push(`#let exo-${num}-zoom = ${carryOver.exerciseZoom?.[num] ?? 1}`)
+      lines.push(
+        `#let exo-${num}-zoom = ${stableCarryOver.exerciseZoom?.[num] ?? 1}`,
+      )
     }
     for (const num of staticCorrectionImageExerciseNums) {
       lines.push(
-        `#let exo-${num}-corr-zoom = ${carryOver.exerciseCorrectionZoom?.[num] ?? 1}`,
+        `#let exo-${num}-corr-zoom = ${stableCarryOver.exerciseCorrectionZoom?.[num] ?? 1}`,
       )
     }
     lines.push('')
