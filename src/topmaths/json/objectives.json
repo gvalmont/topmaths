@@ -8934,7 +8934,11 @@
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=20c65&id=3F20-3&n=3"
+                  }
+                ]
               },
               {
                 "reference": "3S53",
