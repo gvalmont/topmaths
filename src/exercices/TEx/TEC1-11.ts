@@ -208,7 +208,7 @@ export default class PartiesReelleEtImaginaire extends Exercice {
         texte += `<br>${remplisLesBlancs(
           this,
           i,
-          '\\operatorname{Re}(z)=%{partieReelle}\\quad;\\quad\\operatorname{Im}(z)=%{partieImaginaire}',
+          '\\operatorname{Re}(z)=%{champ1}\\quad;\\quad\\operatorname{Im}(z)=%{champ2}',
           `${KeyboardType.clavierDeBaseAvecFraction} ${KeyboardType.complexes}`,
         )}`
       }
@@ -217,16 +217,16 @@ export default class PartiesReelleEtImaginaire extends Exercice {
         this,
         i,
         {
-          partieReelle: {
+          champ1: {
             value: partieReelle,
             compare: compareValeurReelle,
           },
-          partieImaginaire: {
+          champ2: {
             value: partieImaginaire,
             compare: compareValeurReelle,
           },
         },
-        { formatInteractif: 'fillInTheBlank' },
+        { formatInteractif: 'fill-in-the-blank' },
       )
 
       if (this.questionJamaisPosee(i, nombre)) {
