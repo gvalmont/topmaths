@@ -218,9 +218,12 @@ code, sans régénération) plutôt que l'argument nommé :
   condition qu'il suive encore la fiche un pour un** : un barème que le
   professeur a lui-même raccourci (exercices groupés, lignes retirées) n'est
   pas retouché, c'est le bouton qui le réaligne. De même, changer le nombre de
-  questions d'un exercice depuis la palette (`-1 q +`) reporte la différence
-  sur ses points — mais seulement tant qu'ils valent encore le nombre de
-  questions, c'est-à-dire tant qu'ils n'ont pas été réglés à la main.
+questions d'un exercice depuis la palette (`-1 q +`) reporte la différence
+sur ses points — mais seulement tant qu'ils valent encore le nombre de
+questions, c'est-à-dire tant qu'ils n'ont pas été réglés à la main.
+Lors d'un ajout ou d'une duplication, la liste des questions peut être encore
+vide avant sa première génération : le barème proposé utilise alors
+`nbQuestions`, au lieu de retomber prématurément sur un point.
 - Changer de modèle **remplace les textes qui n'ont pas été personnalisés**
   (`isDefaultCoverText`, étendu à `noteFin`) et conserve les autres : passer
   du Brevet à la Course aux nombres ne garde pas « Durée : 2 heures » ni
@@ -254,7 +257,7 @@ tient en trois bandes :
    droite, soulignés d'un filet de la couleur des badges ;
 2. deux colonnes, de largeurs inégales : à gauche « Nom » puis « Prénom »
    (une ligne chacun, trait de 6 cm au plus — jamais plus large que la
-   colonne), « Signature du/de la responsable légal.e » en dessous — sans trait et
+   colonne), « Signature d’un responsable légal » en dessous — sans trait et
    suivie d'un blanc, la signature se pose dans l'espace libre ; à droite la
    grille des points ;
 3. les consignes en **pleine largeur**, une par ligne (dans la colonne des
@@ -275,15 +278,21 @@ est **réduite pour y tenir** (`scale` du rapport mesuré, comme `mathalea-fit`
 le fait des figures) : sans cela Typst comprime les colonnes jusqu'à faire
 chevaucher leurs textes. La case de la note, elle, n'est jamais réduite : dans
 cette disposition elle est passée à côté de la signature, au-dessus de la
-grille.
+grille. Quand la signature est masquée, la grille et la note partagent plutôt
+la même ligne si leurs largeurs naturelles y tiennent. Sinon, la note passe à
+droite des consignes si celles-ci lui laissent la place ; elle ne reste seule
+au-dessus de la grille que si aucun de ces deux ensembles ne tient.
 
 Trois cases à cocher des Réglages du document, propres à ce modèle :
 
 | Réglage | Défaut | Effet |
 | --- | --- | --- |
 | Afficher la grille des points (`showBareme`) | oui | grille `Exercice / Points / Obtenus` par exercice, total compris ; sinon seul le total est rappelé (`Total : ..... / 16`) |
-| Champ de signature (`showSignature`) | oui | intitulé « Signature du/de la responsable légal.e » sous le prénom, suivi d'un blanc où signer |
+| Champ de signature (`showSignature`) | oui | intitulé modifiable « Signature d’un responsable légal » sous le prénom, suivi d'un blanc où signer |
 | Case pour la note (`showNote`) | oui | case haute où porter la note à la main ; décochable, la case Total de la ligne « obtenus » en tenant déjà lieu |
+
+Les trois consignes proposées par défaut emploient l'infinitif : « Justifier »,
+« Écrire » et « Ne pas utiliser ».
 
 Le barème est toujours passé à l'aide, même grille masquée : c'est lui qui
 donne le total. Ces booléens sont émis avec un repli explicite
@@ -291,9 +300,10 @@ donne le total. Ces booléens sont émis avec un repli explicite
 fiche partagée avant leur ajout ne les porte pas, et un `undefined` dans le
 code déclencherait « Variable ou fonction inconnue ».
 
-Deux champs de texte lui sont propres : `couverture-etablissement` (déclaré
-comme les autres textes, masqué dans la palette pour les autres modèles) et la
-**session, qui y tient la date** — réglée par un **sélecteur de date**
+Trois champs de texte lui sont propres : `couverture-etablissement` (déclaré
+comme les autres textes, masqué dans la palette pour les autres modèles), la
+signature (`couverture-signature`, modifiable avec le petit crayon de la page
+de garde) et la **session, qui y tient la date** — réglée par un **sélecteur de date**
 ([`CoverDateField.svelte`](../../../../src/components/setup/typst/CoverDateField.svelte))
 présent aux deux endroits : dans les Réglages du document avec les autres
 réglages du modèle, et dans la palette de l'aperçu sous le libellé « Date ».

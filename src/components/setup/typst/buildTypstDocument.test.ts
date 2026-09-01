@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   buildStandaloneExerciseCode,
   buildTypstDocument,
+  COVER_TEMPLATE_DEFAULTS,
   defaultTypstDocumentOptions,
   getGeneratedCanRowCode,
   getGeneratedExerciseCode,
@@ -1858,10 +1859,22 @@ describe('page de garde', () => {
         duree: '20 minutes',
         session: '02.09.24',
         consignes: ['Justifie chaque réponse.'],
+        signatureLabel: 'Signature d’un responsable légal',
         bareme: [4, 6, 6],
         showBareme: false,
         ...overrides,
       })
+
+    it('propose des consignes à l’infinitif et un intitulé de signature neutre', () => {
+      expect(COVER_TEMPLATE_DEFAULTS.recitation.consignes).toEqual([
+        'Justifier chaque réponse ;',
+        'Écrire lisiblement au crayon ou au stylo (noir ou bleu) ;',
+        'Ne pas utiliser la calculatrice.',
+      ])
+      expect(COVER_TEMPLATE_DEFAULTS.recitation.signatureLabel).toBe(
+        'Signature d’un responsable légal',
+      )
+    })
 
     it('émet le bandeau, l’établissement et la date, sans page de garde pleine', () => {
       const code = buildTypstDocument(
@@ -1887,6 +1900,10 @@ describe('page de garde', () => {
         recitation(),
       )
       expect(avec).toContain('  signature: true,')
+      expect(avec).toContain(
+        '#let couverture-signature = "Signature d’un responsable légal"',
+      )
+      expect(avec).toContain('  signature-label: couverture-signature,')
       const sans = buildTypstDocument(
         [exercise({ questions: ['$1+1$'] })],
         recitation({ showSignature: false }),
@@ -1908,15 +1925,19 @@ describe('page de garde', () => {
     })
 
     it('émet des booléens même pour une fiche enregistrée avant ces réglages', () => {
-      // une fiche partagée avant l'ajout de `showSignature` n'a pas le champ :
+      // une fiche partagée avant l'ajout de ces réglages n'a pas les champs :
       // `undefined` dans le code ferait « Variable ou fonction inconnue »
       const options = recitation()
-      const { showSignature, showNote, ...sansSignature } = options.coverPage
+      const { showSignature, showNote, signatureLabel, ...sansSignature } =
+        options.coverPage
       const code = buildTypstDocument([exercise({ questions: ['$1+1$'] })], {
         ...options,
         coverPage: sansSignature as typeof options.coverPage,
       })
       expect(code).not.toContain('undefined')
+      expect(code).toContain(
+        '#let couverture-signature = "Signature d’un responsable légal"',
+      )
       expect(code).toContain('  signature: true,')
       expect(code).toContain('  note: true,')
     })
@@ -1942,14 +1963,21 @@ describe('page de garde', () => {
         const { writeFileSync, mkdtempSync } = await import('node:fs')
         const { tmpdir } = await import('node:os')
         const { join } = await import('node:path')
-        for (const [showBareme, nbExercices] of [
-          [false, 1],
-          [true, 1],
+        for (const [showBareme, nbExercices, showSignature] of [
+          [false, 1, true],
+          [true, 1, true],
+          // sans signature, une grille et une note qui tiennent ensemble
+          // partagent la même ligne
+          [true, 6, false],
+          // sinon la note passe à droite des consignes sous la grille
+          [true, 11, false],
+          // avec signature, la note reste exclusivement à côté de celle-ci
+          [true, 11, true],
           // beaucoup d'exercices : la grille passe sous les champs plutôt que
           // de les écraser (bascule mesurée dans le code Typst)
-          [true, 8],
+          [true, 8, true],
           // au-delà, elle est réduite pour tenir dans la largeur du texte
-          [true, 16],
+          [true, 16, true],
         ] as const) {
           const code = buildTypstDocument(
             Array.from({ length: nbExercices }, () =>
@@ -1957,6 +1985,7 @@ describe('page de garde', () => {
             ),
             recitation({
               showBareme,
+              showSignature,
               bareme: Array.from({ length: nbExercices }, () => 2),
             }),
           )
