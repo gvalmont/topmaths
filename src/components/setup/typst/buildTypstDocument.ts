@@ -1375,8 +1375,12 @@ function isStructuralMarker(html: string, index: number): boolean {
  * Découpe une question unique contenant ses propres repères (`a)`, `b)`...)
  * en une liste de sous-questions, pour la mettre dans un environnement
  * `tasks`. Renvoie `null` quand la question n'a pas cette structure.
+ *
+ * La lecture optique s'en sert aussi (`omrQuestions`) : quand un énoncé porte
+ * plusieurs réponses, c'est ce découpage qui dit laquelle imprimer devant
+ * quelles cases.
  */
-function splitSubQuestions(
+export function splitSubQuestions(
   html: string,
 ): { head: string; items: string[]; label: string } | null {
   const matches = [...html.matchAll(SUB_QUESTION_MARKER)].filter((match) =>
