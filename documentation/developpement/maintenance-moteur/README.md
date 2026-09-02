@@ -18,6 +18,7 @@ Pour créer un exercice sans modifier ces contrats, commencez par
 | [Questions de cours](architecture/questions-de-cours.md)      | Banque de questions partagée avec l'app et exercice natif                |
 | [Plein écran dans Moodle](architecture/moodle-plein-ecran.md) | Bouton plein écran des vues intégrées, natif ou délégué à la page hôte   |
 | [Signalement de bug](architecture/signalement-bug.md)         | Bouton bug des vues prof et élève, modale mail/forge et texte pré-rempli |
+| [Navigation Topmaths](architecture/navigation-topmaths.md)    | Routage par paramètres d'URL et sous-pages implicites                    |
 
 ## Interactivité
 

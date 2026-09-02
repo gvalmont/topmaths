@@ -4,6 +4,7 @@
   import Storage from '../modules/Storage'
   import { cacheData } from '../services/data'
   import { goToView } from '../services/navigation'
+  import { getNavigationParamsFromUrl } from '../services/navigationParams'
   import {
     isDoubleView,
     isPersonalMode,
@@ -13,12 +14,6 @@
     view,
   } from '../services/store'
   import type { CartItem } from '../types/cart'
-  import {
-    isReference,
-    isView,
-    type Reference,
-    type View,
-  } from '../types/navigation'
   import CartComponent from './Cart/Cart.svelte'
   import Classroom from './Classroom/Classroom.svelte'
   import Exercise from './Exercise/Exercise.svelte'
@@ -64,35 +59,11 @@
 
   function updateParamsFromUrl(): void {
     const url = new URL(window.location.href)
-    const entries = url.searchParams.entries()
-    let newView: View = 'home'
-    let newRef: Reference = ''
-    let newRef2: string = ''
-    let newIsDoubleView: boolean = false
-    for (const entry of entries) {
-      if (entry[0] === 'v') {
-        const viewCandidate = entry[1]
-        if (isView(viewCandidate)) {
-          newView = viewCandidate
-        }
-      }
-      if (entry[0] === 'ref') {
-        const refCandidate = entry[1]
-        if (isReference(refCandidate)) {
-          newRef = refCandidate
-        }
-      }
-      if (entry[0] === 'ref2') {
-        newRef2 = entry[1]
-      }
-      if (entry[0] === 'dv') {
-        newIsDoubleView = !!entry[1]
-      }
-    }
-    view.set(newView)
-    reference.set(newRef)
-    reference2.set(newRef2)
-    isDoubleView.set(newIsDoubleView)
+    const params = getNavigationParamsFromUrl(url)
+    view.set(params.view)
+    reference.set(params.reference)
+    reference2.set(params.reference2)
+    isDoubleView.set(params.isDoubleView)
   }
 
   function setPersonalMode(isPersonalMode: boolean): void {
