@@ -23,3 +23,9 @@ Ainsi, les deux formes suivantes ouvrent les progressions :
 
 À l'inverse, `?v=classroom` sans filtre ni référence ouvre l'accueil des outils
 pour la classe.
+
+Lors d'un événement `popstate`, `ItemsSelection.svelte` relit les filtres de
+l'URL et met à jour la sélection. La classe `.is-active` est la seule à donner
+au bouton sélectionné son fond plein. Le focus navigateur possède un contour
+distinct : il peut rester sur le dernier bouton activé sans faire apparaître
+une seconde sélection après un retour dans l'historique.

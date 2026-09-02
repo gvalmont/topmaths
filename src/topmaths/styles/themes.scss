@@ -16,6 +16,11 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg)
     outline: none;
   }
 
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
   &[disabled] {
     cursor: not-allowed;
   }
@@ -82,7 +87,10 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg)
     &.button {
       color: $main-color;
 
-      &:focus,
+      &:focus-visible {
+        outline-color: $main-color;
+      }
+
       &:hover,
       &.is-active {
         color: white;
@@ -92,11 +100,16 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg)
       &.is-light {
         background-color: $light-color;
 
-        &:focus,
         &:hover,
         &.is-active {
           background-color: $main-color;
         }
+      }
+
+      &.is-filter-button:hover:not(.is-active) {
+        color: $main-color;
+        background-color: $light-color;
+        box-shadow: inset 0 0 0 2px $main-color;
       }
 
       img {

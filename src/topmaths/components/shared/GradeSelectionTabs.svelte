@@ -18,7 +18,7 @@
       <li>
         <button
           on:click={() => onClick(grade)}
-          class="button is-light is-{grade}
+          class="button is-light is-filter-button is-{grade}
             text-base md:text-2xl
             my-1 md:my-4
             py-1 md:py-2
