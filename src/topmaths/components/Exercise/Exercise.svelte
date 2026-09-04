@@ -11,6 +11,7 @@
   } from '../../../lib/mathalea'
   import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString'
   import type { InterfaceParamsWithMeta } from '../../../lib/types'
+  import type { JSONReferentielEnding } from '../../../lib/types/referentiels'
   import { randint } from '../../../modules/outils'
   import {
     buildParamsFromUrl,
@@ -19,6 +20,7 @@
   } from '../../services/mathalea'
   import { exerciseLinks, isDoubleView } from '../../services/store'
   import { isExerciseEffectivelyInteractive } from '../../services/exerciseInteractivity'
+  import { getTopmathsStaticResource } from '../../services/staticResources'
   import { buildCopiedLink, copyToClipboard } from '../../services/url'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
@@ -36,6 +38,7 @@
     exerciseType: string
     exercise: Exercice | undefined
     component: Component | undefined
+    staticResource: JSONReferentielEnding | null
     isCorrectionVisible: boolean
     nbCols: number
     zoom: number
@@ -101,8 +104,10 @@
     let exerciseType: string
     let exercise: Exercice | undefined
     let component: Component | undefined
+    let staticResource: JSONReferentielEnding | null = null
     if (isStatic(paramsExercice.uuid)) {
       exerciseType = 'static'
+      staticResource = getTopmathsStaticResource(paramsExercice.uuid)
     } else if (isSvelte(paramsExercice.uuid)) {
       exerciseType = 'svelte'
       component = await getSvelteComponent(paramsExercice)
@@ -114,6 +119,7 @@
     return {
       component,
       exercise,
+      staticResource,
       exerciseIndex,
       exerciseType,
       isCorrectionVisible: false,
@@ -378,10 +384,10 @@
   function switchCorrectionVisible(exerciseIndex: number): void {
     const masterExercise = exercisesWithMeta[exerciseIndex]
     const exercise = masterExercise.exercise
+    masterExercise.isCorrectionVisible = !masterExercise.isCorrectionVisible
     if (exercise !== undefined) {
       const isEffectivelyInteractive =
         isExerciseEffectivelyInteractive(exercise)
-      masterExercise.isCorrectionVisible = !masterExercise.isCorrectionVisible
       if (
         masterExercise.isCorrectionVisible &&
         isEffectivelyInteractive &&
@@ -397,9 +403,9 @@
       ) {
         newData(exerciseIndex)
       }
-      adjustMathalea2dFiguresWidth()
-      updateChildrenComponents()
     }
+    adjustMathalea2dFiguresWidth()
+    updateChildrenComponents()
   }
 
   function navigatorShare(exerciseIndex: number): void {
@@ -442,7 +448,7 @@
   class="text-left w-full max-w-screen-lg
     {$isDoubleView ? '' : 'p-4'}"
 >
-  {#each exercisesWithMeta as exerciseWithMeta (exerciseWithMeta.exercise?.key + '-' + exerciseWithMeta.exerciseIndex)}
+  {#each exercisesWithMeta as exerciseWithMeta ((exerciseWithMeta.exercise?.key ?? exerciseWithMeta.uuid) + '-' + exerciseWithMeta.exerciseIndex)}
     <div
       class="flex flex-col justify-start items-start"
       id="exercice{exerciseWithMeta.exerciseIndex}"
@@ -455,7 +461,9 @@
             .sourceUnit}
           exerciseType={exerciseWithMeta.exerciseType}
           exerciseIndex={exerciseWithMeta.exerciseIndex}
-          exercise={exerciseWithMeta.exercise ?? new Exercice()}
+          exercise={exerciseWithMeta.exercise}
+          staticResource={exerciseWithMeta.staticResource}
+          uuid={exerciseWithMeta.uuid}
           isEffectivelyInteractive={isExerciseEffectivelyInteractive(
             exerciseWithMeta.exercise,
           )}
@@ -475,7 +483,7 @@
         <ExerciceStatic
           exerciseIndex={exerciseWithMeta.exerciseIndex}
           isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
-          uuid={exerciseWithMeta.uuid}
+          resource={exerciseWithMeta.staticResource}
           zoomFactor={'1'}
         />
       {:else if exerciseWithMeta.exerciseType === 'html'}

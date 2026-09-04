@@ -1,15 +1,23 @@
 <script lang="ts">
-  import { onMount, type SvelteComponent } from 'svelte'
   import type TypeExercice from '../../../../exercices/Exercice'
   import { goToView } from '../../../services/navigation'
-  import { getUnitReferenceFromExamUuid } from '../../../services/reference'
-  import { exerciseLinks, isTeacherMode } from '../../../services/store'
+  import {
+    examExercises,
+    exerciseLinks,
+    isTeacherMode,
+  } from '../../../services/store'
   import type { ObjectiveReference } from '../../../types/objective'
   import type { UnitReference } from '../../../types/unit'
+  import {
+    resourceHasPlace,
+    type JSONReferentielEnding,
+  } from '../../../../lib/types/referentiels'
   import ButtonImage from '../../shared/ButtonImage.svelte'
   import SvgIcon from '../../shared/SvgIcon.svelte'
 
-  export let exercise: TypeExercice | SvelteComponent
+  export let exercise: TypeExercice | undefined
+  export let staticResource: JSONReferentielEnding | null
+  export let uuid: string
   export let exerciseIndex: number
   export let exerciseType: string
   export let isEffectivelyInteractive: boolean
@@ -32,16 +40,11 @@
   ) => void
   export let zoomUpdate: (plusMinus: '+' | '-', exerciseIndex: number) => void
 
-  let unitReference: UnitReference | undefined = undefined
+  let unitReference: UnitReference | undefined
 
-  $: if (exercise.uuid)
-    unitReference = getUnitReferenceFromExamUuid(exercise.uuid)
-
-  onMount(() => {
-    if (exercise && exerciseType === 'static') {
-      unitReference = getUnitReferenceFromExamUuid(exercise.uuid)
-    }
-  })
+  $: unitReference = $examExercises.find(
+    (examExercise) => examExercise.uuid === uuid,
+  )?.unitReference
 </script>
 
 <div
@@ -112,26 +115,28 @@
         </ButtonImage>
       </a>
     {/if}
-    <a
-      class="is-interactive is-coopmaths"
-      href="https://www.apmep.fr/Brevet-{exercise.annee}"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <ButtonImage
-        class="flex justify-center ml-2 my-2 border p-1 rounded {isMd
-          ? ''
-          : 'is-small'}"
-        color="coopmaths"
-        imageSrc="topmaths/img/cc0/external-link-svgrepo-com.svg"
-        imageAlt="Lien externe"
-        imageClass="ml-2 size-3 md:size-4"
+    {#if resourceHasPlace(staticResource)}
+      <a
+        class="is-interactive is-coopmaths"
+        href="https://www.apmep.fr/Brevet-{staticResource.annee}"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        <div class="text-xs md:text-base">
-          {`Sujet ${exercise.lieu} - ${exercise.mois || ''} ${exercise.annee}`}
-        </div>
-      </ButtonImage>
-    </a>
+        <ButtonImage
+          class="flex justify-center ml-2 my-2 border p-1 rounded {isMd
+            ? ''
+            : 'is-small'}"
+          color="coopmaths"
+          imageSrc="topmaths/img/cc0/external-link-svgrepo-com.svg"
+          imageAlt="Lien externe"
+          imageClass="ml-2 size-3 md:size-4"
+        >
+          <div class="text-xs md:text-base">
+            {`Sujet ${staticResource.lieu} - ${staticResource.mois || ''} ${staticResource.annee}`}
+          </div>
+        </ButtonImage>
+      </a>
+    {/if}
   {:else}
     {#if sourceUnit}
       <a href="?v=unit&ref={sourceUnit}">
@@ -214,7 +219,7 @@
       >
         <button
           type="button"
-          class:invisible={exercise.spacing < 0.1}
+          class:invisible={(exercise?.spacing ?? 1) < 0.1}
           on:click={() => spacingUpdate('-', exerciseIndex)}
           aria-label="Réduire l'espacement"
         >

@@ -1,48 +1,19 @@
 <script lang="ts">
-  import { afterUpdate } from 'svelte'
-  import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
-  import referentielStatic from '../../../../../json/referentielStaticFR.json'
-  import { retrieveResourceFromUuid } from '../../../../../lib/components/refUtils'
-  import type { JSONReferentielObject } from '../../../../../lib/types/referentiels'
-  export let uuid: string
+  import type { JSONReferentielEnding } from '../../../../../lib/types/referentiels'
+
+  export let resource: JSONReferentielEnding | null
   export let exerciseIndex: number
   export let zoomFactor: string
   export let isCorrectionVisible: boolean
-  let resourceToDisplay = getResourceToDisplay()
-
-  afterUpdate(() => {
-    resourceToDisplay = getResourceToDisplay()
-  })
-
-  function getResourceToDisplay() {
-    const allStaticRefecentiels = getAllStaticReferenciels()
-    return retrieveResourceFromUuid(allStaticRefecentiels, uuid)
-  }
-
-  function getAllStaticReferenciels() {
-    const allStaticReferentiels: JSONReferentielObject = {
-      ...referentielBibliotheque,
-      ...referentielStatic,
-    }
-    // on supprime les entrées par thèmes qui entraîne des doublons
-    delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
-    delete allStaticReferentiels['BAC par thèmes - APMEP']
-    delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
-    delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
-    delete allStaticReferentiels['E3C par thèmes - APMEP']
-    return allStaticReferentiels
-  }
 </script>
 
 <div class="flex items-center">
   <div class="flex-1 md:max-w-screen-lg mx-auto">
-    {#if resourceToDisplay}
+    {#if resource}
       <img
-        src="static/{resourceToDisplay.uuid.split(
+        src="static/{resource.uuid.split('_')[0]}/{resource.uuid.split(
           '_',
-        )[0]}/{resourceToDisplay.uuid.split(
-          '_',
-        )[1]}/tex/png/{resourceToDisplay.uuid}.png"
+        )[1]}/tex/png/{resource.uuid}.png"
         style="width: calc(100% * {zoomFactor}"
         alt="énoncé"
       />
@@ -53,13 +24,11 @@
         id="correction{exerciseIndex}"
       >
         <div class="container">
-          {#if resourceToDisplay}
+          {#if resource}
             <img
-              src="static/{resourceToDisplay.uuid.split(
+              src="static/{resource.uuid.split('_')[0]}/{resource.uuid.split(
                 '_',
-              )[0]}/{resourceToDisplay.uuid.split(
-                '_',
-              )[1]}/tex/png/{resourceToDisplay.uuid}_cor.png"
+              )[1]}/tex/png/{resource.uuid}_cor.png"
               class="p-2"
               style="width: calc(100% * {zoomFactor}"
               alt="correction"
